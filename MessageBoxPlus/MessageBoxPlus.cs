@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace MessageBoxPlusLib
 {
-	
 	/// <summary>
 	/// 显示函数居中显示
 	/// </summary>
@@ -16,7 +14,10 @@ namespace MessageBoxPlusLib
 
 		public static DialogResult Show(Form owner, String msg)
 		{
-			MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+            if (owner!=null)
+            {
+                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+            }
 			return MessageBox.Show(msg);
 		}
 
@@ -29,8 +30,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption)
 		{
-			MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-			return MessageBox.Show(text, caption);
+            if (owner != null)
+            {
+                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+            }
+            return MessageBox.Show(text, caption);
 		}
 
 		/// <summary>
@@ -43,8 +47,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption, MessageBoxButtons buttons)
 		{
-			MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-			return MessageBox.Show(text, caption, buttons);
+            if (owner != null)
+            {
+                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+            }
+            return MessageBox.Show(text, caption, buttons);
 		}
 
 		/// <summary>
@@ -58,8 +65,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption, MessageBoxButtons buttons, MessageBoxIcon icon)
 		{
-			MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-			return MessageBox.Show(text, caption, buttons, icon);
+            if (owner != null)
+            {
+                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+            }
+            return MessageBox.Show(text, caption, buttons, icon);
 		}
 
 		/// <summary>
@@ -74,8 +84,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defButton)
 		{
-			MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-			return MessageBox.Show(text, caption, buttons, icon, defButton);
+            if (owner != null)
+            {
+                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+            }
+            return MessageBox.Show(text, caption, buttons, icon, defButton);
 		}
 
 		/// <summary>
@@ -91,8 +104,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defButton, MessageBoxOptions options)
 		{
-			MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-			return MessageBox.Show(text, caption, buttons, icon, defButton, options);
+            if (owner != null)
+            {
+                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+            }
+            return MessageBox.Show(text, caption, buttons, icon, defButton, options);
 		}
 
 		/// <summary>
@@ -109,8 +125,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options, String helpFilePath)
 		{
-			MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-			return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath);
+            if (owner != null)
+            {
+                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+            }
+            return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath);
 		}
 
 		/// <summary>
@@ -128,8 +147,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options, String helpFilePath, String keyword)
 		{
-			MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-			return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath, keyword);
+            if (owner != null)
+            {
+                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+            }
+            return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath, keyword);
 		}
 
 		/// <summary>
@@ -147,8 +169,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options, string helpFilePath, HelpNavigator navigator)
 		{
-			MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-			return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath, navigator);
+            if (owner != null)
+            {
+                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+            }
+            return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath, navigator);
 		}
 
 		/// <summary>
@@ -167,8 +192,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options, string helpFilePath, HelpNavigator navigator, Object param)
 		{
-			MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-			return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath, navigator, param);
+            if (owner != null)
+            {
+                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+            }
+            return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath, navigator, param);
 		}
 	}
 }

@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace PreMakeToVSProject
 {
-	static class Program
+	internal static class Program
 	{
 		/// <summary>
 		/// 应用程序的主入口点。
 		/// </summary>
 		[STAThread]
-		static void Main( string[] arg )
+		private static void Main(string[] arg)
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
@@ -23,7 +22,6 @@ namespace PreMakeToVSProject
 			{
 				Application.Run(new PreMakeToVSProject());
 			}
-			
 		}
 	}
 }

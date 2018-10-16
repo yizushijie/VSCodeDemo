@@ -1,11 +1,4 @@
 ﻿using MessageBoxPlusLib;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MdiForm
@@ -13,20 +6,21 @@ namespace MdiForm
 	public partial class MdiForm : Form
 	{
 		#region 初始化
+
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public MdiForm()
 		{
 			InitializeComponent();
 		}
-		#endregion
 
+		#endregion 初始化
 
 		#region 窗体
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -51,7 +45,7 @@ namespace MdiForm
 				}
 			}
 		}
-		#endregion
 
+		#endregion 窗体
 	}
 }

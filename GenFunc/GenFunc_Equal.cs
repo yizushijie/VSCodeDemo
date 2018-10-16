@@ -1,57 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GenFuncLib
+﻿namespace GenFuncLib
 {
-    public partial class GenFunc
-    {
-        public static bool GenFuncEqual(byte[] buffer, byte val = 0xFF)
-        {
-            if ((buffer == null))
-            {
-                return false;
-            }
-            for (int i = 0; i < buffer.Length; i++)
-            {
-                if (buffer[i] == val)
-                {
-                    continue;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+	public partial class GenFunc
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="buffer"></param>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		public static bool GenFuncEqual(byte[] buf, byte val = 0xFF)
+		{
+			if ((buf == null))
+			{
+				return false;
+			}
+			for (int i = 0; i < buf.Length; i++)
+			{
+				if (buf[i] != val)
+				{
+					return false;
+				}
+			}
+			return true;
+		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="b1"></param>
-        /// <param name="b2"></param>
-        /// <returns></returns>
-        public static bool GenFuncEqual(byte[] b1, byte[] b2)
-        {
-            if ((b1!=null)&&(b2!=null))
-            {
-                if (b1.Length!=b2.Length)
-                {
-                    return false;
-                }
-                for (int i = 0; i < b1.Length; i++)
-                {
-                    if (b1[i]!=b2[i])
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            return false;
-        }
-
-    }
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="b1"></param>
+		/// <param name="b2"></param>
+		/// <returns></returns>
+		public static bool GenFuncEqual(byte[] buf1, byte[] buf2)
+		{
+			if ((buf1 != null) && (buf2 != null))
+			{
+				if (buf1.Length != buf2.Length)
+				{
+					return false;
+				}
+				for (int i = 0; i < buf1.Length; i++)
+				{
+					if (buf1[i] != buf2[i])
+					{
+						return false;
+					}
+				}
+				return true;
+			}
+			return false;
+		}
+	}
 }

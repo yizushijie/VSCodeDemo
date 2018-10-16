@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PreMakeToVSProject
 {
@@ -18,8 +14,9 @@ namespace PreMakeToVSProject
 		/// <summary>
 		/// 宏定义
 		/// </summary>
-		/// 
+		///
 		public List<string> _define;
+
 		/// <summary>
 		/// 包含路劲
 		/// </summary>
@@ -29,10 +26,11 @@ namespace PreMakeToVSProject
 		/// 预包含路劲
 		/// </summary>
 		public List<string> _preInclude;
-		// ReSharper disable once NotAccessedField.Local
-		public bool _cmsis=false;
 
-		#endregion
+		// ReSharper disable once NotAccessedField.Local
+		public bool _cmsis = false;
+
+		#endregion 变量定义
 
 		#region 构造函数
 
@@ -45,8 +43,6 @@ namespace PreMakeToVSProject
 			this._cmsis = false;
 		}
 
-		#endregion
-
-
+		#endregion 构造函数
 	}
 }

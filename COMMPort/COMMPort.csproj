@@ -53,5 +53,11 @@
       <DependentUpon>COMMPort.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RichTextBoxPlus\RichTextBoxPlus.csproj">
+      <Project>{FC2D572C-5CEE-40DA-8C1B-583E693602AA}</Project>
+      <Name>RichTextBoxPlus</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -21,7 +21,7 @@ namespace PreMakeToVSProject
 		/// 子群
 		/// </summary>
 		public List<ProjectGroup> _subGroup;
-		
+
 		/// <summary>
 		/// 主群
 		/// </summary>
@@ -32,9 +32,10 @@ namespace PreMakeToVSProject
 		/// </summary>
 		public List<string> _exclude;
 
-		#endregion
+		#endregion 变量定义
 
 		#region 属性定义
+
 		/// <summary>
 		/// 全民
 		/// </summary>
@@ -50,11 +51,10 @@ namespace PreMakeToVSProject
 				{
 					return this._masterGroup.m_FullName + "/" + this._name;
 				}
-				
 			}
 		}
 
-		#endregion
+		#endregion 属性定义
 
 		#region 构造函数
 
@@ -62,27 +62,26 @@ namespace PreMakeToVSProject
 		/// 构造函数
 		/// </summary>
 		/// <param name="masterGroup"></param>
-		public ProjectGroup(ProjectGroup masterGroup=null)
+		public ProjectGroup(ProjectGroup masterGroup = null)
 		{
 			this._masterGroup = masterGroup;
-			this._exclude	= new List<string>();
-			this._file		= new List<ProjectFile>();
-			this._subGroup	= new List<ProjectGroup>();
+			this._exclude = new List<string>();
+			this._file = new List<ProjectFile>();
+			this._subGroup = new List<ProjectGroup>();
 		}
 
-
-		#endregion
+		#endregion 构造函数
 
 		#region 函数定义
-		
+
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="prjGroup"></param>
 		/// <param name="exclude"></param>
 		/// <param name="_return"></param>
 		/// <returns></returns>
-		public List<string> GetPath( List<ProjectGroup> prjGroup, string exclude, List<string> _return = null)
+		public List<string> GetPath(List<ProjectGroup> prjGroup, string exclude, List<string> _return = null)
 		{
 			if (_return == null)
 			{
@@ -95,18 +94,18 @@ namespace PreMakeToVSProject
 					continue;
 				}
 				_return.Add("[\"" + temp.m_FullName + "\"] = { \"" + string.Join("\" , \"", from file in temp._file where (!file._exclude.Contains(exclude)) select file._name) + "\" }");
-				this.GetPath(temp._subGroup, exclude,_return);
+				this.GetPath(temp._subGroup, exclude, _return);
 			}
 			return _return;
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="prjGroup"></param>
 		/// <param name="exclude"></param>
 		/// <returns></returns>
-		public List<string> GetFile(List<ProjectGroup> prjGroup,string exclude)
+		public List<string> GetFile(List<ProjectGroup> prjGroup, string exclude)
 		{
 			List<string> _return = new List<string>();
 			foreach (var temp in prjGroup)
@@ -121,9 +120,6 @@ namespace PreMakeToVSProject
 			return _return;
 		}
 
-		#endregion
-
-
+		#endregion 函数定义
 	}
-
 }

@@ -29,8 +29,8 @@
 		private void InitializeComponent()
 		{
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.commPortForm1 = new COMMPortForm.COMMPortForm();
             this.button1 = new System.Windows.Forms.Button();
+            this.commPortForm1 = new COMMPortForm.COMMPortForm();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -41,13 +41,6 @@
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             // 
-            // commPortForm1
-            // 
-            this.commPortForm1.Location = new System.Drawing.Point(1, 1);
-            this.commPortForm1.Name = "commPortForm1";
-            this.commPortForm1.Size = new System.Drawing.Size(293, 72);
-            this.commPortForm1.TabIndex = 0;
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(405, 38);
@@ -56,6 +49,13 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "写入";
             this.button1.UseVisualStyleBackColor = true;
+            // 
+            // commPortForm1
+            // 
+            this.commPortForm1.Location = new System.Drawing.Point(0, 1);
+            this.commPortForm1.Name = "commPortForm1";
+            this.commPortForm1.Size = new System.Drawing.Size(293, 72);
+            this.commPortForm1.TabIndex = 0;
             // 
             // Form1
             // 

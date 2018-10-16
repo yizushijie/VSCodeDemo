@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace PreMakeToVSProject
 {
@@ -20,7 +16,7 @@ namespace PreMakeToVSProject
 		/// </summary>
 		public List<string> _exclude;
 
-		#endregion
+		#endregion 变量定义
 
 		#region 构造函数
 
@@ -30,7 +26,6 @@ namespace PreMakeToVSProject
 			this._exclude = new List<string>();
 		}
 
-		#endregion
-
+		#endregion 构造函数
 	}
 }

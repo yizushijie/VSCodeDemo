@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RichTextBoxPlusLib;
+using System;
+using System.Drawing;
 using System.IO.Ports;
-using System.Linq;
 using System.Management;
-using System.Text;
 using System.Windows.Forms;
 
 namespace COMMPortLib
 {
-	public  class SerialCOMMPort:COMMPort
+	public class SerialCOMMPort : COMMPort
 	{
 		#region 变量定义
+
 		/// <summary>
 		/// 通信波特率
 		/// </summary>
@@ -36,9 +36,10 @@ namespace COMMPortLib
 		/// </summary>
 		private SerialPort usedSerialPort = null;
 
-		#endregion
+		#endregion 变量定义
 
 		#region 属性定义
+
 		/// <summary>
 		/// 设备名称
 		/// </summary>
@@ -69,20 +70,21 @@ namespace COMMPortLib
 			}
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public override COMMDevice m_COMMDevices
-        {
-            get
-            {
-                return base.m_COMMDevices;
-            }
-        }
-        /// <summary>
-        /// 工作状态，0---空闲；1---忙；2---错误
-        /// </summary>
-        public override bool m_COMMPortSTATE
+		/// <summary>
+		///
+		/// </summary>
+		public override COMMDevice m_COMMDevices
+		{
+			get
+			{
+				return base.m_COMMDevices;
+			}
+		}
+
+		/// <summary>
+		/// 工作状态，0---空闲；1---忙；2---错误
+		/// </summary>
+		public override bool m_COMMPortSTATE
 		{
 			get
 			{
@@ -247,20 +249,19 @@ namespace COMMPortLib
 			}
 		}
 
-		#endregion
+		#endregion 属性定义
 
 		#region 构造函数
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public SerialCOMMPort() : base()
 		{
-
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="isEnMultiDevice"></param>
 		/// <param name="msg"></param>
@@ -275,7 +276,7 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="useForm"></param>
 		/// <param name="bandRate"></param>
@@ -288,15 +289,14 @@ namespace COMMPortLib
 			}
 			this.m_UsedForm = useForm;
 
-			if (this.baudRate!=useBaudRate)
+			if (this.baudRate != useBaudRate)
 			{
 				this.baudRate = useBaudRate;
 			}
-			
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="useForm"></param>
 		/// <param name="bandRate"></param>
@@ -318,7 +318,7 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="useForm"></param>
 		/// <param name="portIndex"></param>
@@ -341,7 +341,7 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="useForm"></param>
 		/// <param name="portIndex"></param>
@@ -362,11 +362,10 @@ namespace COMMPortLib
 			}
 
 			this.m_IsEnableMultiDevice = isEnMultiDevice;
-
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="useForm"></param>
 		/// <param name="portName"></param>
@@ -389,7 +388,7 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="useForm"></param>
 		/// <param name="portName"></param>
@@ -415,7 +414,7 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="useForm"></param>
 		/// <param name="writeSize"></param>
@@ -433,11 +432,10 @@ namespace COMMPortLib
 			this.m_COMMPortWriteBufferSize = writeSize;
 			this.m_COMMPortWriteCRC = writeCRC;
 			this.m_COMMPortWriteID = writeID;
-
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="useForm"></param>
 		/// <param name="writeSize"></param>
@@ -461,7 +459,7 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="useForm"></param>
 		/// <param name="writeSize"></param>
@@ -492,11 +490,10 @@ namespace COMMPortLib
 			{
 				this.baudRate = useBaudRate;
 			}
-
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="useForm"></param>
 		/// <param name="writeSize"></param>
@@ -543,367 +540,410 @@ namespace COMMPortLib
 			}
 		}
 
-        #endregion
+		#endregion 构造函数
 
-        #region 函数定义
+		#region 函数定义
 
-        /// <summary>
-        /// 初始化
-        /// </summary>
-        /// <returns></returns>
-        public override int Init()
-        {
-            return 1;
-        }
+		/// <summary>
+		/// 初始化
+		/// </summary>
+		/// <returns></returns>
+		public override int Init()
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <returns></returns>
+		public override int Init(int portIndex, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int Init(string portName, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int Init(ComboBox cbb, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		/// 刷新设备
+		/// </summary>
+		/// <returns></returns>
+		public override int AddDevice()
+		{
+            return this.AddDevice(null, null);
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cbb"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int AddDevice(ComboBox cbb, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <returns></returns>
+		public override int RemoveDevice()
+		{
+			return this.RemoveDevice(null,null);
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cbb"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int RemoveDevice(ComboBox cbb, RichTextBox msg = null)
+		{
+			return 1;
+		}
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public override int Init(int portIndex, RichTextBox msg = null)
+        public override int RefreshDevice()
         {
-            return 1;
+            return this.RefreshDevice(null,null);
         }
-
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int Init(string portName, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int Init(ComboBox cbb, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 刷新设备
-        /// </summary>
-        /// <returns></returns>
-        public override int AddDevice()
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cbb"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int AddDevice(ComboBox cbb, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override int RemoveDevice()
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cbb"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int RemoveDevice(ComboBox cbb, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="cbb"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
         public override int RefreshDevice(ComboBox cbb, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override int WriteToDevice(byte cmd, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="cmd"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int WriteToDevice(int portIndex, byte cmd, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="cmd"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int WriteToDevice(string portName, byte cmd, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <returns></returns>
-        public override int WriteToDevice(byte[] cmd, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int WriteToDevice(int portIndex, byte[] cmd, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="portName"></param>
-        /// <param name="cmd"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int WriteToDevice(string portName, byte[] cmd, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name=""></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int WriteToDevice(ref byte[] cmd, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="portIndex"></param>
-        /// <param name="cmd"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int WriteToDevice(int portIndex, ref byte[] cmd, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="portName"></param>
-        /// <param name="cmd"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int WriteToDevice(string portName, ref byte[] cmd, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name="timeout"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int ReadFromDevice(ref byte[] cmd, int timeout = 200, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="portIndex"></param>
-        /// <param name="cmd"></param>
-        /// <param name="timeout"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int ReadFromDevice(int portIndex, ref byte[] cmd, int timeout = 200, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="portName"></param>
-        /// <param name="cmd"></param>
-        /// <param name="timeout"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int ReadFromDevice(string portName, ref byte[] cmd, int timeout = 200, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 打开设备
-        /// </summary>
-        /// <returns></returns>
-        public override int OpenDevice()
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="portIndex"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int OpenDevice(int portIndex, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="portIndex"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int OpenDevice(string portName, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override int CloseDevice()
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="portIndex"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int CloseDevice(int portIndex, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="portIndex"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public override int CloseDevice(string portName, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 检测设备
-        /// </summary>
-        /// <returns></returns>
-        public override bool IsAttached()
-        {
-            return false;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="portIndex"></param>
-        /// <returns></returns>
-        public override bool IsAttached(int portIndex)
-        {
-            return false;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="portIndex"></param>
-        /// <returns></returns>
-        public override bool IsAttached(string portName)
-        {
-            return false;
-        }
-
-        #endregion
-
-        #region 事件定义
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public override void DataReceivedHandler(object sender, EventArgs e)
 		{
-			if (e.ToString()=="SerialDataReceivedEventArgs")
-			{
-				
-			}
-		}
-
+            //---获取当前设备存在的通信端口
+            string[] tempDeviceNames= SerialPort.GetPortNames();
+            int _return= this.m_COMMDevices.Init(tempDeviceNames,cbb.Text);
+            if ((_return==0)&&(cbb!=null))
+            {
+                cbb.Items.Clear();
+                cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
+                cbb.SelectedIndex = 0;
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "设备刷新成功!\r\n", Color.Black, false);
+                }
+            }
+            else
+            {
+                if(cbb != null)
+                {
+                    cbb.Items.Clear();
+                    cbb.Text = string.Empty;
+                    cbb.SelectedIndex = -1;
+                }
+                if (msg != null)
+                {
+                    msg.Clear();
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "请插入设备!\r\n", Color.Black, false);
+                }
+            }
+            return _return;
+        }
 
 		/// <summary>
-		/// 
+		///
+		/// </summary>
+		/// <returns></returns>
+		public override int WriteToDevice(byte cmd, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="cmd"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int WriteToDevice(int portIndex, byte cmd, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="cmd"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int WriteToDevice(string portName, byte cmd, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <returns></returns>
+		public override int WriteToDevice(byte[] cmd, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int WriteToDevice(int portIndex, byte[] cmd, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="portName"></param>
+		/// <param name="cmd"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int WriteToDevice(string portName, byte[] cmd, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name=""></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int WriteToDevice(ref byte[] cmd, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="portIndex"></param>
+		/// <param name="cmd"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int WriteToDevice(int portIndex, ref byte[] cmd, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="portName"></param>
+		/// <param name="cmd"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int WriteToDevice(string portName, ref byte[] cmd, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="timeout"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int ReadFromDevice(ref byte[] cmd, int timeout = 200, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="portIndex"></param>
+		/// <param name="cmd"></param>
+		/// <param name="timeout"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int ReadFromDevice(int portIndex, ref byte[] cmd, int timeout = 200, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="portName"></param>
+		/// <param name="cmd"></param>
+		/// <param name="timeout"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int ReadFromDevice(string portName, ref byte[] cmd, int timeout = 200, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		/// 打开设备
+		/// </summary>
+		/// <returns></returns>
+		public override int OpenDevice()
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="portIndex"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int OpenDevice(int portIndex, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="portIndex"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int OpenDevice(string portName, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <returns></returns>
+		public override int CloseDevice()
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="portIndex"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int CloseDevice(int portIndex, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="portIndex"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int CloseDevice(string portName, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		/// 检测设备
+		/// </summary>
+		/// <returns></returns>
+		public override bool IsAttached()
+		{
+			return false;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="portIndex"></param>
+		/// <returns></returns>
+		public override bool IsAttached(int portIndex)
+		{
+			return false;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="portIndex"></param>
+		/// <returns></returns>
+		public override bool IsAttached(string portName)
+		{
+			return false;
+		}
+
+		#endregion 函数定义
+
+		#region 事件定义
+
+		/// <summary>
+		///
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		public override void WatcherPortEventHandler(Object sender, EventArrivedEventArgs e,RichTextBox msg=null)
+		public override void DataReceivedHandler(object sender, EventArgs e)
+		{
+			if (e.ToString() == "SerialDataReceivedEventArgs")
+			{
+			}
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		public override void WatcherPortEventHandler(Object sender, EventArrivedEventArgs e, ComboBox cbb=null, RichTextBox msg = null)
 		{
 			if (e.NewEvent.ClassPath.ClassName == "__InstanceCreationEvent")
 			{
 				this.m_COMMPortErrMsg = "设备插入！\r\n";
+                this.AddDevice(cbb, msg);
+				if (msg != null)
+				{
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.m_COMMPortErrMsg, Color.Black, false);
+				}
 			}
 			else if (e.NewEvent.ClassPath.ClassName == "__InstanceDeletionEvent")
 			{
 				this.m_COMMPortErrMsg = "设备拔出！\r\n";
+                this.RemoveDevice(cbb, msg);
+                if (msg != null)
+				{
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.m_COMMPortErrMsg, Color.Red, false);
+				}
 			}
 		}
 
-		#endregion
+		#endregion 事件定义
 	}
 }

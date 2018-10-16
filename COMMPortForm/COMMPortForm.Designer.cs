@@ -42,10 +42,11 @@
             // groupBox_portName
             // 
             this.groupBox_portName.Controls.Add(this.panel_PortName);
+            this.groupBox_portName.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox_portName.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.groupBox_portName.Location = new System.Drawing.Point(3, 3);
+            this.groupBox_portName.Location = new System.Drawing.Point(0, 10);
             this.groupBox_portName.Name = "groupBox_portName";
-            this.groupBox_portName.Size = new System.Drawing.Size(287, 66);
+            this.groupBox_portName.Size = new System.Drawing.Size(290, 66);
             this.groupBox_portName.TabIndex = 5;
             this.groupBox_portName.TabStop = false;
             this.groupBox_portName.Text = "通信端口";
@@ -61,7 +62,7 @@
             this.panel_PortName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.panel_PortName.Location = new System.Drawing.Point(3, 17);
             this.panel_PortName.Name = "panel_PortName";
-            this.panel_PortName.Size = new System.Drawing.Size(281, 46);
+            this.panel_PortName.Size = new System.Drawing.Size(284, 46);
             this.panel_PortName.TabIndex = 1;
             // 
             // pictureBox_portState
@@ -107,7 +108,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox_portName);
             this.Name = "COMMPortForm";
-            this.Size = new System.Drawing.Size(293, 72);
+            this.Size = new System.Drawing.Size(290, 76);
             this.groupBox_portName.ResumeLayout(false);
             this.panel_PortName.ResumeLayout(false);
             this.panel_PortName.PerformLayout();

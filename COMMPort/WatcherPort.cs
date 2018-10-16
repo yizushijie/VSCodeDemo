@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Management;
 using System.Windows.Forms;
 
@@ -37,7 +34,7 @@ namespace COMMPortLib
 				//---USB插入监视
 				if (usbInsertHandler != null)
 				{
-					WqlEventQuery InsertQuery = new WqlEventQuery("__InstanceCreationEvent",withinInterval,"TargetInstance isa 'Win32_USBControllerDevice'");
+					WqlEventQuery InsertQuery = new WqlEventQuery("__InstanceCreationEvent", withinInterval, "TargetInstance isa 'Win32_USBControllerDevice'");
 
 					insertWatcher = new ManagementEventWatcher(Scope, InsertQuery);
 					insertWatcher.EventArrived += usbInsertHandler;
@@ -47,7 +44,7 @@ namespace COMMPortLib
 				//---USB拔出监视
 				if (usbRemoveHandler != null)
 				{
-					WqlEventQuery RemoveQuery = new WqlEventQuery("__InstanceDeletionEvent",withinInterval,"TargetInstance isa 'Win32_USBControllerDevice'");
+					WqlEventQuery RemoveQuery = new WqlEventQuery("__InstanceDeletionEvent", withinInterval, "TargetInstance isa 'Win32_USBControllerDevice'");
 
 					removeWatcher = new ManagementEventWatcher(Scope, RemoveQuery);
 					removeWatcher.EventArrived += usbRemoveHandler;
@@ -55,14 +52,13 @@ namespace COMMPortLib
 				}
 				return true;
 			}
-
 			catch (Exception)
 			{
 				this.RemoveWatcherPortEvent();
 				return false;
 			}
 		}
-        
+
 		/// <summary>
 		/// 移去USB事件监视器
 		/// </summary>
@@ -81,31 +77,27 @@ namespace COMMPortLib
 			}
 		}
 
-		#endregion
+		#endregion 函数定义
 
 		#region 事件定义
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		public virtual void WatcherPortEventHandler(Object sender, EventArrivedEventArgs e, RichTextBox msg = null)
-        {
+		public virtual void WatcherPortEventHandler(Object sender, EventArrivedEventArgs e, ComboBox cbb = null, RichTextBox msg = null)
+		{
 			/*
 			if (e.NewEvent.ClassPath.ClassName == "__InstanceCreationEvent")
 			{
-				
 			}
 			else if (e.NewEvent.ClassPath.ClassName == "__InstanceDeletionEvent")
 			{
-				
 			}
 			*/
 		}
 
-		#endregion
-
-
+		#endregion 事件定义
 	}
 }

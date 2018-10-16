@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MessageBoxPlusLib
@@ -25,11 +22,13 @@ namespace MessageBoxPlusLib
 		private class MessageBoxCenterHelp
 		{
 			#region 变量定义
+
 			/// <summary>
 			/// idHoot类型
 			///
 			/// </summary>
 			private const Int32 WH_MSGFILTER = -1;            // 线程级; 截获用户与控件交互的消息
+
 			private const Int32 WH_JOURNALRECORD = 0;       // 系统级; 记录所有消息队列从消息队列送出的输入消息, 在消息从队列中清除时发生; 可用于宏记录
 			private const Int32 WH_JOURNALPLAYBACK = 1;     // 系统级; 回放由 WH_JOURNALRECORD 记录的消息, 也就是将这些消息重新送入消息队列
 			private const Int32 WH_KEYBOARD = 2;            // 系统级或线程级; 截获键盘消息
@@ -57,12 +56,12 @@ namespace MessageBoxPlusLib
 			private IntPtr _parent; // 父窗体句柄
 			private GCHandle _gch;   // 提供用于从非托管内存访问托管对象的方法
 
-			#endregion
+			#endregion 变量定义
 
 			#region 构造函数
 
 			/// <summary>
-			/// 
+			///
 			/// </summary>
 			public MessageBoxCenterHelp()
 			{
@@ -79,10 +78,10 @@ namespace MessageBoxPlusLib
 				}
 			}
 
-			#endregion
-
+			#endregion 构造函数
 
 			#region 函数定义
+
 			/// <summary>
 			/// 消息窗体在父窗体中居中显示
 			/// </summary>
@@ -142,8 +141,8 @@ namespace MessageBoxPlusLib
 				//允许操作
 				return IntPtr.Zero;
 			}
-			#endregion
 
+			#endregion 函数定义
 		}
 
 		private static class NativeMethods
@@ -160,6 +159,7 @@ namespace MessageBoxPlusLib
 			}
 
 			#region API函数
+
 			/// <summary>
 			/// 委托声明
 			/// </summary>
@@ -243,10 +243,8 @@ namespace MessageBoxPlusLib
 			/// <returns>当前的线程标识符</returns>
 			[DllImport("kernel32.dll")]
 			internal static extern Int32 GetCurrentThreadId();
-			#endregion
 
-
+			#endregion API函数
 		}
 	}
-
 }

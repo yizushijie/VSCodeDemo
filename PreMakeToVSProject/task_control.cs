@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -10,7 +8,7 @@ namespace PreMakeToVSProject
 {
 	public class TaskControl
 	{
-        #region 变量定义
+		#region 变量定义
 
 		/*
         string IncOverride =
@@ -21,22 +19,21 @@ namespace PreMakeToVSProject
            "   end\r\n" +
            "end)";
 		*/
-        #endregion
 
+		#endregion 变量定义
 
+		#region 函数定义
 
-        #region 函数定义
-
-        /// <summary>
-        /// </summary>
-        /// <param name="srcVersion"></param>
-        /// <returns></returns>
-        public string GetPathAndProjectVersion(string srcVersion)
+		/// <summary>
+		/// </summary>
+		/// <param name="srcVersion"></param>
+		/// <returns></returns>
+		public string GetPathAndProjectVersion(string srcVersion)
 		{
 			OpenFileDialog openFile = null;
-			if (srcVersion=="IAR")
+			if (srcVersion == "IAR")
 			{
-				openFile= new OpenFileDialog { Filter = @"IAR Project (*.ewp)|*.ewp" };
+				openFile = new OpenFileDialog { Filter = @"IAR Project (*.ewp)|*.ewp" };
 			}
 			else if (srcVersion == "Keil")
 			{
@@ -56,7 +53,7 @@ namespace PreMakeToVSProject
 			}
 		}
 
-		public string GetPathAndProjectVersion(string srcVersion,Label lbl)
+		public string GetPathAndProjectVersion(string srcVersion, Label lbl)
 		{
 			OpenFileDialog openFile = null;
 			if (srcVersion == "IAR")
@@ -82,7 +79,6 @@ namespace PreMakeToVSProject
 				return openFile.FileName;
 			}
 		}
-
 
 		/// <summary>
 		/// 递归调用查找节点
@@ -114,7 +110,7 @@ namespace PreMakeToVSProject
 			}
 		}
 
-		public void AddTreeNode(XmlNode inXmlNode, TreeNode inTreeNode,string name)
+		public void AddTreeNode(XmlNode inXmlNode, TreeNode inTreeNode, string name)
 		{
 			XmlNode xNode;
 			TreeNode tNode;
@@ -130,7 +126,7 @@ namespace PreMakeToVSProject
 				for (i = 0; i <= nodeList.Count - 1; i++)
 				{
 					xNode = inXmlNode.ChildNodes[i];
-					if (xNode.Name==name)
+					if (xNode.Name == name)
 					{
 						inTreeNode.Nodes.Add(new TreeNode(xNode.Name));
 						tNode = inTreeNode.Nodes[j];
@@ -181,12 +177,12 @@ namespace PreMakeToVSProject
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="projectName"></param>
 		/// <param name="srcVersion"></param>
 		/// <returns></returns>
-		public bool ManageToVSProject(string projectName,string srcVersion)
+		public bool ManageToVSProject(string projectName, string srcVersion)
 		{
 			if (srcVersion == "IAR")
 			{
@@ -202,39 +198,37 @@ namespace PreMakeToVSProject
 			}
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="projectName"></param>
-        /// <param name="srcVersion"></param>
-        /// <returns></returns>
-        public bool ManageToVSProject(string projectName, ComboBox srcVersion)
-        {
-            if (projectName.Contains("uvprojx")|| projectName.Contains("uvproj"))
-            {
-                if (srcVersion.Text!="Keil")
-                {
-                    srcVersion.Text = "Keil";
-                }
-                return this.KeilProjectToVSProject(projectName);
-            }
-            else if (projectName.Contains("ewp"))
-            {
-                if (srcVersion.Text != "IAR")
-                {
-                    srcVersion.Text = "IAR";
-                }
-                return this.IARProjectToVSProject(projectName);
-            }
-            else
-            {
-                return false;
-            }
-          
-        }
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="projectName"></param>
+		/// <param name="srcVersion"></param>
+		/// <returns></returns>
+		public bool ManageToVSProject(string projectName, ComboBox srcVersion)
+		{
+			if (projectName.Contains("uvprojx") || projectName.Contains("uvproj"))
+			{
+				if (srcVersion.Text != "Keil")
+				{
+					srcVersion.Text = "Keil";
+				}
+				return this.KeilProjectToVSProject(projectName);
+			}
+			else if (projectName.Contains("ewp"))
+			{
+				if (srcVersion.Text != "IAR")
+				{
+					srcVersion.Text = "IAR";
+				}
+				return this.IARProjectToVSProject(projectName);
+			}
+			else
+			{
+				return false;
+			}
+		}
 
-
-        public bool KeilProjectToVSProject(string projectName)
+		public bool KeilProjectToVSProject(string projectName)
 		{
 			//---判断文件是否存在
 			if (!File.Exists(projectName))
@@ -284,20 +278,19 @@ namespace PreMakeToVSProject
 				//---IAR中增加的信息
 				prjcfg._define.Add("_IAR_");
 				prjcfg._define.Add("__ICCARM__");
-                prjcfg._define.Add("__CC_ARM");
-                prjcfg._define.Add("_Pragma(x)=");
+				prjcfg._define.Add("__CC_ARM");
+				prjcfg._define.Add("_Pragma(x)=");
 				prjcfg._define.Add("__interrupt=");
 				prjcfg._define.Add("__packed=");
 				prjcfg._define.Add("__weak=");
-                //prjcfg._define.Add("__attribute__((x))=");
-                //prjcfg._define.Add("__STATIC_INLINE=");
+				//prjcfg._define.Add("__attribute__((x))=");
+				//prjcfg._define.Add("__STATIC_INLINE=");
 				//---获取预包含的头文件
 				//subXmlRead.ReadToFollowing("PreInclude");
 				//prjcfg._preInclude = this.GetKeilSubNodeValue(subXmlRead,';');
 				//---获取包含文件的路径
 				subXmlRead.ReadToFollowing("IncludePath");
 				prjcfg._includePath = this.GetKeilSubNodeValue(subXmlRead.ReadSubtree(), ';');
-
 			}
 			while (xmlRead.ReadToNextSibling("TargetOption"));
 			xmlRead.Close();
@@ -305,7 +298,7 @@ namespace PreMakeToVSProject
 			xmlRead = XmlReader.Create(new StringReader(File.ReadAllText(projectName)));
 			//---读取配置文件---不断读取直至找到指定的元素
 			//---获取组文件
-			
+
 			do
 			{
 				xmlRead.ReadToFollowing("Group");
@@ -317,7 +310,6 @@ namespace PreMakeToVSProject
 						prjgroup.Add(_return);
 					}
 				}
-				
 			}
 			while (!xmlRead.EOF);
 			xmlRead.Close();
@@ -327,7 +319,7 @@ namespace PreMakeToVSProject
 			{
 				if (temp._name.Contains("MDK"))
 				{
-					temp._name= temp._name.Substring(temp._name.IndexOf("/MDK") + 1);
+					temp._name = temp._name.Substring(temp._name.IndexOf("/MDK") + 1);
 				}
 				else
 				{
@@ -352,26 +344,26 @@ namespace PreMakeToVSProject
 			while (!xmlRead.EOF);
 			xmlRead.Close();
 
-            //---获取Keil的执行路径
+			//---获取Keil的执行路径
 			//---Keil5
-            string keilPath = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetProcessesByName("UV4")[0].MainModule.FileName);
-			if (keilPath==null)
+			string keilPath = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetProcessesByName("UV4")[0].MainModule.FileName);
+			if (keilPath == null)
 			{
 				//---keil4
 				keilPath = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetProcessesByName("UV3")[0].MainModule.FileName);
 			}
-			if (keilPath==null)
+			if (keilPath == null)
 			{
 				//---keil2
 				keilPath = System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetProcessesByName("UV2")[0].MainModule.FileName);
 			}
-            string includedirs= string.Join("\", \"", prjcfg._includePath);
-            if (keilPath!=null)
-            {
-                keilPath =keilPath.Replace("\\","/");
-                keilPath =keilPath.Replace("UV4", "ARM/RV31");
-                includedirs += "\", \"" + keilPath;
-            }
+			string includedirs = string.Join("\", \"", prjcfg._includePath);
+			if (keilPath != null)
+			{
+				keilPath = keilPath.Replace("\\", "/");
+				keilPath = keilPath.Replace("UV4", "ARM/RV31");
+				includedirs += "\", \"" + keilPath;
+			}
 			//string configurations = "Debug" + "\", \"" + "Release";
 			//StreamWriter file = new StreamWriter(Path.GetDirectoryName(projectName) + "\\KeilToVS.lua");
 			StreamWriter file = new StreamWriter(Path.GetDirectoryName(projectName) + "\\premake5.lua");
@@ -381,7 +373,7 @@ namespace PreMakeToVSProject
 				file.WriteLine("  solution \"" + Path.GetFileNameWithoutExtension(projectName) + "\"");
 				file.WriteLine("  configurations { \"" + string.Join("\", \"", prjcfg._name) + "\" }");
 				//file.WriteLine("  configurations { \"" + configurations + "\" }");
-				file.WriteLine("  project\"" + Path.GetFileNameWithoutExtension(projectName)+ "\"");
+				file.WriteLine("  project\"" + Path.GetFileNameWithoutExtension(projectName) + "\"");
 				file.WriteLine("  kind \"ConsoleApp\"");
 				file.WriteLine("  language \"C\"");
 				file.WriteLine("  filter \"configurations:" + prjcfg._name + "\"");
@@ -404,174 +396,172 @@ namespace PreMakeToVSProject
 		/// IAR项目转VS工程
 		/// </summary>
 		/// <param name="projectName"></param>
-		public bool  IARProjectToVSProject(string projectName)
-        {
-            //---判断文件是否存在
-            if (!File.Exists(projectName))
-            {
-                return false;
-            }
+		public bool IARProjectToVSProject(string projectName)
+		{
+			//---判断文件是否存在
+			if (!File.Exists(projectName))
+			{
+				return false;
+			}
 
-            //---变量定义
-            ProjectCfg prjcfg = new ProjectCfg();
-            List<ProjectGroup> prjgroup = new List<ProjectGroup>();
+			//---变量定义
+			ProjectCfg prjcfg = new ProjectCfg();
+			List<ProjectGroup> prjgroup = new List<ProjectGroup>();
 
-            //---读取设备的文件---创建XmlReader对象的实例并将其返回给调用程序
-            XmlReader xmlRead = XmlReader.Create(new StringReader(File.ReadAllText(projectName)));
-            //---读取配置文件---不断读取直至找到指定的元素
-            xmlRead.ReadToFollowing("configuration");
-            do
-            {
-                //---读取子节点---而是用于创建 XML 元素周围的边界
-                XmlReader subXmlRead = xmlRead.ReadSubtree();
-                //---移动读取器至下一个匹配子孙元素的节点
-                subXmlRead.ReadToDescendant("name");
-                //---从流中读取下一个节点
-                subXmlRead.Read();
-                prjcfg._name = subXmlRead.Value;
+			//---读取设备的文件---创建XmlReader对象的实例并将其返回给调用程序
+			XmlReader xmlRead = XmlReader.Create(new StringReader(File.ReadAllText(projectName)));
+			//---读取配置文件---不断读取直至找到指定的元素
+			xmlRead.ReadToFollowing("configuration");
+			do
+			{
+				//---读取子节点---而是用于创建 XML 元素周围的边界
+				XmlReader subXmlRead = xmlRead.ReadSubtree();
+				//---移动读取器至下一个匹配子孙元素的节点
+				subXmlRead.ReadToDescendant("name");
+				//---从流中读取下一个节点
+				subXmlRead.Read();
+				prjcfg._name = subXmlRead.Value;
 
-                //---获取设置
-                subXmlRead.ReadToFollowing("settings");
-                //---
-                subXmlRead.ReadToDescendant("archiveVersion");
-                //---从流中读取下一个节点
-                subXmlRead.Read();
-                //---判断数据值
-                if (int.Parse(subXmlRead.Value)>0)
-                {
-                    prjcfg._cmsis = true;
-                }
-                else
-                {
-                    prjcfg._cmsis = false;
-                }
-                //---读取下一个节点
-                subXmlRead.ReadToFollowing("settings");
-                prjcfg._define = this.GetIarSubNodeValue(subXmlRead, "CCDefines");
-                //---IAR中增加的信息
-                prjcfg._define.Add("_IAR_");
-                prjcfg._define.Add("__ICCARM__");
-                prjcfg._define.Add("_Pragma(x)=");
-                prjcfg._define.Add("__interrupt=");
-                prjcfg._define.Add("__packed=");
-                prjcfg._define.Add("__weak=");
-                //prjcfg._define.Add("__attribute__((x))=");
-                //prjcfg._define.Add("__STATIC_INLINE=");
-                //---获取预包含的头文件
-                prjcfg._preInclude = this.GetIarSubNodeValue(subXmlRead, "PreInclude");
-                //---获取包含文件的路径
-                prjcfg._includePath= this.GetIarSubNodeValue(subXmlRead, "CCIncludePath2");
-
-            }
+				//---获取设置
+				subXmlRead.ReadToFollowing("settings");
+				//---
+				subXmlRead.ReadToDescendant("archiveVersion");
+				//---从流中读取下一个节点
+				subXmlRead.Read();
+				//---判断数据值
+				if (int.Parse(subXmlRead.Value) > 0)
+				{
+					prjcfg._cmsis = true;
+				}
+				else
+				{
+					prjcfg._cmsis = false;
+				}
+				//---读取下一个节点
+				subXmlRead.ReadToFollowing("settings");
+				prjcfg._define = this.GetIarSubNodeValue(subXmlRead, "CCDefines");
+				//---IAR中增加的信息
+				prjcfg._define.Add("_IAR_");
+				prjcfg._define.Add("__ICCARM__");
+				prjcfg._define.Add("_Pragma(x)=");
+				prjcfg._define.Add("__interrupt=");
+				prjcfg._define.Add("__packed=");
+				prjcfg._define.Add("__weak=");
+				//prjcfg._define.Add("__attribute__((x))=");
+				//prjcfg._define.Add("__STATIC_INLINE=");
+				//---获取预包含的头文件
+				prjcfg._preInclude = this.GetIarSubNodeValue(subXmlRead, "PreInclude");
+				//---获取包含文件的路径
+				prjcfg._includePath = this.GetIarSubNodeValue(subXmlRead, "CCIncludePath2");
+			}
 			while (xmlRead.ReadToNextSibling("configuration"));
 			xmlRead.Close();
 
 			xmlRead = XmlReader.Create(new StringReader(File.ReadAllText(projectName)));
-            //---读取配置文件---不断读取直至找到指定的元素
-            //---获取组文件
-            xmlRead.ReadToFollowing("group");
-            do
-            {
-                ProjectGroup _return = GetIarSubNodeGroup(xmlRead,"group");
-                if (_return != null)
-                {
-                    prjgroup.Add(_return);
-                }
-            }
+			//---读取配置文件---不断读取直至找到指定的元素
+			//---获取组文件
+			xmlRead.ReadToFollowing("group");
+			do
+			{
+				ProjectGroup _return = GetIarSubNodeGroup(xmlRead, "group");
+				if (_return != null)
+				{
+					prjgroup.Add(_return);
+				}
+			}
 			while (xmlRead.ReadToNextSibling("group"));
 			xmlRead.Close();
 
 			//---获取C文件
 			xmlRead = XmlReader.Create(new StringReader(File.ReadAllText(projectName)));
-            do
-            {
-                xmlRead.ReadToFollowing("file");
-                if (xmlRead.Depth == 1 && xmlRead.NodeType == XmlNodeType.Element)
-                {
-					ProjectGroup _return = GetIarSubNodeFile( xmlRead, "file");
-                    if (_return != null)
-                    {
-                        prjgroup.Add(_return);
-                    }
-                }
-            }
-            while (!xmlRead.EOF);
-            xmlRead.Close();
+			do
+			{
+				xmlRead.ReadToFollowing("file");
+				if (xmlRead.Depth == 1 && xmlRead.NodeType == XmlNodeType.Element)
+				{
+					ProjectGroup _return = GetIarSubNodeFile(xmlRead, "file");
+					if (_return != null)
+					{
+						prjgroup.Add(_return);
+					}
+				}
+			}
+			while (!xmlRead.EOF);
+			xmlRead.Close();
 			//string configurations = "Debug" + "\", \"" + "Release";
 			//StreamWriter file =new StreamWriter(Path.GetDirectoryName(projectName) + "\\IARToVS.lua");
 			StreamWriter file = new StreamWriter(Path.GetDirectoryName(projectName) + "\\premake5.lua");
 			//StreamWriter file = new StreamWriter(Directory.GetParent(Path.GetDirectoryName(projectName)).FullName + "\\premake5.lua");
 			{
-                //
-                file.WriteLine("  solution \"" + Path.GetFileNameWithoutExtension(projectName) + "\"");
+				//
+				file.WriteLine("  solution \"" + Path.GetFileNameWithoutExtension(projectName) + "\"");
 				file.WriteLine("  configurations { \"" + string.Join("\", \"", prjcfg._name) + "\" }");
 				//file.WriteLine("  configurations { \"" + configurations + "\" }");
 				file.WriteLine("  project\"" + Path.GetFileNameWithoutExtension(projectName) + "\"");
-                file.WriteLine("  kind \"ConsoleApp\"");
-                file.WriteLine("  language \"C\"");
-                file.WriteLine("  filter \"configurations:" + prjcfg._name + "\"");
-                file.WriteLine("  sysincludedirs  {\"$(VC_IncludePath)\"}");
-                file.WriteLine("  defines { \"" + string.Join("\", \"", prjcfg._define) + "\" }");
-                file.WriteLine("  forceincludes { \"" + string.Join("\", \"", prjcfg._preInclude) + "\" }");
-                file.WriteLine("  includedirs { \"" + string.Join("\", \"", prjcfg._includePath) + "\" }");
-                List<string> srcFiles =new ProjectGroup().GetFile(prjgroup, prjcfg._name);
-                file.WriteLine("  files { \"" + string.Join("\", \"", srcFiles) + "\" }");
-				List<string> vGroups =new ProjectGroup().GetPath(prjgroup, prjcfg._name);
+				file.WriteLine("  kind \"ConsoleApp\"");
+				file.WriteLine("  language \"C\"");
+				file.WriteLine("  filter \"configurations:" + prjcfg._name + "\"");
+				file.WriteLine("  sysincludedirs  {\"$(VC_IncludePath)\"}");
+				file.WriteLine("  defines { \"" + string.Join("\", \"", prjcfg._define) + "\" }");
+				file.WriteLine("  forceincludes { \"" + string.Join("\", \"", prjcfg._preInclude) + "\" }");
+				file.WriteLine("  includedirs { \"" + string.Join("\", \"", prjcfg._includePath) + "\" }");
+				List<string> srcFiles = new ProjectGroup().GetFile(prjgroup, prjcfg._name);
+				file.WriteLine("  files { \"" + string.Join("\", \"", srcFiles) + "\" }");
+				List<string> vGroups = new ProjectGroup().GetPath(prjgroup, prjcfg._name);
 				file.WriteLine("  vpaths {" + string.Join(" , ", vGroups) + " }");
-                //file.Write(IncOverride);
-                file.Close();
-            }
+				//file.Write(IncOverride);
+				file.Close();
+			}
 
-            return true;
-        }
+			return true;
+		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="xmlRead"></param>
 		/// <param name="val"></param>
 		/// <returns></returns>
-        List<string> GetIarSubNodeValue(XmlReader xmlRead,string val)
-        {
-            List<string> _return = new List<string>();
-            //---读取到指定的值为止
-            do
-            {
-                xmlRead.Read();
-                if (xmlRead.EOF)
-                {
-                    return _return;
-                }
-            } while (xmlRead.Value!=val);
-            xmlRead.Read();
-            int depth = xmlRead.Depth;
-            //---读取指定值包含的数据
-            do
-            {
-                if (xmlRead.Read()&& (xmlRead.NodeType==XmlNodeType.Text)&&(xmlRead.HasValue))
-                {
-                    string temp = xmlRead.Value;
-                    temp = temp.Replace("$PROJ_DIR$\\", "");
-                    temp = temp.Replace("$PROJ_DIR$/", "");
-                    temp = temp.Replace("\\", "/");
-                    temp = temp.Replace("$PROJ_DIR$\\", "");
-                    temp = temp.Replace("$PROJ_DIR$/", "");
-                    temp = temp.Replace("\\", "/");
-                    _return.Add(temp);
-                }
-
-            } while (xmlRead.Depth>=depth);
+		private List<string> GetIarSubNodeValue(XmlReader xmlRead, string val)
+		{
+			List<string> _return = new List<string>();
+			//---读取到指定的值为止
+			do
+			{
+				xmlRead.Read();
+				if (xmlRead.EOF)
+				{
+					return _return;
+				}
+			} while (xmlRead.Value != val);
+			xmlRead.Read();
+			int depth = xmlRead.Depth;
+			//---读取指定值包含的数据
+			do
+			{
+				if (xmlRead.Read() && (xmlRead.NodeType == XmlNodeType.Text) && (xmlRead.HasValue))
+				{
+					string temp = xmlRead.Value;
+					temp = temp.Replace("$PROJ_DIR$\\", "");
+					temp = temp.Replace("$PROJ_DIR$/", "");
+					temp = temp.Replace("\\", "/");
+					temp = temp.Replace("$PROJ_DIR$\\", "");
+					temp = temp.Replace("$PROJ_DIR$/", "");
+					temp = temp.Replace("\\", "/");
+					_return.Add(temp);
+				}
+			} while (xmlRead.Depth >= depth);
 			//---移动到当前元素
-            xmlRead.MoveToElement();
-            return _return;
-        }
+			xmlRead.MoveToElement();
+			return _return;
+		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="xmlRead"></param>
 		/// <returns></returns>
-		List<string> GetKeilSubNodeValue(XmlReader xmlRead,char split=',')
+		private List<string> GetKeilSubNodeValue(XmlReader xmlRead, char split = ',')
 		{
 			List<string> _return = new List<string>();
 			//---读取到指定的值为止
@@ -590,20 +580,20 @@ namespace PreMakeToVSProject
 					temp = temp.Replace("\\", "/");
 					_return.AddRange(temp.Split(split));
 				}
-
 			} while (!xmlRead.EOF);
 			//---移动到当前元素
 			xmlRead.MoveToElement();
 			return _return;
 		}
+
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="xmlRead"></param>
 		/// <param name="parent"></param>
 		/// <param name="str"></param>
 		/// <returns></returns>
-		ProjectGroup GetIarSubNodeGroup(XmlReader xmlRead, string str,ProjectGroup parent=null )
+		private ProjectGroup GetIarSubNodeGroup(XmlReader xmlRead, string str, ProjectGroup parent = null)
 		{
 			ProjectGroup _return = new ProjectGroup(parent);
 			if (xmlRead.NodeType != XmlNodeType.Element || xmlRead.Name != str)
@@ -629,8 +619,9 @@ namespace PreMakeToVSProject
 					{
 						case "group":
 							//---子分组信息---递归调用
-							_return._subGroup.Add(this.GetIarSubNodeGroup( subXmlRead, str, _return));
+							_return._subGroup.Add(this.GetIarSubNodeGroup(subXmlRead, str, _return));
 							break;
+
 						case "file":
 							//---获取节点
 							XmlReader subSubXmlRead = subXmlRead.ReadSubtree();
@@ -640,16 +631,17 @@ namespace PreMakeToVSProject
 								switch (subSubXmlRead.Name)
 								{
 									case "name":
-										if (subSubXmlRead.Read()&&(subSubXmlRead.NodeType == XmlNodeType.Text) && subSubXmlRead.HasValue && (subSubXmlRead.Depth == 2))
+										if (subSubXmlRead.Read() && (subSubXmlRead.NodeType == XmlNodeType.Text) && subSubXmlRead.HasValue && (subSubXmlRead.Depth == 2))
 										{
 											_return._file.Add(new ProjectFile());
 											string temp = subSubXmlRead.Value;
-											temp=temp.Replace("$PROJ_DIR$\\", "");
-											temp=temp.Replace("$PROJ_DIR$/", "");
-											temp=temp.Replace("\\", "/");
+											temp = temp.Replace("$PROJ_DIR$\\", "");
+											temp = temp.Replace("$PROJ_DIR$/", "");
+											temp = temp.Replace("\\", "/");
 											_return._file.Last()._name = temp;//subsubReader.Value;
 										}
 										break;
+
 									case "excluded":
 										if (subSubXmlRead.NodeType == XmlNodeType.Element)
 										{
@@ -666,25 +658,28 @@ namespace PreMakeToVSProject
 											subSubSubXmlRead.Close();
 										}
 										break;
-                                    default:
-                                        break;
+
+									default:
+										break;
 								}
 							}
 							while (!subSubXmlRead.EOF);
 							subSubXmlRead.Close();
-                            break;
+							break;
+
 						case "excluded":
 							do
 							{
-								if (subXmlRead.Read()&&(subXmlRead.NodeType == XmlNodeType.Text) && (subXmlRead.HasValue))
+								if (subXmlRead.Read() && (subXmlRead.NodeType == XmlNodeType.Text) && (subXmlRead.HasValue))
 								{
 									_return._exclude.Add(subXmlRead.Value);
 								}
 							}
 							while (xmlRead.Name != "excluded");
 							break;
-                        default:
-                            break;
+
+						default:
+							break;
 					}
 				}
 			}
@@ -693,7 +688,7 @@ namespace PreMakeToVSProject
 			return _return;
 		}
 
-		ProjectGroup GetKeilSubNodeGroup(XmlReader xmlRead, string str, ProjectGroup parent = null)
+		private ProjectGroup GetKeilSubNodeGroup(XmlReader xmlRead, string str, ProjectGroup parent = null)
 		{
 			ProjectGroup _return = new ProjectGroup(parent);
 			if (xmlRead.NodeType != XmlNodeType.Element || xmlRead.Name != str)
@@ -721,6 +716,7 @@ namespace PreMakeToVSProject
 							//---子分组信息---递归调用
 							_return._subGroup.Add(this.GetKeilSubNodeGroup(subXmlRead, str, _return));
 							break;
+
 						case "Files":
 							//---获取节点
 							XmlReader subSubXmlRead = subXmlRead.ReadSubtree();
@@ -740,6 +736,7 @@ namespace PreMakeToVSProject
 											_return._file.Last()._name = temp;//subsubReader.Value;
 										}
 										break;
+
 									case "excluded":
 										if (subSubXmlRead.NodeType == XmlNodeType.Element)
 										{
@@ -756,6 +753,7 @@ namespace PreMakeToVSProject
 											subSubSubXmlRead.Close();
 										}
 										break;
+
 									default:
 										break;
 								}
@@ -763,6 +761,7 @@ namespace PreMakeToVSProject
 							while (!subSubXmlRead.EOF);
 							subSubXmlRead.Close();
 							break;
+
 						case "excluded":
 							do
 							{
@@ -773,6 +772,7 @@ namespace PreMakeToVSProject
 							}
 							while (xmlRead.Name != "excluded");
 							break;
+
 						default:
 							break;
 					}
@@ -784,12 +784,12 @@ namespace PreMakeToVSProject
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="xmlRead"></param>
 		/// <param name="NodeName"></param>
 		/// <returns></returns>
-		public ProjectGroup GetIarSubNodeFile(XmlReader xmlRead,string NodeName)
+		public ProjectGroup GetIarSubNodeFile(XmlReader xmlRead, string NodeName)
 		{
 			ProjectGroup _return = new ProjectGroup();
 			//---是否位于结尾
@@ -817,7 +817,7 @@ namespace PreMakeToVSProject
 						switch (subsubXmlRead.Name)
 						{
 							case "name":
-								if (subsubXmlRead.Read()&&(subsubXmlRead.NodeType == XmlNodeType.Text) && (subsubXmlRead.HasValue) && (subsubXmlRead.Depth == 2))
+								if (subsubXmlRead.Read() && (subsubXmlRead.NodeType == XmlNodeType.Text) && (subsubXmlRead.HasValue) && (subsubXmlRead.Depth == 2))
 								{
 									_return._file.Add(new ProjectFile());
 									string temp = subsubXmlRead.Value;
@@ -827,16 +827,17 @@ namespace PreMakeToVSProject
 									_return._file.Last()._name = temp;
 								}
 								break;
+
 							case "excluded":
 								if (subsubXmlRead.NodeType == XmlNodeType.Element)
 								{
 									XmlReader subSubSubXmlRead = subsubXmlRead.ReadSubtree();
 									do
 									{
-										if (subSubSubXmlRead.Read()&&(subSubSubXmlRead.NodeType == XmlNodeType.Text)&&(subSubSubXmlRead.HasValue))
+										if (subSubSubXmlRead.Read() && (subSubSubXmlRead.NodeType == XmlNodeType.Text) && (subSubSubXmlRead.HasValue))
 										{
 											_return._file.Last()._exclude.Add(subSubSubXmlRead.Value);
-										}	
+										}
 									}
 									while (!subSubSubXmlRead.EOF);
 									subSubSubXmlRead.Close();
@@ -891,6 +892,7 @@ namespace PreMakeToVSProject
 									_return._file.Last()._name = temp;
 								}
 								break;
+
 							case "excluded":
 								if (subsubXmlRead.NodeType == XmlNodeType.Element)
 								{
@@ -916,7 +918,6 @@ namespace PreMakeToVSProject
 			return _return;
 		}
 
-		#endregion
-
+		#endregion 函数定义
 	}
 }
