@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,7 +45,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="COMMPort.cs" />
+    <Compile Include="COMMPortControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="COMMPortControl.Designer.cs">
+      <DependentUpon>COMMPortControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SerialPort\SerialPort.cs" />
     <Compile Include="USBPort\USBPort.cs" />
     <Compile Include="WatcherPort.cs" />
@@ -52,12 +65,32 @@
     <EmbeddedResource Include="COMMPort.resx">
       <DependentUpon>COMMPort.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="COMMPortControl.resx">
+      <DependentUpon>COMMPortControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MessageBoxPlus\MessageBoxPlus.csproj">
+      <Project>{E54A51A6-A054-4F21-AC22-A827B5EF4D36}</Project>
+      <Name>MessageBoxPlus</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RichTextBoxPlus\RichTextBoxPlus.csproj">
       <Project>{FC2D572C-5CEE-40DA-8C1B-583E693602AA}</Project>
       <Name>RichTextBoxPlus</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lost.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\open.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

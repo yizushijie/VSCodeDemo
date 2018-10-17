@@ -100,10 +100,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\COMMPortForm\COMMPortForm.csproj">
-      <Project>{B0F7D083-F588-411D-9ED1-C1C09B933AD4}</Project>
-      <Name>COMMPortForm</Name>
-    </ProjectReference>
     <ProjectReference Include="..\COMMPort\COMMPort.csproj">
       <Project>{F066762D-819B-43EF-8D46-AA3AC7CC1DDF}</Project>
       <Name>COMMPort</Name>

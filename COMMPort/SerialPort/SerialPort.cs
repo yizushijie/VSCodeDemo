@@ -1,4 +1,5 @@
-﻿using RichTextBoxPlusLib;
+﻿using MessageBoxPlusLib;
+using RichTextBoxPlusLib;
 using System;
 using System.Drawing;
 using System.IO.Ports;
@@ -661,11 +662,22 @@ namespace COMMPortLib
                     cbb.Text = string.Empty;
                     cbb.SelectedIndex = -1;
                 }
-                if (msg != null)
+                if (this.m_UsedForm!=null)
                 {
-                    msg.Clear();
-                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "请插入设备!\r\n", Color.Black, false);
+                    MessageBoxPlus.Show(this.m_UsedForm, "请插入设备!\r\n", "错误提示");
                 }
+                else
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "请插入设备!\r\n", Color.Black, false);
+                    }
+                    else
+                    {
+                        MessageBox.Show("请插入设备!\r\n", "错误提示");
+                    }
+                }
+                
             }
             return _return;
         }

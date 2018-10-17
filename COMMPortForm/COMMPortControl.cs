@@ -1,4 +1,5 @@
 ﻿using COMMPortLib;
+using MessageBoxPlusLib;
 using RichTextBoxPlusLib;
 using System;
 using System.Drawing;
@@ -7,19 +8,24 @@ using System.Windows.Forms;
 
 namespace COMMPortForm
 {
-	public partial class COMMPortForm : UserControl
+	public partial class COMMPort : UserControl
 	{
 		#region 变量定义
 
 		/// <summary>
 		/// 使用的端口对象
 		/// </summary>
-		private COMMPort usedPort = null;
+		private COMMPortLib.COMMPort usedPort = null;
 
 		/// <summary>
 		/// 使用的消息对象
 		/// </summary>
 		private RichTextBox usedMsg = null;
+
+        /// <summary>
+        /// 使用的窗体对象
+        /// </summary>
+        private Form usedForm = null;
 
 		#endregion 变量定义
 
@@ -28,7 +34,7 @@ namespace COMMPortForm
 		/// <summary>
 		///
 		/// </summary>
-		public COMMPortForm()
+		public COMMPort()
 		{
 			InitializeComponent();
 		}
@@ -38,7 +44,7 @@ namespace COMMPortForm
 		/// </summary>
 		/// <param name="usePort"></param>
 
-		public COMMPortForm(COMMPort usePort, RichTextBox msg = null)
+		public COMMPort(COMMPortLib.COMMPort usePort, RichTextBox msg = null)
 		{
 			InitializeComponent();
 
@@ -47,7 +53,7 @@ namespace COMMPortForm
 			//---判断对象
 			if (this.usedPort == null)
 			{
-				this.usedPort = new COMMPort();
+				this.usedPort = new COMMPortLib.COMMPort();
 			}
 			this.usedPort = usePort;
 			if (msg != null)
@@ -82,14 +88,14 @@ namespace COMMPortForm
 		/// </summary>
 		/// <param name="usePort"></param>
 		/// <param name="msg"></param>
-		public void Init(COMMPort usePort, RichTextBox msg = null)
+		public void Init(COMMPortLib.COMMPort usePort, RichTextBox msg = null)
 		{
 			if (usePort != null)
 			{
 				//---判断对象
 				if (this.usedPort == null)
 				{
-					this.usedPort = new COMMPort();
+					this.usedPort = new COMMPortLib.COMMPort();
 				}
 				//---注册端口
 				this.usedPort = usePort;
@@ -119,17 +125,36 @@ namespace COMMPortForm
 			this.pictureBox_portState.Click += new System.EventHandler(this.pictureBox_Click);
 		}
 
-		#endregion 初始化
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="useForm"></param>
+        /// <param name="usePort"></param>
+        /// <param name="msg"></param>
+        public void Init( Form useForm, COMMPortLib.COMMPort usePort, RichTextBox msg = null)
+        {
+            if (useForm!=null)
+            {
+                if (this.usedForm==null)
+                {
+                    this.usedForm = new Form();
+                }
+                this.usedForm = useForm;
+            }
+            this.Init(usePort, msg);
+        }
 
-		#region 函数定义
+        #endregion 初始化
 
-		/// <summary>
-		/// 监控端口处理函数
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		/// <param name="msg"></param>
-		public virtual void WatcherPortEventHandler(Object sender, EventArrivedEventArgs e)
+        #region 函数定义
+
+        /// <summary>
+        /// 监控端口处理函数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <param name="msg"></param>
+        public virtual void WatcherPortEventHandler(Object sender, EventArrivedEventArgs e)
 		{
 			if (this.usedPort != null)
 			{
@@ -190,9 +215,13 @@ namespace COMMPortForm
                     }
                     else
                     {
-                        if (this.usedMsg != null)
+                        if (this.usedForm != null)
                         {
-                            RichTextBoxPlus.AppendTextInfoTopWithDataTime(this.usedMsg, "端口操作发生异常！错误提示：不是识别的按钮文本名称!!!\r\n", Color.Red, false);
+                            MessageBoxPlus.Show(this.usedForm, "端口操作异常！错误操作："+ btn.Text, "错误提示");
+                        }
+                        else
+                        {
+                            MessageBox.Show("端口操作异常！错误操作：" + btn.Text, "错误提示");
                         }
                     }
                     break;

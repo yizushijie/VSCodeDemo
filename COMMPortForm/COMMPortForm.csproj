@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\COMMPortForm.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,15 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="COMMPortForm.cs">
+    <Compile Include="COMMPortControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="COMMPortForm.Designer.cs">
-      <DependentUpon>COMMPortForm.cs</DependentUpon>
+    <Compile Include="COMMPortControl.Designer.cs">
+      <DependentUpon>COMMPortControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="COMMPortForm.resx">
-      <DependentUpon>COMMPortForm.cs</DependentUpon>
+    <EmbeddedResource Include="COMMPortControl.resx">
+      <DependentUpon>COMMPortControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -81,6 +82,10 @@
     <ProjectReference Include="..\COMMPort\COMMPort.csproj">
       <Project>{F066762D-819B-43EF-8D46-AA3AC7CC1DDF}</Project>
       <Name>COMMPort</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageBoxPlus\MessageBoxPlus.csproj">
+      <Project>{E54A51A6-A054-4F21-AC22-A827B5EF4D36}</Project>
+      <Name>MessageBoxPlus</Name>
     </ProjectReference>
     <ProjectReference Include="..\RichTextBoxPlus\RichTextBoxPlus.csproj">
       <Project>{FC2D572C-5CEE-40DA-8C1B-583E693602AA}</Project>
