@@ -58,6 +58,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SerialPort\SerialPort.cs" />
+    <Compile Include="SerialPort\SerialPortControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SerialPort\SerialPortControl.Designer.cs">
+      <DependentUpon>SerialPortControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="USBPort\USBPort.cs" />
     <Compile Include="WatcherPort.cs" />
   </ItemGroup>
@@ -71,6 +77,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SerialPort\SerialPortControl.resx">
+      <DependentUpon>SerialPortControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

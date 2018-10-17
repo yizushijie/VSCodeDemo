@@ -6,20 +6,14 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MessageBoxPlusLib;
-using RichTextBoxPlusLib;
 using System.Management;
+using RichTextBoxPlusLib;
+using MessageBoxPlusLib;
 
 namespace COMMPortLib
 {
-
-	/// <summary>
-	/// 用户控件类，用于实现一些简单的操作，比如自动获取端口，自动打开端口
-	/// </summary>
-
-	public partial class COMMPortControl : UserControl
+	public partial class SerialPortControl : UserControl
 	{
-
 		#region 变量定义
 
 		/// <summary>
@@ -43,7 +37,7 @@ namespace COMMPortLib
 		/// <summary>
 		/// 
 		/// </summary>
-		public COMMPortControl()
+		public SerialPortControl()
 		{
 			InitializeComponent();
 		}
@@ -53,7 +47,7 @@ namespace COMMPortLib
 		/// </summary>
 		/// <param name="usePort"></param>
 
-		public COMMPortControl(COMMPort usePort, RichTextBox msg = null)
+		public SerialPortControl(COMMPort usePort, RichTextBox msg = null)
 		{
 			InitializeComponent();
 
@@ -200,7 +194,7 @@ namespace COMMPortLib
 							this.pictureBox_portState.Image = Properties.Resources.open;
 							if (this.usedMsg != null)
 							{
-								RichTextBoxPlus.AppendTextInfoTopWithDataTime(this.usedMsg, "端口打开成功!\r\n", Color.Black, false);
+								RichTextBoxPlus.AppendTextInfoTopWithDataTime(this.usedMsg, "端口"+this.comboBox_portName.Text+"打开成功!\r\n", Color.Black, false);
 							}
 						}
 						else
@@ -210,7 +204,7 @@ namespace COMMPortLib
 							if (this.usedMsg != null)
 							{
 
-								RichTextBoxPlus.AppendTextInfoTopWithDataTime(this.usedMsg, "端口打开失败!\r\n", Color.Red, false);
+								RichTextBoxPlus.AppendTextInfoTopWithDataTime(this.usedMsg, "端口" + this.comboBox_portName.Text + "端口打开失败!\r\n", Color.Red, false);
 							}
 						}
 					}
@@ -224,7 +218,7 @@ namespace COMMPortLib
 							this.pictureBox_portState.Image = Properties.Resources.lost;
 							if (this.usedMsg != null)
 							{
-								RichTextBoxPlus.AppendTextInfoTopWithDataTime(this.usedMsg, "端口关闭成功!\r\n", Color.Black, false);
+								RichTextBoxPlus.AppendTextInfoTopWithDataTime(this.usedMsg, "端口" + this.comboBox_portName.Text + "关闭成功!\r\n", Color.Black, false);
 							}
 						}
 					}

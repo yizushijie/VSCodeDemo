@@ -18,7 +18,7 @@ namespace TestDemo
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			this.usedPort = new SerialCOMMPort();
-			this.commPortForm1.Init(this,this.usedPort, this.richTextBox1);
+			this.commPortControl1.Init(this,this.usedPort, this.richTextBox1);
 
 			//this.button1.Click += new EventHandler(this.button_Click);
 		}

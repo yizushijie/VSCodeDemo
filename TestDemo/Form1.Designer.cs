@@ -29,31 +29,31 @@
 		private void InitializeComponent()
 		{
 			this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-			this.commPortForm1 = new COMMPortLib.COMMPortControl();
+			this.commPortControl1 = new COMMPortLib.COMMPortControl();
 			this.SuspendLayout();
 			// 
 			// richTextBox1
 			// 
 			this.richTextBox1.Location = new System.Drawing.Point(0, 228);
 			this.richTextBox1.Name = "richTextBox1";
-			this.richTextBox1.Size = new System.Drawing.Size(703, 159);
+			this.richTextBox1.Size = new System.Drawing.Size(441, 159);
 			this.richTextBox1.TabIndex = 1;
 			this.richTextBox1.Text = "";
 			// 
-			// commPortForm1
+			// commPortControl1
 			// 
-			this.commPortForm1.Location = new System.Drawing.Point(0, 1);
-			this.commPortForm1.Name = "commPortForm1";
-			this.commPortForm1.Size = new System.Drawing.Size(293, 72);
-			this.commPortForm1.TabIndex = 0;
+			this.commPortControl1.Location = new System.Drawing.Point(0, 3);
+			this.commPortControl1.Name = "commPortControl1";
+			this.commPortControl1.Size = new System.Drawing.Size(260, 76);
+			this.commPortControl1.TabIndex = 2;
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.commPortControl1);
 			this.Controls.Add(this.richTextBox1);
-			this.Controls.Add(this.commPortForm1);
 			this.Name = "Form1";
 			this.Text = "Form1";
 			this.Load += new System.EventHandler(this.Form1_Load);
@@ -62,9 +62,8 @@
 		}
 
 		#endregion
-
-		private COMMPortLib.COMMPortControl commPortForm1;
         private System.Windows.Forms.RichTextBox richTextBox1;
-    }
+		private COMMPortLib.COMMPortControl commPortControl1;
+	}
 }
 
