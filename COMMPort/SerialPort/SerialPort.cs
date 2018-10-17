@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.IO.Ports;
 using System.Management;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace COMMPortLib
@@ -25,7 +26,7 @@ namespace COMMPortLib
 		/// <summary>
 		/// 奇偶校验
 		/// </summary>
-		private string parity = "NONE";
+		private Parity parityBits = Parity.None;
 
 		/// <summary>
 		/// 停止位
@@ -541,15 +542,86 @@ namespace COMMPortLib
 			}
 		}
 
-		#endregion 构造函数
+        #endregion 构造函数
 
-		#region 函数定义
+        #region 函数定义
 
-		/// <summary>
-		/// 初始化
+
+        #endregion
+
+        /// <summary>
+		/// 获取校验位信息
 		/// </summary>
+		/// <param name="parity"></param>
 		/// <returns></returns>
-		public override int Init()
+		private Parity GetParityBits(string parityBits)
+        {
+            //---获取校验位
+            Parity _return = new Parity();
+            //---奇校验
+            if (parityBits.StartsWith("奇") || parityBits.StartsWith("Odd") || parityBits.StartsWith("ODD") || parityBits.StartsWith("odd") || parityBits.StartsWith("oDD"))
+            {
+                _return = Parity.Odd;
+            }
+            //---偶校验
+            else if (parityBits.StartsWith("偶") || parityBits.StartsWith("Even") || parityBits.StartsWith("EVEN") || parityBits.StartsWith("even") || parityBits.StartsWith("eVEN"))
+            {
+                _return = Parity.Even;
+            }
+            //---无校验位
+            else
+            {
+                _return = Parity.None;
+            }
+            return _return;
+        }
+
+        /// <summary>
+        /// 获取停止位
+        /// </summary>
+        /// <param name="stopBits"></param>
+        /// <returns></returns>
+        private StopBits  GetStopBits(string stopBits)
+        {
+            //---获取校验位
+            StopBits _return = new StopBits();
+            try
+            {
+                double stopVal = Math.Truncate(Convert.ToDouble(stopBits));
+                int temp = (int)(stopVal * 10);
+                //---1位停止位
+                if (temp == 10)
+                {
+                    _return = StopBits.One;
+                }
+                //---1.5位停止位
+                else if (temp == 15)
+                {
+                    _return = StopBits.OnePointFive;
+                }
+                //---2位停止位
+                else if (temp == 20)
+                {
+                    _return = StopBits.Two;
+                }
+                else
+                {
+                    _return = StopBits.None;
+                }
+            }
+            catch
+            {
+                _return = StopBits.None;
+            }
+            return _return;
+        }
+
+        #region 重载函数
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <returns></returns>
+        public override int Init()
 		{
 			return 1;
 		}
@@ -602,7 +674,30 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int AddDevice(ComboBox cbb, RichTextBox msg = null)
 		{
-			return 1;
+            //---获取记录的设备
+            string[] deviceNames = this.m_COMMDevices.deviceNames.ToArray();
+            //---刷新当前设备
+            string[] tempDeviceNames = SerialPort.GetPortNames();
+            //---更新设备记录表
+            int _return = this.m_COMMDevices.Init(tempDeviceNames, cbb.Text);
+            if ((_return == 0) && (cbb != null))
+            {
+                cbb.Items.Clear();
+                cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
+                cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "设备添加成功!\r\n", Color.Black, false);
+                }
+            }
+            else
+            {
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "设备添加失败!\r\n", Color.Red, false);
+                }
+            }
+            return _return;
 		}
 
 		/// <summary>
@@ -622,8 +717,31 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int RemoveDevice(ComboBox cbb, RichTextBox msg = null)
 		{
-			return 1;
-		}
+            //---获取记录的设备
+            string[] deviceNames = this.m_COMMDevices.deviceNames.ToArray();
+            //---刷新当前设备
+            string[] tempDeviceNames = SerialPort.GetPortNames();
+            //---更新设备记录表
+            int _return = this.m_COMMDevices.Init(tempDeviceNames, cbb.Text);
+            if ((_return == 0) && (cbb != null))
+            {
+                cbb.Items.Clear();
+                cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
+                cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "设备添加成功!\r\n", Color.Black, false);
+                }
+            }
+            else
+            {
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "设备添加失败!\r\n", Color.Red, false);
+                }
+            }
+            return _return;
+        }
 
         /// <summary>
         /// 
@@ -828,7 +946,11 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int OpenDevice()
 		{
-			return 1;
+            if (this.usedSerialPort!=null)
+            {
+                return this.OpenDevice(this.usedSerialPort.PortName,null);
+            }
+            return 1;
 		}
 
 		/// <summary>
@@ -839,8 +961,9 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int OpenDevice(int portIndex, RichTextBox msg = null)
 		{
-			return 1;
-		}
+            string str = "COM" + portIndex.ToString();
+            return this.OpenDevice(str, msg);
+        }
 
 		/// <summary>
 		///
@@ -850,16 +973,175 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int OpenDevice(string portName, RichTextBox msg = null)
 		{
-			return 1;
-		}
+            int _return = 1;
+            if (((portName != string.Empty) && (portName != null) && (portName != "") && (portName.StartsWith("COM"))))
+            {
+                this.m_COMMPortErrMsg = string.Empty;
+                //---判断串口类是否有效
+                if (this.usedSerialPort == null)
+                {
+                    this.usedSerialPort = new SerialPort();
+                }
+                //---判断当前端口是否可用
+                if (this.usedSerialPort.IsOpen)
+                {
+                    //---响应窗体事件
+                    Application.DoEvents();
+                    try
+                    {
+                        //---关闭端口
+                        this.usedSerialPort.Close();
+                    }
+                    catch
+                    {
+                        //---端口关闭出现错误
+                        this.m_COMMPortErrMsg += "端口：" + this.usedSerialPort.PortName + "被其他应用占用，初始化失败!\r\n";
+                        _return = 2;
+                        goto GoToExit;
+                    }
+                }
+                //---获取端口名称
+                if (this.usedSerialPort.PortName != portName)
+                {
+                    this.usedSerialPort.PortName = portName;
+                    this.m_COMMPortName = portName;
+                }
+                //---获取端口序号
+                this.m_COMMPortIndex = Convert.ToInt16(this.m_COMMPortName.Replace("COM", ""), 10);
+                //---设置波特率
+                if (this.usedSerialPort.BaudRate != this.baudRate)
+                {
+                    this.usedSerialPort.BaudRate = this.baudRate;
+                }
+                //---设置数据位
+                if (this.usedSerialPort.DataBits != this.dataBits)
+                {
+                    this.usedSerialPort.DataBits = this.dataBits;
+                }
+                //---设置停止位
+                if (this.usedSerialPort.StopBits != this.stopBits)
+                {
+                    this.usedSerialPort.StopBits = this.stopBits;
+                }
+                //---设置校验位
+                if (this.usedSerialPort.Parity != this.parityBits)
+                {
+                    this.usedSerialPort.Parity = this.parityBits;
+                }
+                //---打开端口
+                try
+                {
+                    //---打开端口
+                    this.usedSerialPort.Open();
+                    //---判断端口打开是否成功
+                    if (this.usedSerialPort.IsOpen)
+                    {
+                        this.m_COMMPortErrMsg += "端口：" + this.usedSerialPort.PortName + "打开成功!\r\n";
+                        //---清空接收缓存区
+                        this.usedSerialPort.DiscardInBuffer();
+                        //---清空发送缓存区
+                        this.usedSerialPort.DiscardOutBuffer();
+                        _return = 0;
+                    }
+                    else
+                    {
+                        this.m_COMMPortErrMsg += "端口：" + this.usedSerialPort.PortName + "打开失败!\r\n";
+                        _return = 3;
+                        goto GoToExit;
+                    }
+                }
+                catch
+                {
+                    this.m_COMMPortErrMsg += "端口：" + this.usedSerialPort.PortName + "端口被其他应用占用，打开失败!\r\n";
+                    _return = 4;
+                    goto GoToExit;
+                }
+                GoToExit:
+                if (msg != null)
+                {
+                    if (_return == 0)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.m_COMMPortErrMsg, Color.Black, false);
+                    }
+                    
+                }
+                //---消息插件弹出
+                if (_return != 0)
+                {
+                    if (this.m_UsedForm != null)
+                    {
+                        MessageBoxPlus.Show(this.m_UsedForm, this.m_COMMPortErrMsg, "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show(this.m_COMMPortErrMsg, "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                if (this.m_UsedForm != null)
+                {
+                    MessageBoxPlus.Show(this.m_UsedForm, "端口名称不合法!\r\n", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("端口名称不合法!\r\n", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return _return;
+        }
 
-		/// <summary>
-		///
-		/// </summary>
-		/// <returns></returns>
-		public override int CloseDevice()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="portName"></param>
+        /// <param name="baudRate"></param>
+        /// <param name="dataBits"></param>
+        /// <param name="stopBits"></param>
+        /// <param name="parityBits"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public override int OpenDevice(string portName, string baudRate, string dataBits, string stopBits, string parityBits, RichTextBox msg = null)
+        {
+            if (!Regex.IsMatch(baudRate, @"^[+-]?/d*[.]?/d*$")||!Regex.IsMatch(dataBits, @"^[+-]?/d*[.]?/d*$"))
+            {
+                return 10;
+            }
+            //---更新波特率
+            this.baudRate= Convert.ToInt32(baudRate);
+            //---更新数据位
+            this.dataBits= Convert.ToInt32(dataBits);
+            //---更新停止位
+            this.stopBits = this.GetStopBits(stopBits);
+            //---更新校验位
+            this.parityBits = this.GetParityBits(parityBits);
+            //---打开设备
+            return this.OpenDevice(portName,msg);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public override int CloseDevice()
 		{
-			return 1;
+            int _return = 0;
+            if ((this.usedSerialPort!=null)&&this.usedSerialPort.IsOpen)
+            {
+                try
+                {
+                    //---响应窗体事件
+                    Application.DoEvents();
+                    this.usedSerialPort.Close();
+                }
+                catch
+                {
+                    _return = 1;
+                    this.m_COMMPortErrMsg = "串口关闭发生异常!\r\n";
+                }
+            }
+			return _return;
 		}
 
 		/// <summary>
@@ -870,7 +1152,8 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int CloseDevice(int portIndex, RichTextBox msg = null)
 		{
-			return 1;
+            string str = "COM" + portIndex.ToString();
+            return this.CloseDevice(str,msg);
 		}
 
 		/// <summary>
@@ -881,7 +1164,23 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int CloseDevice(string portName, RichTextBox msg = null)
 		{
-			return 1;
+            int _return = 2;
+            if ((this.usedSerialPort!=null)&&(this.usedSerialPort.PortName==portName))
+            {
+                _return = this.CloseDevice();
+                if (msg != null)
+                {
+                    if (_return == 0)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "端口关闭成功!\r\n", Color.Black, false);
+                    }
+                    else
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.m_COMMPortErrMsg, Color.Red, false);
+                    }
+                }
+            }
+			return _return;
 		}
 
 		/// <summary>
@@ -890,6 +1189,10 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override bool IsAttached()
 		{
+            if (this.usedSerialPort!=null)
+            {
+                return this.usedSerialPort.IsOpen;
+            }
 			return false;
 		}
 
@@ -900,7 +1203,8 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override bool IsAttached(int portIndex)
 		{
-			return false;
+            string str = "COM" + portIndex.ToString();
+            return this.IsAttached(str);
 		}
 
 		/// <summary>
@@ -910,6 +1214,13 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override bool IsAttached(string portName)
 		{
+            if (this.usedSerialPort!=null)
+            {
+                if (this.usedSerialPort.PortName==portName)
+                {
+                    return this.usedSerialPort.IsOpen;
+                }
+            }
 			return false;
 		}
 
@@ -938,21 +1249,13 @@ namespace COMMPortLib
 		{
 			if (e.NewEvent.ClassPath.ClassName == "__InstanceCreationEvent")
 			{
-				this.m_COMMPortErrMsg = "设备插入！\r\n";
+                //---设备插入
                 this.AddDevice(cbb, msg);
-				if (msg != null)
-				{
-					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.m_COMMPortErrMsg, Color.Black, false);
-				}
 			}
 			else if (e.NewEvent.ClassPath.ClassName == "__InstanceDeletionEvent")
 			{
-				this.m_COMMPortErrMsg = "设备拔出！\r\n";
+                //---设备移除
                 this.RemoveDevice(cbb, msg);
-                if (msg != null)
-				{
-					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.m_COMMPortErrMsg, Color.Red, false);
-				}
 			}
 		}
 

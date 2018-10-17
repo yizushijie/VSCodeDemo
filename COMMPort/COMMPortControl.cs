@@ -175,6 +175,16 @@ namespace COMMPortLib
 				this.usedPort.WatcherPortEventHandler(sender, e, this.comboBox_portName, this.usedMsg);
 			}
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="isEnable"></param>
+		public virtual void ComboBoxPortInit(bool isEnable)
+		{
+			this.comboBox_portName.Enabled = isEnable;
+		}
+
 		#endregion 函数定义
 
 		#region 事件定义
@@ -198,6 +208,9 @@ namespace COMMPortLib
 							this.pictureBox_portState.Tag = 1;
 							btn.Text = "关闭端口";
 							this.pictureBox_portState.Image = Properties.Resources.open;
+							//---控件不使能
+							this.ComboBoxPortInit(false);
+							//---消息显示
 							if (this.usedMsg != null)
 							{
 								RichTextBoxPlus.AppendTextInfoTopWithDataTime(this.usedMsg, "端口打开成功!\r\n", Color.Black, false);
@@ -222,6 +235,9 @@ namespace COMMPortLib
 							this.usedPort.CloseDevice();
 							btn.Text = "打开端口";
 							this.pictureBox_portState.Image = Properties.Resources.lost;
+							//---控件不使能
+							this.ComboBoxPortInit(true);
+							//---消息显示
 							if (this.usedMsg != null)
 							{
 								RichTextBoxPlus.AppendTextInfoTopWithDataTime(this.usedMsg, "端口关闭成功!\r\n", Color.Black, false);

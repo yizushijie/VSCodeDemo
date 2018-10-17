@@ -130,10 +130,23 @@
 			// comboBox_portBaudRate
 			// 
 			this.comboBox_portBaudRate.FormattingEnabled = true;
+			this.comboBox_portBaudRate.Items.AddRange(new object[] {
+            "自定义",
+            "115200",
+            "76800",
+            "57600",
+            "38400",
+            "19200",
+            "14400",
+            "9600",
+            "4800",
+            "2400",
+            "1200"});
 			this.comboBox_portBaudRate.Location = new System.Drawing.Point(56, 40);
 			this.comboBox_portBaudRate.Name = "comboBox_portBaudRate";
 			this.comboBox_portBaudRate.Size = new System.Drawing.Size(83, 20);
 			this.comboBox_portBaudRate.TabIndex = 4;
+			this.comboBox_portBaudRate.Text = "115200";
 			// 
 			// label_portDataBits
 			// 
@@ -147,10 +160,17 @@
 			// comboBox_portDataBits
 			// 
 			this.comboBox_portDataBits.FormattingEnabled = true;
+			this.comboBox_portDataBits.Items.AddRange(new object[] {
+            "9",
+            "8",
+            "7",
+            "6",
+            "5"});
 			this.comboBox_portDataBits.Location = new System.Drawing.Point(56, 70);
 			this.comboBox_portDataBits.Name = "comboBox_portDataBits";
 			this.comboBox_portDataBits.Size = new System.Drawing.Size(83, 20);
 			this.comboBox_portDataBits.TabIndex = 6;
+			this.comboBox_portDataBits.Text = "8";
 			// 
 			// label_portStopBits
 			// 
@@ -164,10 +184,15 @@
 			// comboBox_portStopBits
 			// 
 			this.comboBox_portStopBits.FormattingEnabled = true;
+			this.comboBox_portStopBits.Items.AddRange(new object[] {
+            "1",
+            "1.5",
+            "2"});
 			this.comboBox_portStopBits.Location = new System.Drawing.Point(56, 100);
 			this.comboBox_portStopBits.Name = "comboBox_portStopBits";
 			this.comboBox_portStopBits.Size = new System.Drawing.Size(83, 20);
 			this.comboBox_portStopBits.TabIndex = 8;
+			this.comboBox_portStopBits.Text = "1";
 			// 
 			// label_portParityBits
 			// 
@@ -181,10 +206,15 @@
 			// comboBox_portParityBits
 			// 
 			this.comboBox_portParityBits.FormattingEnabled = true;
+			this.comboBox_portParityBits.Items.AddRange(new object[] {
+            "无",
+            "奇校验",
+            "偶校验"});
 			this.comboBox_portParityBits.Location = new System.Drawing.Point(56, 130);
 			this.comboBox_portParityBits.Name = "comboBox_portParityBits";
 			this.comboBox_portParityBits.Size = new System.Drawing.Size(83, 20);
 			this.comboBox_portParityBits.TabIndex = 10;
+			this.comboBox_portParityBits.Text = "无";
 			// 
 			// SerialPortControl
 			// 

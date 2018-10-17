@@ -927,11 +927,22 @@ namespace COMMPortLib
 			return 1;
 		}
 
-		/// <summary>
-		///
-		/// </summary>
-		/// <returns></returns>
-		public virtual int CloseDevice()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="portName"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public virtual int OpenDevice(string portName,string baudRate,string dataBits,string stopBits,string parityBits, RichTextBox msg = null)
+        {
+            return 1;
+        }
+        
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public virtual int CloseDevice()
 		{
 			return 1;
 		}
