@@ -104,6 +104,10 @@
       <Project>{F066762D-819B-43EF-8D46-AA3AC7CC1DDF}</Project>
       <Name>COMMPort</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ControlPlus\ControlPlus.csproj">
+      <Project>{81C0BEB1-85E3-4C71-A1D4-B0A40B225F0E}</Project>
+      <Name>ControlPlus</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RichTextBoxPlus\RichTextBoxPlus.csproj">
       <Project>{FC2D572C-5CEE-40DA-8C1B-583E693602AA}</Project>
       <Name>RichTextBoxPlus</Name>

@@ -50,12 +50,12 @@
 			this.panel_PortName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.panel_PortName.Location = new System.Drawing.Point(3, 17);
 			this.panel_PortName.Name = "panel_PortName";
-			this.panel_PortName.Size = new System.Drawing.Size(254, 44);
+			this.panel_PortName.Size = new System.Drawing.Size(254, 32);
 			this.panel_PortName.TabIndex = 1;
 			// 
 			// button_openDevice
 			// 
-			this.button_openDevice.Location = new System.Drawing.Point(175, 8);
+			this.button_openDevice.Location = new System.Drawing.Point(175, 2);
 			this.button_openDevice.Name = "button_openDevice";
 			this.button_openDevice.Size = new System.Drawing.Size(74, 25);
 			this.button_openDevice.TabIndex = 2;
@@ -65,7 +65,7 @@
 			// label_portName
 			// 
 			this.label_portName.AutoSize = true;
-			this.label_portName.Location = new System.Drawing.Point(3, 14);
+			this.label_portName.Location = new System.Drawing.Point(3, 8);
 			this.label_portName.Name = "label_portName";
 			this.label_portName.Size = new System.Drawing.Size(47, 12);
 			this.label_portName.TabIndex = 1;
@@ -74,7 +74,7 @@
 			// comboBox_portName
 			// 
 			this.comboBox_portName.FormattingEnabled = true;
-			this.comboBox_portName.Location = new System.Drawing.Point(56, 11);
+			this.comboBox_portName.Location = new System.Drawing.Point(56, 3);
 			this.comboBox_portName.Name = "comboBox_portName";
 			this.comboBox_portName.Size = new System.Drawing.Size(83, 20);
 			this.comboBox_portName.TabIndex = 0;
@@ -82,11 +82,11 @@
 			// groupBox_portName
 			// 
 			this.groupBox_portName.Controls.Add(this.panel_PortName);
-			this.groupBox_portName.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.groupBox_portName.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox_portName.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.groupBox_portName.Location = new System.Drawing.Point(0, 8);
+			this.groupBox_portName.Location = new System.Drawing.Point(0, 2);
 			this.groupBox_portName.Name = "groupBox_portName";
-			this.groupBox_portName.Size = new System.Drawing.Size(260, 64);
+			this.groupBox_portName.Size = new System.Drawing.Size(260, 52);
 			this.groupBox_portName.TabIndex = 5;
 			this.groupBox_portName.TabStop = false;
 			this.groupBox_portName.Text = "通信端口";
@@ -94,7 +94,7 @@
 			// pictureBox_portState
 			// 
 			this.pictureBox_portState.Image = global::COMMPortLib.Properties.Resources.lost;
-			this.pictureBox_portState.Location = new System.Drawing.Point(145, 8);
+			this.pictureBox_portState.Location = new System.Drawing.Point(145, 2);
 			this.pictureBox_portState.Name = "pictureBox_portState";
 			this.pictureBox_portState.Size = new System.Drawing.Size(25, 25);
 			this.pictureBox_portState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -107,8 +107,10 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.groupBox_portName);
+			this.Margin = new System.Windows.Forms.Padding(2);
 			this.Name = "COMMPortControl";
-			this.Size = new System.Drawing.Size(260, 72);
+			this.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
+			this.Size = new System.Drawing.Size(260, 54);
 			this.panel_PortName.ResumeLayout(false);
 			this.panel_PortName.PerformLayout();
 			this.groupBox_portName.ResumeLayout(false);
