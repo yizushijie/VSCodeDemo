@@ -41,14 +41,14 @@ namespace ControlPlusLib.LedButton
 			}
 		}
 
-		#endregion
+        #endregion
 
-		#region 构造函数
+        #region 构造函数
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public LedButtonControl()
+        /// <summary>
+        /// 
+        /// </summary>
+        public LedButtonControl()
 		{
 			InitializeComponent();
 

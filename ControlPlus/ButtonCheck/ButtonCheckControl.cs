@@ -24,12 +24,65 @@ namespace ControlPlusLib
 	/// </summary>
     public partial class ButtonCheckControl : UserControl
     {
-		#region 构造函数
+        #region 变量定义
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public ButtonCheckControl()
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool isCheck = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private CheckStyle checkStyle = CheckStyle.style1;
+
+
+        #endregion
+
+        #region 属性定义
+
+        /// <summary>
+        /// 是否选中
+        /// </summary>
+        public bool Checked
+        {
+            get
+            {
+                return this.isCheck;
+            }
+            set
+            {
+                this.isCheck = value;
+                this.Invalidate();
+            }
+
+        }
+
+        /// <summary>
+        /// 样式
+        /// </summary>
+        public CheckStyle CheckStylePlus
+        {
+            get
+            {
+                return this.checkStyle;
+            }
+            set
+            {
+                this.checkStyle = value; this.Invalidate();
+            }
+
+        }
+        #endregion
+
+
+
+        #region 构造函数
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ButtonCheckControl()
 		{
 			InitializeComponent();
 
@@ -53,58 +106,7 @@ namespace ControlPlusLib
 
 		#endregion
 
-		#region 变量定义
-
-		/// <summary>
-		/// 
-		/// </summary>
-		private bool isCheck = false;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		private CheckStyle checkStyle = CheckStyle.style1;
-
-
-		#endregion
-
-		#region 属性定义
-
-		/// <summary>
-		/// 是否选中
-		/// </summary>
-		public bool Checked
-		{
-			get
-			{
-				return this.isCheck;
-			}
-			set
-			{
-				this.isCheck = value;
-				this.Invalidate();
-			}
-			
-		}
-
-		/// <summary>
-		/// 样式
-		/// </summary>
-		public CheckStyle CheckStylePlus
-		{
-			get
-			{
-				return this.checkStyle;
-			}
-			set
-			{
-				this.checkStyle = value; this.Invalidate();
-			}
-			
-		}
-		#endregion
-
-
+		
 		#region 重载函数
 
 		/// <summary>

@@ -20,10 +20,13 @@ namespace TestDemo
 			this.usedPort = new SerialCOMMPort();
 			this.commPortControl1.Init(this,this.usedPort, this.richTextBox1);
 
-			//this.button1.Click += new EventHandler(this.button_Click);
-		}
 
-		private void button_Click(object sender, EventArgs e)
+             this.ledControl1.AddClickEvent = new EventHandler(buttonCheckControl_Click);
+
+            //this.button1.Click += new EventHandler(this.button_Click);
+        }
+
+        private void button_Click(object sender, EventArgs e)
 		{
 			Button btn = (Button)sender;
 			btn.Enabled = false;
@@ -38,5 +41,19 @@ namespace TestDemo
 			}
 			btn.Enabled = true;
 		}
-	}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonCheckControl_Click(object sender, EventArgs e)
+        {
+
+            if (this.ledControl1.Checked)
+            {
+                this.richTextBox1.Text += "LED打开。\r\n";
+            }
+        }
+    }
 }

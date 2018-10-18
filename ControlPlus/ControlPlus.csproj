@@ -67,6 +67,12 @@
     <Compile Include="LedButton\LedButtonControl.Designer.cs">
       <DependentUpon>LedButtonControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="LED\LedControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LED\LedControl.Designer.cs">
+      <DependentUpon>LedControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ButtonCheck\ButtonCheckControl.resx">
       <DependentUpon>ButtonCheckControl.cs</DependentUpon>
@@ -76,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LedButton\LedButtonControl.resx">
       <DependentUpon>LedButtonControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LED\LedControl.resx">
+      <DependentUpon>LedControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
