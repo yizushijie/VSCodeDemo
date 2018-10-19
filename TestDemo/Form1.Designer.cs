@@ -28,28 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.commPortControl1 = new COMMPortLib.COMMPortControl();
+            this.components = new System.ComponentModel.Container();
             this.clockRateControl1 = new ControlPlusLib.ClockRate.ClockRateControl();
             this.ledControl1 = new ControlPlusLib.LED.LedControl();
+            this.commPortControl1 = new COMMPortLib.COMMPortControl();
+            this.richTextBoxControl1 = new RichTextBoxPlusLib.RichTextBoxEx();
             this.SuspendLayout();
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(0, 228);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(441, 159);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
-            // 
-            // commPortControl1
-            // 
-            this.commPortControl1.Location = new System.Drawing.Point(0, 11);
-            this.commPortControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.commPortControl1.Name = "commPortControl1";
-            this.commPortControl1.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.commPortControl1.Size = new System.Drawing.Size(260, 54);
-            this.commPortControl1.TabIndex = 4;
             // 
             // clockRateControl1
             // 
@@ -62,6 +46,7 @@
             // ledControl1
             // 
             this.ledControl1.Checked = false;
+            this.ledControl1.CheckStylePlus = ControlPlusLib.CheckStyle.style1;
             this.ledControl1.LedColor = System.Drawing.Color.Black;
             this.ledControl1.Location = new System.Drawing.Point(460, 102);
             this.ledControl1.MaximumSize = new System.Drawing.Size(46, 49);
@@ -70,15 +55,32 @@
             this.ledControl1.Size = new System.Drawing.Size(46, 49);
             this.ledControl1.TabIndex = 5;
             // 
+            // commPortControl1
+            // 
+            this.commPortControl1.Location = new System.Drawing.Point(0, 11);
+            this.commPortControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.commPortControl1.Name = "commPortControl1";
+            this.commPortControl1.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.commPortControl1.Size = new System.Drawing.Size(260, 54);
+            this.commPortControl1.TabIndex = 4;
+            // 
+            // richTextBoxControl1
+            // 
+            this.richTextBoxControl1.Location = new System.Drawing.Point(12, 231);
+            this.richTextBoxControl1.Name = "richTextBoxControl1";
+            this.richTextBoxControl1.Size = new System.Drawing.Size(353, 141);
+            this.richTextBoxControl1.TabIndex = 6;
+            this.richTextBoxControl1.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.richTextBoxControl1);
             this.Controls.Add(this.ledControl1);
             this.Controls.Add(this.commPortControl1);
             this.Controls.Add(this.clockRateControl1);
-            this.Controls.Add(this.richTextBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -87,10 +89,10 @@
 		}
 
 		#endregion
-        private System.Windows.Forms.RichTextBox richTextBox1;
 		private ControlPlusLib.ClockRate.ClockRateControl clockRateControl1;
 		private COMMPortLib.COMMPortControl commPortControl1;
         private ControlPlusLib.LED.LedControl ledControl1;
+        private RichTextBoxPlusLib.RichTextBoxEx richTextBoxControl1;
     }
 }
 

@@ -21,10 +21,19 @@ namespace SerialPortDemo
 
         #region 构造函数
 
-        #endregion
+        /// <summary>
+        /// 
+        /// </summary>
         public SerialPortForm()
         {
             InitializeComponent();
+
+            //---限定最小尺寸
+            this.MinimumSize = this.Size;
         }
+
+        #endregion
+
+
     }
 }

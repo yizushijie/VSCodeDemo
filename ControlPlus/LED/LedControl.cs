@@ -15,10 +15,11 @@ namespace ControlPlusLib.LED
         #region 变量定义
 
         /// <summary>
-        /// 判断是否注册了点击事件
+        /// 用户使用的点击事件
         /// </summary>
-        private bool isAddClickEven = false;
-        
+        public event EventHandler UserClick;
+    
+
         #endregion
 
 
@@ -40,7 +41,7 @@ namespace ControlPlusLib.LED
         }
 
         /// <summary>
-        /// 
+        /// 状态
         /// </summary>
         public virtual bool Checked
         {
@@ -54,36 +55,21 @@ namespace ControlPlusLib.LED
             }
         }
 
-
         /// <summary>
-        /// 添加点击事件
+        /// 样式
         /// </summary>
-        public virtual EventHandler AddClickEvent
+        public virtual CheckStyle CheckStylePlus
         {
+            get
+            {
+                return this.buttonCheckControl_led.CheckStylePlus;
+            }
             set
             {
-                this.buttonCheckControl_led.Click += value;
-                this.isAddClickEven = true;
+                this.buttonCheckControl_led.CheckStylePlus = value;
+                this.Invalidate();
             }
         }
-
-        /// <summary>
-        /// 移除点击事件
-        /// </summary>
-
-        public virtual EventHandler RemoveClickEvent
-        {
-            set
-            {
-                if (this.isAddClickEven)
-                {
-                    this.buttonCheckControl_led.Click -= value;
-                    this.isAddClickEven = false;
-                }
-                
-            }
-        }
-
 
         #endregion
 
@@ -105,8 +91,6 @@ namespace ControlPlusLib.LED
 
         #region 事件定义
 
-        #endregion
-
         /// <summary>
         /// 
         /// </summary>
@@ -116,7 +100,7 @@ namespace ControlPlusLib.LED
         {
 
             ButtonCheckControl bcc = (ButtonCheckControl)sender;
-            switch(bcc.Name)
+            switch (bcc.Name)
             {
                 case "buttonCheckControl_led":
                     if (this.buttonCheckControl_led.Checked)
@@ -127,11 +111,17 @@ namespace ControlPlusLib.LED
                     {
                         this.ledButtonControl_led.LedColor = Color.Black;
                     }
+                    //---用户事件
+                    if (this.UserClick != null)
+                    {
+                        this.UserClick(sender, e);
+                    }
                     break;
                 default:
                     break;
             }
         }
 
+        #endregion
     }
 }

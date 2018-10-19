@@ -69,7 +69,8 @@ namespace ControlPlusLib
             }
             set
             {
-                this.checkStyle = value; this.Invalidate();
+                this.checkStyle = value;
+                this.Invalidate();
             }
 
         }

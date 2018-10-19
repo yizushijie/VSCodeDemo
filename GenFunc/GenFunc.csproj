@@ -35,16 +35,19 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GenFunc_CRC.cs" />
-    <Compile Include="GenFunc_Equal.cs" />
-    <Compile Include="GenFunc_Memset.cs" />
-    <Compile Include="GenFunc_Package.cs" />
+    <Compile Include="GenFuncMenu.cs" />
+    <Compile Include="GenFuncCRC.cs" />
+    <Compile Include="GenFuncEqual.cs" />
+    <Compile Include="GenFuncMemset.cs" />
+    <Compile Include="GenFuncPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
