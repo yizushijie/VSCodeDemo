@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ControlPlusLib.ClockRate
+namespace UserControlPlusLib.ClockRate
 {
 	public partial class ClockRateControl : UserControl
 	{

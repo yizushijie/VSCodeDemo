@@ -108,6 +108,10 @@
       <Project>{FC2D572C-5CEE-40DA-8C1B-583E693602AA}</Project>
       <Name>RichTextBoxPlus</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UserControlPlus\UserControlPlus.csproj">
+      <Project>{81c0beb1-85e3-4c71-a1d4-b0a40b225f0e}</Project>
+      <Name>UserControlPlus</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

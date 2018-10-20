@@ -1,4 +1,4 @@
-﻿namespace ControlPlusLib.ClockRate
+﻿namespace UserControlPlusLib.ClockRate
 {
 	partial class ClockRateControl
 	{
@@ -38,10 +38,10 @@
             this.label_clockName = new System.Windows.Forms.Label();
             this.groupBox_portName = new System.Windows.Forms.GroupBox();
             this.panel_PortName = new System.Windows.Forms.Panel();
-            this.buttonCheckControl_Channel3 = new ControlPlusLib.ButtonCheckControl();
-            this.buttonCheckControl_Channel2 = new ControlPlusLib.ButtonCheckControl();
-            this.buttonCheckControl_Channel1 = new ControlPlusLib.ButtonCheckControl();
-            this.buttonCheckControl_Channel4 = new ControlPlusLib.ButtonCheckControl();
+            this.buttonCheckControl_Channel3 = new UserControlPlusLib.ButtonCheckControl();
+            this.buttonCheckControl_Channel2 = new UserControlPlusLib.ButtonCheckControl();
+            this.buttonCheckControl_Channel1 = new UserControlPlusLib.ButtonCheckControl();
+            this.buttonCheckControl_Channel4 = new UserControlPlusLib.ButtonCheckControl();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox_portName.SuspendLayout();
             this.panel_PortName.SuspendLayout();
@@ -172,7 +172,7 @@
             // 
             this.buttonCheckControl_Channel3.BackColor = System.Drawing.Color.Transparent;
             this.buttonCheckControl_Channel3.Checked = false;
-            this.buttonCheckControl_Channel3.CheckStylePlus = ControlPlusLib.CheckStyle.style1;
+            this.buttonCheckControl_Channel3.CheckStylePlus = UserControlPlusLib.CheckStyle.style1;
             this.buttonCheckControl_Channel3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonCheckControl_Channel3.Location = new System.Drawing.Point(105, 48);
             this.buttonCheckControl_Channel3.Margin = new System.Windows.Forms.Padding(2);
@@ -184,7 +184,7 @@
             // 
             this.buttonCheckControl_Channel2.BackColor = System.Drawing.Color.Transparent;
             this.buttonCheckControl_Channel2.Checked = false;
-            this.buttonCheckControl_Channel2.CheckStylePlus = ControlPlusLib.CheckStyle.style1;
+            this.buttonCheckControl_Channel2.CheckStylePlus = UserControlPlusLib.CheckStyle.style1;
             this.buttonCheckControl_Channel2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonCheckControl_Channel2.Location = new System.Drawing.Point(55, 48);
             this.buttonCheckControl_Channel2.Margin = new System.Windows.Forms.Padding(2);
@@ -196,7 +196,7 @@
             // 
             this.buttonCheckControl_Channel1.BackColor = System.Drawing.Color.Transparent;
             this.buttonCheckControl_Channel1.Checked = false;
-            this.buttonCheckControl_Channel1.CheckStylePlus = ControlPlusLib.CheckStyle.style1;
+            this.buttonCheckControl_Channel1.CheckStylePlus = UserControlPlusLib.CheckStyle.style1;
             this.buttonCheckControl_Channel1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonCheckControl_Channel1.Location = new System.Drawing.Point(5, 48);
             this.buttonCheckControl_Channel1.Margin = new System.Windows.Forms.Padding(2);
@@ -209,7 +209,7 @@
             // 
             this.buttonCheckControl_Channel4.BackColor = System.Drawing.Color.Transparent;
             this.buttonCheckControl_Channel4.Checked = false;
-            this.buttonCheckControl_Channel4.CheckStylePlus = ControlPlusLib.CheckStyle.style1;
+            this.buttonCheckControl_Channel4.CheckStylePlus = UserControlPlusLib.CheckStyle.style1;
             this.buttonCheckControl_Channel4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonCheckControl_Channel4.Location = new System.Drawing.Point(155, 48);
             this.buttonCheckControl_Channel4.Margin = new System.Windows.Forms.Padding(2);

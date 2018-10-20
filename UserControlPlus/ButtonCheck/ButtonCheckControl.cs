@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ControlPlusLib
+namespace UserControlPlusLib
 {
     public enum CheckStyle
     {
@@ -121,33 +121,33 @@ namespace ControlPlusLib
 
 			if (checkStyle == CheckStyle.style1)
 			{
-				bitMapOn = global::ControlPlusLib.Properties.Resources.btncheckon1;
-				bitMapOff = global::ControlPlusLib.Properties.Resources.btncheckoff1;
+				bitMapOn = global::UserControlPlusLib.Properties.Resources.btncheckon1;
+				bitMapOff = global::UserControlPlusLib.Properties.Resources.btncheckoff1;
 			}
 			else if (checkStyle == CheckStyle.style2)
 			{
-				bitMapOn = global::ControlPlusLib.Properties.Resources.btncheckon2;
-				bitMapOff = global::ControlPlusLib.Properties.Resources.btncheckoff2;
+				bitMapOn = global::UserControlPlusLib.Properties.Resources.btncheckon2;
+				bitMapOff = global::UserControlPlusLib.Properties.Resources.btncheckoff2;
 			}
 			else if (checkStyle == CheckStyle.style3)
 			{
-				bitMapOn = global::ControlPlusLib.Properties.Resources.btncheckon3;
-				bitMapOff = global::ControlPlusLib.Properties.Resources.btncheckoff3;
+				bitMapOn = global::UserControlPlusLib.Properties.Resources.btncheckon3;
+				bitMapOff = global::UserControlPlusLib.Properties.Resources.btncheckoff3;
 			}
 			else if (checkStyle == CheckStyle.style4)
 			{
-				bitMapOn = global::ControlPlusLib.Properties.Resources.btncheckon4;
-				bitMapOff = global::ControlPlusLib.Properties.Resources.btncheckoff4;
+				bitMapOn = global::UserControlPlusLib.Properties.Resources.btncheckon4;
+				bitMapOff = global::UserControlPlusLib.Properties.Resources.btncheckoff4;
 			}
 			else if (checkStyle == CheckStyle.style5)
 			{
-				bitMapOn = global::ControlPlusLib.Properties.Resources.btncheckon5;
-				bitMapOff = global::ControlPlusLib.Properties.Resources.btncheckoff5;
+				bitMapOn = global::UserControlPlusLib.Properties.Resources.btncheckon5;
+				bitMapOff = global::UserControlPlusLib.Properties.Resources.btncheckoff5;
 			}
 			else if (checkStyle == CheckStyle.style6)
 			{
-				bitMapOn = global::ControlPlusLib.Properties.Resources.btncheckon6;
-				bitMapOff = global::ControlPlusLib.Properties.Resources.btncheckoff6;
+				bitMapOn = global::UserControlPlusLib.Properties.Resources.btncheckon6;
+				bitMapOff = global::UserControlPlusLib.Properties.Resources.btncheckoff6;
 			}
 
 			Graphics g = e.Graphics;

@@ -29,8 +29,8 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            this.clockRateControl1 = new ControlPlusLib.ClockRate.ClockRateControl();
-            this.ledControl1 = new ControlPlusLib.LED.LedControl();
+            this.clockRateControl1 = new UserControlPlusLib.ClockRate.ClockRateControl();
+            this.ledControl1 = new UserControlPlusLib.LED.LedControl();
             this.commPortControl1 = new COMMPortLib.COMMPortControl();
             this.richTextBoxControl1 = new RichTextBoxPlusLib.RichTextBoxEx();
             this.SuspendLayout();
@@ -46,7 +46,7 @@
             // ledControl1
             // 
             this.ledControl1.Checked = false;
-            this.ledControl1.CheckStylePlus = ControlPlusLib.CheckStyle.style1;
+            this.ledControl1.CheckStylePlus = UserControlPlusLib.CheckStyle.style1;
             this.ledControl1.LedColor = System.Drawing.Color.Black;
             this.ledControl1.Location = new System.Drawing.Point(460, 102);
             this.ledControl1.MaximumSize = new System.Drawing.Size(46, 49);
@@ -89,9 +89,9 @@
 		}
 
 		#endregion
-		private ControlPlusLib.ClockRate.ClockRateControl clockRateControl1;
+		private UserControlPlusLib.ClockRate.ClockRateControl clockRateControl1;
 		private COMMPortLib.COMMPortControl commPortControl1;
-        private ControlPlusLib.LED.LedControl ledControl1;
+        private UserControlPlusLib.LED.LedControl ledControl1;
         private RichTextBoxPlusLib.RichTextBoxEx richTextBoxControl1;
     }
 }

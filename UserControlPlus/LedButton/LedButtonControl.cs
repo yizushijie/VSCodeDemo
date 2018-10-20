@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 
-namespace ControlPlusLib.LedButton
+namespace UserControlPlusLib.LedButton
 {
 
 	/// <summary>

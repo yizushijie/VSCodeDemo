@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ControlPlusLib.LED
+namespace UserControlPlusLib.LED
 {
     public partial class LedControl : UserControl
     {

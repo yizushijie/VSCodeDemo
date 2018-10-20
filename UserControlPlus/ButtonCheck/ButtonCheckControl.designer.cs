@@ -1,4 +1,4 @@
-﻿namespace ControlPlusLib
+﻿namespace UserControlPlusLib
 {
     partial class ButtonCheckControl
     {

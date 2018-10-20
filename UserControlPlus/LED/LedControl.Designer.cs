@@ -1,4 +1,4 @@
-﻿namespace ControlPlusLib.LED
+﻿namespace UserControlPlusLib.LED
 {
     partial class LedControl
     {
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ledButtonControl_led = new ControlPlusLib.LedButton.LedButtonControl();
-            this.buttonCheckControl_led = new ControlPlusLib.ButtonCheckControl();
+            this.ledButtonControl_led = new UserControlPlusLib.LedButton.LedButtonControl();
+            this.buttonCheckControl_led = new UserControlPlusLib.ButtonCheckControl();
             this.SuspendLayout();
             // 
             // ledButtonControl_led
@@ -47,7 +47,7 @@
             // 
             this.buttonCheckControl_led.BackColor = System.Drawing.Color.Transparent;
             this.buttonCheckControl_led.Checked = false;
-            this.buttonCheckControl_led.CheckStylePlus = ControlPlusLib.CheckStyle.style1;
+            this.buttonCheckControl_led.CheckStylePlus = UserControlPlusLib.CheckStyle.style1;
             this.buttonCheckControl_led.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonCheckControl_led.Location = new System.Drawing.Point(0, 31);
             this.buttonCheckControl_led.Margin = new System.Windows.Forms.Padding(2);
