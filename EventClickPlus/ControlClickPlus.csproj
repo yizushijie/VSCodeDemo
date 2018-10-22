@@ -7,8 +7,8 @@
     <ProjectGuid>{1E2A865B-3E1D-425C-8498-8A1627DACD25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EventClickPlusLib</RootNamespace>
-    <AssemblyName>EventClickPlus</AssemblyName>
+    <RootNamespace>ControlClickPlusLib</RootNamespace>
+    <AssemblyName>ControlClickPlus</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

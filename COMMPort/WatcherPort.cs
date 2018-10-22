@@ -6,25 +6,33 @@ namespace COMMPortLib
 {
 	public partial class COMMPort
 	{
-		/// <summary>
-		/// USB插入事件监视
-		/// </summary>
-		private ManagementEventWatcher insertWatcher = null;
+        #region 变量定义
+        /// <summary>
+        /// USB插入事件监视
+        /// </summary>
+        private ManagementEventWatcher insertWatcher = null;
 
-		/// <summary>
-		/// USB拔出事件监视
-		/// </summary>
-		private ManagementEventWatcher removeWatcher = null;
+        /// <summary>
+        /// USB拔出事件监视
+        /// </summary>
+        private ManagementEventWatcher removeWatcher = null;
+        
+        #endregion
 
-		#region 函数定义
+        #region 属性定义
 
-		/// <summary>
-		/// 添加USB事件监视器
-		/// </summary>
-		/// <param name="usbInsertHandler">USB插入事件处理器</param>
-		/// <param name="usbRemoveHandler">USB拔出事件处理器</param>
-		/// <param name="withinInterval">发送通知允许的滞后时间</param>
-		public virtual Boolean AddWatcherPortEvent(EventArrivedEventHandler usbInsertHandler, EventArrivedEventHandler usbRemoveHandler, TimeSpan withinInterval)
+
+        #endregion
+
+        #region 函数定义
+
+        /// <summary>
+        /// 添加USB事件监视器
+        /// </summary>
+        /// <param name="usbInsertHandler">USB插入事件处理器</param>
+        /// <param name="usbRemoveHandler">USB拔出事件处理器</param>
+        /// <param name="withinInterval">发送通知允许的滞后时间</param>
+        public virtual Boolean AddWatcherPortEvent(EventArrivedEventHandler usbInsertHandler, EventArrivedEventHandler usbRemoveHandler, TimeSpan withinInterval)
 		{
 			try
 			{

@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckedListBoxPlus", "Check
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserControlPlus", "UserControlPlus\UserControlPlus.csproj", "{81C0BEB1-85E3-4C71-A1D4-B0A40B225F0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventClickPlus", "EventClickPlus\EventClickPlus.csproj", "{1E2A865B-3E1D-425C-8498-8A1627DACD25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlClickPlus", "EventClickPlus\ControlClickPlus.csproj", "{1E2A865B-3E1D-425C-8498-8A1627DACD25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

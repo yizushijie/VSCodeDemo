@@ -83,6 +83,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GenFunc\GenFunc.csproj">
+      <Project>{167D490D-D904-4196-8AA3-54AB9A2B6B11}</Project>
+      <Name>GenFunc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MessageBoxPlus\MessageBoxPlus.csproj">
       <Project>{E54A51A6-A054-4F21-AC22-A827B5EF4D36}</Project>
       <Name>MessageBoxPlus</Name>

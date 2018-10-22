@@ -36,7 +36,7 @@
             this.richTextBoxEx1 = new RichTextBoxPlusLib.RichTextBoxEx();
             this.groupBox_rx = new System.Windows.Forms.GroupBox();
             this.richTextBoxEx_rx = new RichTextBoxPlusLib.RichTextBoxEx();
-            this.serialPortControl1 = new COMMPortLib.SerialPortControl();
+            this.serialPortControl = new COMMPortLib.SerialPortControl();
             this.tabControl_FuncMenu.SuspendLayout();
             this.tabPage_SerialPort.SuspendLayout();
             this.panel_serialPort.SuspendLayout();
@@ -72,7 +72,7 @@
             this.panel_serialPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel_serialPort.Controls.Add(this.groupBox_tx);
             this.panel_serialPort.Controls.Add(this.groupBox_rx);
-            this.panel_serialPort.Controls.Add(this.serialPortControl1);
+            this.panel_serialPort.Controls.Add(this.serialPortControl);
             this.panel_serialPort.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_serialPort.Location = new System.Drawing.Point(0, 0);
             this.panel_serialPort.Margin = new System.Windows.Forms.Padding(2);
@@ -118,14 +118,14 @@
             this.richTextBoxEx_rx.TabIndex = 0;
             this.richTextBoxEx_rx.Text = "";
             // 
-            // serialPortControl1
+            // serialPortControl
             // 
-            this.serialPortControl1.Location = new System.Drawing.Point(547, 1);
-            this.serialPortControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.serialPortControl1.Name = "serialPortControl1";
-            this.serialPortControl1.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.serialPortControl1.Size = new System.Drawing.Size(157, 191);
-            this.serialPortControl1.TabIndex = 0;
+            this.serialPortControl.Location = new System.Drawing.Point(547, 1);
+            this.serialPortControl.Margin = new System.Windows.Forms.Padding(2);
+            this.serialPortControl.Name = "serialPortControl";
+            this.serialPortControl.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.serialPortControl.Size = new System.Drawing.Size(157, 191);
+            this.serialPortControl.TabIndex = 0;
             // 
             // SerialPortForm
             // 
@@ -135,6 +135,7 @@
             this.Controls.Add(this.tabControl_FuncMenu);
             this.Name = "SerialPortForm";
             this.Text = "调试助手";
+            this.Load += new System.EventHandler(this.SerialPortForm_Load);
             this.tabControl_FuncMenu.ResumeLayout(false);
             this.tabPage_SerialPort.ResumeLayout(false);
             this.panel_serialPort.ResumeLayout(false);
@@ -149,7 +150,7 @@
         private System.Windows.Forms.TabControl tabControl_FuncMenu;
         private System.Windows.Forms.TabPage tabPage_SerialPort;
         private System.Windows.Forms.Panel panel_serialPort;
-        private COMMPortLib.SerialPortControl serialPortControl1;
+        private COMMPortLib.SerialPortControl serialPortControl;
         private System.Windows.Forms.GroupBox groupBox_tx;
         private RichTextBoxPlusLib.RichTextBoxEx richTextBoxEx1;
         private System.Windows.Forms.GroupBox groupBox_rx;

@@ -1,8 +1,11 @@
-﻿using MessageBoxPlusLib;
+﻿using GenFuncLib;
+using MessageBoxPlusLib;
 using RichTextBoxPlusLib;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO.Ports;
+using System.Linq;
 using System.Management;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -81,7 +84,11 @@ namespace COMMPortLib
 			{
 				return base.m_COMMDevices;
 			}
-		}
+            set
+            {
+                base.m_COMMDevices = value;
+            }
+        }
 
 		/// <summary>
 		/// 工作状态，0---空闲；1---忙；2---错误
@@ -129,6 +136,21 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		public override COMMData m_COMMPortWriteData
+		{
+			get
+			{
+				return base.m_COMMPortWriteData;
+			}
+			set
+			{
+				base.m_COMMPortWriteData = value;
+			}
+		}
+
+		/// <summary>
 		/// 当前端口接收数据缓存区的大小
 		/// </summary>
 		public override int m_COMMPortReadBufferSize
@@ -159,6 +181,21 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		public override COMMData m_COMMPortReadData
+		{
+			get
+			{
+				return base.m_COMMPortReadData;
+			}
+			set
+			{
+				base.m_COMMPortReadData = value;
+			}
+		}
+
+		/// <summary>
 		/// 耗时时间
 		/// </summary>
 		public override TimeSpan m_UsedTime
@@ -166,6 +203,10 @@ namespace COMMPortLib
 			get
 			{
 				return base.m_UsedTime;
+			}
+			set
+			{
+				base.m_UsedTime = value;
 			}
 		}
 
@@ -251,14 +292,15 @@ namespace COMMPortLib
 			}
 		}
 
-		#endregion 属性定义
+        
+        #endregion 属性定义
 
-		#region 构造函数
+        #region 构造函数
 
-		/// <summary>
-		///
-		/// </summary>
-		public SerialCOMMPort() : base()
+        /// <summary>
+        ///
+        /// </summary>
+        public SerialCOMMPort() : base()
 		{
 		}
 
@@ -545,10 +587,6 @@ namespace COMMPortLib
         #endregion 构造函数
 
         #region 函数定义
-
-
-        #endregion
-
         /// <summary>
 		/// 获取校验位信息
 		/// </summary>
@@ -616,6 +654,609 @@ namespace COMMPortLib
             return _return;
         }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="deviceID"></param>
+		/// <returns></returns>
+		public int ProcessWriteDataToDevice(ref byte[]cmd,int deviceID)
+		{
+			int _return = 0;
+			int length = 0;
+			//---处理数据的长度
+			if ((this.m_COMMPortWriteBufferSize>250)&&(cmd.Length>2))
+			{
+				length = cmd[1];
+				length = (length<<8)+cmd[2];
+				//---为了后面的数据统一
+				length += 1;
+			}
+			else if(cmd.Length>1)
+			{
+				length = cmd[1];
+			}
+			else
+			{
+				//---数据格式不合法
+				_return = 1;
+				return _return;
+			}
+			byte[] tempCmd = null;
+			//---发送的命令报头和长度信息
+			if ((cmd[0] != this.m_COMMPortWriteID)&&(length!=(cmd.Length-2)))
+			{
+				length = cmd.Length;
+				if ((this.m_IsEnableMultiDevice) && (deviceID != 0))
+				{
+					length += 1;
+					tempCmd = new byte[length];
+					//---多设备时，设备ID的地址
+					tempCmd[0] = (byte)deviceID;
+					//---拷贝数据
+					Array.Copy(cmd, 0, tempCmd, 1, cmd.Length);
+				}
+				else
+				{
+					tempCmd = new byte[length];
+					//---拷贝数据
+					Array.Copy(cmd, tempCmd, cmd.Length);
+				}
+				//---整理之后的数据
+				length = tempCmd.Length;
+				if (this.m_COMMPortWriteBufferSize > 250)
+				{
+					length += 3;
+				}
+				else
+				{
+					length += 2;
+				}
+				cmd=new byte[length];
+				//---拷贝数据
+				Array.Copy(tempCmd, 0, cmd, (length-tempCmd.Length), tempCmd.Length);
+			}
+			else
+			{
+				if (this.m_COMMPortWriteBufferSize > 250)
+				{
+					length = 3;
+				}
+				else
+				{
+					length = 2;
+				}
+				//---判断是否需要多设备通信
+				if ((this.m_IsEnableMultiDevice) && (deviceID != 0))
+				{
+					tempCmd = new byte[cmd.Length-length+1];
+					//---多设备时，设备ID的地址
+					tempCmd[0] = (byte)deviceID;
+					//---拷贝数据
+					Array.Copy(cmd, 0, tempCmd, 1, cmd.Length);
+				}
+				else
+				{
+					tempCmd = new byte[cmd.Length - length];
+					//---拷贝数据
+					Array.Copy(cmd, tempCmd, cmd.Length);
+				}
+				//---整理之后的数据
+				cmd = new byte[length+tempCmd.Length];
+				Array.Copy(tempCmd, 0, cmd, length, tempCmd.Length);
+			}
+			//---获取发送数据
+			this.m_COMMPortWriteData = new COMMData();
+			//---CRC函数的处理
+			if (this.m_COMMPortWriteCRC == (byte)USE_CRC.CRC_CHECKSUM)
+			{
+				//---获取CRC的校验和信息
+				byte checkSum = GenFunc.GenFuncCheckSum(cmd, cmd.Length);
+				//---重置缓存区的大小
+				Array.Resize<byte>(ref cmd, (cmd.Length + 1));
+				//---自动添加校验和信息
+				cmd[cmd.Length - 1] = checkSum;
+				//---发送数据的信息
+				this.m_COMMPortWriteData.usedCRC	= (byte)USE_CRC.CRC_CHECKSUM;
+				this.m_COMMPortWriteData.usedCRCVal = checkSum;
+			}
+			else if (this.m_COMMPortWriteCRC == (byte)USE_CRC.CRC_CRC8)
+			{
+				byte crc8 = GenFunc.GenFuncCRC8Table(cmd, cmd.Length);
+				//---重置缓存区的大小
+				Array.Resize<byte>(ref cmd, (cmd.Length + 1));
+				//---自动添加校验和信息
+				cmd[cmd.Length - 1] = crc8;
+				//---发送数据的信息
+				this.m_COMMPortWriteData.usedCRC = (byte)USE_CRC.CRC_CRC8;
+				this.m_COMMPortWriteData.usedCRCVal = crc8;
+			}
+			else if (this.m_COMMPortWriteCRC == (byte)USE_CRC.CRC_CRC16)
+			{
+				int crc16 = GenFunc.GenFuncCRC16Table(cmd, cmd.Length);
+				//---重置缓存区的大小
+				Array.Resize<byte>(ref cmd, (cmd.Length + 2));
+				//---自动添加校验和信息
+				cmd[cmd.Length - 2] = (byte)(crc16 >> 8);
+				cmd[cmd.Length - 1] = (byte)(crc16);
+				//---发送数据的信息
+				this.m_COMMPortWriteData.usedCRC = (byte)USE_CRC.CRC_CRC16;
+				this.m_COMMPortWriteData.usedCRCVal = (UInt32)crc16;
+			}
+			else if (this.m_COMMPortWriteCRC == (byte)USE_CRC.CRC_CRC32)
+			{
+				UInt32 crc32 = GenFunc.GenFuncCRC32Table(cmd, cmd.Length);
+				//---重置缓存区的大小
+				Array.Resize<byte>(ref cmd, (cmd.Length + 4));
+				//---自动添加校验和信息
+				cmd[cmd.Length - 4] = (byte)(crc32 >> 24);
+				cmd[cmd.Length - 3] = (byte)(crc32 >> 16);
+				cmd[cmd.Length - 2] = (byte)(crc32 >> 8);
+				cmd[cmd.Length - 1] = (byte)(crc32);
+				//---发送数据的信息
+				this.m_COMMPortWriteData.usedCRC = (byte)USE_CRC.CRC_CRC32;
+				this.m_COMMPortWriteData.usedCRCVal = crc32;
+			}
+			//---重新修正数据长度
+			length = cmd.Length;
+            cmd[0] = this.m_COMMPortWriteID;
+            if (this.m_COMMPortWriteBufferSize > 250)
+			{
+				length -= 3;
+				cmd[1] = (byte)(length >> 8);
+				cmd[2] = (byte)length;
+			}
+			else
+			{
+				length -= 2;
+				cmd[1] = (byte)length;
+			}
+			this.m_COMMPortWriteData.usedByte.AddRange(cmd);
+			return _return;
+		}
+
+		/// <summary>
+		/// 接收数据大小最大为255
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="time"></param>
+		/// <returns></returns>
+		public int ReadResponse_8BitsTask(ref byte[] cmd, int time = 200)
+		{
+			int _return = 0;
+			//---获取开始时间标签
+			DateTime nowTime = DateTime.Now;
+			//---接收缓存区
+			this.m_COMMPortReadData = new COMMData();
+			//---接收数据步序
+			byte taskStep = 0;
+			//---时间计数器
+			DateTime startTime = DateTime.Now;
+			//---数据存储的临时变量
+			int temp = 0;
+			//---清空错误消息
+			this.m_COMMPortErrMsg = string.Empty;
+			//---工作状态是忙碌
+			this.m_COMMPortSTATE = true;
+			//---数据的读取---阻塞读取
+			while (this.m_COMMPortSTATE)
+			{
+				try
+				{
+					switch (taskStep)
+					{
+						case 0:         //---获取数据报头
+							if (this.usedSerialPort.BytesToRead > 0)
+							{
+								temp = this.usedSerialPort.ReadByte();
+								//---读取报头
+								if ((byte)temp == this.m_COMMPortReadID)
+								{
+									//---保存数据
+									this.m_COMMPortReadData.usedByte.Add((byte)temp);
+									//---进入下一任务
+									taskStep = 1;
+									//---重置时间标签
+									startTime = DateTime.Now;
+								}
+							}
+							break;
+						case 1:         //---获取数据长度
+							if (this.usedSerialPort.BytesToRead > 0)
+							{
+								//---读取接收到的数据
+								temp = this.usedSerialPort.ReadByte();
+								//---数据长度的合法性验证
+								if ((temp > 0) && (temp < (this.m_COMMPortReadBufferSize - 1)))
+								{
+									//---数据长度合法，接收数据长度
+									this.m_COMMPortReadData.usedByte.Add((byte)temp);
+									//---进入下一任务
+									taskStep = 2;
+								}
+								else
+								{
+									//---数据长度不合法，重新接收数据
+									this.m_COMMPortReadData.usedByte=new List<byte>();
+									taskStep = 0;
+								}
+								//---重置时间标签
+								startTime = DateTime.Now;
+							}
+							break;
+						case 2:         //---获取数据
+							if (this.usedSerialPort.BytesToRead > 0)
+							{
+								//---读取接收到的数据
+								temp = this.usedSerialPort.ReadByte();
+								this.m_COMMPortReadData.usedByte.Add((byte)temp);
+								//---重置时间标签
+								startTime = DateTime.Now;
+							}
+							break;
+						default:
+							this.m_COMMPortSTATE = false;
+							this.m_COMMPortErrMsg += "接收数据的过程中发生错误!\r\n";
+							_return = 1;
+							break;
+					}
+					//---计算时间
+					TimeSpan endTime = DateTime.Now - startTime;
+					//---判断是否发生超时错误
+					if (endTime.TotalMilliseconds > time)
+					{
+						//---退出while循环
+						this.m_COMMPortSTATE = false;
+						_return = 2;
+						this.m_COMMPortErrMsg += "数据接收发生超时错误!\r\n";
+						break;
+					}
+					//---判断接收到的数据
+					if ((taskStep == 2) && (this.m_COMMPortReadData != null) &&(this.m_COMMPortReadData.usedByte!=null)&& (this.m_COMMPortReadData.usedByte.Count > 2) && ((this.m_COMMPortReadData.usedByte.Count - 2) == this.m_COMMPortReadData.usedByte[1]))
+					{
+						//---退出当前while循环
+						this.m_COMMPortSTATE = false;
+						_return = 0;
+						break;
+					}
+					Application.DoEvents();
+				}
+                catch (Exception e)   //---读取发生异常状态
+                {
+                    //---退出当前while循环
+                    this.m_COMMPortSTATE = false;
+                    this.m_COMMPortErrMsg += e.ToString();
+                    if (!this.usedSerialPort.IsOpen)
+					{
+						this.m_COMMPortErrMsg += "通信端口异常断开\r\n";
+					}
+					_return = 3;
+				}
+			}
+			//---判断接收的数据以及CRC校验
+			if ((_return == 0) && (taskStep == 2)&&(this.m_COMMPortSTATE==false)&&(this.m_COMMPortReadData.usedByte!=null)&& (this.m_COMMPortReadData.usedByte.Count > 2))
+			{
+				cmd = new byte[this.m_COMMPortReadData.usedByte.Count];
+				this.m_COMMPortReadData.usedByte.CopyTo(cmd);
+				//---修正数据信息
+				if (this.m_COMMPortReadCRC == (byte)USE_CRC.CRC_CHECKSUM)
+				{
+					//---修正数据的实际长度
+					cmd[1] -= 1;
+					//---计算校验和
+					byte checkSum = GenFunc.GenFuncCheckSum(cmd, (cmd.Length - 1));
+					//---判断校验和信息
+					if (checkSum != cmd[cmd.Length - 1])
+					{
+						this.m_COMMPortErrMsg += "数据校验和发生错误!\r\n";
+						_return = 4;
+					}
+					//---接收到的数据
+					this.m_COMMPortReadData.usedCRC		= (byte)USE_CRC.CRC_CHECKSUM;
+					this.m_COMMPortReadData.usedCRCVal = cmd[cmd.Length - 1];
+				}
+				else if (this.m_COMMPortReadCRC == (byte)USE_CRC.CRC_CRC8)
+				{
+					//---修正数据的实际长度
+					cmd[1] -= 1;
+					//---计算校验和
+					byte crc8 = GenFunc.GenFuncCRC8Table(cmd, (cmd.Length - 1));
+					//---判断校验和信息
+					if (crc8 != cmd[cmd.Length - 1])
+					{
+						this.m_COMMPortErrMsg += "数据CRC8校验发生错误!\r\n";
+						_return = 5;
+					}
+					//---接收到的数据
+					this.m_COMMPortReadData.usedCRC = (byte)USE_CRC.CRC_CRC8;
+					this.m_COMMPortReadData.usedCRCVal = cmd[cmd.Length - 1];
+				}
+				else if (this.m_COMMPortReadCRC == (byte)USE_CRC.CRC_CRC16)
+				{
+					//---修正数据的实际长度
+					cmd[1] -= 2;
+					//---计算校验和
+					UInt16 crc16 = GenFunc.GenFuncCRC16Table(cmd, (cmd.Length - 2));
+					//---crc16的值
+					UInt16 crc16Val = cmd[cmd.Length - 2];
+					crc16Val = (UInt16)((crc16 << 8) + cmd[cmd.Length - 1]);
+					//---判断校验和信息
+					if (crc16 != crc16Val)
+					{
+						this.m_COMMPortErrMsg += "数据CRC16校验发生错误!\r\n";
+						_return = 6;
+					}
+					//---接收到的数据
+					this.m_COMMPortReadData.usedCRC = (byte)USE_CRC.CRC_CRC16;
+					this.m_COMMPortReadData.usedCRCVal = crc16Val;
+				}
+				else if (this.m_COMMPortReadCRC == (byte)USE_CRC.CRC_CRC32)
+				{
+					//---修正数据的实际大小
+					cmd[1] -= 4;
+					UInt32 crc32Val = cmd[cmd.Length - 4];
+					crc32Val = (crc32Val << 8) + cmd[cmd.Length - 3];
+					crc32Val = (crc32Val << 8) + cmd[cmd.Length - 2];
+					crc32Val = (crc32Val << 8) + cmd[cmd.Length - 1];
+					//---获取CRC的校验和
+					UInt32 crc32 = GenFunc.GenFuncCRC32Table(cmd, (cmd.Length - 4));
+					//---判断CRC32的校验信息
+					if (crc32 != crc32Val)
+					{
+						this.m_COMMPortErrMsg += "数据CRC32校验发生错误!\r\n";
+						_return = 7;
+					}
+					//---接收到的数据
+					this.m_COMMPortReadData.usedCRC = (byte)USE_CRC.CRC_CRC32;
+					this.m_COMMPortReadData.usedCRCVal = crc32Val;
+				}
+				//---重新整理之后的数据
+				if (_return == 0)
+				{
+					int length = cmd[1] + 2;
+					int i = 0;
+					this.m_COMMPortReadData.usedByte = new List<byte>();
+					for (i = 0; i < length; i++)
+					{
+						this.m_COMMPortReadData.usedByte.Add(cmd[i]);
+					}
+					cmd = new byte[this.m_COMMPortReadData.usedByte.Count];
+					this.m_COMMPortReadData.usedByte.CopyTo(cmd);
+				}
+			}
+			//---工作状态是忙碌
+			this.m_COMMPortSTATE = false;
+			//---清空接收缓存区
+			this.usedSerialPort.DiscardInBuffer();
+			//---清空发送缓存区
+			this.usedSerialPort.DiscardOutBuffer();
+			//---计算本次读取的耗时时间
+			this.m_UsedTime = DateTime.Now - nowTime;
+			return _return;
+		}
+
+        /// <summary>
+		/// 接收数据大小最大为65535
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="time"></param>
+		/// <returns></returns>
+		public int ReadResponse_16BitsTask(ref byte[] cmd, int time = 200)
+        {
+            int _return = 0;
+            //---获取开始时间标签
+            DateTime nowTime = DateTime.Now;
+            //---接收缓存区
+            this.m_COMMPortReadData = new COMMData();
+            //---接收数据步序
+            byte taskStep = 0;
+            //---时间计数器
+            DateTime startTime = DateTime.Now;
+            //---数据存储的临时变量
+            int temp = 0;
+            //---清空错误消息
+            this.m_COMMPortErrMsg = string.Empty;
+            //---工作状态是忙碌
+            this.m_COMMPortSTATE = true;
+            //---数据的读取---阻塞读取
+            while (this.m_COMMPortSTATE)
+            {
+                try
+                {
+                    switch (taskStep)
+                    {
+                        case 0:         //---获取数据报头
+                            if (this.usedSerialPort.BytesToRead > 0)
+                            {
+                                temp = this.usedSerialPort.ReadByte();
+                                //---读取报头
+                                if ((byte)temp == this.m_COMMPortReadID)
+                                {
+                                    //---保存数据
+                                    this.m_COMMPortReadData.usedByte.Add((byte)temp);
+                                    //---进入下一任务
+                                    taskStep = 1;
+                                    //---重置时间标签
+                                    startTime = DateTime.Now;
+                                }
+                            }
+                            break;
+                        case 1:         //---获取数据长度
+                            if (this.usedSerialPort.BytesToRead > 0)
+                            {
+                                //---读取接收到的数据
+                                temp = this.usedSerialPort.ReadByte();
+                                //---数据长度的合法性验证
+                                if ((temp > 0) && (temp < (this.m_COMMPortReadBufferSize - 1)))
+                                {
+                                    //---数据长度合法，接收数据长度
+                                    this.m_COMMPortReadData.usedByte.Add((byte)temp);
+                                    //---进入下一任务
+                                    taskStep = 2;
+                                }
+                                else
+                                {
+                                    //---数据长度不合法，重新接收数据
+                                    this.m_COMMPortReadData.usedByte = new List<byte>();
+                                    taskStep = 0;
+                                }
+                                //---重置时间标签
+                                startTime = DateTime.Now;
+                            }
+                            break;
+                        case 2:         //---获取数据
+                            if (this.usedSerialPort.BytesToRead > 0)
+                            {
+                                //---读取接收到的数据
+                                temp = this.usedSerialPort.ReadByte();
+                                this.m_COMMPortReadData.usedByte.Add((byte)temp);
+                                //---重置时间标签
+                                startTime = DateTime.Now;
+                            }
+                            break;
+                        default:
+                            this.m_COMMPortSTATE = false;
+                            this.m_COMMPortErrMsg += "接收数据的过程中发生错误!\r\n";
+                            _return = 1;
+                            break;
+                    }
+                    //---计算时间
+                    TimeSpan endTime = DateTime.Now - startTime;
+                    //---判断是否发生超时错误
+                    if (endTime.TotalMilliseconds > time)
+                    {
+                        //---退出while循环
+                        this.m_COMMPortSTATE = false;
+                        _return = 2;
+                        this.m_COMMPortErrMsg += "数据接收发生超时错误!\r\n";
+                        break;
+                    }
+                    //---判断接收到的数据
+                    if ((taskStep == 2) && (this.m_COMMPortReadData != null) && (this.m_COMMPortReadData.usedByte != null) && (this.m_COMMPortReadData.usedByte.Count > 2) && ((this.m_COMMPortReadData.usedByte.Count - 2) == this.m_COMMPortReadData.usedByte[1]))
+                    {
+                        //---退出当前while循环
+                        this.m_COMMPortSTATE = false;
+                        _return = 0;
+                        break;
+                    }
+                    Application.DoEvents();
+                }
+                catch(Exception e)   //---读取发生异常状态
+                {
+                    //---退出当前while循环
+                    this.m_COMMPortSTATE = false;
+                    this.m_COMMPortErrMsg += e.ToString();
+                    if (!this.usedSerialPort.IsOpen)
+                    {
+                        this.m_COMMPortErrMsg += "通信端口异常断开\r\n";
+                    }
+                    _return = 3;
+                }
+            }
+            //---判断接收的数据以及CRC校验
+            if ((_return == 0) && (taskStep == 2) && (this.m_COMMPortSTATE == false) && (this.m_COMMPortReadData.usedByte != null) && (this.m_COMMPortReadData.usedByte.Count > 2))
+            {
+                cmd = new byte[this.m_COMMPortReadData.usedByte.Count];
+                this.m_COMMPortReadData.usedByte.CopyTo(cmd);
+                //---修正数据信息
+                if (this.m_COMMPortReadCRC == (byte)USE_CRC.CRC_CHECKSUM)
+                {
+                    //---修正数据的实际长度
+                    cmd[1] -= 1;
+                    //---计算校验和
+                    byte checkSum = GenFunc.GenFuncCheckSum(cmd, (cmd.Length - 1));
+                    //---判断校验和信息
+                    if (checkSum != cmd[cmd.Length - 1])
+                    {
+                        this.m_COMMPortErrMsg += "数据校验和发生错误!\r\n";
+                        _return = 4;
+                    }
+                    //---接收到的数据
+                    this.m_COMMPortReadData.usedCRC = (byte)USE_CRC.CRC_CHECKSUM;
+                    this.m_COMMPortReadData.usedCRCVal = cmd[cmd.Length - 1];
+                }
+                else if (this.m_COMMPortReadCRC == (byte)USE_CRC.CRC_CRC8)
+                {
+                    //---修正数据的实际长度
+                    cmd[1] -= 1;
+                    //---计算校验和
+                    byte crc8 = GenFunc.GenFuncCRC8Table(cmd, (cmd.Length - 1));
+                    //---判断校验和信息
+                    if (crc8 != cmd[cmd.Length - 1])
+                    {
+                        this.m_COMMPortErrMsg += "数据CRC8校验发生错误!\r\n";
+                        _return = 5;
+                    }
+                    //---接收到的数据
+                    this.m_COMMPortReadData.usedCRC = (byte)USE_CRC.CRC_CRC8;
+                    this.m_COMMPortReadData.usedCRCVal = cmd[cmd.Length - 1];
+                }
+                else if (this.m_COMMPortReadCRC == (byte)USE_CRC.CRC_CRC16)
+                {
+                    //---修正数据的实际长度
+                    cmd[1] -= 2;
+                    //---计算校验和
+                    UInt16 crc16 = GenFunc.GenFuncCRC16Table(cmd, (cmd.Length - 2));
+                    //---crc16的值
+                    UInt16 crc16Val = cmd[cmd.Length - 2];
+                    crc16Val = (UInt16)((crc16 << 8) + cmd[cmd.Length - 1]);
+                    //---判断校验和信息
+                    if (crc16 != crc16Val)
+                    {
+                        this.m_COMMPortErrMsg += "数据CRC16校验发生错误!\r\n";
+                        _return = 6;
+                    }
+                    //---接收到的数据
+                    this.m_COMMPortReadData.usedCRC = (byte)USE_CRC.CRC_CRC16;
+                    this.m_COMMPortReadData.usedCRCVal = crc16Val;
+                }
+                else if (this.m_COMMPortReadCRC == (byte)USE_CRC.CRC_CRC32)
+                {
+                    //---修正数据的实际大小
+                    cmd[1] -= 4;
+                    UInt32 crc32Val = cmd[cmd.Length - 4];
+                    crc32Val = (crc32Val << 8) + cmd[cmd.Length - 3];
+                    crc32Val = (crc32Val << 8) + cmd[cmd.Length - 2];
+                    crc32Val = (crc32Val << 8) + cmd[cmd.Length - 1];
+                    //---获取CRC的校验和
+                    UInt32 crc32 = GenFunc.GenFuncCRC32Table(cmd, (cmd.Length - 4));
+                    //---判断CRC32的校验信息
+                    if (crc32 != crc32Val)
+                    {
+                        this.m_COMMPortErrMsg += "数据CRC32校验发生错误!\r\n";
+                        _return = 7;
+                    }
+                    //---接收到的数据
+                    this.m_COMMPortReadData.usedCRC = (byte)USE_CRC.CRC_CRC32;
+                    this.m_COMMPortReadData.usedCRCVal = crc32Val;
+                }
+                //---重新整理之后的数据
+                if (_return == 0)
+                {
+                    int length = cmd[1] + 2;
+                    int i = 0;
+                    this.m_COMMPortReadData.usedByte = new List<byte>();
+                    for (i = 0; i < length; i++)
+                    {
+                        this.m_COMMPortReadData.usedByte.Add(cmd[i]);
+                    }
+                    cmd = new byte[this.m_COMMPortReadData.usedByte.Count];
+                    this.m_COMMPortReadData.usedByte.CopyTo(cmd);
+                }
+            }
+            //---工作状态是忙碌
+            this.m_COMMPortSTATE = false;
+            //---清空接收缓存区
+            this.usedSerialPort.DiscardInBuffer();
+            //---清空发送缓存区
+            this.usedSerialPort.DiscardOutBuffer();
+            //---计算本次读取的耗时时间
+            this.m_UsedTime = DateTime.Now - nowTime;
+            return _return;
+        }
+
+        #endregion
+
         #region 重载函数
         /// <summary>
         /// 初始化
@@ -675,19 +1316,115 @@ namespace COMMPortLib
 		public override int AddDevice(ComboBox cbb, RichTextBox msg = null)
 		{
             //---获取记录的设备
-            string[] deviceNames = this.m_COMMDevices.deviceNames.ToArray();
+            string[] deviceNames = null;
+            if ((this.m_COMMDevices.deviceNames != null)&&(this.m_COMMDevices.deviceNames.Count!=0))
+            {
+                deviceNames = this.m_COMMDevices.deviceNames.ToArray();
+            }
             //---刷新当前设备
             string[] tempDeviceNames = SerialPort.GetPortNames();
             //---更新设备记录表
-            int _return = this.m_COMMDevices.Init(tempDeviceNames, cbb.Text);
+            string str = string.Empty;
+            if (cbb!=null)
+            {
+                //---异步调用
+                if (cbb.InvokeRequired)
+                {
+                    cbb.Invoke((EventHandler)
+                             (delegate
+                             {
+                                 str = cbb.Text;
+                             }));
+                }
+                else
+                {
+                    str = cbb.Text;
+                }
+            }
+            int _return = this.m_COMMDevices.Init(tempDeviceNames, str);
             if ((_return == 0) && (cbb != null))
             {
-                cbb.Items.Clear();
-                cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
-                cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
-                if (msg != null)
+                //---异步调用
+                if (cbb.InvokeRequired)
                 {
-                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "设备添加成功!\r\n", Color.Black, false);
+                    cbb.Invoke((EventHandler)
+                             (delegate
+                             {
+                                 cbb.Items.Clear();
+                                 if ((this.m_COMMDevices.deviceNames != null) && (this.m_COMMDevices.deviceNames.Count != 0))
+                                 {
+                                     cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
+                                 }
+                                 cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                             }));
+                }
+                else
+                {
+                    cbb.Items.Clear();
+                    if ((this.m_COMMDevices.deviceNames != null) && (this.m_COMMDevices.deviceNames.Count != 0))
+                    {
+                        cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
+                    }
+                    cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                }
+                if(((deviceNames==null)||(deviceNames.Length==0))&&((tempDeviceNames == null) || (tempDeviceNames.Length == 0)))
+                {
+                    if (cbb!=null)
+                    {
+                        //---异步调用
+                        if (cbb.InvokeRequired)
+                        {
+                            cbb.Invoke((EventHandler)
+                                     (delegate
+                                     {
+                                         cbb.Items.Clear();
+                                         cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                                     }));
+                        }
+                        else
+                        {
+                            cbb.Items.Clear();
+                            cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                        }
+                    }
+                    return 0;
+                }
+                this.m_COMMPortErrMsg = string.Empty;
+                for ( _return = 0; _return < tempDeviceNames.Length; _return++)
+                {
+                    if ((deviceNames==null)||(!deviceNames.Contains(tempDeviceNames[_return])))
+                    {
+                        this.m_COMMPortErrMsg +=
+                                        string.Format("{0} {1}", System.DateTime.Now.ToString(), "：") + " 端口：" +
+                                        tempDeviceNames[_return] + "插入\r\n";
+                    }
+                }
+                if (cbb != null)
+                {
+                    //---异步调用
+                    if (cbb.InvokeRequired)
+                    {
+                        cbb.Invoke((EventHandler)
+                                 (delegate
+                                 {
+                                     if (((cbb.Text != null) || (cbb.Text != string.Empty) ||(cbb.Text != ""))&&(cbb.Items.Count!=0))
+                                     {
+                                         cbb.SelectedIndex = 0;
+                                     }
+                                     
+                                 }));
+                    }
+                    else
+                    {
+                        if (((cbb.Text != null) || (cbb.Text != string.Empty) || (cbb.Text != "")) && (cbb.Items.Count != 0))
+                        {
+                            cbb.SelectedIndex = 0;
+                        }
+                    }
+                }
+                if ((msg != null)&&((this.m_COMMPortErrMsg!=string.Empty)||(this.m_COMMPortErrMsg!=null)||(this.m_COMMPortErrMsg!="")))
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithoutDateTime(msg, this.m_COMMPortErrMsg, Color.Black, false);
                 }
             }
             else
@@ -718,19 +1455,129 @@ namespace COMMPortLib
 		public override int RemoveDevice(ComboBox cbb, RichTextBox msg = null)
 		{
             //---获取记录的设备
-            string[] deviceNames = this.m_COMMDevices.deviceNames.ToArray();
+            string[] deviceNames = null;
+            if ((this.m_COMMDevices.deviceNames != null) && (this.m_COMMDevices.deviceNames.Count != 0))
+            {
+                deviceNames = this.m_COMMDevices.deviceNames.ToArray();
+            }
             //---刷新当前设备
             string[] tempDeviceNames = SerialPort.GetPortNames();
             //---更新设备记录表
-            int _return = this.m_COMMDevices.Init(tempDeviceNames, cbb.Text);
-            if ((_return == 0) && (cbb != null))
+            string str = string.Empty;
+            if (cbb != null)
             {
-                cbb.Items.Clear();
-                cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
-                cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
-                if (msg != null)
+                //---异步调用
+                if (cbb.InvokeRequired)
                 {
-                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "设备添加成功!\r\n", Color.Black, false);
+                    cbb.Invoke((EventHandler)
+                             (delegate
+                             {
+                                 str = cbb.Text;
+                             }));
+                }
+                else
+                {
+                    str = cbb.Text;
+                }
+            }
+             int _return = this.m_COMMDevices.Init(tempDeviceNames, str);
+            if (((_return == 0) || (_return == 1)) && (cbb != null))
+            {
+                //---异步调用
+                if (cbb.InvokeRequired)
+                {
+                    cbb.Invoke((EventHandler)
+                             (delegate
+                             {
+                                 cbb.Items.Clear();
+                                 if ((this.m_COMMDevices.deviceNames != null) && (this.m_COMMDevices.deviceNames.Count != 0))
+                                 {
+                                     cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
+                                 }
+                                 cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                             }));
+                }
+                else
+                {
+                    cbb.Items.Clear();
+                    if ((this.m_COMMDevices.deviceNames != null) && (this.m_COMMDevices.deviceNames.Count != 0))
+                    {
+                        cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
+                    }
+                    cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                }
+                if (((deviceNames == null) || (deviceNames.Length == 0)) && ((tempDeviceNames == null) || (tempDeviceNames.Length == 0)))
+                {
+                    if (cbb != null)
+                    {
+                        //---异步调用
+                        if (cbb.InvokeRequired)
+                        {
+                            cbb.Invoke((EventHandler)
+                                     (delegate
+                                     {
+                                         cbb.Items.Clear();
+                                         cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                                     }));
+                        }
+                        else
+                        {
+                            cbb.Items.Clear();
+                            cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                        }
+                    }
+                    return 0;
+                }
+                this.m_COMMPortErrMsg = string.Empty;
+                for (_return = 0; _return < deviceNames.Length; _return++)
+                {
+                    if (!tempDeviceNames.Contains(deviceNames[_return]))
+                    {
+                        this.m_COMMPortErrMsg +=
+                                        string.Format("{0} {1}", System.DateTime.Now.ToString(), "：") + " 端口：" +
+                                        deviceNames[_return] + "移除\r\n";
+                    }
+                }
+
+                if ((msg != null) && ((this.m_COMMPortErrMsg != string.Empty) || (this.m_COMMPortErrMsg != null) || (this.m_COMMPortErrMsg != "")))
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithoutDateTime(msg, this.m_COMMPortErrMsg, Color.Red, false);
+                }
+
+                ///
+                if (cbb != null)
+                {
+                    //---异步调用
+                    if (cbb.InvokeRequired)
+                    {
+                        cbb.Invoke((EventHandler)
+                                 (delegate
+                                 {
+                                     if (((cbb.Text != null) || (cbb.Text != string.Empty) || (cbb.Text != "")) && (cbb.Items.Count != 0))
+                                     {
+                                         cbb.SelectedIndex = 0;
+                                     }
+                                     else
+                                     {
+                                         cbb.Text = "";
+                                         cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                                     }
+
+                                 }));
+                    }
+                    else
+                    {
+                        if (((cbb.Text != null) || (cbb.Text != string.Empty) || (cbb.Text != "")) && (cbb.Items.Count != 0))
+                        {
+                            cbb.SelectedIndex = 0;
+                        }
+                        else
+                        {
+                            cbb.Text = "";
+                            cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                        }
+                    }
+
                 }
             }
             else
@@ -806,7 +1653,43 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int WriteToDevice(byte cmd, RichTextBox msg = null)
 		{
-			return 1;
+			int _return = 0;
+			try
+			{
+				if ((this.usedSerialPort != null) && (this.usedSerialPort.IsOpen))
+				{
+					//---等待发送完成
+					while (this.usedSerialPort.BytesToWrite > 0)
+					{
+						//---响应窗体函数
+						Application.DoEvents();
+					}
+					byte[] tempCmd = new byte[] { cmd };
+					this.usedSerialPort.Write(tempCmd, 0, tempCmd.Length);
+					this.m_COMMPortErrMsg = "数据发送成功\r\n";
+					if (msg != null)
+					{
+						RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.m_COMMPortErrMsg, Color.Black, false);
+					}
+				}
+				else
+				{
+					if (this.m_UsedForm != null)
+					{
+						MessageBoxPlus.Show(this.m_UsedForm, "端口初始化失败!!!", "错误提示");
+					}
+					else
+					{
+						MessageBox.Show("端口初始化失败!!!", "错误提示");
+					}
+				}
+			}
+			catch
+			{
+				_return = 2;
+				this.m_COMMPortErrMsg = "数据发送出现异常\r\n";
+			}
+			return _return;
 		}
 
 		/// <summary>
@@ -834,13 +1717,76 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int WriteToDevice(byte[] cmd, RichTextBox msg=null)
+		{
+			return this.WriteToDevice(cmd, 0, msg);
+		}
+		/// <summary>
 		///
 		/// </summary>
 		/// <param name="cmd"></param>
 		/// <returns></returns>
-		public override int WriteToDevice(byte[] cmd, RichTextBox msg = null)
+		public override int WriteToDevice(byte[] cmd, int deviceID,RichTextBox msg = null)
 		{
-			return 1;
+			int _return = 1;
+			try
+			{
+				if ((this.usedSerialPort!=null)&&(this.usedSerialPort.IsOpen))
+				{
+					//---等待发送完成
+					while (this.usedSerialPort.BytesToWrite > 0)
+					{
+						//---响应窗体函数
+						Application.DoEvents();
+					}
+					_return = this.ProcessWriteDataToDevice(ref cmd, deviceID);
+					if (_return!=0)
+					{
+						if (this.m_UsedForm != null)
+						{
+							MessageBoxPlus.Show(this.m_UsedForm, "数据解析错误，请检查数据格式!!!", "错误提示");
+						}
+						else
+						{
+							MessageBox.Show("数据解析错误，请检查数据格式!!!", "错误提示");
+						}
+					}
+					else
+					{
+						this.usedSerialPort.Write(cmd, 0, cmd.Length);
+						this.m_COMMPortErrMsg = "数据发送成功\r\n";
+					}
+					if (msg!=null)
+					{
+						if (_return == 0)
+						{
+							RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.m_COMMPortErrMsg, Color.Black, false);
+						}
+					}
+				}
+				else
+				{
+					if (this.m_UsedForm != null)
+					{
+						MessageBoxPlus.Show(this.m_UsedForm, "端口初始化失败!!!", "错误提示");
+					}
+					else
+					{
+						MessageBox.Show("端口初始化失败!!!", "错误提示");
+					}
+				}
+			}
+			catch 
+			{
+				_return = 2;
+				this.m_COMMPortErrMsg = "数据发送出现异常\r\n";
+			}
+			return _return;
 		}
 
 		/// <summary>
@@ -911,7 +1857,7 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int ReadFromDevice(ref byte[] cmd, int timeout = 200, RichTextBox msg = null)
 		{
-			return 1;
+			return this.ReadResponse_8BitsTask(ref cmd,timeout);
 		}
 
 		/// <summary>
@@ -1237,6 +2183,7 @@ namespace COMMPortLib
 		{
 			if (e.ToString() == "SerialDataReceivedEventArgs")
 			{
+				
 			}
 		}
 
@@ -1247,17 +2194,18 @@ namespace COMMPortLib
 		/// <param name="e"></param>
 		public override void WatcherPortEventHandler(Object sender, EventArrivedEventArgs e, ComboBox cbb=null, RichTextBox msg = null)
 		{
-			if (e.NewEvent.ClassPath.ClassName == "__InstanceCreationEvent")
-			{
+
+            if (e.NewEvent.ClassPath.ClassName == "__InstanceCreationEvent")
+            {
                 //---设备插入
                 this.AddDevice(cbb, msg);
-			}
-			else if (e.NewEvent.ClassPath.ClassName == "__InstanceDeletionEvent")
-			{
+            }
+            else if (e.NewEvent.ClassPath.ClassName == "__InstanceDeletionEvent")
+            {
                 //---设备移除
                 this.RemoveDevice(cbb, msg);
-			}
-		}
+            }
+        }
 
 		#endregion 事件定义
 	}

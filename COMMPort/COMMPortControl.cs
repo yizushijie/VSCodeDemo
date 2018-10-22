@@ -203,7 +203,7 @@ namespace COMMPortLib
 				case "button_openDevice":
 					if (btn.Text == "打开端口")
 					{
-						if (this.usedPort.OpenDevice(this.comboBox_portName.Text, this.usedMsg) == 1)
+						if (this.usedPort.OpenDevice(this.comboBox_portName.Text, this.usedMsg) == 0)
 						{
 							this.pictureBox_portState.Tag = 1;
 							btn.Text = "关闭端口";

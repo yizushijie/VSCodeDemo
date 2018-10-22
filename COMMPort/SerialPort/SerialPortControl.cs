@@ -111,7 +111,7 @@ namespace COMMPortLib
 				//---检查当前设备存在的端口信息
 				this.usedPort.RefreshDevice(this.comboBox_portName, this.usedMsg);
 				//---添加监控端口拔插事件
-				this.usedPort.AddWatcherPortEvent(this.WatcherPortEventHandler, this.WatcherPortEventHandler, new TimeSpan(0, 0, 3));
+				this.usedPort.AddWatcherPortEvent(this.WatcherPortEventHandler, this.WatcherPortEventHandler, new TimeSpan(0, 0, 1));
 			}
 
 			if (msg != null)

@@ -56,6 +56,12 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MindFusion.Charting, Version=4.0.1.23435, Culture=neutral, PublicKeyToken=f88a26c1ab36a28b" />
+    <Reference Include="MindFusion.Charting.WinForms, Version=4.0.1.23435, Culture=neutral, PublicKeyToken=f88a26c1ab36a28b, processorArchitecture=MSIL" />
+    <Reference Include="MindFusion.Common, Version=1.3.1.18503, Culture=neutral, PublicKeyToken=7fed53ada5b92263" />
+    <Reference Include="MindFusion.Licensing, Version=1.0.1.24623, Culture=neutral, PublicKeyToken=9d02e21d957ddaef" />
+    <Reference Include="MindFusion.Pdf, Version=1.3.0.13478, Culture=neutral, PublicKeyToken=0b3a610038a66854" />
+    <Reference Include="MindFusion.Svg, Version=1.2.1.25998, Culture=neutral, PublicKeyToken=33101cdb8744b4d7" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -66,6 +72,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">

@@ -192,6 +192,44 @@ namespace COMMPortLib
     }
 
 	/// <summary>
+	/// 使用的数据
+	/// </summary>
+	public class COMMData
+	{
+		/// <summary>
+		/// 数据
+		/// </summary>
+		public List<byte> usedByte = null;
+
+		/// <summary>
+		/// 使用的CRC的等级
+		/// </summary>
+		public byte usedCRC = (byte)USE_CRC.CRC_NONE;
+
+		/// <summary>
+		/// crc的值
+		/// </summary>
+		public UInt32 usedCRCVal = 0;
+
+		#region 初始化
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public COMMData()
+		{
+			if (this.usedByte == null)
+			{
+				this.usedByte = new List<byte>();
+			}
+			this.usedCRC = (byte)USE_CRC.CRC_NONE;
+			this.usedCRCVal = 0;
+		}
+
+		#endregion 初始化
+	}
+
+	/// <summary>
 	/// 通信端口
 	/// </summary>
 	public partial class COMMPort
@@ -229,6 +267,11 @@ namespace COMMPortLib
 		private byte commPortWriteCRC = 0;//(byte)USE_CRC.CRC_CRC8;//0;
 
 		/// <summary>
+		/// 发送的数据
+		/// </summary>
+		private COMMData commPortWriteData = new COMMData();
+
+		/// <summary>
 		/// 当前端口接收数据缓存区的大小
 		/// </summary>
 		private int commPortReadBufferSize = 64;
@@ -237,6 +280,11 @@ namespace COMMPortLib
 		/// 读取数据使用的CRC校验方式
 		/// </summary>
 		private byte commPortReadCRC = 0;//(byte)USE_CRC.CRC_CRC8;//0;
+
+		/// <summary>
+		/// 接受的数据
+		/// </summary>
+		private COMMData commPortReadData = new COMMData();
 
 		/// <summary>
 		/// 耗时时间
@@ -261,12 +309,17 @@ namespace COMMPortLib
 		/// <summary>
 		/// 发送数据报头
 		/// </summary>
-		private byte commPortWriteID = 0x55;
+		private byte commPortWriteID = 0x5A;
 
 		/// <summary>
 		/// 是否使能多设备通信，一个串口带多个设备，使能---true，不使能---false
 		/// </summary>
 		private bool isEnableMultiDevice = false;
+
+		/// <summary>
+		/// 用户事件
+		/// </summary>
+		public event EventHandler UserEventHandler;
 
 		#endregion 变量定义
 
@@ -311,6 +364,10 @@ namespace COMMPortLib
 			{
 				return this.commDevices;
 			}
+            set
+            {
+                this.commDevices = value;
+            }
 		}
 
 		/// <summary>
@@ -359,6 +416,21 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		public virtual COMMData m_COMMPortWriteData
+		{
+			get
+			{
+				return this.commPortWriteData;
+			}
+			set
+			{
+				this.commPortWriteData = value;
+			}
+		}
+
+		/// <summary>
 		/// 当前端口接收数据缓存区的大小
 		/// </summary>
 		public virtual int m_COMMPortReadBufferSize
@@ -389,6 +461,22 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		public virtual COMMData m_COMMPortReadData
+		{
+			get
+			{
+				return this.commPortReadData;
+			}
+			set
+			{
+				this.commPortReadData = value;
+			}
+		}
+
+
+		/// <summary>
 		/// 耗时时间
 		/// </summary>
 		public virtual TimeSpan m_UsedTime
@@ -396,6 +484,10 @@ namespace COMMPortLib
 			get
 			{
 				return this.usedTime;
+			}
+			set
+			{
+				this.usedTime = value;
 			}
 		}
 
@@ -507,7 +599,7 @@ namespace COMMPortLib
 				return _return;
 			}
 		}
-
+		
 		#endregion 属性定义
 
 		#region 构造函数
@@ -790,11 +882,22 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="msg"></param>
+		/// <param name="deviceID"></param>
+		/// <returns></returns>
+		public virtual int WriteToDevice(byte[] cmd, RichTextBox msg = null)
+		{
+			return 1;
+		}
+		/// <summary>
 		///
 		/// </summary>
 		/// <param name="cmd"></param>
 		/// <returns></returns>
-		public virtual int WriteToDevice(byte[] cmd, RichTextBox msg = null)
+		public virtual int WriteToDevice(byte[] cmd, int deviceID , RichTextBox msg = null)
 		{
 			return 1;
 		}

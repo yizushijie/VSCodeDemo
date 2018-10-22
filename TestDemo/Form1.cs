@@ -66,5 +66,16 @@ namespace TestDemo
                 this.richTextBoxControl1.Text += "LED打开。\r\n";
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if ((this.usedPort!=null)&&(this.usedPort.IsAttached()))
+            {
+                byte[] cmd = new byte[2] { 0x02, 0x01 };
+                byte[] res = null;
+                this.usedPort.WriteToDevice(cmd);
+                this.usedPort.ReadFromDevice(ref res);
+            }
+        }
     }
 }
