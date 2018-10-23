@@ -73,8 +73,7 @@ namespace TestDemo
             {
                 byte[] cmd = new byte[2] { 0x02, 0x01 };
                 byte[] res = null;
-                this.usedPort.WriteToDevice(cmd);
-                this.usedPort.ReadFromDevice(ref res);
+				this.usedPort.SendCmdAndReadResponse(cmd, ref res);
             }
         }
     }

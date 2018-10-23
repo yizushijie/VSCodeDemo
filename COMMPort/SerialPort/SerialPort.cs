@@ -43,6 +43,24 @@ namespace COMMPortLib
 
 		#endregion 变量定义
 
+		#region 委托事件
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public override DataReceivedDelegate m_DataReadEvent
+		{
+			get
+			{
+				return base.m_DataReadEvent;
+			}
+			set
+			{
+				base.m_DataReadEvent = value;
+			}
+		}
+		#endregion
+
 		#region 属性定义
 
 		/// <summary>
@@ -1058,6 +1076,7 @@ namespace COMMPortLib
             this.m_COMMPortErrMsg = string.Empty;
             //---工作状态是忙碌
             this.m_COMMPortSTATE = true;
+			int countSize = 0;
             //---数据的读取---阻塞读取
             while (this.m_COMMPortSTATE)
             {
@@ -1081,18 +1100,34 @@ namespace COMMPortLib
                                 }
                             }
                             break;
-                        case 1:         //---获取数据长度
+						case 1:			//---获取数据长度高字节
+							if (this.usedSerialPort.BytesToRead > 0)
+							{
+								//---读取接收到的数据
+								temp = this.usedSerialPort.ReadByte();
+								countSize = (temp & 0x00FF);
+								//---数据长度合法，接收数据长度
+								this.m_COMMPortReadData.usedByte.Add((byte)temp);
+								//---进入下一任务
+								taskStep = 2;
+								//---重置时间标签
+								startTime = DateTime.Now;
+							}
+							break;
+                        case 2:         //---获取数据长度低字节
                             if (this.usedSerialPort.BytesToRead > 0)
                             {
                                 //---读取接收到的数据
                                 temp = this.usedSerialPort.ReadByte();
-                                //---数据长度的合法性验证
-                                if ((temp > 0) && (temp < (this.m_COMMPortReadBufferSize - 1)))
+								//---组合数据长度
+								countSize = (countSize<<8)+(temp & 0x00FF);
+								//---数据长度的合法性验证
+								if ((countSize > 0) && (countSize < (this.m_COMMPortReadBufferSize - 2)))
                                 {
                                     //---数据长度合法，接收数据长度
                                     this.m_COMMPortReadData.usedByte.Add((byte)temp);
                                     //---进入下一任务
-                                    taskStep = 2;
+                                    taskStep = 3;
                                 }
                                 else
                                 {
@@ -1104,7 +1139,7 @@ namespace COMMPortLib
                                 startTime = DateTime.Now;
                             }
                             break;
-                        case 2:         //---获取数据
+                        case 3:         //---获取数据
                             if (this.usedSerialPort.BytesToRead > 0)
                             {
                                 //---读取接收到的数据
@@ -1132,7 +1167,7 @@ namespace COMMPortLib
                         break;
                     }
                     //---判断接收到的数据
-                    if ((taskStep == 2) && (this.m_COMMPortReadData != null) && (this.m_COMMPortReadData.usedByte != null) && (this.m_COMMPortReadData.usedByte.Count > 2) && ((this.m_COMMPortReadData.usedByte.Count - 2) == this.m_COMMPortReadData.usedByte[1]))
+                    if ((taskStep == 3) && (this.m_COMMPortReadData != null) && (this.m_COMMPortReadData.usedByte != null) && (this.m_COMMPortReadData.usedByte.Count > 2) && ((this.m_COMMPortReadData.usedByte.Count - 2) == this.m_COMMPortReadData.usedByte[1]))
                     {
                         //---退出当前while循环
                         this.m_COMMPortSTATE = false;
@@ -1154,17 +1189,19 @@ namespace COMMPortLib
                 }
             }
             //---判断接收的数据以及CRC校验
-            if ((_return == 0) && (taskStep == 2) && (this.m_COMMPortSTATE == false) && (this.m_COMMPortReadData.usedByte != null) && (this.m_COMMPortReadData.usedByte.Count > 2))
+            if ((_return == 0) && (taskStep == 3) && (this.m_COMMPortSTATE == false) && (this.m_COMMPortReadData.usedByte != null) && (this.m_COMMPortReadData.usedByte.Count > 2))
             {
                 cmd = new byte[this.m_COMMPortReadData.usedByte.Count];
                 this.m_COMMPortReadData.usedByte.CopyTo(cmd);
                 //---修正数据信息
                 if (this.m_COMMPortReadCRC == (byte)USE_CRC.CRC_CHECKSUM)
                 {
-                    //---修正数据的实际长度
-                    cmd[1] -= 1;
-                    //---计算校验和
-                    byte checkSum = GenFunc.GenFuncCheckSum(cmd, (cmd.Length - 1));
+					//---修正数据的实际长度
+					countSize -= 1;
+                    cmd[1] =(byte)(countSize>>8) ;
+					cmd[2] = (byte)(countSize&0xFF);
+					//---计算校验和
+					byte checkSum = GenFunc.GenFuncCheckSum(cmd, (cmd.Length - 1));
                     //---判断校验和信息
                     if (checkSum != cmd[cmd.Length - 1])
                     {
@@ -1178,9 +1215,11 @@ namespace COMMPortLib
                 else if (this.m_COMMPortReadCRC == (byte)USE_CRC.CRC_CRC8)
                 {
                     //---修正数据的实际长度
-                    cmd[1] -= 1;
-                    //---计算校验和
-                    byte crc8 = GenFunc.GenFuncCRC8Table(cmd, (cmd.Length - 1));
+					countSize -= 1;
+					cmd[1] = (byte)(countSize >> 8);
+					cmd[2] = (byte)(countSize & 0xFF);
+					//---计算校验和
+					byte crc8 = GenFunc.GenFuncCRC8Table(cmd, (cmd.Length - 1));
                     //---判断校验和信息
                     if (crc8 != cmd[cmd.Length - 1])
                     {
@@ -1194,9 +1233,11 @@ namespace COMMPortLib
                 else if (this.m_COMMPortReadCRC == (byte)USE_CRC.CRC_CRC16)
                 {
                     //---修正数据的实际长度
-                    cmd[1] -= 2;
-                    //---计算校验和
-                    UInt16 crc16 = GenFunc.GenFuncCRC16Table(cmd, (cmd.Length - 2));
+					countSize -= 2;
+					cmd[1] = (byte)(countSize >> 8);
+					cmd[2] = (byte)(countSize & 0xFF);
+					//---计算校验和
+					UInt16 crc16 = GenFunc.GenFuncCRC16Table(cmd, (cmd.Length - 2));
                     //---crc16的值
                     UInt16 crc16Val = cmd[cmd.Length - 2];
                     crc16Val = (UInt16)((crc16 << 8) + cmd[cmd.Length - 1]);
@@ -1213,8 +1254,10 @@ namespace COMMPortLib
                 else if (this.m_COMMPortReadCRC == (byte)USE_CRC.CRC_CRC32)
                 {
                     //---修正数据的实际大小
-                    cmd[1] -= 4;
-                    UInt32 crc32Val = cmd[cmd.Length - 4];
+					countSize -= 4;
+					cmd[1] = (byte)(countSize >> 8);
+					cmd[2] = (byte)(countSize & 0xFF);
+					UInt32 crc32Val = cmd[cmd.Length - 4];
                     crc32Val = (crc32Val << 8) + cmd[cmd.Length - 3];
                     crc32Val = (crc32Val << 8) + cmd[cmd.Length - 2];
                     crc32Val = (crc32Val << 8) + cmd[cmd.Length - 1];
@@ -1233,7 +1276,7 @@ namespace COMMPortLib
                 //---重新整理之后的数据
                 if (_return == 0)
                 {
-                    int length = cmd[1] + 2;
+					int length = countSize + 3;
                     int i = 0;
                     this.m_COMMPortReadData.usedByte = new List<byte>();
                     for (i = 0; i < length; i++)
@@ -1857,7 +1900,23 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int ReadFromDevice(ref byte[] cmd, int timeout = 200, RichTextBox msg = null)
 		{
-			return this.ReadResponse_8BitsTask(ref cmd,timeout);
+			int _return = 1;
+			if (this.m_COMMPortWriteBufferSize>250)
+			{
+				_return= this.ReadResponse_16BitsTask(ref cmd, timeout);
+			}
+			else
+			{
+				_return = this.ReadResponse_8BitsTask(ref cmd, timeout);
+			}
+			if (msg!=null)
+			{
+				if ((_return!=0)&&(this.m_COMMPortErrMsg!=string.Empty)&&(this.m_COMMPortErrMsg!="")&&(this.m_COMMPortErrMsg!=null))
+				{
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, this.m_COMMPortErrMsg, Color.Black, false);
+				}
+			}
+			return _return;
 		}
 
 		/// <summary>
@@ -1883,6 +1942,43 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int ReadFromDevice(string portName, ref byte[] cmd, int timeout = 200, RichTextBox msg = null)
 		{
+			return 1;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="res"></param>
+		/// <param name="timeout"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int SendCmdAndReadResponse(byte[] cmd, ref byte[] res, int timeout = 200, RichTextBox msg = null)
+		{
+			int _return = this.WriteToDevice(cmd, msg);
+			if (_return == 0)
+			{
+				_return = this.ReadFromDevice(ref res, timeout, msg);
+			}
+			return 1;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="res"></param>
+		/// <param name="deviceID"></param>
+		/// <param name="timeout"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public override int SendCmdAndReadResponse(byte[] cmd, ref byte[] res, int deviceID, int timeout = 200, RichTextBox msg = null)
+		{
+			int _return = this.WriteToDevice(cmd,deviceID, msg);
+			if (_return == 0)
+			{
+				_return = this.ReadFromDevice(ref res, timeout, msg);
+			}
 			return 1;
 		}
 
@@ -2183,7 +2279,11 @@ namespace COMMPortLib
 		{
 			if (e.ToString() == "SerialDataReceivedEventArgs")
 			{
-				
+				if (this.m_DataReadEvent!=null)
+				{
+					//---执行定义的函数
+					this.m_DataReadEvent();
+				}
 			}
 		}
 

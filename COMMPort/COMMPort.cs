@@ -315,13 +315,39 @@ namespace COMMPortLib
 		/// 是否使能多设备通信，一个串口带多个设备，使能---true，不使能---false
 		/// </summary>
 		private bool isEnableMultiDevice = false;
+		
+		#endregion 变量定义
+
+		#region 委托事件
 
 		/// <summary>
-		/// 用户事件
+		/// 委托事件
 		/// </summary>
-		public event EventHandler UserEventHandler;
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		public  delegate void DataReceivedDelegate();
 
-		#endregion 变量定义
+		/// <summary>
+		/// 声明委托事件
+		/// </summary>
+		private event DataReceivedDelegate DataReadEvent=null;
+
+		/// <summary>
+		/// 属性读写
+		/// </summary>
+		public virtual DataReceivedDelegate m_DataReadEvent
+		{
+			get
+			{
+				return this.DataReadEvent;
+			}
+			set
+			{
+				this.DataReadEvent += new DataReceivedDelegate(value);
+			}
+		}
+
+		#endregion
 
 		#region 属性定义
 
@@ -995,6 +1021,33 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		/// <returns></returns>
 		public virtual int ReadFromDevice(string portName, ref byte[] cmd, int timeout = 200, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="res"></param>
+		/// <param name="timeout"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int SendCmdAndReadResponse(byte[] cmd,ref byte[] res, int timeout = 200, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="res"></param>
+		/// <param name="deviceID"></param>
+		/// <param name="timeout"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int SendCmdAndReadResponse(byte[] cmd, ref byte[] res,int deviceID, int timeout = 200, RichTextBox msg = null)
 		{
 			return 1;
 		}
