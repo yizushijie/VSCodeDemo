@@ -31,7 +31,7 @@ namespace COMMPortLib
 	/// <summary>
 	///
 	/// </summary>
-	public class COMMDevice : ICloneable
+	public class COMMPortInfo 
 	{
 		#region 变量定义
 
@@ -67,7 +67,7 @@ namespace COMMPortLib
 		/// <summary>
 		///
 		/// </summary>
-		public COMMDevice()
+		public COMMPortInfo()
 		{
 			this.Init();
 		}
@@ -75,7 +75,7 @@ namespace COMMPortLib
         /// <summary>
         /// 
         /// </summary>
-        public COMMDevice(COMMDevice useCOMMDevice)
+        public COMMPortInfo(COMMPortInfo useCOMMDevice)
         {
             if ((useCOMMDevice.deviceIndexs==null)||(useCOMMDevice.deviceIndexs.Count==0)||(useCOMMDevice.deviceNames==null)||(useCOMMDevice.deviceNames.Count==0))
             {
@@ -148,8 +148,10 @@ namespace COMMPortLib
             this.deviceNames = new List<string>();
             //---存储端口序号信息
             this.deviceIndexs = new List<int>();
-            //---更新端口信息
-            for (index = 0; index < temp.Length; index++)
+			//---默认指向第一个端口
+			this.deviceUsedIndex = 0;
+			//---更新端口信息
+			for (index = 0; index < temp.Length; index++)
 			{
 				str = "COM" + Convert.ToString(temp[index]);
 				if ((name != null) && (name != string.Empty) && (name != ""))
@@ -167,28 +169,6 @@ namespace COMMPortLib
 		}
 
         #endregion 函数定义
-
-        #region 克隆函数
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        object ICloneable.Clone()
-        {
-            return this.Clone();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public COMMDevice Clone()
-        {
-            return new COMMDevice(this);
-        }
-
-        #endregion
-
     }
 
 	/// <summary>
@@ -249,7 +229,7 @@ namespace COMMPortLib
 		/// <summary>
 		/// 设备的端口信息
 		/// </summary>
-		private COMMDevice commDevices = new COMMDevice();
+		private COMMPortInfo commPortInfo = new COMMPortInfo();
 
 		/// <summary>
 		/// 工作状态，0---空闲；1---忙；2---错误
@@ -384,15 +364,15 @@ namespace COMMPortLib
 		/// <summary>
 		///
 		/// </summary>
-		public virtual COMMDevice m_COMMDevices
+		public virtual COMMPortInfo m_COMMPortInfo
 		{
 			get
 			{
-				return this.commDevices;
+				return this.commPortInfo;
 			}
             set
             {
-                this.commDevices = value;
+                this.commPortInfo = value;
             }
 		}
 

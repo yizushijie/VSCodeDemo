@@ -96,15 +96,15 @@ namespace COMMPortLib
 		/// <summary>
 		///
 		/// </summary>
-		public override COMMDevice m_COMMDevices
+		public override COMMPortInfo m_COMMPortInfo
 		{
 			get
 			{
-				return base.m_COMMDevices;
+				return base.m_COMMPortInfo;
 			}
             set
             {
-                base.m_COMMDevices = value;
+                base.m_COMMPortInfo = value;
             }
         }
 
@@ -678,7 +678,7 @@ namespace COMMPortLib
 		/// <param name="cmd"></param>
 		/// <param name="deviceID"></param>
 		/// <returns></returns>
-		public int ProcessWriteDataToDevice(ref byte[]cmd,int deviceID)
+		public int ProcessDataToDevice(ref byte[]cmd,int deviceID)
 		{
 			int _return = 0;
 			int length = 0;
@@ -1298,14 +1298,44 @@ namespace COMMPortLib
             return _return;
         }
 
-        #endregion
+		/// <summary>
+		/// 获取当前设备的信息
+		/// </summary>
+		/// <returns></returns>
+		public COMMPortInfo GetCOMMPortInfo()
+		{
+			COMMPortInfo _return = new COMMPortInfo();
+			//---调用WMI，获取Win32_PnPEntity，即所有设备
+			using (ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity"))
+			{
+				var hardInfos = searcher.Get();
+				foreach (var hardInfo in hardInfos)
+				{
+					//---筛选出名称中包含COM的
+					if ((hardInfo.Properties["Name"].Value != null) &&(hardInfo.Properties["Name"].Value.ToString().Contains("COM")) &&(hardInfo.Properties["Name"].Value.ToString().ToUpper().Contains("USB"))) 
+					{
+						//---获取名称
+						string s = hardInfo.Properties["Name"].Value.ToString(); 
+						int p = s.IndexOf('(');
+						//截取描述（名称）
+						string des = s.Substring(0, p);
+						//截取串口号
+						_return.deviceNames.Add(s.Substring(p + 1, s.Length - p - 2));
+					}
+				}
+				searcher.Dispose();
+			}
+			return _return;
+		}
 
-        #region 重载函数
-        /// <summary>
-        /// 初始化
-        /// </summary>
-        /// <returns></returns>
-        public override int Init()
+		#endregion
+
+		#region 重载函数
+		/// <summary>
+		/// 初始化
+		/// </summary>
+		/// <returns></returns>
+		public override int Init()
 		{
 			return 1;
 		}
@@ -1360,9 +1390,9 @@ namespace COMMPortLib
 		{
             //---获取记录的设备
             string[] deviceNames = null;
-            if ((this.m_COMMDevices.deviceNames != null)&&(this.m_COMMDevices.deviceNames.Count!=0))
+            if ((this.m_COMMPortInfo.deviceNames != null)&&(this.m_COMMPortInfo.deviceNames.Count!=0))
             {
-                deviceNames = this.m_COMMDevices.deviceNames.ToArray();
+                deviceNames = this.m_COMMPortInfo.deviceNames.ToArray();
             }
             //---刷新当前设备
             string[] tempDeviceNames = SerialPort.GetPortNames();
@@ -1384,7 +1414,7 @@ namespace COMMPortLib
                     str = cbb.Text;
                 }
             }
-            int _return = this.m_COMMDevices.Init(tempDeviceNames, str);
+            int _return = this.m_COMMPortInfo.Init(tempDeviceNames, str);
             if ((_return == 0) && (cbb != null))
             {
                 //---异步调用
@@ -1393,22 +1423,22 @@ namespace COMMPortLib
                     cbb.Invoke((EventHandler)
                              (delegate
                              {
-                                 cbb.Items.Clear();
-                                 if ((this.m_COMMDevices.deviceNames != null) && (this.m_COMMDevices.deviceNames.Count != 0))
-                                 {
-                                     cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
-                                 }
-                                 cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
-                             }));
+								 cbb.Items.Clear();
+								 if ((this.m_COMMPortInfo.deviceNames != null) && (this.m_COMMPortInfo.deviceNames.Count != 0))
+								 {
+									 cbb.Items.AddRange(this.m_COMMPortInfo.deviceNames.ToArray());
+								 }
+								 cbb.SelectedIndex = this.m_COMMPortInfo.deviceUsedIndex;
+							 }));
                 }
                 else
                 {
                     cbb.Items.Clear();
-                    if ((this.m_COMMDevices.deviceNames != null) && (this.m_COMMDevices.deviceNames.Count != 0))
+                    if ((this.m_COMMPortInfo.deviceNames != null) && (this.m_COMMPortInfo.deviceNames.Count != 0))
                     {
-                        cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
+                        cbb.Items.AddRange(this.m_COMMPortInfo.deviceNames.ToArray());
                     }
-                    cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                    cbb.SelectedIndex = this.m_COMMPortInfo.deviceUsedIndex;
                 }
                 if(((deviceNames==null)||(deviceNames.Length==0))&&((tempDeviceNames == null) || (tempDeviceNames.Length == 0)))
                 {
@@ -1421,13 +1451,13 @@ namespace COMMPortLib
                                      (delegate
                                      {
                                          cbb.Items.Clear();
-                                         cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                                         cbb.SelectedIndex = this.m_COMMPortInfo.deviceUsedIndex;
                                      }));
                         }
                         else
                         {
                             cbb.Items.Clear();
-                            cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                            cbb.SelectedIndex = this.m_COMMPortInfo.deviceUsedIndex;
                         }
                     }
                     return 0;
@@ -1450,7 +1480,7 @@ namespace COMMPortLib
                         cbb.Invoke((EventHandler)
                                  (delegate
                                  {
-                                     if (((cbb.Text != null) || (cbb.Text != string.Empty) ||(cbb.Text != ""))&&(cbb.Items.Count!=0))
+                                     if (((cbb.Text == null) || (cbb.Text == string.Empty) ||(cbb.Text == ""))&&(cbb.Items.Count!=0))
                                      {
                                          cbb.SelectedIndex = 0;
                                      }
@@ -1459,7 +1489,7 @@ namespace COMMPortLib
                     }
                     else
                     {
-                        if (((cbb.Text != null) || (cbb.Text != string.Empty) || (cbb.Text != "")) && (cbb.Items.Count != 0))
+                        if (((cbb.Text == null) || (cbb.Text == string.Empty) || (cbb.Text == "")) && (cbb.Items.Count != 0))
                         {
                             cbb.SelectedIndex = 0;
                         }
@@ -1499,9 +1529,9 @@ namespace COMMPortLib
 		{
             //---获取记录的设备
             string[] deviceNames = null;
-            if ((this.m_COMMDevices.deviceNames != null) && (this.m_COMMDevices.deviceNames.Count != 0))
+            if ((this.m_COMMPortInfo.deviceNames != null) && (this.m_COMMPortInfo.deviceNames.Count != 0))
             {
-                deviceNames = this.m_COMMDevices.deviceNames.ToArray();
+                deviceNames = this.m_COMMPortInfo.deviceNames.ToArray();
             }
             //---刷新当前设备
             string[] tempDeviceNames = SerialPort.GetPortNames();
@@ -1523,7 +1553,7 @@ namespace COMMPortLib
                     str = cbb.Text;
                 }
             }
-             int _return = this.m_COMMDevices.Init(tempDeviceNames, str);
+             int _return = this.m_COMMPortInfo.Init(tempDeviceNames, str);
             if (((_return == 0) || (_return == 1)) && (cbb != null))
             {
                 //---异步调用
@@ -1533,21 +1563,21 @@ namespace COMMPortLib
                              (delegate
                              {
                                  cbb.Items.Clear();
-                                 if ((this.m_COMMDevices.deviceNames != null) && (this.m_COMMDevices.deviceNames.Count != 0))
+                                 if ((this.m_COMMPortInfo.deviceNames != null) && (this.m_COMMPortInfo.deviceNames.Count != 0))
                                  {
-                                     cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
+                                     cbb.Items.AddRange(this.m_COMMPortInfo.deviceNames.ToArray());
                                  }
-                                 cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                                 cbb.SelectedIndex = this.m_COMMPortInfo.deviceUsedIndex;
                              }));
                 }
                 else
                 {
                     cbb.Items.Clear();
-                    if ((this.m_COMMDevices.deviceNames != null) && (this.m_COMMDevices.deviceNames.Count != 0))
+                    if ((this.m_COMMPortInfo.deviceNames != null) && (this.m_COMMPortInfo.deviceNames.Count != 0))
                     {
-                        cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
+                        cbb.Items.AddRange(this.m_COMMPortInfo.deviceNames.ToArray());
                     }
-                    cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                    cbb.SelectedIndex = this.m_COMMPortInfo.deviceUsedIndex;
                 }
                 if (((deviceNames == null) || (deviceNames.Length == 0)) && ((tempDeviceNames == null) || (tempDeviceNames.Length == 0)))
                 {
@@ -1560,13 +1590,13 @@ namespace COMMPortLib
                                      (delegate
                                      {
                                          cbb.Items.Clear();
-                                         cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                                         cbb.SelectedIndex = this.m_COMMPortInfo.deviceUsedIndex;
                                      }));
                         }
                         else
                         {
                             cbb.Items.Clear();
-                            cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
+                            cbb.SelectedIndex = this.m_COMMPortInfo.deviceUsedIndex;
                         }
                     }
                     return 0;
@@ -1596,30 +1626,27 @@ namespace COMMPortLib
                         cbb.Invoke((EventHandler)
                                  (delegate
                                  {
-                                     if (((cbb.Text != null) || (cbb.Text != string.Empty) || (cbb.Text != "")) && (cbb.Items.Count != 0))
-                                     {
-                                         cbb.SelectedIndex = 0;
-                                     }
-                                     else
-                                     {
-                                         cbb.Text = "";
-                                         cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
-                                     }
-
+									 if (((cbb.Text == null) || (cbb.Text == string.Empty) || (cbb.Text == ""))&&(cbb.Items.Count != 0))
+									 {
+										 cbb.SelectedIndex = 0;
+									 }
+									 else if ((cbb.Items == null) ||(cbb.Items.Count == 0))
+									 {
+										 cbb.Text = "";
+									 }
                                  }));
                     }
                     else
                     {
-                        if (((cbb.Text != null) || (cbb.Text != string.Empty) || (cbb.Text != "")) && (cbb.Items.Count != 0))
-                        {
-                            cbb.SelectedIndex = 0;
-                        }
-                        else
-                        {
-                            cbb.Text = "";
-                            cbb.SelectedIndex = this.m_COMMDevices.deviceUsedIndex;
-                        }
-                    }
+						if (((cbb.Text == null) || (cbb.Text == string.Empty) || (cbb.Text == "")) && (cbb.Items.Count != 0))
+						{
+							cbb.SelectedIndex = 0;
+						}
+						else if ((cbb.Items == null) || (cbb.Items.Count == 0))
+						{
+							cbb.Text = "";
+						}
+					}
 
                 }
             }
@@ -1651,11 +1678,11 @@ namespace COMMPortLib
 		{
             //---获取当前设备存在的通信端口
             string[] tempDeviceNames= SerialPort.GetPortNames();
-            int _return= this.m_COMMDevices.Init(tempDeviceNames,cbb.Text);
+            int _return= this.m_COMMPortInfo.Init(tempDeviceNames,cbb.Text);
             if ((_return==0)&&(cbb!=null))
             {
                 cbb.Items.Clear();
-                cbb.Items.AddRange(this.m_COMMDevices.deviceNames.ToArray());
+                cbb.Items.AddRange(this.m_COMMPortInfo.deviceNames.ToArray());
                 cbb.SelectedIndex = 0;
                 if (msg != null)
                 {
@@ -1787,7 +1814,7 @@ namespace COMMPortLib
 						//---响应窗体函数
 						Application.DoEvents();
 					}
-					_return = this.ProcessWriteDataToDevice(ref cmd, deviceID);
+					_return = this.ProcessDataToDevice(ref cmd, deviceID);
 					if (_return!=0)
 					{
 						if (this.m_UsedForm != null)

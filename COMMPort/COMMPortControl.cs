@@ -37,6 +37,11 @@ namespace COMMPortLib
 		/// </summary>
 		private Form usedForm = null;
 
+		/// <summary>
+		/// 数据接收事件
+		/// </summary>
+		public event EventHandler UserDataReceivedEvent = null;
+
 		#endregion
 
 		#region 构造函数
@@ -170,9 +175,59 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		public virtual void WatcherPortEventHandler(Object sender, EventArrivedEventArgs e)
 		{
-			if (this.usedPort != null)
+			//---设备拔插处理
+			this.usedPort.WatcherPortEventHandler(sender, e, this.comboBox_portName, this.usedMsg);
+			//---判断消息控件是否存在
+			if (this.usedMsg != null)
 			{
-				this.usedPort.WatcherPortEventHandler(sender, e, this.comboBox_portName, this.usedMsg);
+				//---异步调用
+				if (this.usedMsg.InvokeRequired)
+				{
+					this.usedMsg.Invoke((EventHandler)
+					   (delegate
+					   {
+						   //---设置鼠标焦点
+						   this.usedMsg.Focus();
+					   }));
+				}
+				else
+				{
+					//---设置鼠标焦点
+					this.usedMsg.Focus();
+				}
+				
+			}
+			//---端口处于打开状态
+			if (Convert.ToByte(this.pictureBox_portState.Tag) == 1)
+			{
+				if (this.comboBox_portName.InvokeRequired)
+				{
+					//---异步调用
+					this.comboBox_portName.Invoke((EventHandler)
+						   (delegate
+						   {
+							   if (this.comboBox_portName.Text != this.usedPort.m_COMMPortName)
+							   {
+								   button_openDevice.Text = "打开端口";
+								   this.pictureBox_portState.Tag = 0;
+								   this.pictureBox_portState.Image = Properties.Resources.lost;
+								   //---控件不使能
+								   this.ComboBoxPortInit(true);
+							   }
+						   }));
+				}
+				else
+				{
+					if (this.comboBox_portName.Text != this.usedPort.m_COMMPortName)
+					{
+						button_openDevice.Text = "打开端口";
+						this.pictureBox_portState.Tag = 0;
+						this.pictureBox_portState.Image = Properties.Resources.lost;
+						//---控件不使能
+						this.ComboBoxPortInit(true);
+					}
+				}
+
 			}
 		}
 
@@ -282,6 +337,21 @@ namespace COMMPortLib
 					break;
 				default:
 					break;
+			}
+		}
+
+
+		/// <summary>
+		/// 数据接收事件的处理
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		public virtual void DataReceivedEventHandler(object sender, EventArgs e)
+		{
+			if (this.UserDataReceivedEvent != null)
+			{
+				//---执行数据接收事件
+				this.UserDataReceivedEvent(sender, e);
 			}
 		}
 
