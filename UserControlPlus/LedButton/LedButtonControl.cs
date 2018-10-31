@@ -21,14 +21,15 @@ namespace UserControlPlusLib.LedButton
 
 		private Color usedColor = Color.Red;
 
-		#endregion
+        #endregion
 
-		#region 属性定义
+        #region 属性定义
 
-		/// <summary>
-		/// 设置LED的颜色
-		/// </summary>
-		public Color LedColor
+        /// <summary>
+        /// 设置LED的颜色
+        /// </summary>
+        [Description("修改此值，可修改LED的颜色"), Category("自定义属性")]
+        public virtual Color LedColor
 		{
 			get
 			{

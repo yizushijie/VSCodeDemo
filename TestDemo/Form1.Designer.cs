@@ -41,7 +41,7 @@
             this.clockRateControl1.Location = new System.Drawing.Point(0, 70);
             this.clockRateControl1.Name = "clockRateControl1";
             this.clockRateControl1.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.clockRateControl1.Size = new System.Drawing.Size(215, 90);
+            this.clockRateControl1.Size = new System.Drawing.Size(260, 90);
             this.clockRateControl1.TabIndex = 3;
             // 
             // ledControl1
@@ -94,6 +94,7 @@
             this.Controls.Add(this.commPortControl1);
             this.Controls.Add(this.clockRateControl1);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);

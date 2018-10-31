@@ -37,18 +37,28 @@ namespace COMMPortLib
 		/// </summary>
 		private Form usedForm = null;
 
-		/// <summary>
-		/// 数据接收事件
-		/// </summary>
-		public event EventHandler UserDataReceivedEvent = null;
+        #region 委托定义
 
-		#endregion
+        /// <summary>
+        /// 自定义事件的参数类型
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <param name="orther"></param>
+        public delegate void UserDataReceivedHandle(int index = 0);
 
-		#region 构造函数
-		/// <summary>
-		/// 
-		/// </summary>
-		public COMMPortControl()
+        [Description("当点击控件时发生，调用数据接收处理逻辑"), Category("自定义事件")]
+        public event UserDataReceivedHandle UserDataReceivedEvent;
+
+        #endregion
+
+        #endregion
+
+        #region 构造函数
+        /// <summary>
+        /// 
+        /// </summary>
+        public COMMPortControl()
 		{
 			InitializeComponent();
 		}
@@ -348,11 +358,10 @@ namespace COMMPortLib
 		/// <param name="e"></param>
 		public virtual void DataReceivedEventHandler(object sender, EventArgs e)
 		{
-			if (this.UserDataReceivedEvent != null)
-			{
-				//---执行数据接收事件
-				this.UserDataReceivedEvent(sender, e);
-			}
+            if (this.UserDataReceivedEvent!=null)
+            {
+                this.UserDataReceivedEvent();
+            }
 		}
 
 		#endregion 事件定义

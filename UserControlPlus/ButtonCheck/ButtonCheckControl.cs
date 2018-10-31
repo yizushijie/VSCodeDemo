@@ -44,6 +44,10 @@ namespace UserControlPlusLib
         /// <summary>
         /// 是否选中
         /// </summary>
+        /// <summary>
+        /// 设置LED的颜色
+        /// </summary>
+        [Description("修改此值，可修改选中的状态"), Category("自定义属性")]
         public bool Checked
         {
             get
@@ -61,6 +65,10 @@ namespace UserControlPlusLib
         /// <summary>
         /// 样式
         /// </summary>
+        /// <summary>
+        /// 设置LED的颜色
+        /// </summary>
+        [Description("修改此值，可修改选中的样式"), Category("自定义属性")]
         public CheckStyle CheckStylePlus
         {
             get
@@ -74,9 +82,12 @@ namespace UserControlPlusLib
             }
 
         }
+
         #endregion
 
+        #region 委托定义
 
+        #endregion
 
         #region 构造函数
 

@@ -13,13 +13,7 @@ namespace UserControlPlusLib.LED
     {
 
         #region 变量定义
-
-        /// <summary>
-        /// 用户使用的点击事件
-        /// </summary>
-        public event EventHandler UserClick;
-    
-
+                
         #endregion
 
 
@@ -28,6 +22,7 @@ namespace UserControlPlusLib.LED
         /// <summary>
         /// LED的颜色
         /// </summary>
+        [Description("修改此值，可修改分割线的颜色"), Category("自定义属性")]
         public virtual Color LedColor
         {
             get
@@ -43,6 +38,7 @@ namespace UserControlPlusLib.LED
         /// <summary>
         /// 状态
         /// </summary>
+        [Description("修改此值，可修改选择的状态"), Category("自定义属性")]
         public virtual bool Checked
         {
             get
@@ -58,6 +54,7 @@ namespace UserControlPlusLib.LED
         /// <summary>
         /// 样式
         /// </summary>
+        [Description("修改此值，可修改状态的样式"), Category("自定义属性")]
         public virtual CheckStyle CheckStylePlus
         {
             get
@@ -73,6 +70,22 @@ namespace UserControlPlusLib.LED
 
         #endregion
 
+        #region 委托事件
+
+        /// <summary>
+        /// 自定义事件的参数类型
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <param name="orther"></param>
+        public delegate void UserClickHandle(); 
+
+        [Description("当点击控件时发生，调用选中当前控件逻辑"), Category("自定义事件")]
+        public event UserClickHandle UserClick;
+
+        #endregion
+
+
         #region 构造函数
 
         /// <summary>
@@ -85,6 +98,9 @@ namespace UserControlPlusLib.LED
             //---限定尺寸,尺寸不可更改
             this.MinimumSize = this.Size;
             this.MaximumSize = this.Size;
+
+            //---注册事件
+            this.buttonCheckControl_led.Click += new System.EventHandler(this.buttonCheckControl_Click);
         }
 
         #endregion
@@ -114,7 +130,7 @@ namespace UserControlPlusLib.LED
                     //---用户事件
                     if (this.UserClick != null)
                     {
-                        this.UserClick(sender, e);
+                        this.UserClick();
                     }
                     break;
                 default:

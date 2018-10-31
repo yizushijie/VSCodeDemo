@@ -61,6 +61,24 @@
     <Compile Include="ClockRate\ClockRateControl.Designer.cs">
       <DependentUpon>ClockRateControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="DeviceType\DeviceTypeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DeviceType\DeviceTypeControl.Designer.cs">
+      <DependentUpon>DeviceTypeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FreqCurrent\FreqCurrentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FreqCurrent\FreqCurrentControl.Designer.cs">
+      <DependentUpon>FreqCurrentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FreqCurrent\PreFreqControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FreqCurrent\PreFreqControl.Designer.cs">
+      <DependentUpon>PreFreqControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="LedButton\LedButtonControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -79,6 +97,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ClockRate\ClockRateControl.resx">
       <DependentUpon>ClockRateControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceType\DeviceTypeControl.resx">
+      <DependentUpon>DeviceTypeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FreqCurrent\FreqCurrentControl.resx">
+      <DependentUpon>FreqCurrentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FreqCurrent\PreFreqControl.resx">
+      <DependentUpon>PreFreqControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LedButton\LedButtonControl.resx">
       <DependentUpon>LedButtonControl.cs</DependentUpon>

@@ -28,7 +28,8 @@ namespace TestDemo
 
             // this.ledControl1.AddClickEvent = new EventHandler(buttonCheckControl_Click);
 
-            this.ledControl1.UserClick += new EventHandler (delegate { this.buttonCheckControl_Click(); } );
+            //this.ledControl1.UserClick += new EventHandler (this.buttonCheckControl_Click());
+            this.ledControl1.UserClick += new UserControlPlusLib.LED.LedControl.UserClickHandle(this.buttonCheckControl_Click);
             //this.button1.Click += new EventHandler(this.button_Click);
         }
 
@@ -64,6 +65,10 @@ namespace TestDemo
             if (this.ledControl1.Checked)
             {
                 this.richTextBoxControl1.Text += "LED打开。\r\n";
+            }
+            else
+            {
+                this.richTextBoxControl1.Text += "LED关闭。\r\n";
             }
         }
 

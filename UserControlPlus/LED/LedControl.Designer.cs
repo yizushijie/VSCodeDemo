@@ -54,7 +54,6 @@
             this.buttonCheckControl_led.Name = "buttonCheckControl_led";
             this.buttonCheckControl_led.Size = new System.Drawing.Size(44, 14);
             this.buttonCheckControl_led.TabIndex = 1;
-            this.buttonCheckControl_led.Click += new System.EventHandler(this.buttonCheckControl_Click);
             // 
             // LedControl
             // 
