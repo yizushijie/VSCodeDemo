@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace RFASKFreqCurrentScanForm
+namespace RFASKFreqCurrentForm
 {
     static class Program
     {
@@ -15,7 +15,7 @@ namespace RFASKFreqCurrentScanForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new RFASKFreqCurrentScanForm());
+            Application.Run(new RFASKFreqCurrentForm());
         }
     }
 }

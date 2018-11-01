@@ -37,23 +37,29 @@
             this.groupBox_rx = new System.Windows.Forms.GroupBox();
             this.richTextBoxEx_rx = new RichTextBoxPlusLib.RichTextBoxEx();
             this.serialPortControl = new COMMPortLib.SerialPortControl();
+            this.toolStrip_BottomMenu = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel_SysTickName = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator_SysTickName = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel_SysTick = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator_SysTick = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl_FuncMenu.SuspendLayout();
             this.tabPage_SerialPort.SuspendLayout();
             this.panel_serialPort.SuspendLayout();
             this.groupBox_tx.SuspendLayout();
             this.groupBox_rx.SuspendLayout();
+            this.toolStrip_BottomMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl_FuncMenu
             // 
             this.tabControl_FuncMenu.Controls.Add(this.tabPage_SerialPort);
             this.tabControl_FuncMenu.Cursor = System.Windows.Forms.Cursors.Default;
-            this.tabControl_FuncMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl_FuncMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl_FuncMenu.Location = new System.Drawing.Point(0, 0);
             this.tabControl_FuncMenu.Name = "tabControl_FuncMenu";
             this.tabControl_FuncMenu.Padding = new System.Drawing.Point(4, 4);
             this.tabControl_FuncMenu.SelectedIndex = 0;
-            this.tabControl_FuncMenu.Size = new System.Drawing.Size(717, 455);
+            this.tabControl_FuncMenu.Size = new System.Drawing.Size(717, 427);
             this.tabControl_FuncMenu.TabIndex = 0;
             // 
             // tabPage_SerialPort
@@ -62,14 +68,13 @@
             this.tabPage_SerialPort.Location = new System.Drawing.Point(4, 24);
             this.tabPage_SerialPort.Margin = new System.Windows.Forms.Padding(1);
             this.tabPage_SerialPort.Name = "tabPage_SerialPort";
-            this.tabPage_SerialPort.Size = new System.Drawing.Size(709, 427);
+            this.tabPage_SerialPort.Size = new System.Drawing.Size(709, 399);
             this.tabPage_SerialPort.TabIndex = 0;
             this.tabPage_SerialPort.Text = "串口调试助手";
             this.tabPage_SerialPort.UseVisualStyleBackColor = true;
             // 
             // panel_serialPort
             // 
-            this.panel_serialPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel_serialPort.Controls.Add(this.groupBox_tx);
             this.panel_serialPort.Controls.Add(this.groupBox_rx);
             this.panel_serialPort.Controls.Add(this.serialPortControl);
@@ -77,7 +82,7 @@
             this.panel_serialPort.Location = new System.Drawing.Point(0, 0);
             this.panel_serialPort.Margin = new System.Windows.Forms.Padding(2);
             this.panel_serialPort.Name = "panel_serialPort";
-            this.panel_serialPort.Size = new System.Drawing.Size(709, 427);
+            this.panel_serialPort.Size = new System.Drawing.Size(709, 399);
             this.panel_serialPort.TabIndex = 0;
             // 
             // groupBox_tx
@@ -127,12 +132,50 @@
             this.serialPortControl.Size = new System.Drawing.Size(157, 191);
             this.serialPortControl.TabIndex = 0;
             // 
+            // toolStrip_BottomMenu
+            // 
+            this.toolStrip_BottomMenu.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip_BottomMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel_SysTickName,
+            this.toolStripSeparator_SysTickName,
+            this.toolStripLabel_SysTick,
+            this.toolStripSeparator_SysTick});
+            this.toolStrip_BottomMenu.Location = new System.Drawing.Point(0, 430);
+            this.toolStrip_BottomMenu.Name = "toolStrip_BottomMenu";
+            this.toolStrip_BottomMenu.Size = new System.Drawing.Size(717, 25);
+            this.toolStrip_BottomMenu.TabIndex = 4;
+            this.toolStrip_BottomMenu.Text = "底部状态栏";
+            // 
+            // toolStripLabel_SysTickName
+            // 
+            this.toolStripLabel_SysTickName.Name = "toolStripLabel_SysTickName";
+            this.toolStripLabel_SysTickName.Size = new System.Drawing.Size(56, 22);
+            this.toolStripLabel_SysTickName.Text = "当前时间";
+            // 
+            // toolStripSeparator_SysTickName
+            // 
+            this.toolStripSeparator_SysTickName.Name = "toolStripSeparator_SysTickName";
+            this.toolStripSeparator_SysTickName.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel_SysTick
+            // 
+            this.toolStripLabel_SysTick.Name = "toolStripLabel_SysTick";
+            this.toolStripLabel_SysTick.Size = new System.Drawing.Size(119, 22);
+            this.toolStripLabel_SysTick.Text = "2018/8/30 00:00:00";
+            // 
+            // toolStripSeparator_SysTick
+            // 
+            this.toolStripSeparator_SysTick.Name = "toolStripSeparator_SysTick";
+            this.toolStripSeparator_SysTick.Size = new System.Drawing.Size(6, 25);
+            // 
             // SerialPortForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(717, 455);
+            this.Controls.Add(this.toolStrip_BottomMenu);
             this.Controls.Add(this.tabControl_FuncMenu);
+            this.DoubleBuffered = true;
             this.Name = "SerialPortForm";
             this.Text = "调试助手";
             this.Load += new System.EventHandler(this.SerialPortForm_Load);
@@ -141,7 +184,10 @@
             this.panel_serialPort.ResumeLayout(false);
             this.groupBox_tx.ResumeLayout(false);
             this.groupBox_rx.ResumeLayout(false);
+            this.toolStrip_BottomMenu.ResumeLayout(false);
+            this.toolStrip_BottomMenu.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -155,6 +201,11 @@
         private RichTextBoxPlusLib.RichTextBoxEx richTextBoxEx_tx;
         private System.Windows.Forms.GroupBox groupBox_rx;
         private RichTextBoxPlusLib.RichTextBoxEx richTextBoxEx_rx;
+        private System.Windows.Forms.ToolStrip toolStrip_BottomMenu;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel_SysTickName;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator_SysTickName;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel_SysTick;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator_SysTick;
     }
 }
 

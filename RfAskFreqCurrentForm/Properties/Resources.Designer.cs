@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RFASKFreqCurrentScanForm.Properties
+namespace RFASKFreqCurrentForm.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace RFASKFreqCurrentScanForm.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RFASKFreqCurrentScanForm.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RfAskFreqCurrentForm.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

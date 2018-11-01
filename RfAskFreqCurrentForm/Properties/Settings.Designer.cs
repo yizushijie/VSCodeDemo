@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RFASKFreqCurrentScanForm.Properties
+namespace RFASKFreqCurrentForm.Properties
 {
 
 

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DD05D2F9-98C8-4A4A-B3B1-0875382AE7B3}</ProjectGuid>
+    <ProjectGuid>{5077E1F5-B7EA-4F51-8A49-A9E92215D1B5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>RFASKFreqCurrentScanForm</RootNamespace>
-    <AssemblyName>RFASKFreqCurrentScanForm</AssemblyName>
+    <RootNamespace>RfAskFreqCurrentForm</RootNamespace>
+    <AssemblyName>RfAskFreqCurrentForm</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,8 +32,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GenFunc">
+      <HintPath>..\GenFunc\bin\Debug\GenFunc.dll</HintPath>
+    </Reference>
+    <Reference Include="RichTextBoxPlus">
+      <HintPath>..\RichTextBoxPlus\bin\Debug\RichTextBoxPlus.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -43,11 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RFASKFreqCurrentScanForm.cs">
+    <Compile Include="RFASKFreqCurrentForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RFASKFreqCurrentScanForm.Designer.cs">
-      <DependentUpon>RFASKFreqCurrentScanForm.cs</DependentUpon>
+    <Compile Include="RFASKFreqCurrentForm.Designer.cs">
+      <DependentUpon>RFASKFreqCurrentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,8 +67,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="RFASKFreqCurrentScanForm.resx">
-      <DependentUpon>RFASKFreqCurrentScanForm.cs</DependentUpon>
+    <EmbeddedResource Include="RFASKFreqCurrentForm.resx">
+      <DependentUpon>RFASKFreqCurrentForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -75,16 +82,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\COMMPort\COMMPort.csproj">
-      <Project>{785FBEA4-49BE-473A-B1C9-0BF762A79859}</Project>
+      <Project>{F066762D-819B-43EF-8D46-AA3AC7CC1DDF}</Project>
       <Name>COMMPort</Name>
     </ProjectReference>
     <ProjectReference Include="..\MessageBoxPlus\MessageBoxPlus.csproj">
       <Project>{E54A51A6-A054-4F21-AC22-A827B5EF4D36}</Project>
       <Name>MessageBoxPlus</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RFASKFreqCurrentScan\RFASKFreqCurrentScan.csproj">
-      <Project>{E7EF4211-DFE8-4571-98B5-6E0816543329}</Project>
-      <Name>RFASKFreqCurrentScan</Name>
+    <ProjectReference Include="..\UserControlPlus\UserControlPlus.csproj">
+      <Project>{81C0BEB1-85E3-4C71-A1D4-B0A40B225F0E}</Project>
+      <Name>UserControlPlus</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

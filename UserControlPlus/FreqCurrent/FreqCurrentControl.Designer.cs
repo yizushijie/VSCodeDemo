@@ -127,7 +127,7 @@
             // 
             // button_startDo
             // 
-            this.button_startDo.Location = new System.Drawing.Point(176, 237);
+            this.button_startDo.Location = new System.Drawing.Point(175, 247);
             this.button_startDo.Name = "button_startDo";
             this.button_startDo.Size = new System.Drawing.Size(71, 25);
             this.button_startDo.TabIndex = 15;
@@ -416,7 +416,7 @@
             // 
             // button_writePassConfig
             // 
-            this.button_writePassConfig.Location = new System.Drawing.Point(176, 206);
+            this.button_writePassConfig.Location = new System.Drawing.Point(175, 217);
             this.button_writePassConfig.Name = "button_writePassConfig";
             this.button_writePassConfig.Size = new System.Drawing.Size(71, 25);
             this.button_writePassConfig.TabIndex = 13;
@@ -545,9 +545,9 @@
             // 
             // button_readPassConfig
             // 
-            this.button_readPassConfig.Location = new System.Drawing.Point(176, 175);
+            this.button_readPassConfig.Location = new System.Drawing.Point(175, 186);
             this.button_readPassConfig.Name = "button_readPassConfig";
-            this.button_readPassConfig.Size = new System.Drawing.Size(70, 25);
+            this.button_readPassConfig.Size = new System.Drawing.Size(71, 25);
             this.button_readPassConfig.TabIndex = 12;
             this.button_readPassConfig.Text = "读取参数";
             this.button_readPassConfig.UseVisualStyleBackColor = true;
@@ -633,7 +633,7 @@
             // 
             // button_writeFreqConfig
             // 
-            this.button_writeFreqConfig.Location = new System.Drawing.Point(175, 49);
+            this.button_writeFreqConfig.Location = new System.Drawing.Point(170, 50);
             this.button_writeFreqConfig.Name = "button_writeFreqConfig";
             this.button_writeFreqConfig.Size = new System.Drawing.Size(71, 25);
             this.button_writeFreqConfig.TabIndex = 3;
@@ -689,7 +689,7 @@
             // 
             // button_readFreqConfig
             // 
-            this.button_readFreqConfig.Location = new System.Drawing.Point(175, 18);
+            this.button_readFreqConfig.Location = new System.Drawing.Point(170, 18);
             this.button_readFreqConfig.Name = "button_readFreqConfig";
             this.button_readFreqConfig.Size = new System.Drawing.Size(71, 25);
             this.button_readFreqConfig.TabIndex = 2;

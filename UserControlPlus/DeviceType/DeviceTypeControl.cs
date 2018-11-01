@@ -19,7 +19,7 @@ namespace UserControlPlusLib.DeviceType
         #region 属性定义
 
         /// <summary>
-        /// 
+        /// 设备类型
         /// </summary>
         [Description("设备的类型"), Category("自定义属性")]
         public virtual string m_DeviceType
@@ -31,6 +31,38 @@ namespace UserControlPlusLib.DeviceType
             set
             {
                 this.comboBox_deviceType.Items.Add(value);
+            }
+        }
+
+        /// <summary>
+        /// 采样电阻的值
+        /// </summary>
+        [Description("采样电阻的大小"), Category("自定义属性")]
+        public virtual float m_SampleRes
+        {
+            get
+            {
+                return (float)this.numericUpDown_sampleRes.Value;
+            }
+            set
+            {
+                this.numericUpDown_sampleRes.Value=(decimal)value;
+            }
+        }
+
+        /// <summary>
+        /// 放大倍数
+        /// </summary>
+        [Description("放大倍数"), Category("自定义属性")]
+        public virtual float m_AmpTimes
+        {
+            get
+            {
+                return (float)this.numericUpDown_ampTimes.Value;
+            }
+            set
+            {
+                this.numericUpDown_ampTimes.Value = (decimal)value;
             }
         }
 

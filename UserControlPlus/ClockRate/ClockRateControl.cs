@@ -18,6 +18,22 @@ namespace UserControlPlusLib.ClockRate
 
         #region 属性定义
 
+        /// <summary>
+        /// 时钟频率
+        /// </summary>
+        [Description("时钟频率"), Category("自定义属性")]
+        public virtual int m_ClockRate
+        {
+            get
+            {
+                return (int)this.numericUpDown_clockRate.Value;
+            }
+            set
+            {
+                this.numericUpDown_clockRate.Value = (decimal)value;
+            }
+        }
+
         #endregion
 
         #region 委托函数
