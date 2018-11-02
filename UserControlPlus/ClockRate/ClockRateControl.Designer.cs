@@ -36,7 +36,7 @@
             this.label_Channel2 = new System.Windows.Forms.Label();
             this.label_clockRateUnite = new System.Windows.Forms.Label();
             this.label_clockRateName = new System.Windows.Forms.Label();
-            this.groupBox_portName = new System.Windows.Forms.GroupBox();
+            this.groupBox_clockRateName = new System.Windows.Forms.GroupBox();
             this.panel_PortName = new System.Windows.Forms.Panel();
             this.button_readClockRate = new System.Windows.Forms.Button();
             this.button_resetClockRate = new System.Windows.Forms.Button();
@@ -45,7 +45,7 @@
             this.buttonCheckControl_Channel2 = new UserControlPlusLib.ButtonCheckControl();
             this.buttonCheckControl_Channel1 = new UserControlPlusLib.ButtonCheckControl();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_clockRate)).BeginInit();
-            this.groupBox_portName.SuspendLayout();
+            this.groupBox_clockRateName.SuspendLayout();
             this.panel_PortName.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -136,17 +136,17 @@
             this.label_clockRateName.TabIndex = 15;
             this.label_clockRateName.Text = "频率";
             // 
-            // groupBox_portName
+            // groupBox_clockRateName
             // 
-            this.groupBox_portName.Controls.Add(this.panel_PortName);
-            this.groupBox_portName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_portName.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.groupBox_portName.Location = new System.Drawing.Point(0, 2);
-            this.groupBox_portName.Name = "groupBox_portName";
-            this.groupBox_portName.Size = new System.Drawing.Size(258, 84);
-            this.groupBox_portName.TabIndex = 16;
-            this.groupBox_portName.TabStop = false;
-            this.groupBox_portName.Text = "时钟设置";
+            this.groupBox_clockRateName.Controls.Add(this.panel_PortName);
+            this.groupBox_clockRateName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_clockRateName.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.groupBox_clockRateName.Location = new System.Drawing.Point(0, 2);
+            this.groupBox_clockRateName.Name = "groupBox_clockRateName";
+            this.groupBox_clockRateName.Size = new System.Drawing.Size(258, 84);
+            this.groupBox_clockRateName.TabIndex = 16;
+            this.groupBox_clockRateName.TabStop = false;
+            this.groupBox_clockRateName.Text = "时钟设置";
             // 
             // panel_PortName
             // 
@@ -242,12 +242,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox_portName);
+            this.Controls.Add(this.groupBox_clockRateName);
             this.Name = "ClockRateControl";
             this.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.Size = new System.Drawing.Size(258, 86);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_clockRate)).EndInit();
-            this.groupBox_portName.ResumeLayout(false);
+            this.groupBox_clockRateName.ResumeLayout(false);
             this.panel_PortName.ResumeLayout(false);
             this.panel_PortName.PerformLayout();
             this.ResumeLayout(false);
@@ -266,7 +266,7 @@
 		private ButtonCheckControl buttonCheckControl_Channel2;
 		private ButtonCheckControl buttonCheckControl_Channel3;
 		private System.Windows.Forms.Label label_clockRateName;
-		private System.Windows.Forms.GroupBox groupBox_portName;
+		private System.Windows.Forms.GroupBox groupBox_clockRateName;
 		private System.Windows.Forms.Panel panel_PortName;
         private ButtonCheckControl buttonCheckControl_Channel4;
 		private System.Windows.Forms.Button button_resetClockRate;

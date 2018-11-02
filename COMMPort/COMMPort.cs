@@ -751,15 +751,23 @@ namespace COMMPortLib
 		{
 		}
 
-		#endregion 构造函数
+        /// <summary>
+        /// 析构函数
+        /// </summary>
+        ~COMMPort()
+        {
+            GC.SuppressFinalize(this);
+        }
 
-		#region 函数定义
+        #endregion 构造函数
 
-		/// <summary>
-		/// 初始化
-		/// </summary>
-		/// <returns></returns>
-		public virtual int Init()
+        #region 函数定义
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <returns></returns>
+        public virtual int Init()
 		{
 			return 1;
 		}

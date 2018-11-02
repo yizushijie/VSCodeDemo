@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlClickPlus", "EventCl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFASKFreqCurrentForm", "RfAskFreqCurrentForm\RFASKFreqCurrentForm.csproj", "{5077E1F5-B7EA-4F51-8A49-A9E92215D1B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFASKFreqCurrent", "RFASKFreqCurrent\RFASKFreqCurrent.csproj", "{9ADFD137-E23A-46FF-93C6-0B5B9967272E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,14 @@ Global
 		{5077E1F5-B7EA-4F51-8A49-A9E92215D1B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5077E1F5-B7EA-4F51-8A49-A9E92215D1B5}.Release|x86.ActiveCfg = Release|Any CPU
 		{5077E1F5-B7EA-4F51-8A49-A9E92215D1B5}.Release|x86.Build.0 = Release|Any CPU
+		{9ADFD137-E23A-46FF-93C6-0B5B9967272E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ADFD137-E23A-46FF-93C6-0B5B9967272E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ADFD137-E23A-46FF-93C6-0B5B9967272E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9ADFD137-E23A-46FF-93C6-0B5B9967272E}.Debug|x86.Build.0 = Debug|Any CPU
+		{9ADFD137-E23A-46FF-93C6-0B5B9967272E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ADFD137-E23A-46FF-93C6-0B5B9967272E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ADFD137-E23A-46FF-93C6-0B5B9967272E}.Release|x86.ActiveCfg = Release|Any CPU
+		{9ADFD137-E23A-46FF-93C6-0B5B9967272E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

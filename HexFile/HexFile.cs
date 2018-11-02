@@ -231,16 +231,25 @@ namespace HexFileLib
 			}
 		}
 
-		#endregion 构造函数
+        /// <summary>
+        /// 
+        /// </summary>
+        ~HexFile()
+        {
+            GC.SuppressFinalize(this);
+        }
+       
 
-		#region 函数定义
+        #endregion 构造函数
 
-		/// <summary>
-		/// 获取HEX文件的信息
-		/// </summary>
-		/// <param name="filePath"></param>
-		/// <returns></returns>
-		public bool GetHexFile(string filePath)
+        #region 函数定义
+
+        /// <summary>
+        /// 获取HEX文件的信息
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public bool GetHexFile(string filePath)
 		{
 			//---检查文件是否存在
 			if (!File.Exists(filePath))

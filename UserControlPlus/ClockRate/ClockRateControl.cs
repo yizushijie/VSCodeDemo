@@ -19,6 +19,22 @@ namespace UserControlPlusLib.ClockRate
         #region 属性定义
 
         /// <summary>
+        /// 重命名控件
+        /// </summary>
+        [Description("修改当前控件的命名"), Category("自定义属性")]
+        public virtual string m_FuncName
+        {
+            get
+            {
+                return this.groupBox_clockRateName.Text;
+            }
+            set
+            {
+                this.groupBox_clockRateName.Text = value;
+            }
+        }
+
+        /// <summary>
         /// 时钟频率
         /// </summary>
         [Description("时钟频率"), Category("自定义属性")]
@@ -44,7 +60,7 @@ namespace UserControlPlusLib.ClockRate
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonClickHandle(int index=0);
+        public delegate void UserButtonClickHandle(object sender, EventArgs e, int index=0);
 
         [Description("当点击控件时发生，调用选中按钮控件逻辑"), Category("自定义事件")]
         public event UserButtonClickHandle UserButtonClick;
@@ -55,7 +71,7 @@ namespace UserControlPlusLib.ClockRate
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonCheckControlClickHandle(int index = 0);
+        public delegate void UserButtonCheckControlClickHandle(object sender, EventArgs e, int index = 0);
 
         [Description("当点击控件时发生，调用选中当前控件逻辑"), Category("自定义事件")]
         public event UserButtonCheckControlClickHandle UserButtonCheckControlClick;
@@ -117,7 +133,7 @@ namespace UserControlPlusLib.ClockRate
             //---执行委托函数
             if ((this.UserButtonCheckControlClick!=null)&&(index!=0))
             {
-                this.UserButtonCheckControlClick(index);
+                this.UserButtonCheckControlClick(sender,e,index);
             }
         }
 
@@ -149,13 +165,45 @@ namespace UserControlPlusLib.ClockRate
             //---执行委托函数
             if ((this.UserButtonClick != null) && (index != 0))
             {
-                this.UserButtonClick(index);
+                this.UserButtonClick(sender,e,index);
             }
             btn.Enabled = true;
 		}
 
-		#endregion
+        #endregion
+
+        #region 函数定义
+
+        /// <summary>
+        /// 获取时钟输出通道的状态
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>false 关闭，true 打开</returns>
+        public bool GetChannelChecked(int index)
+        {
+            bool _return = false;
+            switch (index)
+            {
+                case 1:
+                    _return = this.buttonCheckControl_Channel1.Checked;
+                    break;
+                case 2:
+                    _return = this.buttonCheckControl_Channel2.Checked;
+                    break;
+                case 3:
+                    _return = this.buttonCheckControl_Channel3.Checked;
+                    break;
+                case 4:
+                    _return = this.buttonCheckControl_Channel4.Checked;
+                    break;
+                default:
+                    break;
+            }
+            return _return;
+        }
+
+        #endregion
 
 
-	}
+    }
 }

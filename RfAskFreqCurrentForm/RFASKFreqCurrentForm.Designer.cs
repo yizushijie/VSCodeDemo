@@ -37,14 +37,14 @@
             this.timer_SysTick = new System.Windows.Forms.Timer(this.components);
             this.tabControl_FuncMenu = new System.Windows.Forms.TabControl();
             this.tabPage_Func = new System.Windows.Forms.TabPage();
+            this.richTextBoxEx_msg = new RichTextBoxPlusLib.RichTextBoxEx();
+            this.preFreqControl_preFreq = new UserControlPlusLib.FreqCurrent.PreFreqControl();
+            this.deviceTypeControl_deviceType = new UserControlPlusLib.DeviceType.DeviceTypeControl();
+            this.freqCurrentControl_freqCurrentPointTwo = new UserControlPlusLib.FreqCurrent.FreqCurrentControl();
+            this.freqCurrentControl_freqCurrentPointOne = new UserControlPlusLib.FreqCurrent.FreqCurrentControl();
+            this.clockRateControl_clockRate = new UserControlPlusLib.ClockRate.ClockRateControl();
+            this.commPortControl_commPort = new COMMPortLib.COMMPortControl();
             this.tabPage_Chart = new System.Windows.Forms.TabPage();
-            this.commPortControl1 = new COMMPortLib.COMMPortControl();
-            this.preFreqControl1 = new UserControlPlusLib.FreqCurrent.PreFreqControl();
-            this.deviceTypeControl1 = new UserControlPlusLib.DeviceType.DeviceTypeControl();
-            this.freqCurrentControl2 = new UserControlPlusLib.FreqCurrent.FreqCurrentControl();
-            this.freqCurrentControl1 = new UserControlPlusLib.FreqCurrent.FreqCurrentControl();
-            this.clockRateControl1 = new UserControlPlusLib.ClockRate.ClockRateControl();
-            this.richTextBoxEx1 = new RichTextBoxPlusLib.RichTextBoxEx();
             this.toolStrip_BottomMenu.SuspendLayout();
             this.tabControl_FuncMenu.SuspendLayout();
             this.tabPage_Func.SuspendLayout();
@@ -109,19 +109,116 @@
             // tabPage_Func
             // 
             this.tabPage_Func.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage_Func.Controls.Add(this.richTextBoxEx1);
-            this.tabPage_Func.Controls.Add(this.preFreqControl1);
-            this.tabPage_Func.Controls.Add(this.deviceTypeControl1);
-            this.tabPage_Func.Controls.Add(this.freqCurrentControl2);
-            this.tabPage_Func.Controls.Add(this.freqCurrentControl1);
-            this.tabPage_Func.Controls.Add(this.clockRateControl1);
-            this.tabPage_Func.Controls.Add(this.commPortControl1);
+            this.tabPage_Func.Controls.Add(this.richTextBoxEx_msg);
+            this.tabPage_Func.Controls.Add(this.preFreqControl_preFreq);
+            this.tabPage_Func.Controls.Add(this.deviceTypeControl_deviceType);
+            this.tabPage_Func.Controls.Add(this.freqCurrentControl_freqCurrentPointTwo);
+            this.tabPage_Func.Controls.Add(this.freqCurrentControl_freqCurrentPointOne);
+            this.tabPage_Func.Controls.Add(this.clockRateControl_clockRate);
+            this.tabPage_Func.Controls.Add(this.commPortControl_commPort);
             this.tabPage_Func.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tabPage_Func.Location = new System.Drawing.Point(4, 24);
             this.tabPage_Func.Name = "tabPage_Func";
             this.tabPage_Func.Size = new System.Drawing.Size(805, 607);
             this.tabPage_Func.TabIndex = 0;
             this.tabPage_Func.Text = "功能参数";
+            // 
+            // richTextBoxEx_msg
+            // 
+            this.richTextBoxEx_msg.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.richTextBoxEx_msg.Location = new System.Drawing.Point(0, 408);
+            this.richTextBoxEx_msg.Name = "richTextBoxEx_msg";
+            this.richTextBoxEx_msg.Size = new System.Drawing.Size(805, 199);
+            this.richTextBoxEx_msg.TabIndex = 9;
+            this.richTextBoxEx_msg.Text = "";
+            // 
+            // preFreqControl_preFreq
+            // 
+            this.preFreqControl_preFreq.Location = new System.Drawing.Point(4, 276);
+            this.preFreqControl_preFreq.m_FuncName = "预设频率";
+            this.preFreqControl_preFreq.MaximumSize = new System.Drawing.Size(258, 129);
+            this.preFreqControl_preFreq.MinimumSize = new System.Drawing.Size(258, 129);
+            this.preFreqControl_preFreq.Name = "preFreqControl_preFreq";
+            this.preFreqControl_preFreq.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.preFreqControl_preFreq.Size = new System.Drawing.Size(258, 129);
+            this.preFreqControl_preFreq.TabIndex = 8;
+            // 
+            // deviceTypeControl_deviceType
+            // 
+            this.deviceTypeControl_deviceType.Location = new System.Drawing.Point(3, 167);
+            this.deviceTypeControl_deviceType.m_AmpTimes = 100F;
+            this.deviceTypeControl_deviceType.m_DeviceType = "SYN4XX";
+            this.deviceTypeControl_deviceType.m_FuncName = "器件参数";
+            this.deviceTypeControl_deviceType.m_SampleRes = 0F;
+            this.deviceTypeControl_deviceType.MaximumSize = new System.Drawing.Size(258, 103);
+            this.deviceTypeControl_deviceType.MinimumSize = new System.Drawing.Size(258, 103);
+            this.deviceTypeControl_deviceType.Name = "deviceTypeControl_deviceType";
+            this.deviceTypeControl_deviceType.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.deviceTypeControl_deviceType.Size = new System.Drawing.Size(258, 103);
+            this.deviceTypeControl_deviceType.TabIndex = 7;
+            // 
+            // freqCurrentControl_freqCurrentPointTwo
+            // 
+            this.freqCurrentControl_freqCurrentPointTwo.Location = new System.Drawing.Point(538, 3);
+            this.freqCurrentControl_freqCurrentPointTwo.m_FuncName = "高压低频参数配置";
+            this.freqCurrentControl_freqCurrentPointTwo.m_PassSpacePointMax = 1;
+            this.freqCurrentControl_freqCurrentPointTwo.m_PassSpacePointMin = 1;
+            this.freqCurrentControl_freqCurrentPointTwo.m_PassSpacePointNum = 1;
+            this.freqCurrentControl_freqCurrentPointTwo.m_StartFreq = 1000F;
+            this.freqCurrentControl_freqCurrentPointTwo.m_StartPassMax = 1F;
+            this.freqCurrentControl_freqCurrentPointTwo.m_StartPassMin = 1F;
+            this.freqCurrentControl_freqCurrentPointTwo.m_StepFreq = 1F;
+            this.freqCurrentControl_freqCurrentPointTwo.m_StepPointNum = 1;
+            this.freqCurrentControl_freqCurrentPointTwo.m_StopPassMax = 1F;
+            this.freqCurrentControl_freqCurrentPointTwo.m_StopPassMin = 1F;
+            this.freqCurrentControl_freqCurrentPointTwo.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.freqCurrentControl_freqCurrentPointTwo.MaximumSize = new System.Drawing.Size(264, 402);
+            this.freqCurrentControl_freqCurrentPointTwo.MinimumSize = new System.Drawing.Size(264, 402);
+            this.freqCurrentControl_freqCurrentPointTwo.Name = "freqCurrentControl_freqCurrentPointTwo";
+            this.freqCurrentControl_freqCurrentPointTwo.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.freqCurrentControl_freqCurrentPointTwo.Size = new System.Drawing.Size(264, 402);
+            this.freqCurrentControl_freqCurrentPointTwo.TabIndex = 6;
+            // 
+            // freqCurrentControl_freqCurrentPointOne
+            // 
+            this.freqCurrentControl_freqCurrentPointOne.Location = new System.Drawing.Point(268, 3);
+            this.freqCurrentControl_freqCurrentPointOne.m_FuncName = "低压高频参数配置";
+            this.freqCurrentControl_freqCurrentPointOne.m_PassSpacePointMax = 1;
+            this.freqCurrentControl_freqCurrentPointOne.m_PassSpacePointMin = 1;
+            this.freqCurrentControl_freqCurrentPointOne.m_PassSpacePointNum = 1;
+            this.freqCurrentControl_freqCurrentPointOne.m_StartFreq = 1000F;
+            this.freqCurrentControl_freqCurrentPointOne.m_StartPassMax = 1F;
+            this.freqCurrentControl_freqCurrentPointOne.m_StartPassMin = 1F;
+            this.freqCurrentControl_freqCurrentPointOne.m_StepFreq = 1F;
+            this.freqCurrentControl_freqCurrentPointOne.m_StepPointNum = 1;
+            this.freqCurrentControl_freqCurrentPointOne.m_StopPassMax = 1F;
+            this.freqCurrentControl_freqCurrentPointOne.m_StopPassMin = 1F;
+            this.freqCurrentControl_freqCurrentPointOne.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.freqCurrentControl_freqCurrentPointOne.MaximumSize = new System.Drawing.Size(264, 402);
+            this.freqCurrentControl_freqCurrentPointOne.MinimumSize = new System.Drawing.Size(264, 402);
+            this.freqCurrentControl_freqCurrentPointOne.Name = "freqCurrentControl_freqCurrentPointOne";
+            this.freqCurrentControl_freqCurrentPointOne.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.freqCurrentControl_freqCurrentPointOne.Size = new System.Drawing.Size(264, 402);
+            this.freqCurrentControl_freqCurrentPointOne.TabIndex = 5;
+            // 
+            // clockRateControl_clockRate
+            // 
+            this.clockRateControl_clockRate.Location = new System.Drawing.Point(4, 61);
+            this.clockRateControl_clockRate.m_ClockRate = 20000;
+            this.clockRateControl_clockRate.m_FuncName = "时钟WM8510";
+            this.clockRateControl_clockRate.Name = "clockRateControl_clockRate";
+            this.clockRateControl_clockRate.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.clockRateControl_clockRate.Size = new System.Drawing.Size(258, 86);
+            this.clockRateControl_clockRate.TabIndex = 4;
+            // 
+            // commPortControl_commPort
+            // 
+            this.commPortControl_commPort.Location = new System.Drawing.Point(2, 2);
+            this.commPortControl_commPort.Margin = new System.Windows.Forms.Padding(2);
+            this.commPortControl_commPort.Name = "commPortControl_commPort";
+            this.commPortControl_commPort.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.commPortControl_commPort.Size = new System.Drawing.Size(260, 54);
+            this.commPortControl_commPort.TabIndex = 0;
             // 
             // tabPage_Chart
             // 
@@ -133,77 +230,6 @@
             this.tabPage_Chart.Size = new System.Drawing.Size(805, 607);
             this.tabPage_Chart.TabIndex = 1;
             this.tabPage_Chart.Text = "波形曲线";
-            // 
-            // commPortControl1
-            // 
-            this.commPortControl1.Location = new System.Drawing.Point(2, 2);
-            this.commPortControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.commPortControl1.Name = "commPortControl1";
-            this.commPortControl1.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.commPortControl1.Size = new System.Drawing.Size(260, 54);
-            this.commPortControl1.TabIndex = 0;
-            // 
-            // preFreqControl1
-            // 
-            this.preFreqControl1.Location = new System.Drawing.Point(4, 276);
-            this.preFreqControl1.MaximumSize = new System.Drawing.Size(258, 129);
-            this.preFreqControl1.MinimumSize = new System.Drawing.Size(258, 129);
-            this.preFreqControl1.Name = "preFreqControl1";
-            this.preFreqControl1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.preFreqControl1.Size = new System.Drawing.Size(258, 129);
-            this.preFreqControl1.TabIndex = 8;
-            // 
-            // deviceTypeControl1
-            // 
-            this.deviceTypeControl1.Location = new System.Drawing.Point(3, 167);
-            this.deviceTypeControl1.m_DeviceType = "SYN4XX";
-            this.deviceTypeControl1.MaximumSize = new System.Drawing.Size(258, 103);
-            this.deviceTypeControl1.MinimumSize = new System.Drawing.Size(258, 103);
-            this.deviceTypeControl1.Name = "deviceTypeControl1";
-            this.deviceTypeControl1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.deviceTypeControl1.Size = new System.Drawing.Size(258, 103);
-            this.deviceTypeControl1.TabIndex = 7;
-            // 
-            // freqCurrentControl2
-            // 
-            this.freqCurrentControl2.Location = new System.Drawing.Point(538, 3);
-            this.freqCurrentControl2.m_FuncName = "电压频率参数";
-            this.freqCurrentControl2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.freqCurrentControl2.MaximumSize = new System.Drawing.Size(264, 402);
-            this.freqCurrentControl2.MinimumSize = new System.Drawing.Size(264, 402);
-            this.freqCurrentControl2.Name = "freqCurrentControl2";
-            this.freqCurrentControl2.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.freqCurrentControl2.Size = new System.Drawing.Size(264, 402);
-            this.freqCurrentControl2.TabIndex = 6;
-            // 
-            // freqCurrentControl1
-            // 
-            this.freqCurrentControl1.Location = new System.Drawing.Point(268, 3);
-            this.freqCurrentControl1.m_FuncName = "电压频率参数";
-            this.freqCurrentControl1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.freqCurrentControl1.MaximumSize = new System.Drawing.Size(264, 402);
-            this.freqCurrentControl1.MinimumSize = new System.Drawing.Size(264, 402);
-            this.freqCurrentControl1.Name = "freqCurrentControl1";
-            this.freqCurrentControl1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.freqCurrentControl1.Size = new System.Drawing.Size(264, 402);
-            this.freqCurrentControl1.TabIndex = 5;
-            // 
-            // clockRateControl1
-            // 
-            this.clockRateControl1.Location = new System.Drawing.Point(4, 61);
-            this.clockRateControl1.Name = "clockRateControl1";
-            this.clockRateControl1.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.clockRateControl1.Size = new System.Drawing.Size(258, 86);
-            this.clockRateControl1.TabIndex = 4;
-            // 
-            // richTextBoxEx1
-            // 
-            this.richTextBoxEx1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.richTextBoxEx1.Location = new System.Drawing.Point(0, 408);
-            this.richTextBoxEx1.Name = "richTextBoxEx1";
-            this.richTextBoxEx1.Size = new System.Drawing.Size(805, 199);
-            this.richTextBoxEx1.TabIndex = 9;
-            this.richTextBoxEx1.Text = "";
             // 
             // RFASKFreqCurrentForm
             // 
@@ -238,13 +264,13 @@
         private System.Windows.Forms.TabControl tabControl_FuncMenu;
         private System.Windows.Forms.TabPage tabPage_Func;
         private System.Windows.Forms.TabPage tabPage_Chart;
-        private COMMPortLib.COMMPortControl commPortControl1;
-        private UserControlPlusLib.FreqCurrent.FreqCurrentControl freqCurrentControl2;
-        private UserControlPlusLib.FreqCurrent.FreqCurrentControl freqCurrentControl1;
-        private UserControlPlusLib.ClockRate.ClockRateControl clockRateControl1;
-        private UserControlPlusLib.DeviceType.DeviceTypeControl deviceTypeControl1;
-        private UserControlPlusLib.FreqCurrent.PreFreqControl preFreqControl1;
-        private RichTextBoxPlusLib.RichTextBoxEx richTextBoxEx1;
+        private COMMPortLib.COMMPortControl commPortControl_commPort;
+        private UserControlPlusLib.FreqCurrent.FreqCurrentControl freqCurrentControl_freqCurrentPointTwo;
+        private UserControlPlusLib.FreqCurrent.FreqCurrentControl freqCurrentControl_freqCurrentPointOne;
+        private UserControlPlusLib.ClockRate.ClockRateControl clockRateControl_clockRate;
+        private UserControlPlusLib.DeviceType.DeviceTypeControl deviceTypeControl_deviceType;
+        private UserControlPlusLib.FreqCurrent.PreFreqControl preFreqControl_preFreq;
+        private RichTextBoxPlusLib.RichTextBoxEx richTextBoxEx_msg;
     }
 }
 

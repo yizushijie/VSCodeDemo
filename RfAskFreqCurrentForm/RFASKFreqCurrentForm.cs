@@ -1,4 +1,6 @@
-﻿using MessageBoxPlusLib;
+﻿using COMMPortLib;
+using MessageBoxPlusLib;
+using RFASKFreqCurrentLib;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +17,7 @@ namespace RFASKFreqCurrentForm
 
         #region 变量定义
 
+        private RFASKFreqCurrent usedFreqCurrent = null;
 
         #endregion
 
@@ -52,7 +55,18 @@ namespace RFASKFreqCurrentForm
         /// <param name=""></param>
         public virtual void Start_Init()
         {
+            //---使用的类
+            if (this.usedFreqCurrent == null)
+            {
+                this.usedFreqCurrent = new RFASKFreqCurrent(new SerialCOMMPort(this));
+            }
+            //---通信端口初始化
+            this.commPortControl_commPort.Init(this, this.usedFreqCurrent.m_UsedPort, this.richTextBoxEx_msg);
+            //---函数注册
             this.RegisterEventHandle();
+            //---窗体初始化
+            this.FormInit(false);
+           
         }
 
         /// <summary>
@@ -74,6 +88,45 @@ namespace RFASKFreqCurrentForm
         {
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isEmable"></param>
+        public virtual void FormInit(bool isEmable)
+        {
+            this.deviceTypeControl_deviceType.Enabled = isEmable;
+            this.clockRateControl_clockRate.Enabled = isEmable;
+            this.preFreqControl_preFreq.Enabled = isEmable;
+            this.freqCurrentControl_freqCurrentPointOne.Enabled = isEmable;
+            this.freqCurrentControl_freqCurrentPointTwo.Enabled = isEmable;
+        }
+
+        #endregion
+
+        #region 函数重载
+
+        /// <summary>
+        /// 重写窗体关闭事件
+        /// </summary>
+        /// <param name="e"></param>
+        //protected override void OnClosing(CancelEventArgs e)
+        //{
+        //    if (DialogResult.OK == MessageBoxPlus.Show(this, "你确定要关闭应用程序吗？", "关闭提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
+        //    {
+        //        //---为保证Application.Exit();时不再弹出提示，所以将FormClosing事件取消
+        //        this.FormClosing -= new FormClosingEventHandler(this.Form_Closing);
+        //        //---确认关闭事件
+        //        e.Cancel = false;
+        //        //---退出当前窗体
+        //        this.Dispose();
+        //    }
+        //    else
+        //    {
+        //        //---取消关闭事件
+        //        e.Cancel = true;
+        //    }
+        //}
 
         #endregion
 
@@ -128,6 +181,14 @@ namespace RFASKFreqCurrentForm
         {
             //---刷新时间
             this.toolStripLabel_SysTick.Text = System.DateTime.Now.ToString();
+            if (this.commPortControl_commPort.m_ButtonName=="关闭端口")
+            {
+                this.FormInit(true);
+            }
+            else if(this.deviceTypeControl_deviceType.Enabled==true)
+            {
+                this.FormInit(false);
+            }
         }
 
         #endregion

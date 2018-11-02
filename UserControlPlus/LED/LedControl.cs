@@ -39,7 +39,7 @@ namespace UserControlPlusLib.LED
         /// 状态
         /// </summary>
         [Description("修改此值，可修改选择的状态"), Category("自定义属性")]
-        public virtual bool Checked
+        public virtual bool LedChecked
         {
             get
             {

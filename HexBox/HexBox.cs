@@ -90,13 +90,17 @@ namespace HexBoxLib
 
 		#region 析够函数
 
+        /// <summary>
+        /// 
+        /// </summary>
 		~HexBox()
 		{
 			if (this.m_IsCreateCaret)
 			{
 				HexBox.DestroyCaret();
 			}
-		}
+            //GC.SuppressFinalize(this);
+        }
 
 		#endregion
 

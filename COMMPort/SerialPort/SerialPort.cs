@@ -600,7 +600,8 @@ namespace COMMPortLib
 				//---销毁当前对象
 				this.usedSerialPort.Dispose();
 			}
-		}
+            GC.SuppressFinalize(this);
+        }
 
         #endregion 构造函数
 

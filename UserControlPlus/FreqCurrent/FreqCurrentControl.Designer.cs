@@ -47,7 +47,7 @@
             this.label_passSpacePointMinADCUnite = new System.Windows.Forms.Label();
             this.numericUpDown_passSpacePointMin = new System.Windows.Forms.NumericUpDown();
             this.label_passSpacePointMaxADC = new System.Windows.Forms.Label();
-            this.numericUpDown_startPassSpacePointNum = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_passSpacePointNum = new System.Windows.Forms.NumericUpDown();
             this.label_passSpacePointNum = new System.Windows.Forms.Label();
             this.button_writePassConfig = new System.Windows.Forms.Button();
             this.groupBox_startPassConfig = new System.Windows.Forms.GroupBox();
@@ -81,7 +81,7 @@
             this.panel_passSpace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_passSpacePointMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_passSpacePointMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_startPassSpacePointNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_passSpacePointNum)).BeginInit();
             this.groupBox_startPassConfig.SuspendLayout();
             this.panel_startPass.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_startPassMax)).BeginInit();
@@ -273,7 +273,7 @@
             this.panel_passSpace.Controls.Add(this.label_passSpacePointMinADCUnite);
             this.panel_passSpace.Controls.Add(this.numericUpDown_passSpacePointMin);
             this.panel_passSpace.Controls.Add(this.label_passSpacePointMaxADC);
-            this.panel_passSpace.Controls.Add(this.numericUpDown_startPassSpacePointNum);
+            this.panel_passSpace.Controls.Add(this.numericUpDown_passSpacePointNum);
             this.panel_passSpace.Controls.Add(this.label_passSpacePointNum);
             this.panel_passSpace.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_passSpace.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -293,23 +293,12 @@
             // 
             // numericUpDown_passSpacePointMax
             // 
-            this.numericUpDown_passSpacePointMax.DecimalPlaces = 2;
-            this.numericUpDown_passSpacePointMax.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
             this.numericUpDown_passSpacePointMax.Location = new System.Drawing.Point(60, 56);
             this.numericUpDown_passSpacePointMax.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDown_passSpacePointMax.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
             this.numericUpDown_passSpacePointMax.Name = "numericUpDown_passSpacePointMax";
             this.numericUpDown_passSpacePointMax.Size = new System.Drawing.Size(75, 21);
             this.numericUpDown_passSpacePointMax.TabIndex = 13;
@@ -340,23 +329,12 @@
             // 
             // numericUpDown_passSpacePointMin
             // 
-            this.numericUpDown_passSpacePointMin.DecimalPlaces = 2;
-            this.numericUpDown_passSpacePointMin.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
             this.numericUpDown_passSpacePointMin.Location = new System.Drawing.Point(60, 29);
             this.numericUpDown_passSpacePointMin.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDown_passSpacePointMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
             this.numericUpDown_passSpacePointMin.Name = "numericUpDown_passSpacePointMin";
             this.numericUpDown_passSpacePointMin.Size = new System.Drawing.Size(75, 21);
             this.numericUpDown_passSpacePointMin.TabIndex = 10;
@@ -376,30 +354,19 @@
             this.label_passSpacePointMaxADC.TabIndex = 9;
             this.label_passSpacePointMaxADC.Text = "合格上限:";
             // 
-            // numericUpDown_startPassSpacePointNum
+            // numericUpDown_passSpacePointNum
             // 
-            this.numericUpDown_startPassSpacePointNum.DecimalPlaces = 2;
-            this.numericUpDown_startPassSpacePointNum.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDown_startPassSpacePointNum.Location = new System.Drawing.Point(60, 2);
-            this.numericUpDown_startPassSpacePointNum.Maximum = new decimal(new int[] {
+            this.numericUpDown_passSpacePointNum.Location = new System.Drawing.Point(60, 2);
+            this.numericUpDown_passSpacePointNum.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDown_startPassSpacePointNum.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDown_startPassSpacePointNum.Name = "numericUpDown_startPassSpacePointNum";
-            this.numericUpDown_startPassSpacePointNum.Size = new System.Drawing.Size(75, 21);
-            this.numericUpDown_startPassSpacePointNum.TabIndex = 6;
-            this.numericUpDown_startPassSpacePointNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDown_startPassSpacePointNum.Value = new decimal(new int[] {
+            this.numericUpDown_passSpacePointNum.Name = "numericUpDown_passSpacePointNum";
+            this.numericUpDown_passSpacePointNum.Size = new System.Drawing.Size(75, 21);
+            this.numericUpDown_passSpacePointNum.TabIndex = 6;
+            this.numericUpDown_passSpacePointNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown_passSpacePointNum.Value = new decimal(new int[] {
             10,
             0,
             0,
@@ -586,23 +553,12 @@
             // 
             // numericUpDown_stepPointNum
             // 
-            this.numericUpDown_stepPointNum.DecimalPlaces = 2;
-            this.numericUpDown_stepPointNum.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
             this.numericUpDown_stepPointNum.Location = new System.Drawing.Point(60, 56);
             this.numericUpDown_stepPointNum.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDown_stepPointNum.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
             this.numericUpDown_stepPointNum.Name = "numericUpDown_stepPointNum";
             this.numericUpDown_stepPointNum.Size = new System.Drawing.Size(75, 21);
             this.numericUpDown_stepPointNum.TabIndex = 13;
@@ -755,7 +711,7 @@
             this.panel_passSpace.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_passSpacePointMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_passSpacePointMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_startPassSpacePointNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_passSpacePointNum)).EndInit();
             this.groupBox_startPassConfig.ResumeLayout(false);
             this.panel_startPass.ResumeLayout(false);
             this.panel_startPass.PerformLayout();
@@ -803,7 +759,7 @@
         private System.Windows.Forms.Label label_passSpacePointMinADCUnite;
         private System.Windows.Forms.NumericUpDown numericUpDown_passSpacePointMin;
         private System.Windows.Forms.Label label_passSpacePointMaxADC;
-        private System.Windows.Forms.NumericUpDown numericUpDown_startPassSpacePointNum;
+        private System.Windows.Forms.NumericUpDown numericUpDown_passSpacePointNum;
         private System.Windows.Forms.Label label_passSpacePointNum;
         private System.Windows.Forms.Button button_writePassConfig;
         private System.Windows.Forms.GroupBox groupBox_startPassConfig;

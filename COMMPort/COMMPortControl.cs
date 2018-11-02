@@ -54,6 +54,22 @@ namespace COMMPortLib
 
         #endregion
 
+        #region 属性定义
+
+        /// <summary>
+        /// 重命名控件
+        /// </summary>
+        [Description("初始化端口的按键的名称"), Category("自定义属性")]
+        public virtual string m_ButtonName
+        {
+            get
+            {
+                return this.button_initDevice.Text;
+            }
+        }
+
+        #endregion
+
         #region 构造函数
         /// <summary>
         /// 
@@ -146,7 +162,7 @@ namespace COMMPortLib
 			if (this.usedPort != null)
 			{
 				//---注册按钮事件
-				this.button_openDevice.Click += new EventHandler(this.button_Click);
+				this.button_initDevice.Click += new EventHandler(this.button_Click);
 			}
 
 			this.pictureBox_portState.Tag = 0;
@@ -175,82 +191,7 @@ namespace COMMPortLib
 		}
 		#endregion 初始化
 
-		#region 函数定义
-
-		/// <summary>
-		/// 监控端口处理函数
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		/// <param name="msg"></param>
-		public virtual void WatcherPortEventHandler(Object sender, EventArrivedEventArgs e)
-		{
-			//---设备拔插处理
-			this.usedPort.WatcherPortEventHandler(sender, e, this.comboBox_portName, this.usedMsg);
-			//---判断消息控件是否存在
-			if (this.usedMsg != null)
-			{
-				//---异步调用
-				if (this.usedMsg.InvokeRequired)
-				{
-					this.usedMsg.Invoke((EventHandler)
-					   (delegate
-					   {
-						   //---设置鼠标焦点
-						   this.usedMsg.Focus();
-					   }));
-				}
-				else
-				{
-					//---设置鼠标焦点
-					this.usedMsg.Focus();
-				}
-				
-			}
-			//---端口处于打开状态
-			if (Convert.ToByte(this.pictureBox_portState.Tag) == 1)
-			{
-				if (this.comboBox_portName.InvokeRequired)
-				{
-					//---异步调用
-					this.comboBox_portName.Invoke((EventHandler)
-						   (delegate
-						   {
-							   if (this.comboBox_portName.Text != this.usedPort.m_COMMPortName)
-							   {
-								   button_openDevice.Text = "打开端口";
-								   this.pictureBox_portState.Tag = 0;
-								   this.pictureBox_portState.Image = Properties.Resources.lost;
-								   //---控件不使能
-								   this.ComboBoxPortInit(true);
-							   }
-						   }));
-				}
-				else
-				{
-					if (this.comboBox_portName.Text != this.usedPort.m_COMMPortName)
-					{
-						button_openDevice.Text = "打开端口";
-						this.pictureBox_portState.Tag = 0;
-						this.pictureBox_portState.Image = Properties.Resources.lost;
-						//---控件不使能
-						this.ComboBoxPortInit(true);
-					}
-				}
-
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="isEnable"></param>
-		public virtual void ComboBoxPortInit(bool isEnable)
-		{
-			this.comboBox_portName.Enabled = isEnable;
-		}
-
-		#endregion 函数定义
+	
 
 		#region 事件定义
 
@@ -265,7 +206,7 @@ namespace COMMPortLib
 			btn.Enabled = false;
 			switch (btn.Name)
 			{
-				case "button_openDevice":
+				case "button_initDevice":
 					if (btn.Text == "打开端口")
 					{
 						if (this.usedPort.OpenDevice(this.comboBox_portName.Text, this.usedMsg) == 0)
@@ -364,7 +305,84 @@ namespace COMMPortLib
             }
 		}
 
-		#endregion 事件定义
+        #endregion 事件定义
 
-	}
+        #region 函数定义
+
+        /// <summary>
+        /// 监控端口处理函数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <param name="msg"></param>
+        public virtual void WatcherPortEventHandler(Object sender, EventArrivedEventArgs e)
+        {
+            //---设备拔插处理
+            this.usedPort.WatcherPortEventHandler(sender, e, this.comboBox_portName, this.usedMsg);
+            //---判断消息控件是否存在
+            if (this.usedMsg != null)
+            {
+                //---异步调用
+                if (this.usedMsg.InvokeRequired)
+                {
+                    this.usedMsg.Invoke((EventHandler)
+                       (delegate
+                       {
+                           //---设置鼠标焦点
+                           this.usedMsg.Focus();
+                       }));
+                }
+                else
+                {
+                    //---设置鼠标焦点
+                    this.usedMsg.Focus();
+                }
+
+            }
+            //---端口处于打开状态
+            if (Convert.ToByte(this.pictureBox_portState.Tag) == 1)
+            {
+                if (this.comboBox_portName.InvokeRequired)
+                {
+                    //---异步调用
+                    this.comboBox_portName.Invoke((EventHandler)
+                           (delegate
+                           {
+                               if (this.comboBox_portName.Text != this.usedPort.m_COMMPortName)
+                               {
+                                   button_initDevice.Text = "打开端口";
+                                   this.pictureBox_portState.Tag = 0;
+                                   this.pictureBox_portState.Image = Properties.Resources.lost;
+                                   //---控件不使能
+                                   this.ComboBoxPortInit(true);
+                               }
+                           }));
+                }
+                else
+                {
+                    if (this.comboBox_portName.Text != this.usedPort.m_COMMPortName)
+                    {
+                        button_initDevice.Text = "打开端口";
+                        this.pictureBox_portState.Tag = 0;
+                        this.pictureBox_portState.Image = Properties.Resources.lost;
+                        //---控件不使能
+                        this.ComboBoxPortInit(true);
+                    }
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isEnable"></param>
+        public virtual void ComboBoxPortInit(bool isEnable)
+        {
+            this.comboBox_portName.Enabled = isEnable;
+        }
+
+        #endregion 函数定义
+
+    }
 }

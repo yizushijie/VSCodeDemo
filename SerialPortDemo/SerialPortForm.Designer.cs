@@ -32,7 +32,9 @@
             this.tabControl_FuncMenu = new System.Windows.Forms.TabControl();
             this.tabPage_SerialPort = new System.Windows.Forms.TabPage();
             this.panel_serialPort = new System.Windows.Forms.Panel();
-            this.groupBox_tx = new System.Windows.Forms.GroupBox();
+            this.tabControl_FuncSendMemu = new System.Windows.Forms.TabControl();
+            this.tabPage_sendData = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.richTextBoxEx_tx = new RichTextBoxPlusLib.RichTextBoxEx();
             this.groupBox_rx = new System.Windows.Forms.GroupBox();
             this.richTextBoxEx_rx = new RichTextBoxPlusLib.RichTextBoxEx();
@@ -45,7 +47,9 @@
             this.tabControl_FuncMenu.SuspendLayout();
             this.tabPage_SerialPort.SuspendLayout();
             this.panel_serialPort.SuspendLayout();
-            this.groupBox_tx.SuspendLayout();
+            this.tabControl_FuncSendMemu.SuspendLayout();
+            this.tabPage_sendData.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.groupBox_rx.SuspendLayout();
             this.toolStrip_BottomMenu.SuspendLayout();
             this.SuspendLayout();
@@ -59,7 +63,7 @@
             this.tabControl_FuncMenu.Name = "tabControl_FuncMenu";
             this.tabControl_FuncMenu.Padding = new System.Drawing.Point(4, 4);
             this.tabControl_FuncMenu.SelectedIndex = 0;
-            this.tabControl_FuncMenu.Size = new System.Drawing.Size(717, 427);
+            this.tabControl_FuncMenu.Size = new System.Drawing.Size(729, 504);
             this.tabControl_FuncMenu.TabIndex = 0;
             // 
             // tabPage_SerialPort
@@ -68,40 +72,63 @@
             this.tabPage_SerialPort.Location = new System.Drawing.Point(4, 24);
             this.tabPage_SerialPort.Margin = new System.Windows.Forms.Padding(1);
             this.tabPage_SerialPort.Name = "tabPage_SerialPort";
-            this.tabPage_SerialPort.Size = new System.Drawing.Size(709, 399);
+            this.tabPage_SerialPort.Size = new System.Drawing.Size(721, 476);
             this.tabPage_SerialPort.TabIndex = 0;
             this.tabPage_SerialPort.Text = "串口调试助手";
             this.tabPage_SerialPort.UseVisualStyleBackColor = true;
             // 
             // panel_serialPort
             // 
-            this.panel_serialPort.Controls.Add(this.groupBox_tx);
+            this.panel_serialPort.Controls.Add(this.tabControl_FuncSendMemu);
             this.panel_serialPort.Controls.Add(this.groupBox_rx);
             this.panel_serialPort.Controls.Add(this.serialPortControl);
             this.panel_serialPort.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_serialPort.Location = new System.Drawing.Point(0, 0);
             this.panel_serialPort.Margin = new System.Windows.Forms.Padding(2);
             this.panel_serialPort.Name = "panel_serialPort";
-            this.panel_serialPort.Size = new System.Drawing.Size(709, 399);
+            this.panel_serialPort.Size = new System.Drawing.Size(721, 476);
             this.panel_serialPort.TabIndex = 0;
             // 
-            // groupBox_tx
+            // tabControl_FuncSendMemu
             // 
-            this.groupBox_tx.Controls.Add(this.richTextBoxEx_tx);
-            this.groupBox_tx.Location = new System.Drawing.Point(10, 281);
-            this.groupBox_tx.Name = "groupBox_tx";
-            this.groupBox_tx.Size = new System.Drawing.Size(532, 105);
-            this.groupBox_tx.TabIndex = 2;
-            this.groupBox_tx.TabStop = false;
-            this.groupBox_tx.Text = "数据发送";
+            this.tabControl_FuncSendMemu.Controls.Add(this.tabPage_sendData);
+            this.tabControl_FuncSendMemu.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tabControl_FuncSendMemu.Location = new System.Drawing.Point(3, 298);
+            this.tabControl_FuncSendMemu.Name = "tabControl_FuncSendMemu";
+            this.tabControl_FuncSendMemu.Padding = new System.Drawing.Point(4, 4);
+            this.tabControl_FuncSendMemu.SelectedIndex = 0;
+            this.tabControl_FuncSendMemu.Size = new System.Drawing.Size(539, 175);
+            this.tabControl_FuncSendMemu.TabIndex = 3;
+            // 
+            // tabPage_sendData
+            // 
+            this.tabPage_sendData.Controls.Add(this.panel1);
+            this.tabPage_sendData.Location = new System.Drawing.Point(4, 24);
+            this.tabPage_sendData.Margin = new System.Windows.Forms.Padding(1);
+            this.tabPage_sendData.Name = "tabPage_sendData";
+            this.tabPage_sendData.Size = new System.Drawing.Size(531, 147);
+            this.tabPage_sendData.TabIndex = 0;
+            this.tabPage_sendData.Text = "数据发送";
+            this.tabPage_sendData.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.richTextBoxEx_tx);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(531, 147);
+            this.panel1.TabIndex = 0;
             // 
             // richTextBoxEx_tx
             // 
+            this.richTextBoxEx_tx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBoxEx_tx.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBoxEx_tx.Location = new System.Drawing.Point(3, 17);
+            this.richTextBoxEx_tx.Location = new System.Drawing.Point(0, 0);
             this.richTextBoxEx_tx.Name = "richTextBoxEx_tx";
-            this.richTextBoxEx_tx.Size = new System.Drawing.Size(526, 85);
-            this.richTextBoxEx_tx.TabIndex = 0;
+            this.richTextBoxEx_tx.Size = new System.Drawing.Size(531, 147);
+            this.richTextBoxEx_tx.TabIndex = 1;
             this.richTextBoxEx_tx.Text = "";
             // 
             // groupBox_rx
@@ -109,17 +136,18 @@
             this.groupBox_rx.Controls.Add(this.richTextBoxEx_rx);
             this.groupBox_rx.Location = new System.Drawing.Point(7, 3);
             this.groupBox_rx.Name = "groupBox_rx";
-            this.groupBox_rx.Size = new System.Drawing.Size(535, 272);
+            this.groupBox_rx.Size = new System.Drawing.Size(535, 289);
             this.groupBox_rx.TabIndex = 1;
             this.groupBox_rx.TabStop = false;
             this.groupBox_rx.Text = "数据接收";
             // 
             // richTextBoxEx_rx
             // 
+            this.richTextBoxEx_rx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBoxEx_rx.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBoxEx_rx.Location = new System.Drawing.Point(3, 17);
             this.richTextBoxEx_rx.Name = "richTextBoxEx_rx";
-            this.richTextBoxEx_rx.Size = new System.Drawing.Size(529, 252);
+            this.richTextBoxEx_rx.Size = new System.Drawing.Size(529, 269);
             this.richTextBoxEx_rx.TabIndex = 0;
             this.richTextBoxEx_rx.Text = "";
             // 
@@ -140,9 +168,9 @@
             this.toolStripSeparator_SysTickName,
             this.toolStripLabel_SysTick,
             this.toolStripSeparator_SysTick});
-            this.toolStrip_BottomMenu.Location = new System.Drawing.Point(0, 430);
+            this.toolStrip_BottomMenu.Location = new System.Drawing.Point(0, 473);
             this.toolStrip_BottomMenu.Name = "toolStrip_BottomMenu";
-            this.toolStrip_BottomMenu.Size = new System.Drawing.Size(717, 25);
+            this.toolStrip_BottomMenu.Size = new System.Drawing.Size(729, 25);
             this.toolStrip_BottomMenu.TabIndex = 4;
             this.toolStrip_BottomMenu.Text = "底部状态栏";
             // 
@@ -172,7 +200,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(717, 455);
+            this.ClientSize = new System.Drawing.Size(729, 498);
             this.Controls.Add(this.toolStrip_BottomMenu);
             this.Controls.Add(this.tabControl_FuncMenu);
             this.DoubleBuffered = true;
@@ -182,7 +210,9 @@
             this.tabControl_FuncMenu.ResumeLayout(false);
             this.tabPage_SerialPort.ResumeLayout(false);
             this.panel_serialPort.ResumeLayout(false);
-            this.groupBox_tx.ResumeLayout(false);
+            this.tabControl_FuncSendMemu.ResumeLayout(false);
+            this.tabPage_sendData.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.groupBox_rx.ResumeLayout(false);
             this.toolStrip_BottomMenu.ResumeLayout(false);
             this.toolStrip_BottomMenu.PerformLayout();
@@ -197,8 +227,6 @@
         private System.Windows.Forms.TabPage tabPage_SerialPort;
         private System.Windows.Forms.Panel panel_serialPort;
         private COMMPortLib.SerialPortControl serialPortControl;
-        private System.Windows.Forms.GroupBox groupBox_tx;
-        private RichTextBoxPlusLib.RichTextBoxEx richTextBoxEx_tx;
         private System.Windows.Forms.GroupBox groupBox_rx;
         private RichTextBoxPlusLib.RichTextBoxEx richTextBoxEx_rx;
         private System.Windows.Forms.ToolStrip toolStrip_BottomMenu;
@@ -206,6 +234,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator_SysTickName;
         private System.Windows.Forms.ToolStripLabel toolStripLabel_SysTick;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator_SysTick;
+        private System.Windows.Forms.TabControl tabControl_FuncSendMemu;
+        private System.Windows.Forms.TabPage tabPage_sendData;
+        private System.Windows.Forms.Panel panel1;
+        private RichTextBoxPlusLib.RichTextBoxEx richTextBoxEx_tx;
     }
 }
 

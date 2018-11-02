@@ -281,15 +281,17 @@ namespace PreMakeToVSProject
 				prjcfg._define.Add("__CC_ARM");
 				prjcfg._define.Add("_Pragma(x)=");
 				prjcfg._define.Add("__interrupt=");
-				prjcfg._define.Add("__packed=");
-				prjcfg._define.Add("__weak=");
-				//prjcfg._define.Add("__attribute__((x))=");
-				//prjcfg._define.Add("__STATIC_INLINE=");
-				//---获取预包含的头文件
-				//subXmlRead.ReadToFollowing("PreInclude");
-				//prjcfg._preInclude = this.GetKeilSubNodeValue(subXmlRead,';');
-				//---获取包含文件的路径
-				subXmlRead.ReadToFollowing("IncludePath");
+                //prjcfg._define.Add("__packed=");
+                //prjcfg._define.Add("__weak=");
+                prjcfg._define.Add("__packed=__attribute__((__packed__))");
+                prjcfg._define.Add("__weak=__attribute__((weak))");
+                //prjcfg._define.Add("__attribute__((x))=");
+                //prjcfg._define.Add("__STATIC_INLINE=");
+                //---获取预包含的头文件
+                //subXmlRead.ReadToFollowing("PreInclude");
+                //prjcfg._preInclude = this.GetKeilSubNodeValue(subXmlRead,';');
+                //---获取包含文件的路径
+                subXmlRead.ReadToFollowing("IncludePath");
 				prjcfg._includePath = this.GetKeilSubNodeValue(subXmlRead.ReadSubtree(), ';');
 			}
 			while (xmlRead.ReadToNextSibling("TargetOption"));
@@ -445,12 +447,14 @@ namespace PreMakeToVSProject
 				prjcfg._define.Add("__ICCARM__");
 				prjcfg._define.Add("_Pragma(x)=");
 				prjcfg._define.Add("__interrupt=");
-				prjcfg._define.Add("__packed=");
-				prjcfg._define.Add("__weak=");
-				//prjcfg._define.Add("__attribute__((x))=");
-				//prjcfg._define.Add("__STATIC_INLINE=");
-				//---获取预包含的头文件
-				prjcfg._preInclude = this.GetIarSubNodeValue(subXmlRead, "PreInclude");
+                //prjcfg._define.Add("__packed=");
+                //prjcfg._define.Add("__weak=");
+                prjcfg._define.Add("__packed=__attribute__((__packed__))");
+                prjcfg._define.Add("__weak=__attribute__((weak))");
+                //prjcfg._define.Add("__attribute__((x))=");
+                //prjcfg._define.Add("__STATIC_INLINE=");
+                //---获取预包含的头文件
+                prjcfg._preInclude = this.GetIarSubNodeValue(subXmlRead, "PreInclude");
 				//---获取包含文件的路径
 				prjcfg._includePath = this.GetIarSubNodeValue(subXmlRead, "CCIncludePath2");
 			}

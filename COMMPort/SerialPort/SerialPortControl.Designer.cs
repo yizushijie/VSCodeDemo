@@ -39,7 +39,7 @@
             this.label_portBaudRate = new System.Windows.Forms.Label();
             this.comboBox_portBaudRate = new System.Windows.Forms.ComboBox();
             this.pictureBox_portState = new System.Windows.Forms.PictureBox();
-            this.button_openDevice = new System.Windows.Forms.Button();
+            this.button_initDevice = new System.Windows.Forms.Button();
             this.label_portName = new System.Windows.Forms.Label();
             this.comboBox_portName = new System.Windows.Forms.ComboBox();
             this.groupBox_portName.SuspendLayout();
@@ -71,7 +71,7 @@
             this.panel_PortName.Controls.Add(this.label_portBaudRate);
             this.panel_PortName.Controls.Add(this.comboBox_portBaudRate);
             this.panel_PortName.Controls.Add(this.pictureBox_portState);
-            this.panel_PortName.Controls.Add(this.button_openDevice);
+            this.panel_PortName.Controls.Add(this.button_initDevice);
             this.panel_PortName.Controls.Add(this.label_portName);
             this.panel_PortName.Controls.Add(this.comboBox_portName);
             this.panel_PortName.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -190,14 +190,14 @@
             this.pictureBox_portState.TabStop = false;
             this.pictureBox_portState.Tag = "1";
             // 
-            // button_openDevice
+            // button_initDevice
             // 
-            this.button_openDevice.Location = new System.Drawing.Point(56, 139);
-            this.button_openDevice.Name = "button_openDevice";
-            this.button_openDevice.Size = new System.Drawing.Size(83, 25);
-            this.button_openDevice.TabIndex = 2;
-            this.button_openDevice.Text = "打开端口";
-            this.button_openDevice.UseVisualStyleBackColor = true;
+            this.button_initDevice.Location = new System.Drawing.Point(56, 139);
+            this.button_initDevice.Name = "button_initDevice";
+            this.button_initDevice.Size = new System.Drawing.Size(83, 25);
+            this.button_initDevice.TabIndex = 2;
+            this.button_initDevice.Text = "打开端口";
+            this.button_initDevice.UseVisualStyleBackColor = true;
             // 
             // label_portName
             // 
@@ -238,7 +238,7 @@
 		private System.Windows.Forms.GroupBox groupBox_portName;
 		private System.Windows.Forms.Panel panel_PortName;
 		private System.Windows.Forms.PictureBox pictureBox_portState;
-		private System.Windows.Forms.Button button_openDevice;
+		private System.Windows.Forms.Button button_initDevice;
 		private System.Windows.Forms.Label label_portName;
 		private System.Windows.Forms.ComboBox comboBox_portName;
 		private System.Windows.Forms.Label label_portParityBits;

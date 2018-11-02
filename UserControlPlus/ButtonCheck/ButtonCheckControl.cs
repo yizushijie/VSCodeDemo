@@ -188,8 +188,11 @@ namespace UserControlPlusLib
 			this.isCheck = !this.isCheck;
 			this.Invalidate();
 		}
-		#endregion
+        #endregion
 
+        #region 函数定义
 
-	}
+        #endregion
+
+    }
 }

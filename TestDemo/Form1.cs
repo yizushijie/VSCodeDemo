@@ -62,7 +62,7 @@ namespace TestDemo
         private void buttonCheckControl_Click()
         {
 
-            if (this.ledControl1.Checked)
+            if (this.ledControl1.LedChecked)
             {
                 this.richTextBoxControl1.Text += "LED打开。\r\n";
             }

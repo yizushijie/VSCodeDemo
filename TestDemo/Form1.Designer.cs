@@ -46,7 +46,7 @@
             // 
             // ledControl1
             // 
-            this.ledControl1.Checked = false;
+            this.ledControl1.LedChecked = false;
             this.ledControl1.CheckStylePlus = UserControlPlusLib.CheckStyle.style1;
             this.ledControl1.LedColor = System.Drawing.Color.Black;
             this.ledControl1.Location = new System.Drawing.Point(460, 102);

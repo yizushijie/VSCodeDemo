@@ -18,10 +18,35 @@ namespace UserControlPlusLib.FreqCurrent
 
         #region 属性定义
 
+        /// <summary>
+        /// 重命名控件
+        /// </summary>
+        [Description("修改当前控件的命名"), Category("自定义属性")]
+        public virtual string m_FuncName
+        {
+            get
+            {
+                return this.groupBox_preFreq.Text;
+            }
+            set
+            {
+                this.groupBox_preFreq.Text = value;
+            }
+        }
+
         #endregion
 
         #region 委托定义
+        /// <summary>
+        /// 自定义事件的参数类型
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <param name="orther"></param>
+        public delegate void UserButtonClickHandle(object sender, EventArgs e, int index = 0,int freqIndex=0);
 
+        [Description("当点击控件时发生，调用选中按钮控件逻辑"), Category("自定义事件")]
+        public event UserButtonClickHandle UserButtonClick;
         #endregion
 
         #region 构造函数
@@ -57,7 +82,26 @@ namespace UserControlPlusLib.FreqCurrent
         /// <param name="e"></param>
         public virtual void button_Click(object sender, EventArgs e)
         {
-
+            Button btn = (Button)sender;
+            btn.Enabled = false;
+            int index = 0;
+            switch (btn.Name)
+            {
+                case "button_readPreFreq":
+                    index = 1;
+                    break;
+                case "button_writePreFreq":
+                    index = 2;
+                    break;
+                default:
+                    break;
+            }
+            //---执行委托函数
+            if ((this.UserButtonClick != null) && (index != 0))
+            {
+                this.UserButtonClick(sender,e,index,(int)this.numericUpDown_preFreqIndex.Value);
+            }
+            btn.Enabled = true;
         }
 
         #endregion
@@ -69,7 +113,7 @@ namespace UserControlPlusLib.FreqCurrent
         /// </summary>
         /// <param name="index"></param>
         /// <param name="freq"></param>
-        public virtual void  SetPreFreq(int index,float freq)
+        public virtual void SetPreFreq(int index,float freq)
         {
             switch (index)
             {
