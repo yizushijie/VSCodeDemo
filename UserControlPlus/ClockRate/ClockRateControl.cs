@@ -60,7 +60,7 @@ namespace UserControlPlusLib.ClockRate
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonClickHandle(object sender, EventArgs e, int index=0);
+        public delegate void UserButtonClickHandle(object sender, EventArgs e,int freq, int index=0);
 
         [Description("当点击控件时发生，调用选中按钮控件逻辑"), Category("自定义事件")]
         public event UserButtonClickHandle UserButtonClick;
@@ -71,7 +71,7 @@ namespace UserControlPlusLib.ClockRate
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonCheckControlClickHandle(object sender, EventArgs e, int index = 0);
+        public delegate void UserButtonCheckControlClickHandle(object sender, EventArgs e, int index = 0,bool isChecked=false);
 
         [Description("当点击控件时发生，调用选中当前控件逻辑"), Category("自定义事件")]
         public event UserButtonCheckControlClickHandle UserButtonCheckControlClick;
@@ -98,6 +98,38 @@ namespace UserControlPlusLib.ClockRate
             this.button_readClockRate.Click  += new EventHandler(button_Click);
             this.button_resetClockRate.Click += new EventHandler(button_Click);
 		}
+
+        #endregion
+        
+        #region 函数定义
+
+        /// <summary>
+        /// 获取时钟输出通道的状态
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>false 关闭，true 打开</returns>
+        public bool GetChannelChecked(int index)
+        {
+            bool _return = false;
+            switch (index)
+            {
+                case 1:
+                    _return = this.buttonCheckControl_Channel1.Checked;
+                    break;
+                case 2:
+                    _return = this.buttonCheckControl_Channel2.Checked;
+                    break;
+                case 3:
+                    _return = this.buttonCheckControl_Channel3.Checked;
+                    break;
+                case 4:
+                    _return = this.buttonCheckControl_Channel4.Checked;
+                    break;
+                default:
+                    break;
+            }
+            return _return;
+        }
 
         #endregion
 
@@ -131,28 +163,28 @@ namespace UserControlPlusLib.ClockRate
                     break;
             }
             //---执行委托函数
-            if ((this.UserButtonCheckControlClick!=null)&&(index!=0))
+            if ((this.UserButtonCheckControlClick != null) && (index != 0))
             {
-                this.UserButtonCheckControlClick(sender,e,index);
+                this.UserButtonCheckControlClick(sender, e, index,bcc.Checked);
             }
         }
 
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		public virtual void button_Click(object sender, EventArgs e)
-		{
-			Button btn = (Button)sender;
-			btn.Enabled = false;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public virtual void button_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.Enabled = false;
             int index = 0;
             switch (btn.Name)
-			{
-				case "button_writeClockRate":
+            {
+                case "button_writeClockRate":
                     index = 1;
-					break;
+                    break;
                 case "button_readClockRate":
                     index = 2;
                     break;
@@ -160,46 +192,14 @@ namespace UserControlPlusLib.ClockRate
                     index = 3;
                     break;
                 default:
-					break;
-			}
+                    break;
+            }
             //---执行委托函数
             if ((this.UserButtonClick != null) && (index != 0))
             {
-                this.UserButtonClick(sender,e,index);
+                this.UserButtonClick(sender, e,(int)this.numericUpDown_clockRate.Value, index);
             }
             btn.Enabled = true;
-		}
-
-        #endregion
-
-        #region 函数定义
-
-        /// <summary>
-        /// 获取时钟输出通道的状态
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns>false 关闭，true 打开</returns>
-        public bool GetChannelChecked(int index)
-        {
-            bool _return = false;
-            switch (index)
-            {
-                case 1:
-                    _return = this.buttonCheckControl_Channel1.Checked;
-                    break;
-                case 2:
-                    _return = this.buttonCheckControl_Channel2.Checked;
-                    break;
-                case 3:
-                    _return = this.buttonCheckControl_Channel3.Checked;
-                    break;
-                case 4:
-                    _return = this.buttonCheckControl_Channel4.Checked;
-                    break;
-                default:
-                    break;
-            }
-            return _return;
         }
 
         #endregion

@@ -130,7 +130,7 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
-		///
+		/// 初始化
 		/// </summary>
 		/// <param name="usePort"></param>
 		/// <param name="msg"></param>
@@ -172,7 +172,7 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
-		/// 
+		/// 初始化
 		/// </summary>
 		/// <param name="useForm"></param>
 		/// <param name="usePort"></param>
@@ -189,9 +189,8 @@ namespace COMMPortLib
 			}
 			this.Init(usePort, msg);
 		}
-		#endregion 初始化
 
-	
+		#endregion 
 
 		#region 事件定义
 

@@ -271,10 +271,10 @@
             this.panel_passSpace.Controls.Add(this.numericUpDown_passSpacePointMax);
             this.panel_passSpace.Controls.Add(this.label_passSpacePointMinADC);
             this.panel_passSpace.Controls.Add(this.label_passSpacePointMinADCUnite);
-            this.panel_passSpace.Controls.Add(this.numericUpDown_passSpacePointMin);
-            this.panel_passSpace.Controls.Add(this.label_passSpacePointMaxADC);
             this.panel_passSpace.Controls.Add(this.numericUpDown_passSpacePointNum);
             this.panel_passSpace.Controls.Add(this.label_passSpacePointNum);
+            this.panel_passSpace.Controls.Add(this.numericUpDown_passSpacePointMin);
+            this.panel_passSpace.Controls.Add(this.label_passSpacePointMaxADC);
             this.panel_passSpace.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_passSpace.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.panel_passSpace.Location = new System.Drawing.Point(3, 17);
@@ -285,7 +285,7 @@
             // label_passSpacePointMaxADCUnite
             // 
             this.label_passSpacePointMaxADCUnite.AutoSize = true;
-            this.label_passSpacePointMaxADCUnite.Location = new System.Drawing.Point(141, 58);
+            this.label_passSpacePointMaxADCUnite.Location = new System.Drawing.Point(141, 31);
             this.label_passSpacePointMaxADCUnite.Name = "label_passSpacePointMaxADCUnite";
             this.label_passSpacePointMaxADCUnite.Size = new System.Drawing.Size(23, 12);
             this.label_passSpacePointMaxADCUnite.TabIndex = 14;
@@ -293,7 +293,7 @@
             // 
             // numericUpDown_passSpacePointMax
             // 
-            this.numericUpDown_passSpacePointMax.Location = new System.Drawing.Point(60, 56);
+            this.numericUpDown_passSpacePointMax.Location = new System.Drawing.Point(60, 29);
             this.numericUpDown_passSpacePointMax.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -312,7 +312,7 @@
             // label_passSpacePointMinADC
             // 
             this.label_passSpacePointMinADC.AutoSize = true;
-            this.label_passSpacePointMinADC.Location = new System.Drawing.Point(3, 57);
+            this.label_passSpacePointMinADC.Location = new System.Drawing.Point(3, 31);
             this.label_passSpacePointMinADC.Name = "label_passSpacePointMinADC";
             this.label_passSpacePointMinADC.Size = new System.Drawing.Size(59, 12);
             this.label_passSpacePointMinADC.TabIndex = 12;
@@ -321,7 +321,7 @@
             // label_passSpacePointMinADCUnite
             // 
             this.label_passSpacePointMinADCUnite.AutoSize = true;
-            this.label_passSpacePointMinADCUnite.Location = new System.Drawing.Point(141, 31);
+            this.label_passSpacePointMinADCUnite.Location = new System.Drawing.Point(141, 58);
             this.label_passSpacePointMinADCUnite.Name = "label_passSpacePointMinADCUnite";
             this.label_passSpacePointMinADCUnite.Size = new System.Drawing.Size(23, 12);
             this.label_passSpacePointMinADCUnite.TabIndex = 11;
@@ -329,7 +329,7 @@
             // 
             // numericUpDown_passSpacePointMin
             // 
-            this.numericUpDown_passSpacePointMin.Location = new System.Drawing.Point(60, 29);
+            this.numericUpDown_passSpacePointMin.Location = new System.Drawing.Point(60, 56);
             this.numericUpDown_passSpacePointMin.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -348,7 +348,7 @@
             // label_passSpacePointMaxADC
             // 
             this.label_passSpacePointMaxADC.AutoSize = true;
-            this.label_passSpacePointMaxADC.Location = new System.Drawing.Point(3, 31);
+            this.label_passSpacePointMaxADC.Location = new System.Drawing.Point(3, 58);
             this.label_passSpacePointMaxADC.Name = "label_passSpacePointMaxADC";
             this.label_passSpacePointMaxADC.Size = new System.Drawing.Size(59, 12);
             this.label_passSpacePointMaxADC.TabIndex = 9;

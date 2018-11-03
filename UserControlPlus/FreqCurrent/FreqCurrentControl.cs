@@ -282,7 +282,23 @@ namespace UserControlPlusLib.FreqCurrent
 
         #region 函数定义
 
+        /// <summary>
+        /// 设置用户控件参数
+        /// </summary>
+        public void SetUserControlParameter(float[] cmd)
+        {
 
+        }
+
+        /// <summary>
+        /// 获取用户控件参数
+        /// </summary>
+        /// <returns></returns>
+        public float[] GetUserControlParameter()
+        {
+            float[] _return=new float[10] {this.m_StartFreq,this.m_StepFreq,this.m_StepPointNum,this.m_StartPassMin,this.m_StartPassMax,this.m_PassSpacePointNum,this.m_PassSpacePointMin,this.m_PassSpacePointMax,this.m_StopPassMin,this.m_StopPassMax };
+            return _return;
+        }
 
         #endregion
 

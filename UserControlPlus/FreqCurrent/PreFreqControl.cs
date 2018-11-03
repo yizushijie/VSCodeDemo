@@ -34,6 +34,71 @@ namespace UserControlPlusLib.FreqCurrent
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("预设的第一个频率点"), Category("自定义属性")]
+        public virtual float m_PreFreqOne
+        {
+            get
+            {
+                return (float)this.numericUpDown_freqOne.Value;
+            }
+            set
+            {
+                this.numericUpDown_freqOne.Value = (decimal)value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("预设的第二个频率点"), Category("自定义属性")]
+        public virtual float m_PreFreqTwo
+        {
+            get
+            {
+                return (float)this.numericUpDown_freqTwo.Value;
+            }
+            set
+            {
+                this.numericUpDown_freqTwo.Value = (decimal)value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("预设的第三个频率点"), Category("自定义属性")]
+        public virtual float m_PreFreqThree
+        {
+            get
+            {
+                return (float)this.numericUpDown_freqThree.Value;
+            }
+            set
+            {
+                this.numericUpDown_freqThree.Value = (decimal)value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("预设的第四个频率点"), Category("自定义属性")]
+        public virtual float m_PreFreqFour
+        {
+            get
+            {
+                return (float)this.numericUpDown_freqFour.Value;
+            }
+            set
+            {
+                this.numericUpDown_freqFour.Value = (decimal)value;
+            }
+        }
+
+
         #endregion
 
         #region 委托定义
@@ -113,7 +178,7 @@ namespace UserControlPlusLib.FreqCurrent
         /// </summary>
         /// <param name="index"></param>
         /// <param name="freq"></param>
-        public virtual void SetPreFreq(int index,float freq)
+        public virtual void SetUserControlParameter(int index,float freq)
         {
             switch (index)
             {
@@ -135,11 +200,27 @@ namespace UserControlPlusLib.FreqCurrent
         }
 
         /// <summary>
+        /// 设置参数
+        /// </summary>
+        /// <param name="cmd"></param>
+        public virtual void SetUserControlParameter(float[] cmd)
+        {
+            if ((cmd==null)||(cmd.Length<4))
+            {
+                return;
+            }
+            this.m_PreFreqOne = cmd[0];
+            this.m_PreFreqTwo = cmd[1];
+            this.m_PreFreqThree = cmd[2];
+            this.m_PreFreqFour = cmd[3];
+        }
+
+        /// <summary>
         /// 读取预设频率点
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public virtual float GetPreFreq(int index)
+        public virtual float GetUserControlParameter(int index)
         {
             float _return = 0;
             switch (index)
@@ -162,7 +243,15 @@ namespace UserControlPlusLib.FreqCurrent
             return _return;
         }
 
-       
+        /// <summary>
+        /// 获取参数
+        /// </summary>
+        /// <returns></returns>
+        public virtual float[] GetUserControlParameter()
+        {
+            float[] _return = new float[4] { this.m_PreFreqOne,this.m_PreFreqTwo,this.m_PreFreqThree,this.m_PreFreqFour };
+            return _return;
+        }
         #endregion
 
 

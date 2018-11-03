@@ -590,28 +590,30 @@ namespace COMMPortLib
 			this.m_IsEnableMultiDevice = isEnMultiDevice;
 		}
 
-		/// <summary>
-		/// 析构函数
-		/// </summary>
-		~SerialCOMMPort()
-		{
-			if (this.usedSerialPort != null)
-			{
-				//---销毁当前对象
-				this.usedSerialPort.Dispose();
-			}
+        #endregion 构造函数
+
+        #region 析构函数
+        /// <summary>
+        /// 析构函数
+        /// </summary>
+        ~SerialCOMMPort()
+        {
+            if (this.usedSerialPort != null)
+            {
+                //---销毁当前对象
+                this.usedSerialPort.Dispose();
+            }
             GC.SuppressFinalize(this);
         }
-
-        #endregion 构造函数
+        #endregion
 
         #region 函数定义
         /// <summary>
-		/// 获取校验位信息
-		/// </summary>
-		/// <param name="parity"></param>
-		/// <returns></returns>
-		private Parity GetParityBits(string parityBits)
+        /// 获取校验位信息
+        /// </summary>
+        /// <param name="parity"></param>
+        /// <returns></returns>
+        private Parity GetParityBits(string parityBits)
         {
             //---获取校验位
             Parity _return = new Parity();

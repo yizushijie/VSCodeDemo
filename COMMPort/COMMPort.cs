@@ -751,6 +751,11 @@ namespace COMMPortLib
 		{
 		}
 
+
+
+        #endregion 构造函数
+
+        #region 析构函数
         /// <summary>
         /// 析构函数
         /// </summary>
@@ -758,8 +763,7 @@ namespace COMMPortLib
         {
             GC.SuppressFinalize(this);
         }
-
-        #endregion 构造函数
+        #endregion
 
         #region 函数定义
 

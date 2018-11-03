@@ -231,6 +231,11 @@ namespace HexFileLib
 			}
 		}
 
+
+        #endregion 构造函数
+
+        #region 析构函数
+
         /// <summary>
         /// 
         /// </summary>
@@ -238,9 +243,7 @@ namespace HexFileLib
         {
             GC.SuppressFinalize(this);
         }
-       
-
-        #endregion 构造函数
+        #endregion
 
         #region 函数定义
 
