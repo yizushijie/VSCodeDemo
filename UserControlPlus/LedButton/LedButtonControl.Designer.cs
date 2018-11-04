@@ -1,4 +1,4 @@
-﻿namespace UserControlPlusLib.LedButton
+﻿namespace UserControlPlusLib
 {
 	partial class LedButtonControl
 	{

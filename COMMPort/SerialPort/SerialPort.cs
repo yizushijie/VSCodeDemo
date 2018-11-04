@@ -310,7 +310,61 @@ namespace COMMPortLib
 			}
 		}
 
-        
+        /// <summary>
+        /// 数据格式合法
+        /// </summary>
+        public override bool m_COMMBytesPassed
+        {
+            get
+            {
+                byte wCMD = 0;
+                byte rCMD = 0;
+                int length = 0;
+                //---写入的数据
+                if ((this.m_COMMPortWriteData==null)||(this.m_COMMPortWriteData.usedByte==null)||(this.m_COMMPortWriteData.usedByte.Count==0))
+                {
+                    return false;
+                }
+                if (this.m_COMMPortWriteBufferSize>250)
+                {
+                    wCMD = this.m_COMMPortWriteData.usedByte[3];
+                }
+                else
+                {
+                    wCMD = this.m_COMMPortWriteData.usedByte[2];
+                }
+                //---读取的数据
+                if ((this.m_COMMPortReadData == null) || (this.m_COMMPortReadData.usedByte == null) || (this.m_COMMPortReadData.usedByte.Count == 0))
+                {
+                    return false;
+                }
+                if (this.m_COMMPortReadBufferSize > 250)
+                {
+                    rCMD = this.m_COMMPortReadData.usedByte[3];
+                    //---数据的有效长度
+                    length = this.m_COMMPortReadData.usedByte[1];
+                    length = (length << 8) + this.m_COMMPortReadData.usedByte[2];
+                    length += 3;
+                }
+                else
+                {
+                    rCMD = this.m_COMMPortReadData.usedByte[2];
+                    //---数据的有效长度
+                    length = this.m_COMMPortReadData.usedByte[1];
+                    length += 2;
+                }
+                //---判断数据是否合法
+                if ((wCMD==rCMD)&&(length==this.m_COMMPortReadData.usedByte.Count))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         #endregion 属性定义
 
         #region 构造函数
@@ -364,7 +418,7 @@ namespace COMMPortLib
 		/// <param name="bandRate"></param>
 		/// <param name="isEnMultiDevice"></param>
 		/// <param name="msg"></param>
-		public SerialCOMMPort(Form useForm, int useBaudRate, bool isEnMultiDevice = false, RichTextBox msg = null)
+		public SerialCOMMPort(Form useForm, int useBaudRate, bool isEnMultiDevice, RichTextBox msg = null)
 		{
 			if (this.m_UsedForm == null)
 			{
@@ -1799,12 +1853,41 @@ namespace COMMPortLib
 		{
 			return this.WriteToDevice(cmd, 0, msg);
 		}
-		/// <summary>
+
+        /// <summary>
 		///
 		/// </summary>
 		/// <param name="cmd"></param>
+		/// <param name=""></param>
+		/// <param name="msg"></param>
 		/// <returns></returns>
-		public override int WriteToDevice(byte[] cmd, int deviceID,RichTextBox msg = null)
+		public override int WriteToDevice(ref byte[] cmd, RichTextBox msg = null)
+        {
+            int _return = this.WriteToDevice(cmd, msg);
+            if (_return==0)
+            {
+                if ((this.m_COMMPortWriteData == null) || (this.m_COMMPortWriteData.usedByte == null) || (this.m_COMMPortWriteData.usedByte.Count == 0))
+                {
+                    _return = 2;
+                    cmd = null;
+                }
+                else
+                {
+                    //---重置缓存区
+                    cmd = new byte[this.m_COMMPortWriteData.usedByte.Count];
+                    //---数据拷贝到缓存区
+                    this.m_COMMPortWriteData.usedByte.CopyTo(cmd);
+                }
+            }
+            return _return;
+
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <returns></returns>
+        public override int WriteToDevice(byte[] cmd, int deviceID,RichTextBox msg = null)
 		{
 			int _return = 1;
 			try
@@ -1862,13 +1945,44 @@ namespace COMMPortLib
 			return _return;
 		}
 
-		/// <summary>
-		///
-		/// </summary>
-		/// <param name="cmd"></param>
-		/// <param name="msg"></param>
-		/// <returns></returns>
-		public override int WriteToDevice(int portIndex, byte[] cmd, RichTextBox msg = null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="deviceID"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public override int WriteToDevice(ref byte[] cmd, int deviceID, RichTextBox msg = null)
+        {
+            int _return = this.WriteToDevice(cmd, deviceID, msg);
+            if (_return == 0)
+            {
+                if (_return == 0)
+                {
+                    if ((this.m_COMMPortWriteData == null) || (this.m_COMMPortWriteData.usedByte == null) || (this.m_COMMPortWriteData.usedByte.Count == 0))
+                    {
+                        _return = 2;
+                        cmd = null;
+                    }
+                    else
+                    {
+                        //---重置缓存区
+                        cmd = new byte[this.m_COMMPortWriteData.usedByte.Count];
+                        //---数据拷贝到缓存区
+                        this.m_COMMPortWriteData.usedByte.CopyTo(cmd);
+                    }
+                }
+            }
+            return _return;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public override int WriteToDevice(int portIndex, byte[] cmd, RichTextBox msg = null)
 		{
 			return 1;
 		}
@@ -1885,17 +1999,7 @@ namespace COMMPortLib
 			return 1;
 		}
 
-		/// <summary>
-		///
-		/// </summary>
-		/// <param name="cmd"></param>
-		/// <param name=""></param>
-		/// <param name="msg"></param>
-		/// <returns></returns>
-		public override int WriteToDevice(ref byte[] cmd, RichTextBox msg = null)
-		{
-			return 1;
-		}
+		
 
 		/// <summary>
 		///
@@ -1990,33 +2094,70 @@ namespace COMMPortLib
 			{
 				_return = this.ReadFromDevice(ref res, timeout, msg);
 			}
-			return 1;
+			return _return;
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="cmd"></param>
-		/// <param name="res"></param>
-		/// <param name="deviceID"></param>
-		/// <param name="timeout"></param>
-		/// <param name="msg"></param>
-		/// <returns></returns>
-		public override int SendCmdAndReadResponse(byte[] cmd, ref byte[] res, int deviceID, int timeout = 200, RichTextBox msg = null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="res"></param>
+        /// <param name="timeout"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public override int SendCmdAndReadResponse(ref byte[] cmd, ref byte[] res, int timeout = 200, RichTextBox msg = null)
+        {
+            int _return = this.WriteToDevice(ref cmd, msg);
+            if (_return == 0)
+            {
+                _return = this.ReadFromDevice(ref res, timeout, msg);
+            }
+            return _return;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="res"></param>
+        /// <param name="deviceID"></param>
+        /// <param name="timeout"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public override int SendCmdAndReadResponse(byte[] cmd, ref byte[] res, int deviceID, int timeout, RichTextBox msg = null)
 		{
 			int _return = this.WriteToDevice(cmd,deviceID, msg);
 			if (_return == 0)
 			{
 				_return = this.ReadFromDevice(ref res, timeout, msg);
 			}
-			return 1;
+			return _return;
 		}
 
-		/// <summary>
-		/// 打开设备
-		/// </summary>
-		/// <returns></returns>
-		public override int OpenDevice()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="res"></param>
+        /// <param name="deviceID"></param>
+        /// <param name="timeout"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public override int SendCmdAndReadResponse(ref byte[] cmd, ref byte[] res, int deviceID, int timeout, RichTextBox msg = null)
+        {
+            int _return = this.WriteToDevice(ref cmd, deviceID, msg);
+            if (_return == 0)
+            {
+                _return = this.ReadFromDevice(ref res, timeout, msg);
+            }
+            return _return;
+        }
+
+        /// <summary>
+        /// 打开设备
+        /// </summary>
+        /// <returns></returns>
+        public override int OpenDevice()
 		{
             if (this.usedSerialPort!=null)
             {

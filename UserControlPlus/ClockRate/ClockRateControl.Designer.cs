@@ -1,33 +1,33 @@
-﻿namespace UserControlPlusLib.ClockRate
+﻿namespace UserControlPlusLib
 {
-	partial class ClockRateControl
-	{
-		/// <summary> 
-		/// 必需的设计器变量。
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class ClockRateControl
+    {
+        /// <summary> 
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary> 
-		/// 清理所有正在使用的资源。
-		/// </summary>
-		/// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary> 
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region 组件设计器生成的代码
+        #region 组件设计器生成的代码
 
-		/// <summary> 
-		/// 设计器支持所需的方法 - 不要修改
-		/// 使用代码编辑器修改此方法的内容。
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary> 
+        /// 设计器支持所需的方法 - 不要修改
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.numericUpDown_clockRate = new System.Windows.Forms.NumericUpDown();
             this.button_writeClockRate = new System.Windows.Forms.Button();
             this.label_Channel1 = new System.Windows.Forms.Label();
@@ -252,24 +252,24 @@
             this.panel_PortName.PerformLayout();
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
-		private System.Windows.Forms.NumericUpDown numericUpDown_clockRate;
-		private System.Windows.Forms.Button button_writeClockRate;
-		private System.Windows.Forms.Label label_Channel1;
-		private System.Windows.Forms.Label label_Channel3;
-		private System.Windows.Forms.Label label_Channel4;
-		private System.Windows.Forms.Label label_Channel2;
-		private System.Windows.Forms.Label label_clockRateUnite;
-		private ButtonCheckControl buttonCheckControl_Channel1;
-		private ButtonCheckControl buttonCheckControl_Channel2;
-		private ButtonCheckControl buttonCheckControl_Channel3;
-		private System.Windows.Forms.Label label_clockRateName;
-		private System.Windows.Forms.GroupBox groupBox_clockRateName;
-		private System.Windows.Forms.Panel panel_PortName;
+        #endregion
+        private System.Windows.Forms.NumericUpDown numericUpDown_clockRate;
+        private System.Windows.Forms.Button button_writeClockRate;
+        private System.Windows.Forms.Label label_Channel1;
+        private System.Windows.Forms.Label label_Channel3;
+        private System.Windows.Forms.Label label_Channel4;
+        private System.Windows.Forms.Label label_Channel2;
+        private System.Windows.Forms.Label label_clockRateUnite;
+        private ButtonCheckControl buttonCheckControl_Channel1;
+        private ButtonCheckControl buttonCheckControl_Channel2;
+        private ButtonCheckControl buttonCheckControl_Channel3;
+        private System.Windows.Forms.Label label_clockRateName;
+        private System.Windows.Forms.GroupBox groupBox_clockRateName;
+        private System.Windows.Forms.Panel panel_PortName;
         private ButtonCheckControl buttonCheckControl_Channel4;
-		private System.Windows.Forms.Button button_resetClockRate;
+        private System.Windows.Forms.Button button_resetClockRate;
         private System.Windows.Forms.Button button_readClockRate;
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace UserControlPlusLib.FreqCurrent
+﻿namespace UserControlPlusLib
 {
     partial class FreqCurrentControl
     {

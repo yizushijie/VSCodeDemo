@@ -81,6 +81,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClockWM8510\ClockWM8510.csproj">
+      <Project>{DDE8E539-15E0-46B5-BB90-6B08D262F02D}</Project>
+      <Name>ClockWM8510</Name>
+    </ProjectReference>
     <ProjectReference Include="..\COMMPort\COMMPort.csproj">
       <Project>{F066762D-819B-43EF-8D46-AA3AC7CC1DDF}</Project>
       <Name>COMMPort</Name>

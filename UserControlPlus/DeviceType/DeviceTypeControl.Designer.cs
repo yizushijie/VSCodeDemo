@@ -1,4 +1,4 @@
-﻿namespace UserControlPlusLib.DeviceType
+﻿namespace UserControlPlusLib
 {
     partial class DeviceTypeControl
     {

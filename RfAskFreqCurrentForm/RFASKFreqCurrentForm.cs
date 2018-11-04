@@ -1,4 +1,5 @@
-﻿using COMMPortLib;
+﻿using ClockWM8510Lib;
+using COMMPortLib;
 using MessageBoxPlusLib;
 using RFASKFreqCurrentLib;
 using System;
@@ -58,7 +59,7 @@ namespace RFASKFreqCurrentForm
             //---使用的类
             if (this.usedFreqCurrent == null)
             {
-                this.usedFreqCurrent = new RFASKFreqCurrent(new SerialCOMMPort(this));
+                this.usedFreqCurrent = new RFASKFreqCurrent(new SerialCOMMPort(this,115200));
             }
             //---通信端口初始化
             this.commPortControl_commPort.Init(this, this.usedFreqCurrent.m_UsedPort, this.richTextBoxEx_msg);
@@ -77,7 +78,9 @@ namespace RFASKFreqCurrentForm
             //---定时器
             this.timer_SysTick.Tick += new EventHandler(this.timer_Tick);
 
-
+            //---时钟控件的事件注册
+            this.clockRateControl_clockRate.UserButtonClick += new UserControlPlusLib.ClockRateControl.UserButtonClickHandle(this.ClockRateUserControl_ButtonClick);
+            this.clockRateControl_clockRate.UserButtonCheckControlClick += new UserControlPlusLib.ClockRateControl.UserButtonCheckControlClickHandle(this.ClockRateUserControl_ChannelClick);
 
         }
 
@@ -194,6 +197,49 @@ namespace RFASKFreqCurrentForm
         #endregion
 
         #region 函数定义
+
+        /// <summary>
+        /// 时钟设置通道选取
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="index"></param>
+        public void ClockRateUserControl_ButtonClick(int freq, int index = 0)
+        {
+            if ((this.usedFreqCurrent==null)||(this.usedFreqCurrent.m_UsedPort==null))
+            {
+                return;
+            }
+            ClockWM8510 usedWM8510 = new ClockWM8510();
+            usedWM8510.ClockWM8510Set(freq, index, this.usedFreqCurrent.m_UsedPort, this.richTextBoxEx_msg);
+            if (index==1)
+            {
+                if (freq < usedWM8510.m_MinFreq)
+                {
+                    this.clockRateControl_clockRate.m_ClockRate= usedWM8510.m_MinFreq;
+                    this.clockRateControl_clockRate.m_ClockRateMin = usedWM8510.m_MinFreq;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// 时钟通道的选择
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="isChecked"></param>
+        public void ClockRateUserControl_ChannelClick(int index, bool isChecked=false)
+        {
+            if ((this.usedFreqCurrent == null) || (this.usedFreqCurrent.m_UsedPort == null))
+            {
+                return;
+            }
+            ClockWM8510 usedWM8510 = new ClockWM8510();
+            if(usedWM8510.ClockWM8510SetChannel(index,isChecked, this.usedFreqCurrent.m_UsedPort, this.richTextBoxEx_msg)!=0)
+            {
+                this.clockRateControl_clockRate.SetChannelChecked(index, !isChecked);
+            }
+            
+        }
 
         #endregion
 

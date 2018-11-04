@@ -289,7 +289,7 @@ namespace COMMPortLib
 		/// <summary>
 		/// 发送数据报头
 		/// </summary>
-		private byte commPortWriteID = 0x5A;
+		private byte commPortWriteID = 0x55;
 
 		/// <summary>
 		/// 是否使能多设备通信，一个串口带多个设备，使能---true，不使能---false
@@ -606,14 +606,25 @@ namespace COMMPortLib
 			}
 		}
 		
-		#endregion 属性定义
+        /// <summary>
+        /// 数据格式合法
+        /// </summary>
+        public virtual bool m_COMMBytesPassed
+        {
+            get
+            {
+                return true;
+            }
+        }
 
-		#region 构造函数
+        #endregion 属性定义
 
-		/// <summary>
-		///
-		/// </summary>
-		public COMMPort()
+        #region 构造函数
+
+        /// <summary>
+        ///
+        /// </summary>
+        public COMMPort()
 		{
 		}
 
@@ -910,23 +921,47 @@ namespace COMMPortLib
 		{
 			return 1;
 		}
-		/// <summary>
+
+        /// <summary>
 		///
 		/// </summary>
 		/// <param name="cmd"></param>
+		/// <param name=""></param>
+		/// <param name="msg"></param>
 		/// <returns></returns>
-		public virtual int WriteToDevice(byte[] cmd, int deviceID , RichTextBox msg = null)
+		public virtual int WriteToDevice(ref byte[] cmd, RichTextBox msg = null)
+        {
+            return 1;
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <returns></returns>
+        public virtual int WriteToDevice(byte[] cmd, int deviceID , RichTextBox msg = null)
 		{
 			return 1;
 		}
 
-		/// <summary>
-		///
-		/// </summary>
-		/// <param name="cmd"></param>
-		/// <param name="msg"></param>
-		/// <returns></returns>
-		public virtual int WriteToDevice(int portIndex, byte[] cmd, RichTextBox msg = null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="deviceID"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public virtual int WriteToDevice(ref byte[] cmd, int deviceID, RichTextBox msg = null)
+        {
+            return 1;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public virtual int WriteToDevice(int portIndex, byte[] cmd, RichTextBox msg = null)
 		{
 			return 1;
 		}
@@ -943,17 +978,7 @@ namespace COMMPortLib
 			return 1;
 		}
 
-		/// <summary>
-		///
-		/// </summary>
-		/// <param name="cmd"></param>
-		/// <param name=""></param>
-		/// <param name="msg"></param>
-		/// <returns></returns>
-		public virtual int WriteToDevice(ref byte[] cmd, RichTextBox msg = null)
-		{
-			return 1;
-		}
+		
 
 		/// <summary>
 		///
@@ -1030,25 +1055,52 @@ namespace COMMPortLib
 			return 1;
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="cmd"></param>
-		/// <param name="res"></param>
-		/// <param name="deviceID"></param>
-		/// <param name="timeout"></param>
-		/// <param name="msg"></param>
-		/// <returns></returns>
-		public virtual int SendCmdAndReadResponse(byte[] cmd, ref byte[] res,int deviceID, int timeout = 200, RichTextBox msg = null)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="res"></param>
+        /// <param name="timeout"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public virtual int SendCmdAndReadResponse(ref byte[] cmd, ref byte[] res, int timeout = 200, RichTextBox msg = null)
+        {
+            return 1;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="res"></param>
+        /// <param name="deviceID"></param>
+        /// <param name="timeout"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public virtual int SendCmdAndReadResponse(byte[] cmd, ref byte[] res,int deviceID, int timeout , RichTextBox msg = null)
 		{
 			return 1;
 		}
 
-		/// <summary>
-		/// 打开设备
-		/// </summary>
-		/// <returns></returns>
-		public virtual int OpenDevice()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="res"></param>
+        /// <param name="deviceID"></param>
+        /// <param name="timeout"></param>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public virtual int SendCmdAndReadResponse(ref byte[] cmd, ref byte[] res, int deviceID, int timeout, RichTextBox msg = null)
+        {
+            return 1;
+        }
+
+        /// <summary>
+        /// 打开设备
+        /// </summary>
+        /// <returns></returns>
+        public virtual int OpenDevice()
 		{
 			return 1;
 		}

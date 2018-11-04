@@ -38,11 +38,11 @@
             this.tabControl_FuncMenu = new System.Windows.Forms.TabControl();
             this.tabPage_Func = new System.Windows.Forms.TabPage();
             this.richTextBoxEx_msg = new RichTextBoxPlusLib.RichTextBoxEx();
-            this.preFreqControl_preFreq = new UserControlPlusLib.FreqCurrent.PreFreqControl();
-            this.deviceTypeControl_deviceType = new UserControlPlusLib.DeviceType.DeviceTypeControl();
-            this.freqCurrentControl_freqCurrentPointTwo = new UserControlPlusLib.FreqCurrent.FreqCurrentControl();
-            this.freqCurrentControl_freqCurrentPointOne = new UserControlPlusLib.FreqCurrent.FreqCurrentControl();
-            this.clockRateControl_clockRate = new UserControlPlusLib.ClockRate.ClockRateControl();
+            this.preFreqControl_preFreq = new UserControlPlusLib.PreFreqControl();
+            this.deviceTypeControl_deviceType = new UserControlPlusLib.DeviceTypeControl();
+            this.freqCurrentControl_freqCurrentPointTwo = new UserControlPlusLib.FreqCurrentControl();
+            this.freqCurrentControl_freqCurrentPointOne = new UserControlPlusLib.FreqCurrentControl();
+            this.clockRateControl_clockRate = new UserControlPlusLib.ClockRateControl();
             this.commPortControl_commPort = new COMMPortLib.COMMPortControl();
             this.tabPage_Chart = new System.Windows.Forms.TabPage();
             this.toolStrip_BottomMenu.SuspendLayout();
@@ -265,11 +265,11 @@
         private System.Windows.Forms.TabPage tabPage_Func;
         private System.Windows.Forms.TabPage tabPage_Chart;
         private COMMPortLib.COMMPortControl commPortControl_commPort;
-        private UserControlPlusLib.FreqCurrent.FreqCurrentControl freqCurrentControl_freqCurrentPointTwo;
-        private UserControlPlusLib.FreqCurrent.FreqCurrentControl freqCurrentControl_freqCurrentPointOne;
-        private UserControlPlusLib.ClockRate.ClockRateControl clockRateControl_clockRate;
-        private UserControlPlusLib.DeviceType.DeviceTypeControl deviceTypeControl_deviceType;
-        private UserControlPlusLib.FreqCurrent.PreFreqControl preFreqControl_preFreq;
+        private UserControlPlusLib.FreqCurrentControl freqCurrentControl_freqCurrentPointTwo;
+        private UserControlPlusLib.FreqCurrentControl freqCurrentControl_freqCurrentPointOne;
+        private UserControlPlusLib.ClockRateControl clockRateControl_clockRate;
+        private UserControlPlusLib.DeviceTypeControl deviceTypeControl_deviceType;
+        private UserControlPlusLib.PreFreqControl preFreqControl_preFreq;
         private RichTextBoxPlusLib.RichTextBoxEx richTextBoxEx_msg;
     }
 }

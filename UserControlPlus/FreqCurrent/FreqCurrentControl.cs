@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace UserControlPlusLib.FreqCurrent
+namespace UserControlPlusLib
 {
     public partial class FreqCurrentControl : UserControl
     {

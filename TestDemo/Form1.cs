@@ -29,7 +29,7 @@ namespace TestDemo
             // this.ledControl1.AddClickEvent = new EventHandler(buttonCheckControl_Click);
 
             //this.ledControl1.UserClick += new EventHandler (this.buttonCheckControl_Click());
-            this.ledControl1.UserClick += new UserControlPlusLib.LED.LedControl.UserClickHandle(this.buttonCheckControl_Click);
+            this.ledControl1.UserClick += new UserControlPlusLib.LedControl.UserClickHandle(this.buttonCheckControl_Click);
             //this.button1.Click += new EventHandler(this.button_Click);
         }
 

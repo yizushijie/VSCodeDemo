@@ -29,8 +29,8 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            this.clockRateControl1 = new UserControlPlusLib.ClockRate.ClockRateControl();
-            this.ledControl1 = new UserControlPlusLib.LED.LedControl();
+            this.clockRateControl1 = new UserControlPlusLib.ClockRateControl();
+            this.ledControl1 = new UserControlPlusLib.LedControl();
             this.commPortControl1 = new COMMPortLib.COMMPortControl();
             this.richTextBoxControl1 = new RichTextBoxPlusLib.RichTextBoxEx();
             this.button1 = new System.Windows.Forms.Button();
@@ -102,9 +102,9 @@
 		}
 
 		#endregion
-		private UserControlPlusLib.ClockRate.ClockRateControl clockRateControl1;
+		private UserControlPlusLib.ClockRateControl clockRateControl1;
 		private COMMPortLib.COMMPortControl commPortControl1;
-        private UserControlPlusLib.LED.LedControl ledControl1;
+        private UserControlPlusLib.LedControl ledControl1;
         private RichTextBoxPlusLib.RichTextBoxEx richTextBoxControl1;
         private System.Windows.Forms.Button button1;
     }

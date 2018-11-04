@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace UserControlPlusLib.ClockRate
+namespace UserControlPlusLib
 {
 	public partial class ClockRateControl : UserControl
 	{
@@ -50,6 +50,23 @@ namespace UserControlPlusLib.ClockRate
             }
         }
 
+
+        /// <summary>
+        /// 时钟频率
+        /// </summary>
+        [Description("时钟频率最小值"), Category("自定义属性")]
+        public virtual int m_ClockRateMin
+        {
+            get
+            {
+                return (int)this.numericUpDown_clockRate.Minimum;
+            }
+            set
+            {
+                this.numericUpDown_clockRate.Minimum = (decimal)value;
+            }
+        }
+
         #endregion
 
         #region 委托函数
@@ -60,7 +77,7 @@ namespace UserControlPlusLib.ClockRate
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonClickHandle(object sender, EventArgs e,int freq, int index=0);
+        public delegate void UserButtonClickHandle(int freq, int index=0);
 
         [Description("当点击控件时发生，调用选中按钮控件逻辑"), Category("自定义事件")]
         public event UserButtonClickHandle UserButtonClick;
@@ -71,7 +88,7 @@ namespace UserControlPlusLib.ClockRate
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonCheckControlClickHandle(object sender, EventArgs e, int index = 0,bool isChecked=false);
+        public delegate void UserButtonCheckControlClickHandle(int index = 0,bool isChecked=false);
 
         [Description("当点击控件时发生，调用选中当前控件逻辑"), Category("自定义事件")]
         public event UserButtonCheckControlClickHandle UserButtonCheckControlClick;
@@ -131,6 +148,35 @@ namespace UserControlPlusLib.ClockRate
             return _return;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool SetChannelChecked(int index,bool isChecked)
+        {
+            bool _return = true;
+            switch (index)
+            {
+                case 1:
+                    this.buttonCheckControl_Channel1.Checked=isChecked;
+                    break;
+                case 2:
+                    this.buttonCheckControl_Channel2.Checked=isChecked;
+                    break;
+                case 3:
+                    this.buttonCheckControl_Channel3.Checked=isChecked;
+                    break;
+                case 4:
+                    this.buttonCheckControl_Channel4.Checked=isChecked;
+                    break;
+                default:
+                    _return = false;
+                    break;
+            }
+            return _return;
+        }
+
         #endregion
 
         #region 事件定义
@@ -165,7 +211,7 @@ namespace UserControlPlusLib.ClockRate
             //---执行委托函数
             if ((this.UserButtonCheckControlClick != null) && (index != 0))
             {
-                this.UserButtonCheckControlClick(sender, e, index,bcc.Checked);
+                this.UserButtonCheckControlClick(index,bcc.Checked);
             }
         }
 
@@ -197,7 +243,7 @@ namespace UserControlPlusLib.ClockRate
             //---执行委托函数
             if ((this.UserButtonClick != null) && (index != 0))
             {
-                this.UserButtonClick(sender, e,(int)this.numericUpDown_clockRate.Value, index);
+                this.UserButtonClick((int)this.numericUpDown_clockRate.Value, index);
             }
             btn.Enabled = true;
         }

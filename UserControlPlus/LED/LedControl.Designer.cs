@@ -1,4 +1,4 @@
-﻿namespace UserControlPlusLib.LED
+﻿namespace UserControlPlusLib
 {
     partial class LedControl
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ledButtonControl_led = new UserControlPlusLib.LedButton.LedButtonControl();
+            this.ledButtonControl_led = new UserControlPlusLib.LedButtonControl();
             this.buttonCheckControl_led = new UserControlPlusLib.ButtonCheckControl();
             this.SuspendLayout();
             // 
@@ -69,7 +69,7 @@
 
         #endregion
 
-        private LedButton.LedButtonControl ledButtonControl_led;
+        private LedButtonControl ledButtonControl_led;
         private ButtonCheckControl buttonCheckControl_led;
     }
 }
