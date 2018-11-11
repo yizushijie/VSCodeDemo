@@ -177,6 +177,20 @@ namespace UserControlPlusLib
             return _return;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="isChecked"></param>
+        /// <returns></returns>
+        public void ClearChannelChecked(bool isChecked)
+        {
+            this.buttonCheckControl_Channel1.Checked = isChecked;
+            this.buttonCheckControl_Channel2.Checked = isChecked;
+            this.buttonCheckControl_Channel3.Checked = isChecked;
+            this.buttonCheckControl_Channel4.Checked = isChecked;
+        }
+
         #endregion
 
         #region 事件定义
@@ -236,6 +250,7 @@ namespace UserControlPlusLib
                     break;
                 case "button_resetClockRate":
                     index = 3;
+                    this.ClearChannelChecked(false);
                     break;
                 default:
                     break;

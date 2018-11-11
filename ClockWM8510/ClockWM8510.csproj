@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClockPreFreqYSEL.cs" />
     <Compile Include="ClockWM8510.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,6 +53,10 @@
     <ProjectReference Include="..\RichTextBoxPlus\RichTextBoxPlus.csproj">
       <Project>{FC2D572C-5CEE-40DA-8C1B-583E693602AA}</Project>
       <Name>RichTextBoxPlus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UserControlPlus\UserControlPlus.csproj">
+      <Project>{81C0BEB1-85E3-4C71-A1D4-B0A40B225F0E}</Project>
+      <Name>UserControlPlus</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

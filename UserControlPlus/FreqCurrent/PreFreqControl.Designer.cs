@@ -30,6 +30,8 @@
         {
             this.groupBox_preFreq = new System.Windows.Forms.GroupBox();
             this.panel_preFreq = new System.Windows.Forms.Panel();
+            this.numericUpDown_preFreqIndex = new System.Windows.Forms.NumericUpDown();
+            this.label_preFreqIndex = new System.Windows.Forms.Label();
             this.label_freqFourUnite = new System.Windows.Forms.Label();
             this.numericUpDown_freqFour = new System.Windows.Forms.NumericUpDown();
             this.label_freqFour = new System.Windows.Forms.Label();
@@ -44,15 +46,13 @@
             this.button_readPreFreq = new System.Windows.Forms.Button();
             this.numericUpDown_freqOne = new System.Windows.Forms.NumericUpDown();
             this.label_freqOne = new System.Windows.Forms.Label();
-            this.numericUpDown_preFreqIndex = new System.Windows.Forms.NumericUpDown();
-            this.label_preFreqIndex = new System.Windows.Forms.Label();
             this.groupBox_preFreq.SuspendLayout();
             this.panel_preFreq.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_preFreqIndex)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_freqFour)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_freqThree)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_freqTwo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_freqOne)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_preFreqIndex)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox_preFreq
@@ -92,6 +92,28 @@
             this.panel_preFreq.Name = "panel_preFreq";
             this.panel_preFreq.Size = new System.Drawing.Size(252, 106);
             this.panel_preFreq.TabIndex = 3;
+            // 
+            // numericUpDown_preFreqIndex
+            // 
+            this.numericUpDown_preFreqIndex.Location = new System.Drawing.Point(176, 22);
+            this.numericUpDown_preFreqIndex.Name = "numericUpDown_preFreqIndex";
+            this.numericUpDown_preFreqIndex.Size = new System.Drawing.Size(71, 21);
+            this.numericUpDown_preFreqIndex.TabIndex = 19;
+            this.numericUpDown_preFreqIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown_preFreqIndex.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label_preFreqIndex
+            // 
+            this.label_preFreqIndex.AutoSize = true;
+            this.label_preFreqIndex.Location = new System.Drawing.Point(174, 5);
+            this.label_preFreqIndex.Name = "label_preFreqIndex";
+            this.label_preFreqIndex.Size = new System.Drawing.Size(53, 12);
+            this.label_preFreqIndex.TabIndex = 18;
+            this.label_preFreqIndex.Text = "频率序号";
             // 
             // label_freqFourUnite
             // 
@@ -299,33 +321,6 @@
             this.label_freqOne.TabIndex = 4;
             this.label_freqOne.Text = "频率1:";
             // 
-            // numericUpDown_preFreqIndex
-            // 
-            this.numericUpDown_preFreqIndex.Location = new System.Drawing.Point(176, 22);
-            this.numericUpDown_preFreqIndex.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numericUpDown_preFreqIndex.Name = "numericUpDown_preFreqIndex";
-            this.numericUpDown_preFreqIndex.Size = new System.Drawing.Size(71, 21);
-            this.numericUpDown_preFreqIndex.TabIndex = 19;
-            this.numericUpDown_preFreqIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDown_preFreqIndex.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label_preFreqIndex
-            // 
-            this.label_preFreqIndex.AutoSize = true;
-            this.label_preFreqIndex.Location = new System.Drawing.Point(174, 5);
-            this.label_preFreqIndex.Name = "label_preFreqIndex";
-            this.label_preFreqIndex.Size = new System.Drawing.Size(53, 12);
-            this.label_preFreqIndex.TabIndex = 18;
-            this.label_preFreqIndex.Text = "频率序号";
-            // 
             // PreFreqControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -337,11 +332,11 @@
             this.groupBox_preFreq.ResumeLayout(false);
             this.panel_preFreq.ResumeLayout(false);
             this.panel_preFreq.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_preFreqIndex)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_freqFour)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_freqThree)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_freqTwo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_freqOne)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_preFreqIndex)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -7,6 +7,13 @@ using System.Windows.Forms;
 
 namespace RFASKFreqCurrentLib
 {
+    /// <summary>
+    /// 命令枚举
+    /// </summary>
+    public enum RFASKFreqCurrentPointCMD : byte
+    {
+       
+    }
     public partial class RFASKFreqCurrent
     {
         #region 变量定义
@@ -15,6 +22,16 @@ namespace RFASKFreqCurrentLib
         /// 使用的串口
         /// </summary>
         private COMMPort usedPort = null;
+
+        /// <summary>
+        /// 第一电压电流点的配置
+        /// </summary>
+        private const byte CMD_RFASK_CMD1_FREQ_CURRENT_POINT_ONE = 0x04;
+
+        /// <summary>
+        /// 第二电压电流点的配置
+        /// </summary
+        private const byte CMD_RFASK_CMD1_FREQ_CURRENT_POINT_TWO = 0x05;
 
         #endregion
 

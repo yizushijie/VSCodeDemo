@@ -166,16 +166,17 @@
             // 
             this.comboBox_deviceType.FormattingEnabled = true;
             this.comboBox_deviceType.Items.AddRange(new object[] {
-            "SYN4XX",
-            "SYN5XX",
-            "ARA",
-            "F11x",
-            "F11xH"});
+            "SYN4XXR",
+            "SYN5XXR",
+            "CRUX",
+            "F11xT",
+            "CRATER",
+            "ARA"});
             this.comboBox_deviceType.Location = new System.Drawing.Point(68, 3);
             this.comboBox_deviceType.Name = "comboBox_deviceType";
             this.comboBox_deviceType.Size = new System.Drawing.Size(85, 20);
             this.comboBox_deviceType.TabIndex = 0;
-            this.comboBox_deviceType.Text = "SYN4XX";
+            this.comboBox_deviceType.Text = "SYN4XXR";
             // 
             // DeviceTypeControl
             // 

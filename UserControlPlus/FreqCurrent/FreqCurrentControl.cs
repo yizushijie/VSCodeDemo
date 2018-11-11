@@ -202,7 +202,7 @@ namespace UserControlPlusLib
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonClickHandle(object sender, EventArgs e, int index = 0);
+        public delegate void UserButtonClickHandle(object sender, EventArgs e,int index);
 
         [Description("当点击控件时发生，调用选中按钮控件逻辑"), Category("自定义事件")]
         public event UserButtonClickHandle UserButtonClick;
@@ -263,10 +263,10 @@ namespace UserControlPlusLib
                     index = 3;
                     break;
                 case "button_writePassConfig":
-                    index = 3;
+                    index = 4;
                     break;
                 case "button_startDo":
-                    index = 3;
+                    index = 5;
                     break;
                 default:
                     break;

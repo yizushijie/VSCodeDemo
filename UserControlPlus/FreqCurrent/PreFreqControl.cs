@@ -108,7 +108,7 @@ namespace UserControlPlusLib
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonClickHandle(object sender, EventArgs e, int index = 0,int freqIndex=0);
+        public delegate void UserButtonClickHandle(int index = 0,int freqIndex=0);
 
         [Description("当点击控件时发生，调用选中按钮控件逻辑"), Category("自定义事件")]
         public event UserButtonClickHandle UserButtonClick;
@@ -127,9 +127,12 @@ namespace UserControlPlusLib
             this.MinimumSize = this.Size;
             this.MaximumSize = this.Size;
 
-            //---注册事件
+            //---注册按钮事件
             this.button_readPreFreq.Click += new EventHandler(this.button_Click);
             this.button_writePreFreq.Click += new EventHandler(this.button_Click);
+
+            //---注册值变化事件
+            this.numericUpDown_preFreqIndex.ValueChanged += new EventHandler(this.numericUpDown_ValueChanged);
 
         }
 
@@ -164,9 +167,44 @@ namespace UserControlPlusLib
             //---执行委托函数
             if ((this.UserButtonClick != null) && (index != 0))
             {
-                this.UserButtonClick(sender,e,index,(int)this.numericUpDown_preFreqIndex.Value);
+                this.UserButtonClick(index,(int)this.numericUpDown_preFreqIndex.Value);
             }
             btn.Enabled = true;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public virtual void numericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown nud = (NumericUpDown)sender;
+            int index = (int)nud.Value;
+            switch (nud.Name)
+            {
+                case "numericUpDown_preFreqIndex":
+                    if (index>5)
+                    {
+                        this.button_writePreFreq.Text = "频率输出";
+                        if (this.button_readPreFreq.Enabled==true)
+                        {
+                            this.button_readPreFreq.Enabled = false;
+                        }
+                    }
+                    else
+                    {
+                        this.button_writePreFreq.Text = "写入频率";
+                        if (this.button_readPreFreq.Enabled == false)
+                        {
+                            this.button_readPreFreq.Enabled = true;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion
@@ -178,7 +216,7 @@ namespace UserControlPlusLib
         /// </summary>
         /// <param name="index"></param>
         /// <param name="freq"></param>
-        public virtual void SetUserControlParameter(int index,float freq)
+        public virtual void SetPreFreqYSEL(int index,float freq)
         {
             switch (index)
             {
@@ -203,7 +241,7 @@ namespace UserControlPlusLib
         /// 设置参数
         /// </summary>
         /// <param name="cmd"></param>
-        public virtual void SetUserControlParameter(float[] cmd)
+        public virtual void SetPreFreqYSEL(float[] cmd)
         {
             if ((cmd==null)||(cmd.Length<4))
             {
@@ -220,7 +258,7 @@ namespace UserControlPlusLib
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public virtual float GetUserControlParameter(int index)
+        public virtual float GetPreFreqYSEL(int index)
         {
             float _return = 0;
             switch (index)
@@ -247,7 +285,7 @@ namespace UserControlPlusLib
         /// 获取参数
         /// </summary>
         /// <returns></returns>
-        public virtual float[] GetUserControlParameter()
+        public virtual float[] GetPreFreqYSEL()
         {
             float[] _return = new float[4] { this.m_PreFreqOne,this.m_PreFreqTwo,this.m_PreFreqThree,this.m_PreFreqFour };
             return _return;

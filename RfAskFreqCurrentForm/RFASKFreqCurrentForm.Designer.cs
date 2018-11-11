@@ -136,6 +136,10 @@
             // 
             this.preFreqControl_preFreq.Location = new System.Drawing.Point(4, 276);
             this.preFreqControl_preFreq.m_FuncName = "预设频率";
+            this.preFreqControl_preFreq.m_PreFreqFour = 205F;
+            this.preFreqControl_preFreq.m_PreFreqOne = 512F;
+            this.preFreqControl_preFreq.m_PreFreqThree = 315F;
+            this.preFreqControl_preFreq.m_PreFreqTwo = 433.92F;
             this.preFreqControl_preFreq.MaximumSize = new System.Drawing.Size(258, 129);
             this.preFreqControl_preFreq.MinimumSize = new System.Drawing.Size(258, 129);
             this.preFreqControl_preFreq.Name = "preFreqControl_preFreq";
@@ -147,7 +151,7 @@
             // 
             this.deviceTypeControl_deviceType.Location = new System.Drawing.Point(3, 167);
             this.deviceTypeControl_deviceType.m_AmpTimes = 100F;
-            this.deviceTypeControl_deviceType.m_DeviceType = "SYN4XX";
+            this.deviceTypeControl_deviceType.m_DeviceType = "SYN4XXR";
             this.deviceTypeControl_deviceType.m_FuncName = "器件参数";
             this.deviceTypeControl_deviceType.m_SampleRes = 0F;
             this.deviceTypeControl_deviceType.MaximumSize = new System.Drawing.Size(258, 103);
@@ -205,6 +209,7 @@
             // 
             this.clockRateControl_clockRate.Location = new System.Drawing.Point(4, 61);
             this.clockRateControl_clockRate.m_ClockRate = 20000;
+            this.clockRateControl_clockRate.m_ClockRateMin = 20000;
             this.clockRateControl_clockRate.m_FuncName = "时钟WM8510";
             this.clockRateControl_clockRate.Name = "clockRateControl_clockRate";
             this.clockRateControl_clockRate.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);

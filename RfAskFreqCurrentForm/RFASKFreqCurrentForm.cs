@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using UserControlPlusLib;
 
 namespace RFASKFreqCurrentForm
 {
@@ -82,6 +83,17 @@ namespace RFASKFreqCurrentForm
             this.clockRateControl_clockRate.UserButtonClick += new UserControlPlusLib.ClockRateControl.UserButtonClickHandle(this.ClockRateUserControl_ButtonClick);
             this.clockRateControl_clockRate.UserButtonCheckControlClick += new UserControlPlusLib.ClockRateControl.UserButtonCheckControlClickHandle(this.ClockRateUserControl_ChannelClick);
 
+            //---预设时钟控件事件注册
+            this.preFreqControl_preFreq.UserButtonClick += new UserControlPlusLib.PreFreqControl.UserButtonClickHandle(this.PreFreqControlUserControl_ButtonClick);
+
+            //---设备类型的事件注册
+            this.deviceTypeControl_deviceType.UserButtonClick += new DeviceTypeControl.UserButtonClickHandle(this.DeviceTypeControl_ButtonClick);
+
+            //---频率电流扫描的参数
+            this.freqCurrentControl_freqCurrentPointOne.UserButtonClick += new FreqCurrentControl.UserButtonClickHandle(this.FreqCurrentControl_ButtonClick);
+            //---频率电流扫描的参数
+            this.freqCurrentControl_freqCurrentPointTwo.UserButtonClick += new FreqCurrentControl.UserButtonClickHandle(this.FreqCurrentControl_ButtonClick);
+
         }
 
         /// <summary>
@@ -98,11 +110,17 @@ namespace RFASKFreqCurrentForm
         /// <param name="isEmable"></param>
         public virtual void FormInit(bool isEmable)
         {
+            /*
             this.deviceTypeControl_deviceType.Enabled = isEmable;
             this.clockRateControl_clockRate.Enabled = isEmable;
             this.preFreqControl_preFreq.Enabled = isEmable;
             this.freqCurrentControl_freqCurrentPointOne.Enabled = isEmable;
             this.freqCurrentControl_freqCurrentPointTwo.Enabled = isEmable;
+            */
+            if (isEmable==false)
+            {
+                this.clockRateControl_clockRate.ClearChannelChecked(false);
+            }
         }
 
         #endregion
@@ -136,7 +154,7 @@ namespace RFASKFreqCurrentForm
         #region 事件定义
 
         /// <summary>
-        /// 
+        /// 窗体加载
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -146,7 +164,7 @@ namespace RFASKFreqCurrentForm
         }
 
         /// <summary>
-        /// 
+        /// 窗体关闭
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -203,7 +221,7 @@ namespace RFASKFreqCurrentForm
         /// </summary>
         /// <param name="freq"></param>
         /// <param name="index"></param>
-        public void ClockRateUserControl_ButtonClick(int freq, int index = 0)
+        public virtual void ClockRateUserControl_ButtonClick(int freq, int index = 0)
         {
             if ((this.usedFreqCurrent==null)||(this.usedFreqCurrent.m_UsedPort==null))
             {
@@ -227,7 +245,7 @@ namespace RFASKFreqCurrentForm
         /// </summary>
         /// <param name="index"></param>
         /// <param name="isChecked"></param>
-        public void ClockRateUserControl_ChannelClick(int index, bool isChecked=false)
+        public virtual void ClockRateUserControl_ChannelClick(int index, bool isChecked=false)
         {
             if ((this.usedFreqCurrent == null) || (this.usedFreqCurrent.m_UsedPort == null))
             {
@@ -241,8 +259,54 @@ namespace RFASKFreqCurrentForm
             
         }
 
+        /// <summary>
+        /// 预设频率点的配置
+        /// </summary>
+        /// <param name="freq"></param>
+        /// <param name="index"></param>
+        public void PreFreqControlUserControl_ButtonClick(int index,int preFreqIndex)
+        {
+            if ((this.usedFreqCurrent == null) || (this.usedFreqCurrent.m_UsedPort == null))
+            {
+                return;
+            }
+            ClockWM8510 usedWM8510 = new ClockWM8510();
+            usedWM8510.PreFreqYSELSet(index, preFreqIndex,this.preFreqControl_preFreq, this.usedFreqCurrent.m_UsedPort, this.richTextBoxEx_msg);
+        }
+
+        /// <summary>
+        /// 设备类型的配置
+        /// </summary>
+        /// <param name="index"></param>
+        public virtual void DeviceTypeControl_ButtonClick(int index)
+        {
+            if ((this.usedFreqCurrent == null) || (this.usedFreqCurrent.m_UsedPort == null))
+            {
+                return;
+            }
+            this.usedFreqCurrent.DeviceTypeSet(index, this.deviceTypeControl_deviceType, this.usedFreqCurrent.m_UsedPort, this.richTextBoxEx_msg);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        public virtual void FreqCurrentControl_ButtonClick(object sender, EventArgs e, int index)
+        {
+            FreqCurrentControl fcc = (FreqCurrentControl)sender;
+            int _return = 0;
+            string str = "";
+            switch (fcc.Name)
+            {
+                case "freqCurrentControl_freqCurrentPointOne":
+                    break;
+                case "freqCurrentControl_freqCurrentPointTwo":
+                    break;
+                default:
+                    break;
+            }
+        }
+
         #endregion
-
-
     }
 }

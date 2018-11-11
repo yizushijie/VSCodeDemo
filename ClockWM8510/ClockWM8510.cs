@@ -20,7 +20,7 @@ namespace ClockWM8510Lib
         CMD_RFASK_CMD2_CHANNELD_WM8510			=0x07,
         CMD_RFASK_CMD2_CHANNELS_WM8510			=0x08
     }
-    public class ClockWM8510
+    public partial class ClockWM8510
     {
 
         #region 变量定义
@@ -47,7 +47,7 @@ namespace ClockWM8510Lib
         /// <summary>
         /// 
         /// </summary>
-        public int m_MinFreq
+        public virtual int m_MinFreq
         {
             get
             {
@@ -63,7 +63,7 @@ namespace ClockWM8510Lib
         /// <summary>
         /// 
         /// </summary>
-        public int m_MaxFreq
+        public virtual int m_MaxFreq
         {
             get
             {
@@ -113,7 +113,7 @@ namespace ClockWM8510Lib
         /// <param name="usedPort"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public int ClockWM8510Set(int freq, int index, COMMPort usedPort, RichTextBox msg = null)
+        public virtual int ClockWM8510Set(int freq, int index, COMMPort usedPort, RichTextBox msg = null)
         {
             int _return = 0;
             switch (index)
@@ -132,6 +132,7 @@ namespace ClockWM8510Lib
                     {
                         RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "WM8510的设置操作不合法!\r\n", Color.Red, false);
                     }
+                    _return = 1;
                     break;
             }
             return _return;
@@ -144,7 +145,7 @@ namespace ClockWM8510Lib
         /// <param name="usedPort"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public int ClockWM8510SetFreq(int freq,COMMPort usedPort,RichTextBox msg=null)
+        public virtual int ClockWM8510SetFreq(int freq,COMMPort usedPort,RichTextBox msg=null)
         {
             if (usedPort == null)
             {
@@ -203,7 +204,6 @@ namespace ClockWM8510Lib
                     }
                 }
             }
-            //---验证命令
             return _return;
         }
 
@@ -214,7 +214,7 @@ namespace ClockWM8510Lib
         /// <param name="usedPort"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public int ClockWM8510GetFreq(int freq, COMMPort usedPort, RichTextBox msg = null)
+        public virtual int ClockWM8510GetFreq(int freq, COMMPort usedPort, RichTextBox msg = null)
         {
             if (usedPort == null)
             {
@@ -225,6 +225,89 @@ namespace ClockWM8510Lib
                 return 1;
             }
             int _return = 0;
+            int getFreq = 0;
+            byte[] cmd = new byte[] { CMD_RFASK_CMD1_FREQ_WM8510, (byte)CLOCKWM8510CMD.CMD_RFASK_CMD2_GET_WM8510};
+            byte[] res = null;
+            //---将命令写入设备
+            _return = usedPort.SendCmdAndReadResponse(cmd, ref res, 200);
+            //---通信验证
+            if ((_return == 0) && (usedPort.m_COMMBytesPassed == true) && (res[usedPort.m_COMMPortDataReadIndex + 1] == 0) && (res[usedPort.m_COMMPortDataReadIndex + 2] == cmd[1]))
+            {
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "时钟频率读取成功!\r\n", Color.Black, false);
+                }
+                getFreq = res[usedPort.m_COMMPortDataReadIndex + 3];
+                getFreq = (getFreq<<8) +res[usedPort.m_COMMPortDataReadIndex + 4];
+                getFreq = (getFreq << 8) + res[usedPort.m_COMMPortDataReadIndex + 5];
+                getFreq = (getFreq << 8) + res[usedPort.m_COMMPortDataReadIndex + 6];
+                //---时钟频率的校验
+                if (getFreq<freq)
+                {
+                    if ((freq-getFreq)<5000)
+                    {
+                        if (msg != null)
+                        {
+                            RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "时钟频率验证成功!\r\n", Color.Black, false);
+                        }
+                    }
+                    else
+                    {
+                        if (msg != null)
+                        {
+                            RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "时钟频率验证失败!\t读取频率是："+getFreq.ToString()+"Hz\r\n", Color.Red, false);
+                        }
+                    }
+                }
+                else 
+                {
+                    if ((getFreq - freq) < 5000)
+                    {
+                        if (msg != null)
+                        {
+                            RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "时钟频率验证成功!\r\n", Color.Black, false);
+                        }
+                    }
+                    else
+                    {
+                        if (msg != null)
+                        {
+                            RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "时钟频率验证失败!\t读取频率是：" + getFreq.ToString() + "Hz\r\n", Color.Red, false);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (_return != 0)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信发生错误!\r\n", Color.Red, false);
+                    }
+                }
+                else if (usedPort.m_COMMBytesPassed == false)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "读取的数据格式不合法!\r\n", Color.Red, false);
+                    }
+                }
+                else if (res[usedPort.m_COMMPortDataReadIndex + 1] != 0)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "数据返回的结果错误!\r\n", Color.Red, false);
+                    }
+                }
+                else
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信命令验证错误!\r\n", Color.Red, false);
+                    }
+                }
+            }
             return _return;
         }
 
@@ -234,7 +317,7 @@ namespace ClockWM8510Lib
         /// <param name="usedPort"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public int ClockWM8510Reset(COMMPort usedPort, RichTextBox msg = null)
+        public virtual int ClockWM8510Reset(COMMPort usedPort, RichTextBox msg = null)
         {
             if (usedPort == null)
             {
@@ -249,7 +332,45 @@ namespace ClockWM8510Lib
             byte[] res = null;
             //---将命令写入设备
             _return = usedPort.SendCmdAndReadResponse(cmd, ref res, 200);
-            //---验证命令
+            //---通信验证
+            if ((_return == 0) && (usedPort.m_COMMBytesPassed == true) && (res[usedPort.m_COMMPortDataReadIndex + 1] == 0) && (res[usedPort.m_COMMPortDataReadIndex + 2] == cmd[1]))
+            {
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "时钟设备复位成功!\r\n", Color.Black, false);
+                }
+            }
+            else
+            {
+                if (_return != 0)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信发生错误!\r\n", Color.Red, false);
+                    }
+                }
+                else if (usedPort.m_COMMBytesPassed == false)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "读取的数据格式不合法!\r\n", Color.Red, false);
+                    }
+                }
+                else if (res[usedPort.m_COMMPortDataReadIndex + 1] != 0)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "数据返回的结果错误!\r\n", Color.Red, false);
+                    }
+                }
+                else
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信命令验证错误!\r\n", Color.Red, false);
+                    }
+                }
+            }
             return _return;
         }
 
@@ -261,9 +382,98 @@ namespace ClockWM8510Lib
         /// <param name="usedPort"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public int ClockWM8510SetChannel(int channel,bool isOpen, COMMPort usedPort, RichTextBox msg = null)
+        public virtual int ClockWM8510SetChannel(int channel,bool isOpen, COMMPort usedPort, RichTextBox msg = null)
         {
+            if (usedPort == null)
+            {
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信端口初始化失败!\r\n", Color.Red, false);
+                }
+                return 1;
+            }
             int _return = 0;
+            string str = null;
+            byte[] cmd = new byte[] { CMD_RFASK_CMD1_FREQ_WM8510,0x00,0x00  };
+            switch (channel)
+            {
+                case 1:
+                    cmd[1] = (byte)CLOCKWM8510CMD.CMD_RFASK_CMD2_CHANNELA_WM8510;
+                    str = "时钟频率A通道输出";
+                    break;
+                case 2:
+                    cmd[1] = (byte)CLOCKWM8510CMD.CMD_RFASK_CMD2_CHANNELB_WM8510;
+                    str = "时钟频率B通道输出";
+                    break;
+                case 3:
+                    cmd[1] = (byte)CLOCKWM8510CMD.CMD_RFASK_CMD2_CHANNELC_WM8510;
+                    str = "时钟频率C通道输出";
+                    break;
+                case 4:
+                    cmd[1] = (byte)CLOCKWM8510CMD.CMD_RFASK_CMD2_CHANNELD_WM8510;
+                    str = "时钟频率D通道输出";
+                    break;
+                case 5:
+                    cmd[1] = (byte)CLOCKWM8510CMD.CMD_RFASK_CMD2_CHANNELS_WM8510;
+                    str = "时钟频率全通道输出";
+                    break;
+                default:
+                    return 2;
+            }
+            if (isOpen==true)
+            {
+                cmd[2] = 0x01;
+            }
+            byte[] res = null;
+            //---将命令写入设备
+            _return = usedPort.SendCmdAndReadResponse(cmd, ref res, 200);
+            //---通信验证
+            if ((_return == 0) && (usedPort.m_COMMBytesPassed == true) && (res[usedPort.m_COMMPortDataReadIndex + 1] == 0) && (res[usedPort.m_COMMPortDataReadIndex + 2] == cmd[1]))
+            {
+                if (isOpen == true)
+                {
+                    str += "打开!\r\n";
+                }
+                else
+                {
+                    str += "关闭!\r\n";
+                }
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, str, Color.Black, false);
+                }
+            }
+            else
+            {
+                if (_return != 0)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信发生错误!\r\n", Color.Red, false);
+                    }
+                }
+                else if (usedPort.m_COMMBytesPassed == false)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "读取的数据格式不合法!\r\n", Color.Red, false);
+                    }
+                }
+                else if (res[usedPort.m_COMMPortDataReadIndex + 1] != 0)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "数据返回的结果错误!\r\n", Color.Red, false);
+                    }
+                }
+                else
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信命令验证错误!\r\n", Color.Red, false);
+                    }
+                }
+            }
             return _return;
         }
 

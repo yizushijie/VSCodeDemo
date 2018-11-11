@@ -46,7 +46,7 @@ namespace UserControlPlusLib
             }
             set
             {
-                this.comboBox_deviceType.Items.Add(value);
+                this.comboBox_deviceType.Text=value;
             }
         }
 
@@ -92,7 +92,7 @@ namespace UserControlPlusLib
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonClickHandle(object sender, EventArgs e, int index = 0);
+        public delegate void UserButtonClickHandle(int index);
 
         [Description("当点击控件时发生，调用选中按钮控件逻辑"), Category("自定义事件")]
         public event UserButtonClickHandle UserButtonClick;
@@ -151,7 +151,7 @@ namespace UserControlPlusLib
             //---执行委托函数
             if ((this.UserButtonClick != null) && (index != 0))
             {
-                this.UserButtonClick(sender,e,index);
+                this.UserButtonClick(index);
             }
             btn.Enabled = true;
         }
@@ -159,6 +159,83 @@ namespace UserControlPlusLib
         #endregion
 
         #region 函数定义
+
+        /// <summary>
+        /// 设置设备的类型
+        /// </summary>
+        /// <param name="index"></param>
+        public bool SetDeviceType(int index)
+        {
+            if ((this.comboBox_deviceType.Items == null) || (this.comboBox_deviceType.Items.Count == 0) || (this.comboBox_deviceType.Items.Count < index))
+            {
+                return false;
+
+            }
+            switch (index)
+            {
+                case 1:
+                    this.comboBox_deviceType.Text = "SYN4XXR";
+                    break;
+                case 2:
+                    this.comboBox_deviceType.Text = "SYN5XXR";
+                    break;
+                case 3:
+                    this.comboBox_deviceType.Text = "CRUX";
+                    break;
+                case 4:
+                    this.comboBox_deviceType.Text = "F11XT";
+                    break;
+                case 5:
+                    this.comboBox_deviceType.Text = "CRATER";
+                    break;
+                case 6:
+                    this.comboBox_deviceType.Text = "ARA";
+                    break;
+                default:
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 获取设备类型
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public int GetDeviceType(string str)
+        {
+            if ((this.comboBox_deviceType.Items == null) || (this.comboBox_deviceType.Items.Count == 0) || (this.comboBox_deviceType.Text == null)|| (this.comboBox_deviceType.Text == "")|| (this.comboBox_deviceType.Text == string.Empty))
+            {
+                return 0;
+
+            }
+            int _return = 0;
+            switch (str)
+            {
+                case "SYN4XXR":
+                    _return = 1;
+                    break;
+                case "SYN5XXR":
+                    _return = 2;
+                    break;
+                case "CRUX":
+                    _return = 3;
+                    break;
+                case "F11XT":
+                    _return = 4;
+                    break;
+                case "CRATER":
+                    _return = 5;
+                    break;
+                case "ARA":
+                    _return = 6;
+                    break;
+                default:
+                    _return = 0;
+                    break;
+            }
+            return _return;
+        }
 
         #endregion
 

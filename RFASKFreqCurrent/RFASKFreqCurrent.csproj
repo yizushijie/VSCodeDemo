@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RFASKDeviceType.cs" />
     <Compile Include="RFASKFreqCurrent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -47,6 +49,14 @@
     <ProjectReference Include="..\COMMPort\COMMPort.csproj">
       <Project>{F066762D-819B-43EF-8D46-AA3AC7CC1DDF}</Project>
       <Name>COMMPort</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RichTextBoxPlus\RichTextBoxPlus.csproj">
+      <Project>{FC2D572C-5CEE-40DA-8C1B-583E693602AA}</Project>
+      <Name>RichTextBoxPlus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UserControlPlus\UserControlPlus.csproj">
+      <Project>{81C0BEB1-85E3-4C71-A1D4-B0A40B225F0E}</Project>
+      <Name>UserControlPlus</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
