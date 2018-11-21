@@ -47,6 +47,7 @@ namespace RFASKFreqCurrentLib
         /// 频率电流扫描的基本参数配置
         /// </summary>
         private const byte CMD_RFASK_CMD1_FREQ_CURRENT = 0x03;
+
         #endregion
 
         #region 属性定义
@@ -120,12 +121,12 @@ namespace RFASKFreqCurrentLib
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="deviceType"></param>
-        /// <returns></returns>
-        public virtual int DeviceTypeGetDevice(DeviceTypeControl deviceType, COMMPort usedPort, RichTextBox msg = null)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="deviceType"></param>
+		/// <returns></returns>
+		protected virtual int DeviceTypeGetDevice(DeviceTypeControl deviceType, COMMPort usedPort, RichTextBox msg = null)
         {
             if (usedPort == null)
             {
@@ -201,12 +202,12 @@ namespace RFASKFreqCurrentLib
             return _return;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="deviceType"></param>
-        /// <returns></returns>
-        public virtual int DeviceTypeSetDevice(DeviceTypeControl deviceType, COMMPort usedPort, RichTextBox msg = null)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="deviceType"></param>
+		/// <returns></returns>
+		protected virtual int DeviceTypeSetDevice(DeviceTypeControl deviceType, COMMPort usedPort, RichTextBox msg = null)
         {
             if (usedPort == null)
             {

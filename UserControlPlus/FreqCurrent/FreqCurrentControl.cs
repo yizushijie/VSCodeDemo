@@ -202,7 +202,7 @@ namespace UserControlPlusLib
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonClickHandle(object sender, EventArgs e,int index);
+        public delegate void UserButtonClickHandle(object sender, EventArgs e,int index=0);
 
         [Description("当点击控件时发生，调用选中按钮控件逻辑"), Category("自定义事件")]
         public event UserButtonClickHandle UserButtonClick;
@@ -232,8 +232,12 @@ namespace UserControlPlusLib
 
             //---注册事件
             this.button_startDo.Click += new EventHandler(this.button_Click);
-           
-        }
+
+			//---注册事件
+			this.numericUpDown_startFreq.ValueChanged += new System.EventHandler(this.numericUpDown_ValueChanged);
+			this.numericUpDown_stepFreq.ValueChanged += new System.EventHandler(this.numericUpDown_ValueChanged);
+
+		}
         #endregion
 
         #region 初始化
@@ -274,33 +278,56 @@ namespace UserControlPlusLib
             //---执行委托函数
             if ((this.UserButtonClick != null) && (index != 0))
             {
-                this.UserButtonClick(sender,e,index);
+                this.UserButtonClick(this, e,index);
             }
             btn.Enabled = true;
         }
-        #endregion
 
-        #region 函数定义
 
-        /// <summary>
-        /// 设置用户控件参数
-        /// </summary>
-        public void SetUserControlParameter(float[] cmd)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		public virtual void numericUpDown_ValueChanged(object sender, EventArgs e)
+		{
+			NumericUpDown nud = (NumericUpDown)sender;
+			int startFreq = (int)(this.numericUpDown_startFreq.Value*100);
+			int stepFreq = (int)(this.numericUpDown_stepFreq.Value*100);
+			switch (nud.Name)
+			{
+				case "numericUpDown_startFreq":
+				case "numericUpDown_stepFreq":
+					this.numericUpDown_stepPointNum.Value = (decimal)((int)(startFreq / stepFreq));
+					break;
+				default:
+					break;	
+			}
+		}
+
+		#endregion
+
+		#region 函数定义
+
+		/// <summary>
+		/// 设置用户控件参数
+		/// </summary>
+		public void SetUserControlParameter(float[] cmd)
         {
 
         }
 
-        /// <summary>
-        /// 获取用户控件参数
-        /// </summary>
-        /// <returns></returns>
-        public float[] GetUserControlParameter()
+		/// <summary>
+		/// 获取用户控件参数
+		/// </summary>
+		/// <returns></returns>
+		public float[] GetUserControlParameter()
         {
             float[] _return=new float[10] {this.m_StartFreq,this.m_StepFreq,this.m_StepPointNum,this.m_StartPassMin,this.m_StartPassMax,this.m_PassSpacePointNum,this.m_PassSpacePointMin,this.m_PassSpacePointMax,this.m_StopPassMin,this.m_StopPassMax };
             return _return;
         }
 
-        #endregion
+		#endregion
 
-    }
+	}
 }

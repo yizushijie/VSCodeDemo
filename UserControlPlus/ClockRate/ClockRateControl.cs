@@ -77,7 +77,7 @@ namespace UserControlPlusLib
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonClickHandle(int freq, int index=0);
+        public delegate void UserButtonClickHandle(object sender, EventArgs e,int freq, int index=0);
 
         [Description("当点击控件时发生，调用选中按钮控件逻辑"), Category("自定义事件")]
         public event UserButtonClickHandle UserButtonClick;
@@ -88,7 +88,7 @@ namespace UserControlPlusLib
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonCheckControlClickHandle(int index = 0,bool isChecked=false);
+        public delegate void UserButtonCheckControlClickHandle(object sender, EventArgs e,int index = 0,bool isChecked=false);
 
         [Description("当点击控件时发生，调用选中当前控件逻辑"), Category("自定义事件")]
         public event UserButtonCheckControlClickHandle UserButtonCheckControlClick;
@@ -225,7 +225,7 @@ namespace UserControlPlusLib
             //---执行委托函数
             if ((this.UserButtonCheckControlClick != null) && (index != 0))
             {
-                this.UserButtonCheckControlClick(index,bcc.Checked);
+                this.UserButtonCheckControlClick(sender,e,index,bcc.Checked);
             }
         }
 
@@ -258,7 +258,7 @@ namespace UserControlPlusLib
             //---执行委托函数
             if ((this.UserButtonClick != null) && (index != 0))
             {
-                this.UserButtonClick((int)this.numericUpDown_clockRate.Value, index);
+                this.UserButtonClick(sender,e,(int)this.numericUpDown_clockRate.Value, index);
             }
             btn.Enabled = true;
         }

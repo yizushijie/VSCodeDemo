@@ -59,8 +59,8 @@ namespace TestDemo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonCheckControl_Click()
-        {
+        private void buttonCheckControl_Click(object sender, EventArgs e)
+		{
 
             if (this.ledControl1.LedChecked)
             {

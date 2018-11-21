@@ -68,8 +68,11 @@ namespace RFASKFreqCurrentForm
             this.RegisterEventHandle();
             //---窗体初始化
             this.FormInit(false);
-           
-        }
+
+			//---计算频率电流扫描的点数的个数
+			this.freqCurrentControl_freqCurrentPointOne.m_StepPointNum = (int)((this.freqCurrentControl_freqCurrentPointOne.m_StartFreq * 100) / (this.freqCurrentControl_freqCurrentPointOne.m_StepFreq* 100));
+			this.freqCurrentControl_freqCurrentPointTwo.m_StepPointNum = (int)((this.freqCurrentControl_freqCurrentPointTwo.m_StartFreq * 100) / (this.freqCurrentControl_freqCurrentPointTwo.m_StepFreq * 100));
+		}
 
         /// <summary>
         /// 注册事件处理
@@ -221,7 +224,7 @@ namespace RFASKFreqCurrentForm
         /// </summary>
         /// <param name="freq"></param>
         /// <param name="index"></param>
-        public virtual void ClockRateUserControl_ButtonClick(int freq, int index = 0)
+        public virtual void ClockRateUserControl_ButtonClick(object sender, EventArgs e,int freq, int index = 0)
         {
             if ((this.usedFreqCurrent==null)||(this.usedFreqCurrent.m_UsedPort==null))
             {
@@ -245,7 +248,7 @@ namespace RFASKFreqCurrentForm
         /// </summary>
         /// <param name="index"></param>
         /// <param name="isChecked"></param>
-        public virtual void ClockRateUserControl_ChannelClick(int index, bool isChecked=false)
+        public virtual void ClockRateUserControl_ChannelClick(object sender, EventArgs e,int index, bool isChecked=false)
         {
             if ((this.usedFreqCurrent == null) || (this.usedFreqCurrent.m_UsedPort == null))
             {
@@ -264,7 +267,7 @@ namespace RFASKFreqCurrentForm
         /// </summary>
         /// <param name="freq"></param>
         /// <param name="index"></param>
-        public void PreFreqControlUserControl_ButtonClick(int index,int preFreqIndex)
+        public void PreFreqControlUserControl_ButtonClick(object sender, EventArgs e,int index,int preFreqIndex)
         {
             if ((this.usedFreqCurrent == null) || (this.usedFreqCurrent.m_UsedPort == null))
             {
@@ -278,7 +281,7 @@ namespace RFASKFreqCurrentForm
         /// 设备类型的配置
         /// </summary>
         /// <param name="index"></param>
-        public virtual void DeviceTypeControl_ButtonClick(int index)
+        public virtual void DeviceTypeControl_ButtonClick(object sender, EventArgs e,int index)
         {
             if ((this.usedFreqCurrent == null) || (this.usedFreqCurrent.m_UsedPort == null))
             {
@@ -295,13 +298,16 @@ namespace RFASKFreqCurrentForm
         {
             FreqCurrentControl fcc = (FreqCurrentControl)sender;
             int _return = 0;
-            string str = "";
             switch (fcc.Name)
             {
+				//---第一个电压点的频率电流扫描
                 case "freqCurrentControl_freqCurrentPointOne":
-                    break;
-                case "freqCurrentControl_freqCurrentPointTwo":
-                    break;
+					_return =this.usedFreqCurrent.FreqCurrentSet(index,1,this.freqCurrentControl_freqCurrentPointOne, this.usedFreqCurrent.m_UsedPort, this.richTextBoxEx_msg);
+					break;
+				//---第二个电压点的频率电流扫描
+				case "freqCurrentControl_freqCurrentPointTwo":
+					_return = this.usedFreqCurrent.FreqCurrentSet(index, 2, this.freqCurrentControl_freqCurrentPointTwo, this.usedFreqCurrent.m_UsedPort, this.richTextBoxEx_msg);
+					break;
                 default:
                     break;
             }

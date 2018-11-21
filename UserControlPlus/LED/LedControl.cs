@@ -78,7 +78,7 @@ namespace UserControlPlusLib
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserClickHandle(); 
+        public delegate void UserClickHandle(object sender, EventArgs e); 
 
         [Description("当点击控件时发生，调用选中当前控件逻辑"), Category("自定义事件")]
         public event UserClickHandle UserClick;
@@ -130,7 +130,7 @@ namespace UserControlPlusLib
                     //---用户事件
                     if (this.UserClick != null)
                     {
-                        this.UserClick();
+                        this.UserClick(sender,e);
                     }
                     break;
                 default:

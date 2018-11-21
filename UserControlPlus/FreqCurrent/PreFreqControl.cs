@@ -108,7 +108,7 @@ namespace UserControlPlusLib
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="orther"></param>
-        public delegate void UserButtonClickHandle(int index = 0,int freqIndex=0);
+        public delegate void UserButtonClickHandle(object sender, EventArgs e,int index = 0,int freqIndex=0);
 
         [Description("当点击控件时发生，调用选中按钮控件逻辑"), Category("自定义事件")]
         public event UserButtonClickHandle UserButtonClick;
@@ -167,7 +167,7 @@ namespace UserControlPlusLib
             //---执行委托函数
             if ((this.UserButtonClick != null) && (index != 0))
             {
-                this.UserButtonClick(index,(int)this.numericUpDown_preFreqIndex.Value);
+                this.UserButtonClick(sender,e,index,(int)this.numericUpDown_preFreqIndex.Value);
             }
             btn.Enabled = true;
         }

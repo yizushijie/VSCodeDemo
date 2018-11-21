@@ -84,13 +84,13 @@ namespace ClockWM8510Lib
             return _return;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="freq"></param>
-        /// <returns></returns>
-        public virtual int PreFreqYSELSetFreq(int preFreqIndex, PreFreqControl freqControl, COMMPort usedPort, RichTextBox msg = null)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="freq"></param>
+		/// <returns></returns>
+		protected virtual int PreFreqYSELSetFreq(int preFreqIndex, PreFreqControl freqControl, COMMPort usedPort, RichTextBox msg = null)
         {
             if (usedPort == null)
             {
@@ -255,13 +255,13 @@ namespace ClockWM8510Lib
             return _return;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="freq"></param>
-        /// <returns></returns>
-        public virtual int PreFreqYSELGetFreq(int preFreqIndex, PreFreqControl freqControl, COMMPort usedPort, RichTextBox msg = null)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="freq"></param>
+		/// <returns></returns>
+		protected virtual int PreFreqYSELGetFreq(int preFreqIndex, PreFreqControl freqControl, COMMPort usedPort, RichTextBox msg = null)
         {
             if (usedPort == null)
             {

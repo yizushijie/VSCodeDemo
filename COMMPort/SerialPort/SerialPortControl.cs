@@ -186,8 +186,6 @@ namespace COMMPortLib
 
 		#endregion 初始化
 
-		
-
 		#region 事件定义
 
 		/// <summary>

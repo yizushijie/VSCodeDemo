@@ -138,14 +138,14 @@ namespace ClockWM8510Lib
             return _return;
         }
 
-        /// <summary>
-        /// 设置WM8510输出频率
-        /// </summary>
-        /// <param name="freq"></param>
-        /// <param name="usedPort"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public virtual int ClockWM8510SetFreq(int freq,COMMPort usedPort,RichTextBox msg=null)
+		/// <summary>
+		/// 设置WM8510输出频率
+		/// </summary>
+		/// <param name="freq"></param>
+		/// <param name="usedPort"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		protected virtual int ClockWM8510SetFreq(int freq,COMMPort usedPort,RichTextBox msg=null)
         {
             if (usedPort == null)
             {
@@ -207,14 +207,14 @@ namespace ClockWM8510Lib
             return _return;
         }
 
-        /// <summary>
-        /// 读取WM8510输出频率
-        /// </summary>
-        /// <param name="freq"></param>
-        /// <param name="usedPort"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public virtual int ClockWM8510GetFreq(int freq, COMMPort usedPort, RichTextBox msg = null)
+		/// <summary>
+		/// 读取WM8510输出频率
+		/// </summary>
+		/// <param name="freq"></param>
+		/// <param name="usedPort"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		protected virtual int ClockWM8510GetFreq(int freq, COMMPort usedPort, RichTextBox msg = null)
         {
             if (usedPort == null)
             {
@@ -311,13 +311,13 @@ namespace ClockWM8510Lib
             return _return;
         }
 
-        /// <summary>
-        /// 复位WM8510
-        /// </summary>
-        /// <param name="usedPort"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public virtual int ClockWM8510Reset(COMMPort usedPort, RichTextBox msg = null)
+		/// <summary>
+		/// 复位WM8510
+		/// </summary>
+		/// <param name="usedPort"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		protected virtual int ClockWM8510Reset(COMMPort usedPort, RichTextBox msg = null)
         {
             if (usedPort == null)
             {
@@ -374,15 +374,15 @@ namespace ClockWM8510Lib
             return _return;
         }
 
-        /// <summary>
-        /// 时钟输出通道
-        /// </summary>
-        /// <param name="channel"></param>
-        /// <param name="isOpen"></param>
-        /// <param name="usedPort"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public virtual int ClockWM8510SetChannel(int channel,bool isOpen, COMMPort usedPort, RichTextBox msg = null)
+		/// <summary>
+		/// 时钟输出通道
+		/// </summary>
+		/// <param name="channel"></param>
+		/// <param name="isOpen"></param>
+		/// <param name="usedPort"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int ClockWM8510SetChannel(int channel,bool isOpen, COMMPort usedPort, RichTextBox msg = null)
         {
             if (usedPort == null)
             {
