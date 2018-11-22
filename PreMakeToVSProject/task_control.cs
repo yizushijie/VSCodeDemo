@@ -317,17 +317,17 @@ namespace PreMakeToVSProject
 			xmlRead.Close();
 
 			//---处理MDK文档
-			foreach (var temp in prjgroup)
-			{
-				if (temp._name.Contains("MDK"))
-				{
-					temp._name = temp._name.Substring(temp._name.IndexOf("/MDK") + 1);
-				}
-				else
-				{
-					continue;
-				}
-			}
+			//foreach (var temp in prjgroup)
+			//{
+			//	if (temp._name.Contains("MDK"))
+			//	{
+			//		temp._name = temp._name.Substring(temp._name.IndexOf("/MDK") + 1);
+			//	}
+			//	else
+			//	{
+			//		continue;
+			//	}
+			//}
 
 			//---获取C文件
 			xmlRead = XmlReader.Create(new StringReader(File.ReadAllText(projectName)));

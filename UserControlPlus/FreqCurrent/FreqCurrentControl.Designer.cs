@@ -64,13 +64,13 @@
 			this.numericUpDown_stepPointNum = new System.Windows.Forms.NumericUpDown();
 			this.label_stepPointNum = new System.Windows.Forms.Label();
 			this.label_stepFreqUnite = new System.Windows.Forms.Label();
+			this.button_writeFreqConfig = new System.Windows.Forms.Button();
 			this.numericUpDown_stepFreq = new System.Windows.Forms.NumericUpDown();
 			this.label_stepFreq = new System.Windows.Forms.Label();
 			this.label_startFreqUnite = new System.Windows.Forms.Label();
+			this.button_readFreqConfig = new System.Windows.Forms.Button();
 			this.numericUpDown_startFreq = new System.Windows.Forms.NumericUpDown();
 			this.label_startFreq = new System.Windows.Forms.Label();
-			this.button_writeFreqConfig = new System.Windows.Forms.Button();
-			this.button_readFreqConfig = new System.Windows.Forms.Button();
 			this.groupBox_funcName.SuspendLayout();
 			this.groupBox_passConfig.SuspendLayout();
 			this.groupBox_stopPassConfig.SuspendLayout();
@@ -183,11 +183,6 @@
             0,
             0,
             0});
-			this.numericUpDown_stopPassMax.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
 			this.numericUpDown_stopPassMax.Name = "numericUpDown_stopPassMax";
 			this.numericUpDown_stopPassMax.Size = new System.Drawing.Size(75, 21);
 			this.numericUpDown_stopPassMax.TabIndex = 10;
@@ -230,11 +225,6 @@
             0,
             0,
             0});
-			this.numericUpDown_stopPassMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
 			this.numericUpDown_stopPassMin.Name = "numericUpDown_stopPassMin";
 			this.numericUpDown_stopPassMin.Size = new System.Drawing.Size(75, 21);
 			this.numericUpDown_stopPassMin.TabIndex = 6;
@@ -439,11 +429,6 @@
             0,
             0,
             0});
-			this.numericUpDown_startPassMax.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
 			this.numericUpDown_startPassMax.Name = "numericUpDown_startPassMax";
 			this.numericUpDown_startPassMax.Size = new System.Drawing.Size(75, 21);
 			this.numericUpDown_startPassMax.TabIndex = 10;
@@ -486,11 +471,6 @@
             0,
             0,
             0});
-			this.numericUpDown_startPassMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
 			this.numericUpDown_startPassMin.Name = "numericUpDown_startPassMin";
 			this.numericUpDown_startPassMin.Size = new System.Drawing.Size(75, 21);
 			this.numericUpDown_startPassMin.TabIndex = 6;
@@ -593,6 +573,15 @@
 			this.label_stepFreqUnite.TabIndex = 11;
 			this.label_stepFreqUnite.Text = "MHz";
 			// 
+			// button_writeFreqConfig
+			// 
+			this.button_writeFreqConfig.Location = new System.Drawing.Point(170, 50);
+			this.button_writeFreqConfig.Name = "button_writeFreqConfig";
+			this.button_writeFreqConfig.Size = new System.Drawing.Size(71, 25);
+			this.button_writeFreqConfig.TabIndex = 3;
+			this.button_writeFreqConfig.Text = "写入参数";
+			this.button_writeFreqConfig.UseVisualStyleBackColor = true;
+			// 
 			// numericUpDown_stepFreq
 			// 
 			this.numericUpDown_stepFreq.DecimalPlaces = 2;
@@ -635,6 +624,15 @@
 			this.label_startFreqUnite.TabIndex = 8;
 			this.label_startFreqUnite.Text = "MHz";
 			// 
+			// button_readFreqConfig
+			// 
+			this.button_readFreqConfig.Location = new System.Drawing.Point(170, 18);
+			this.button_readFreqConfig.Name = "button_readFreqConfig";
+			this.button_readFreqConfig.Size = new System.Drawing.Size(71, 25);
+			this.button_readFreqConfig.TabIndex = 2;
+			this.button_readFreqConfig.Text = "读取参数";
+			this.button_readFreqConfig.UseVisualStyleBackColor = true;
+			// 
 			// numericUpDown_startFreq
 			// 
 			this.numericUpDown_startFreq.DecimalPlaces = 2;
@@ -672,24 +670,6 @@
 			this.label_startFreq.Size = new System.Drawing.Size(59, 12);
 			this.label_startFreq.TabIndex = 4;
 			this.label_startFreq.Text = "起始频率:";
-			// 
-			// button_writeFreqConfig
-			// 
-			this.button_writeFreqConfig.Location = new System.Drawing.Point(170, 50);
-			this.button_writeFreqConfig.Name = "button_writeFreqConfig";
-			this.button_writeFreqConfig.Size = new System.Drawing.Size(71, 25);
-			this.button_writeFreqConfig.TabIndex = 3;
-			this.button_writeFreqConfig.Text = "写入参数";
-			this.button_writeFreqConfig.UseVisualStyleBackColor = true;
-			// 
-			// button_readFreqConfig
-			// 
-			this.button_readFreqConfig.Location = new System.Drawing.Point(170, 18);
-			this.button_readFreqConfig.Name = "button_readFreqConfig";
-			this.button_readFreqConfig.Size = new System.Drawing.Size(71, 25);
-			this.button_readFreqConfig.TabIndex = 2;
-			this.button_readFreqConfig.Text = "读取参数";
-			this.button_readFreqConfig.UseVisualStyleBackColor = true;
 			// 
 			// FreqCurrentControl
 			// 

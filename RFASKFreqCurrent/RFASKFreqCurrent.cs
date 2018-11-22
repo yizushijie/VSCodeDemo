@@ -273,7 +273,25 @@ namespace RFASKFreqCurrentLib
 		/// <returns></returns>
 		protected virtual int FreqCurrentSetFreqParm(int freqPointIndexCMD, FreqCurrentControl deviceFreq, COMMPort usedPort, RichTextBox msg = null)
 		{
+			if (usedPort == null)
+			{
+				if (msg != null)
+				{
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信端口初始化失败!\r\n", Color.Red, false);
+				}
+				return 1;
+			}
+			if (deviceFreq == null)
+			{
+				if (msg != null)
+				{
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "频率电流控件传递错误!\r\n", Color.Red, false);
+				}
+				return 2;
+			}
 			int _return = 0;
+			byte[] cmd = new byte[] { (byte)freqPointIndexCMD, (byte)RFASKFreqCurrentPointCMD.CMD_RFASK_CMD1_FREQ_CURRENT_POINT_FREQ_SET };
+			byte[] res = null;
 			return _return;
 		}
 
@@ -287,7 +305,107 @@ namespace RFASKFreqCurrentLib
 		/// <returns></returns>
 		protected virtual int FreqCurrentGetCurrentParm(int freqPointIndexCMD, FreqCurrentControl deviceCurrent, COMMPort usedPort, RichTextBox msg = null)
 		{
+			if (usedPort == null)
+			{
+				if (msg != null)
+				{
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信端口初始化失败!\r\n", Color.Red, false);
+				}
+				return 1;
+			}
+			if (deviceCurrent == null)
+			{
+				if (msg != null)
+				{
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "频率电流控件传递错误!\r\n", Color.Red, false);
+				}
+				return 2;
+			}
 			int _return = 0;
+			byte[] cmd = new byte[] { (byte)freqPointIndexCMD, (byte)RFASKFreqCurrentPointCMD.CMD_RFASK_CMD1_FREQ_CURRENT_POINT_CURRENT_GET };
+			byte[] res = null;
+			//---将命令写入设备并读取返回的值
+			_return = usedPort.SendCmdAndReadResponse(cmd, ref res, 300);
+			//---通信验证
+			if ((_return == 0) && (usedPort.m_COMMBytesPassed == true) && (res[usedPort.m_COMMPortDataReadIndex + 1] == 0) && (res[usedPort.m_COMMPortDataReadIndex + 2] == cmd[1]))
+			{
+				if (msg != null)
+				{
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "频率电流的电流参数获取成功!\r\n", Color.Black, false);
+				}
+				//---获取起始最大电流
+				_return = res[usedPort.m_COMMPortDataReadIndex + 3];
+				_return = (_return << 8) + res[usedPort.m_COMMPortDataReadIndex + 4];
+				//---刷新起始最大电流
+				deviceCurrent.m_StartPassMax = (float)(_return * 1.0 / 100);
+				//---获取起始最小电流
+				_return = res[usedPort.m_COMMPortDataReadIndex + 5];
+				_return = (_return << 8) + res[usedPort.m_COMMPortDataReadIndex + 6];
+				//---刷新起始最小电流
+				deviceCurrent.m_StartPassMin = (float)(_return * 1.0 / 100);
+				//---ADC间隔点数
+				_return = res[usedPort.m_COMMPortDataReadIndex + 7];
+				_return = (_return << 8) + res[usedPort.m_COMMPortDataReadIndex + 8];
+				//---刷新ADC间隔点数
+				deviceCurrent.m_PassSpacePointNum = _return;
+
+				//---ADC合格的最大值
+				_return = res[usedPort.m_COMMPortDataReadIndex + 9];
+				_return = (_return << 8) + res[usedPort.m_COMMPortDataReadIndex + 10];
+				//---刷新ADC合格的最大值
+				deviceCurrent.m_PassSpacePointMax = _return;
+
+				//---ADC合格的最小值
+				_return = res[usedPort.m_COMMPortDataReadIndex + 11];
+				_return = (_return << 8) + res[usedPort.m_COMMPortDataReadIndex + 12];
+				//---刷新ADC合格的最小值
+				deviceCurrent.m_PassSpacePointMin = _return;
+
+				//---获取截止最大电流
+				_return = res[usedPort.m_COMMPortDataReadIndex + 13];
+				_return = (_return << 8) + res[usedPort.m_COMMPortDataReadIndex + 14];
+				//---刷新截止最大电流
+				deviceCurrent.m_StopPassMax = (float)(_return * 1.0 / 100);
+				//---获取截止最小电流
+				_return = res[usedPort.m_COMMPortDataReadIndex + 15];
+				_return = (_return << 8) + res[usedPort.m_COMMPortDataReadIndex + 16];
+				//---刷新截止最小电流
+				deviceCurrent.m_StopPassMin = (float)(_return * 1.0 / 100);
+
+				//---恢复返回值
+				_return = 0;
+			}
+			else
+			{
+				if (_return != 0)
+				{
+					if (msg != null)
+					{
+						RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信发生错误!\r\n", Color.Red, false);
+					}
+				}
+				else if (usedPort.m_COMMBytesPassed == false)
+				{
+					if (msg != null)
+					{
+						RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "读取的数据格式不合法!\r\n", Color.Red, false);
+					}
+				}
+				else if (res[usedPort.m_COMMPortDataReadIndex + 1] != 0)
+				{
+					if (msg != null)
+					{
+						RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "数据返回的结果错误!\r\n", Color.Red, false);
+					}
+				}
+				else
+				{
+					if (msg != null)
+					{
+						RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信命令验证错误!\r\n", Color.Red, false);
+					}
+				}
+			}
 			return _return;
 		}
 
