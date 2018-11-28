@@ -98,6 +98,18 @@ namespace UserControlPlusLib
             }
         }
 
+        [Description("读取哪个预设频率点"), Category("自定义属性")]
+        public virtual int m_PreFreqIndex
+        {
+            get
+            {
+                return (int)this.numericUpDown_preFreqIndex.Value;
+            }
+            set
+            {
+                this.numericUpDown_preFreqIndex.Value = (decimal)value;
+            }
+        }
 
         #endregion
 

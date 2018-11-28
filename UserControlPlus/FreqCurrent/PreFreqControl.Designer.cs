@@ -101,7 +101,7 @@
             this.numericUpDown_preFreqIndex.TabIndex = 19;
             this.numericUpDown_preFreqIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown_preFreqIndex.Value = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             0});

@@ -11,7 +11,12 @@ namespace UserControlPlusLib
 {
     public partial class FreqCurrentControl : UserControl
     {
-        #region 变量定义
+		#region 变量定义
+
+		/// <summary>
+		/// 单个SITE支持的最大频率点数
+		/// </summary>
+		private int freqCurrentPointMaxNum = 200;
 
         #endregion
 
@@ -193,16 +198,36 @@ namespace UserControlPlusLib
             }
         }
 
-        #endregion
 
-        #region 委托定义
-        /// <summary>
-        /// 自定义事件的参数类型
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <param name="orther"></param>
-        public delegate void UserButtonClickHandle(object sender, EventArgs e,int index=0);
+		/// <summary>
+		/// Gets or sets the m freq current point maximum number.
+		/// </summary>
+		/// <value>
+		/// The m freq current point maximum number.
+		/// </value>
+		[Description("单个SITE支持频率电流扫描的最大点数"), Category("自定义属性")]
+		public virtual int m_FreqCurrentPointMaxNum
+		{
+			get
+			{
+				return this.freqCurrentPointMaxNum;
+			}
+			set
+			{
+				this.freqCurrentPointMaxNum = value;
+			}
+		}
+
+		#endregion
+
+		#region 委托定义
+		/// <summary>
+		/// 自定义事件的参数类型
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		/// <param name="orther"></param>
+		public delegate void UserButtonClickHandle(object sender, EventArgs e,int index=0);
 
         [Description("当点击控件时发生，调用选中按钮控件逻辑"), Category("自定义事件")]
         public event UserButtonClickHandle UserButtonClick;
@@ -234,8 +259,8 @@ namespace UserControlPlusLib
             this.button_startDo.Click += new EventHandler(this.button_Click);
 
 			//---注册事件
-			this.numericUpDown_startFreq.ValueChanged += new System.EventHandler(this.numericUpDown_ValueChanged);
-			this.numericUpDown_stepFreq.ValueChanged += new System.EventHandler(this.numericUpDown_ValueChanged);
+			//this.numericUpDown_startFreq.ValueChanged += new System.EventHandler(this.numericUpDown_ValueChanged);
+			//this.numericUpDown_stepFreq.ValueChanged += new System.EventHandler(this.numericUpDown_ValueChanged);
 
 		}
         #endregion
@@ -299,6 +324,11 @@ namespace UserControlPlusLib
 				case "numericUpDown_startFreq":
 				case "numericUpDown_stepFreq":
 					this.numericUpDown_stepPointNum.Value = (decimal)((int)(startFreq / stepFreq));
+					if (((int)this.numericUpDown_stepPointNum.Value)>this.freqCurrentPointMaxNum)
+					{
+						this.numericUpDown_stepPointNum.Value = (decimal)(this.freqCurrentPointMaxNum);
+						MessageBox.Show("最大支持的频率点数是200", "错误提示");
+					}
 					break;
 				default:
 					break;	

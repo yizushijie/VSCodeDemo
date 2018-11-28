@@ -62,6 +62,8 @@ namespace RFASKFreqCurrentForm
             {
                 this.usedFreqCurrent = new RFASKFreqCurrent(new SerialCOMMPort(this,115200));
             }
+            //---定义端口使用的缓存区
+            this.usedFreqCurrent.m_UsedPort.ReadAnWriteBufferSize(1800, 1800);
             //---通信端口初始化
             this.commPortControl_commPort.Init(this, this.usedFreqCurrent.m_UsedPort, this.richTextBoxEx_msg);
             //---函数注册

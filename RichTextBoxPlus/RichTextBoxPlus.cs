@@ -167,7 +167,7 @@ namespace RichTextBoxPlusLib
 			string str = string.Format("{0} {1} {2}", System.DateTime.Now.ToString(), "：", text);
 			if (addNewLine)
 			{
-				text += Environment.NewLine;
+				str += Environment.NewLine;
 			}
 			if (rtBox.InvokeRequired)
 			{
@@ -178,7 +178,7 @@ namespace RichTextBoxPlusLib
 							 rtBox.SelectionLength = 0;
 							 rtBox.SelectionColor = textColor;
 							 //在当前窗体中追加文本
-							 rtBox.AppendText(text);
+							 rtBox.AppendText(str);
 							 rtBox.SelectionColor = rtBox.ForeColor;
 
 							 //直线底部
@@ -193,7 +193,7 @@ namespace RichTextBoxPlusLib
 				rtBox.SelectionLength = 0;
 				rtBox.SelectionColor = textColor;
 				//在当前窗体中追加文本
-				rtBox.AppendText(text);
+				rtBox.AppendText(str);
 				rtBox.SelectionColor = rtBox.ForeColor;
 
 				//直线底部

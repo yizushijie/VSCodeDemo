@@ -1224,7 +1224,7 @@ namespace COMMPortLib
                         break;
                     }
                     //---判断接收到的数据
-                    if ((taskStep == 3) && (this.m_COMMPortReadData != null) && (this.m_COMMPortReadData.usedByte != null) && (this.m_COMMPortReadData.usedByte.Count > 2) && ((this.m_COMMPortReadData.usedByte.Count - 2) == this.m_COMMPortReadData.usedByte[1]))
+                    if ((taskStep == 3) && (this.m_COMMPortReadData != null) && (this.m_COMMPortReadData.usedByte != null) && (this.m_COMMPortReadData.usedByte.Count > 2) && ((this.m_COMMPortReadData.usedByte.Count - 3) == countSize))
                     {
                         //---退出当前while循环
                         this.m_COMMPortSTATE = false;
@@ -1774,11 +1774,40 @@ namespace COMMPortLib
             return _return;
         }
 
-		/// <summary>
-		///
-		/// </summary>
-		/// <returns></returns>
-		public override int WriteToDevice(byte cmd, RichTextBox msg = null)
+        /// <summary>
+        /// Writes the size of the buffer.
+        /// </summary>
+        /// <param name="bSize">Size of the b.</param>
+        public override void WriteBufferSize(int bSize)
+        {
+            this.m_COMMPortWriteBufferSize = bSize;
+        }
+
+        /// <summary>
+        /// Reads the size of the buffer.
+        /// </summary>
+        /// <param name="bSize">Size of the b.</param>
+        public override void ReadBufferSize(int bSize)
+        {
+           this.m_COMMPortReadBufferSize = bSize;
+        }
+
+        /// <summary>
+        /// Reads the size of an write buffer.
+        /// </summary>
+        /// <param name="bRSize">Size of the b r.</param>
+        /// <param name="bWSize">Size of the b w.</param>
+        public override void ReadAnWriteBufferSize(int bRSize, int bWSize)
+        {
+            this.m_COMMPortWriteBufferSize = bRSize;
+            this.m_COMMPortReadBufferSize = bWSize;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public override int WriteToDevice(byte cmd, RichTextBox msg = null)
 		{
 			int _return = 0;
 			try

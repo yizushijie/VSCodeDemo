@@ -533,7 +533,6 @@
 			// 
 			// numericUpDown_stepPointNum
 			// 
-			this.numericUpDown_stepPointNum.Enabled = false;
 			this.numericUpDown_stepPointNum.Increment = new decimal(new int[] {
             5,
             0,
@@ -592,10 +591,10 @@
             0,
             0});
 			this.numericUpDown_stepFreq.Minimum = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
-            131072});
+            65536});
 			this.numericUpDown_stepFreq.Name = "numericUpDown_stepFreq";
 			this.numericUpDown_stepFreq.Size = new System.Drawing.Size(75, 21);
 			this.numericUpDown_stepFreq.TabIndex = 10;

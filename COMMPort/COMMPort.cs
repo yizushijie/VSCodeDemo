@@ -877,11 +877,41 @@ namespace COMMPortLib
 			return 1;
 		}
 
-		/// <summary>
-		///
-		/// </summary>
-		/// <returns></returns>
-		public virtual int WriteToDevice(byte cmd, RichTextBox msg = null)
+        /// <summary>
+        /// Writes the size of the buffer.
+        /// </summary>
+        /// <param name="bSize">Size of the b.</param>
+        public virtual void WriteBufferSize( int  bSize )
+        {
+            
+        }
+
+
+        /// <summary>
+        /// Reads the size of the buffer.
+        /// </summary>
+        /// <param name="bSize">Size of the b.</param>
+        public virtual void ReadBufferSize(int bSize)
+        {
+           
+        }
+
+        /// <summary>
+        /// Reads the size of an write buffer.
+        /// </summary>
+        /// <param name="bRSize">Size of the b r.</param>
+        /// <param name="bWSize">Size of the b w.</param>
+        public virtual void ReadAnWriteBufferSize(int bRSize,int bWSize)
+        {
+
+        }
+
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public virtual int WriteToDevice(byte cmd, RichTextBox msg = null)
 		{
 			return 1;
 		}

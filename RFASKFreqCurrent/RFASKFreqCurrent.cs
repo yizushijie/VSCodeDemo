@@ -146,18 +146,23 @@ namespace RFASKFreqCurrentLib
 			switch (index)
 			{
 				case 1:
+                    //---获取频率参数
 					_return = this.FreqCurrentGetFreqParm(cmd, deviceFreqCurrent, usedPort, msg);
 					break;
 				case 2:
+                    //---配置频率参数
 					_return = this.FreqCurrentSetFreqParm(cmd, deviceFreqCurrent, usedPort, msg);
 					break;
 				case 3:
+                    //---获取电流参数
 					_return = this.FreqCurrentGetCurrentParm(cmd, deviceFreqCurrent, usedPort, msg);
 					break;
 				case 4:
+                    //---设置电流参数
 					_return = this.FreqCurrentSetCurrentParm(cmd, deviceFreqCurrent, usedPort, msg);
 					break;
 				case 5:
+                    //---执行频率电流扫描
 					_return = this.FreqCurrentDo(cmd, deviceFreqCurrent, usedPort, msg);
 					break;
 				default:
@@ -207,7 +212,7 @@ namespace RFASKFreqCurrentLib
 			{
 				if (msg != null)
 				{
-					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "频率电流的频率参数获取成功!\r\n", Color.Black, false);
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "频率电流的第"+(freqPointIndexCMD-3).ToString()+"个点的频率参数获取成功!\r\n", Color.Black, false);
 				}
 				//---获取起始频率
 				_return = res[usedPort.m_COMMPortDataReadIndex + 3];
@@ -290,9 +295,73 @@ namespace RFASKFreqCurrentLib
 				return 2;
 			}
 			int _return = 0;
-			byte[] cmd = new byte[] { (byte)freqPointIndexCMD, (byte)RFASKFreqCurrentPointCMD.CMD_RFASK_CMD1_FREQ_CURRENT_POINT_FREQ_SET };
+			byte[] cmd = new byte[] {
+                                        (byte)freqPointIndexCMD, (byte)RFASKFreqCurrentPointCMD.CMD_RFASK_CMD1_FREQ_CURRENT_POINT_FREQ_SET,
+                                        0x00,0x00,0x00,0x00,
+                                        0x00,0x00,
+                                        0x00,0x00
+                                     };
+			//---数据填充，起始射频频率
+			_return = (int)(deviceFreq.m_StartFreq * 100);
+			cmd[2] = (byte)(_return >> 24);
+			cmd[3] = (byte)(_return >> 16);
+			cmd[4] = (byte)(_return >> 8);
+			cmd[5] = (byte)(_return);
+
+			//---数据填充，步进射频频率
+			_return = (int)(deviceFreq.m_StepFreq * 100);
+			cmd[6] = (byte)(_return >> 8);
+			cmd[7] = (byte)(_return);
+
+			//---数据填充，步进射频频率
+			_return = (int)(deviceFreq.m_StepPointNum);
+			cmd[8] = (byte)(_return >> 8);
+			cmd[9] = (byte)(_return);
+
+			//---回传的命令
 			byte[] res = null;
-			return _return;
+            //---将命令写入设备并读取返回的值
+            _return = usedPort.SendCmdAndReadResponse(cmd, ref res, 300);
+            //---通信验证
+            if ((_return == 0) && (usedPort.m_COMMBytesPassed == true) && (res[usedPort.m_COMMPortDataReadIndex + 1] == 0) && (res[usedPort.m_COMMPortDataReadIndex + 2] == cmd[1]))
+            {
+				if (msg != null)
+				{
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "频率电流的第"+(freqPointIndexCMD-3).ToString()+"个点的频率参数设置成功!\r\n", Color.Black, false);
+				}
+			}
+            else
+            {
+                if (_return != 0)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信发生错误!\r\n", Color.Red, false);
+                    }
+                }
+                else if (usedPort.m_COMMBytesPassed == false)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "读取的数据格式不合法!\r\n", Color.Red, false);
+                    }
+                }
+                else if (res[usedPort.m_COMMPortDataReadIndex + 1] != 0)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "数据返回的结果错误!\r\n", Color.Red, false);
+                    }
+                }
+                else
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信命令验证错误!\r\n", Color.Red, false);
+                    }
+                }
+            }
+            return _return;
 		}
 
 		/// <summary>
@@ -331,7 +400,7 @@ namespace RFASKFreqCurrentLib
 			{
 				if (msg != null)
 				{
-					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "频率电流的电流参数获取成功!\r\n", Color.Black, false);
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "频率电流的第"+(freqPointIndexCMD-3).ToString()+"个点的电流参数获取成功!\r\n", Color.Black, false);
 				}
 				//---获取起始最大电流
 				_return = res[usedPort.m_COMMPortDataReadIndex + 3];
@@ -419,8 +488,112 @@ namespace RFASKFreqCurrentLib
 		/// <returns></returns>
 		protected virtual int FreqCurrentSetCurrentParm(int freqPointIndexCMD, FreqCurrentControl deviceCurrent, COMMPort usedPort, RichTextBox msg = null)
 		{
-			int _return = 0;
-			return _return;
+            if (usedPort == null)
+            {
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信端口初始化失败!\r\n", Color.Red, false);
+                }
+                return 1;
+            }
+            if (deviceCurrent == null)
+            {
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "频率电流控件传递错误!\r\n", Color.Red, false);
+                }
+                return 2;
+            }
+            int _return = 0;
+            byte[] cmd = new byte[] {
+										(byte)freqPointIndexCMD, (byte)RFASKFreqCurrentPointCMD.CMD_RFASK_CMD1_FREQ_CURRENT_POINT_CURRENT_SET,
+										0x00,0x00,
+										0x00,0x00,
+										0x00,0x00,
+										0x00,0x00,
+										0x00,0x00,
+										0x00,0x00,
+										0x00,0x00
+									};
+			//---参数设置---起始频率点的电流最大值
+			_return = (int)(deviceCurrent.m_StartPassMax * 100);
+			cmd[2] = (byte)(_return >> 8);
+			cmd[3] = (byte)(_return );
+
+			//---参数设置---起始频率点的电流最小值
+			_return = (int)(deviceCurrent.m_StartPassMin * 100);
+			cmd[4] = (byte)(_return >> 8);
+			cmd[5] = (byte)(_return);
+
+			//---参数设置---ADC采样结果比对的点的间隔数
+			_return = (int)(deviceCurrent.m_PassSpacePointNum);
+			cmd[6] = (byte)(_return >> 8);
+			cmd[7] = (byte)(_return);
+
+			//---参数设置---ADC采样结果差值的最大值
+			_return = (int)(deviceCurrent.m_PassSpacePointMax);
+			cmd[8] = (byte)(_return >> 8);
+			cmd[9] = (byte)(_return);
+
+			//---参数设置---ADC采样结果差值的最小值
+			_return = (int)(deviceCurrent.m_PassSpacePointMin);
+			cmd[10] = (byte)(_return >> 8);
+			cmd[11] = (byte)(_return);
+
+			//---参数设置---终止频率点的电流最大值
+			_return = (int)(deviceCurrent.m_StopPassMax * 100);
+			cmd[12] = (byte)(_return >> 8);
+			cmd[13] = (byte)(_return);
+
+			//---参数设置---终止频率点的电流最小值
+			_return = (int)(deviceCurrent.m_StopPassMin * 100);
+			cmd[14] = (byte)(_return >> 8);
+			cmd[15] = (byte)(_return);
+
+			//---返回的结果
+			byte[] res = null;
+            //---将命令写入设备并读取返回的值
+            _return = usedPort.SendCmdAndReadResponse(cmd, ref res, 300);
+            //---通信验证
+            if ((_return == 0) && (usedPort.m_COMMBytesPassed == true) && (res[usedPort.m_COMMPortDataReadIndex + 1] == 0) && (res[usedPort.m_COMMPortDataReadIndex + 2] == cmd[1]))
+            {
+				if (msg != null)
+				{
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "频率电流的第" + (freqPointIndexCMD - 3).ToString() + "个点的电流参数设置成功!\r\n", Color.Black, false);
+				}
+			}
+            else
+            {
+                if (_return != 0)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信发生错误!\r\n", Color.Red, false);
+                    }
+                }
+                else if (usedPort.m_COMMBytesPassed == false)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "读取的数据格式不合法!\r\n", Color.Red, false);
+                    }
+                }
+                else if (res[usedPort.m_COMMPortDataReadIndex + 1] != 0)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "数据返回的结果错误!\r\n", Color.Red, false);
+                    }
+                }
+                else
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信命令验证错误!\r\n", Color.Red, false);
+                    }
+                }
+            }
+            return _return;
 		}
 
 		/// <summary>
@@ -433,9 +606,80 @@ namespace RFASKFreqCurrentLib
 		/// <returns></returns>
 		protected virtual int FreqCurrentDo(int freqPointIndexCMD, FreqCurrentControl deviceCurrent, COMMPort usedPort, RichTextBox msg = null)
 		{
-			int _return = 0;
-			return _return;
-		}
+            if (usedPort == null)
+            {
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信端口初始化失败!\r\n", Color.Red, false);
+                }
+                return 1;
+            }
+            if (deviceCurrent == null)
+            {
+                if (msg != null)
+                {
+                    RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "频率电流控件传递错误!\r\n", Color.Red, false);
+                }
+                return 2;
+            }
+            int _return = 0;
+            byte[] cmd = new byte[] { (byte)freqPointIndexCMD, (byte)RFASKFreqCurrentPointCMD.CMD_RFASK_CMD1_FREQ_CURRENT_POINT_DO};
+            byte[] res = null;
+            //---将命令写入设备并读取返回的值
+            _return = usedPort.SendCmdAndReadResponse(cmd, ref res, 1000);
+            //---通信验证
+            if ((_return == 0) && (usedPort.m_COMMBytesPassed == true) && (res[usedPort.m_COMMPortDataReadIndex + 1] == 0) && (res[usedPort.m_COMMPortDataReadIndex + 2] == cmd[1]))
+            {
+				if (msg != null)
+				{
+					RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "频率电流的第" + (freqPointIndexCMD - 3).ToString() + "个点的频率电流扫描!\r\n", Color.Black, false);
+					//---进行一次频率电流扫描消耗的时间
+					RichTextBoxPlus.AppendTextInfoWithDateTime(msg, "消耗的时间:" + ((int)usedPort.m_UsedTime.Milliseconds).ToString("D") + "ms\r\n", Color.Black, false);
+				}
+				this.usedSiteCurrent = new RFASKSiteCurrent();
+				byte[] siteCurrent = new byte[res.Length-usedPort.m_COMMPortDataReadIndex-4];
+				Array.Copy(res, (usedPort.m_COMMPortDataReadIndex + 4), siteCurrent, 0, siteCurrent.Length);
+
+				//---获取各个site的电流
+				this.usedSiteCurrent.Init(res[usedPort.m_COMMPortDataReadIndex + 3], siteCurrent);
+
+				//---打印Log数据
+				this.usedSiteCurrent.PrintfLog(msg);
+
+			}
+            else
+            {
+                if (_return != 0)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信发生错误!\r\n", Color.Red, false);
+                    }
+                }
+                else if (usedPort.m_COMMBytesPassed == false)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "读取的数据格式不合法!\r\n", Color.Red, false);
+                    }
+                }
+                else if (res[usedPort.m_COMMPortDataReadIndex + 1] != 0)
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "数据返回的结果错误!\r\n", Color.Red, false);
+                    }
+                }
+                else
+                {
+                    if (msg != null)
+                    {
+                        RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信命令验证错误!\r\n", Color.Red, false);
+                    }
+                }
+            }
+            return _return;
+        }
 
 		#endregion
 
