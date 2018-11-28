@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFASKFreqCurrent", "RFASKFr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClockWM8510", "ClockWM8510\ClockWM8510.csproj", "{DDE8E539-15E0-46B5-BB90-6B08D262F02D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileFunc", "FileFunc\FileFunc.csproj", "{B3E263A8-BF2A-4F5B-85F4-28422FF1A459}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -179,6 +181,14 @@ Global
 		{DDE8E539-15E0-46B5-BB90-6B08D262F02D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DDE8E539-15E0-46B5-BB90-6B08D262F02D}.Release|x86.ActiveCfg = Release|Any CPU
 		{DDE8E539-15E0-46B5-BB90-6B08D262F02D}.Release|x86.Build.0 = Release|Any CPU
+		{B3E263A8-BF2A-4F5B-85F4-28422FF1A459}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3E263A8-BF2A-4F5B-85F4-28422FF1A459}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3E263A8-BF2A-4F5B-85F4-28422FF1A459}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B3E263A8-BF2A-4F5B-85F4-28422FF1A459}.Debug|x86.Build.0 = Debug|Any CPU
+		{B3E263A8-BF2A-4F5B-85F4-28422FF1A459}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3E263A8-BF2A-4F5B-85F4-28422FF1A459}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3E263A8-BF2A-4F5B-85F4-28422FF1A459}.Release|x86.ActiveCfg = Release|Any CPU
+		{B3E263A8-BF2A-4F5B-85F4-28422FF1A459}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

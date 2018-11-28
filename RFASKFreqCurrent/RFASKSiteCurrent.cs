@@ -1,4 +1,5 @@
-﻿using RichTextBoxPlusLib;
+﻿using FileFuncLib;
+using RichTextBoxPlusLib;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -192,6 +193,7 @@ namespace RFASKFreqCurrentLib
 			int i = 0;
 			//---起始频率
 			int freqMHz = 0;
+			string fileLog = "";
 			for (i = 0;  i< this.siteACurrentX100mA.Count; i++)
 			{
 				if (i==0)
@@ -207,7 +209,10 @@ namespace RFASKFreqCurrentLib
 				{
 					RichTextBoxPlus.AppendTextInfoWithoutDateTime(msg, str, Color.Black, false);
 				}
+				fileLog += str;
 			}
+			FileFuncTXT txtFile = new FileFuncTXT();
+			txtFile.WriteToTxtFile("sitemA.txt", fileLog);
 		}
 
 		#endregion
