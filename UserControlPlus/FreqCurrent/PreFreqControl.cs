@@ -12,16 +12,32 @@ namespace UserControlPlusLib
     public partial class PreFreqControl : UserControl
     {
 
-        #region 变量定义
+		#region 变量定义
 
-        #endregion
+		#endregion
 
-        #region 属性定义
+		#region 属性定义
 
-        /// <summary>
-        /// 重命名控件
-        /// </summary>
-        [Description("修改当前控件的命名"), Category("自定义属性")]
+		/// <summary>
+		/// 控件是够启用
+		/// </summary>
+		[Description("是否启用控件"), Category("自定义属性")]
+		public virtual bool m_Enabled
+		{
+			get
+			{
+				return this.panel_preFreq.Enabled;
+			}
+			set
+			{
+				this.panel_preFreq.Enabled = value;
+			}
+		}
+
+		/// <summary>
+		/// 重命名控件
+		/// </summary>
+		[Description("修改当前控件的命名"), Category("自定义属性")]
         public virtual string m_FuncName
         {
             get
@@ -135,8 +151,16 @@ namespace UserControlPlusLib
         {
             InitializeComponent();
 
-            //---限定尺寸,尺寸不可更改
-            this.MinimumSize = this.Size;
+			//---设置Style支持透明背景色并且双缓冲
+			this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+			this.SetStyle(ControlStyles.DoubleBuffer, true);
+			this.SetStyle(ControlStyles.ResizeRedraw, true);
+			this.SetStyle(ControlStyles.Selectable, true);
+			this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+			this.SetStyle(ControlStyles.UserPaint, true);
+
+			//---限定尺寸,尺寸不可更改
+			this.MinimumSize = this.Size;
             this.MaximumSize = this.Size;
 
             //---注册按钮事件

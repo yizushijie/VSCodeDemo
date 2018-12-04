@@ -37,7 +37,7 @@
             this.label_clockRateUnite = new System.Windows.Forms.Label();
             this.label_clockRateName = new System.Windows.Forms.Label();
             this.groupBox_clockRateName = new System.Windows.Forms.GroupBox();
-            this.panel_PortName = new System.Windows.Forms.Panel();
+            this.panel_ClockRate = new System.Windows.Forms.Panel();
             this.button_readClockRate = new System.Windows.Forms.Button();
             this.button_resetClockRate = new System.Windows.Forms.Button();
             this.buttonCheckControl_Channel4 = new UserControlPlusLib.ButtonCheckControl();
@@ -46,7 +46,7 @@
             this.buttonCheckControl_Channel1 = new UserControlPlusLib.ButtonCheckControl();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_clockRate)).BeginInit();
             this.groupBox_clockRateName.SuspendLayout();
-            this.panel_PortName.SuspendLayout();
+            this.panel_ClockRate.SuspendLayout();
             this.SuspendLayout();
             // 
             // numericUpDown_clockRate
@@ -138,7 +138,7 @@
             // 
             // groupBox_clockRateName
             // 
-            this.groupBox_clockRateName.Controls.Add(this.panel_PortName);
+            this.groupBox_clockRateName.Controls.Add(this.panel_ClockRate);
             this.groupBox_clockRateName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_clockRateName.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox_clockRateName.Location = new System.Drawing.Point(0, 2);
@@ -150,27 +150,27 @@
             // 
             // panel_PortName
             // 
-            this.panel_PortName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel_PortName.Controls.Add(this.button_readClockRate);
-            this.panel_PortName.Controls.Add(this.button_resetClockRate);
-            this.panel_PortName.Controls.Add(this.buttonCheckControl_Channel4);
-            this.panel_PortName.Controls.Add(this.button_writeClockRate);
-            this.panel_PortName.Controls.Add(this.label_clockRateName);
-            this.panel_PortName.Controls.Add(this.numericUpDown_clockRate);
-            this.panel_PortName.Controls.Add(this.label_clockRateUnite);
-            this.panel_PortName.Controls.Add(this.buttonCheckControl_Channel3);
-            this.panel_PortName.Controls.Add(this.label_Channel1);
-            this.panel_PortName.Controls.Add(this.buttonCheckControl_Channel2);
-            this.panel_PortName.Controls.Add(this.label_Channel3);
-            this.panel_PortName.Controls.Add(this.buttonCheckControl_Channel1);
-            this.panel_PortName.Controls.Add(this.label_Channel4);
-            this.panel_PortName.Controls.Add(this.label_Channel2);
-            this.panel_PortName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_PortName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.panel_PortName.Location = new System.Drawing.Point(3, 17);
-            this.panel_PortName.Name = "panel_PortName";
-            this.panel_PortName.Size = new System.Drawing.Size(252, 64);
-            this.panel_PortName.TabIndex = 1;
+            this.panel_ClockRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel_ClockRate.Controls.Add(this.button_readClockRate);
+            this.panel_ClockRate.Controls.Add(this.button_resetClockRate);
+            this.panel_ClockRate.Controls.Add(this.buttonCheckControl_Channel4);
+            this.panel_ClockRate.Controls.Add(this.button_writeClockRate);
+            this.panel_ClockRate.Controls.Add(this.label_clockRateName);
+            this.panel_ClockRate.Controls.Add(this.numericUpDown_clockRate);
+            this.panel_ClockRate.Controls.Add(this.label_clockRateUnite);
+            this.panel_ClockRate.Controls.Add(this.buttonCheckControl_Channel3);
+            this.panel_ClockRate.Controls.Add(this.label_Channel1);
+            this.panel_ClockRate.Controls.Add(this.buttonCheckControl_Channel2);
+            this.panel_ClockRate.Controls.Add(this.label_Channel3);
+            this.panel_ClockRate.Controls.Add(this.buttonCheckControl_Channel1);
+            this.panel_ClockRate.Controls.Add(this.label_Channel4);
+            this.panel_ClockRate.Controls.Add(this.label_Channel2);
+            this.panel_ClockRate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_ClockRate.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.panel_ClockRate.Location = new System.Drawing.Point(3, 17);
+            this.panel_ClockRate.Name = "panel_PortName";
+            this.panel_ClockRate.Size = new System.Drawing.Size(252, 64);
+            this.panel_ClockRate.TabIndex = 1;
             // 
             // button_readClockRate
             // 
@@ -248,8 +248,8 @@
             this.Size = new System.Drawing.Size(258, 86);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_clockRate)).EndInit();
             this.groupBox_clockRateName.ResumeLayout(false);
-            this.panel_PortName.ResumeLayout(false);
-            this.panel_PortName.PerformLayout();
+            this.panel_ClockRate.ResumeLayout(false);
+            this.panel_ClockRate.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -267,7 +267,7 @@
         private ButtonCheckControl buttonCheckControl_Channel3;
         private System.Windows.Forms.Label label_clockRateName;
         private System.Windows.Forms.GroupBox groupBox_clockRateName;
-        private System.Windows.Forms.Panel panel_PortName;
+        private System.Windows.Forms.Panel panel_ClockRate;
         private ButtonCheckControl buttonCheckControl_Channel4;
         private System.Windows.Forms.Button button_resetClockRate;
         private System.Windows.Forms.Button button_readClockRate;

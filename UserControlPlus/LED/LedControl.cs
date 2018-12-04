@@ -95,8 +95,16 @@ namespace UserControlPlusLib
         {
             InitializeComponent();
 
-            //---限定尺寸,尺寸不可更改
-            this.MinimumSize = this.Size;
+			//---设置Style支持透明背景色并且双缓冲
+			this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+			this.SetStyle(ControlStyles.DoubleBuffer, true);
+			this.SetStyle(ControlStyles.ResizeRedraw, true);
+			this.SetStyle(ControlStyles.Selectable, true);
+			this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+			this.SetStyle(ControlStyles.UserPaint, true);
+
+			//---限定尺寸,尺寸不可更改
+			this.MinimumSize = this.Size;
             this.MaximumSize = this.Size;
 
             //---注册事件

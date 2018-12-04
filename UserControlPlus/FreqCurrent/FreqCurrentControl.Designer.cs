@@ -71,6 +71,7 @@
 			this.button_readFreqConfig = new System.Windows.Forms.Button();
 			this.numericUpDown_startFreq = new System.Windows.Forms.NumericUpDown();
 			this.label_startFreq = new System.Windows.Forms.Label();
+			this.panel_freqCurrent = new System.Windows.Forms.Panel();
 			this.groupBox_funcName.SuspendLayout();
 			this.groupBox_passConfig.SuspendLayout();
 			this.groupBox_stopPassConfig.SuspendLayout();
@@ -91,6 +92,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_stepPointNum)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_stepFreq)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_startFreq)).BeginInit();
+			this.panel_freqCurrent.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox_funcName
@@ -99,7 +101,7 @@
 			this.groupBox_funcName.Controls.Add(this.groupBox_freqConfig);
 			this.groupBox_funcName.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox_funcName.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.groupBox_funcName.Location = new System.Drawing.Point(0, 3);
+			this.groupBox_funcName.Location = new System.Drawing.Point(0, 0);
 			this.groupBox_funcName.Margin = new System.Windows.Forms.Padding(6);
 			this.groupBox_funcName.Name = "groupBox_funcName";
 			this.groupBox_funcName.Padding = new System.Windows.Forms.Padding(6, 6, 6, 0);
@@ -670,11 +672,20 @@
 			this.label_startFreq.TabIndex = 4;
 			this.label_startFreq.Text = "起始频率:";
 			// 
+			// panel_freqCurrent
+			// 
+			this.panel_freqCurrent.Controls.Add(this.groupBox_funcName);
+			this.panel_freqCurrent.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel_freqCurrent.Location = new System.Drawing.Point(0, 3);
+			this.panel_freqCurrent.Name = "panel_freqCurrent";
+			this.panel_freqCurrent.Size = new System.Drawing.Size(264, 399);
+			this.panel_freqCurrent.TabIndex = 1;
+			// 
 			// FreqCurrentControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.groupBox_funcName);
+			this.Controls.Add(this.panel_freqCurrent);
 			this.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
 			this.Name = "FreqCurrentControl";
 			this.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
@@ -703,6 +714,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_stepPointNum)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_stepFreq)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_startFreq)).EndInit();
+			this.panel_freqCurrent.ResumeLayout(false);
 			this.ResumeLayout(false);
 
         }
@@ -752,5 +764,6 @@
         private System.Windows.Forms.Button button_startDo;
 		private System.Windows.Forms.Button button_writeFreqConfig;
 		private System.Windows.Forms.Button button_readFreqConfig;
+		private System.Windows.Forms.Panel panel_freqCurrent;
 	}
 }

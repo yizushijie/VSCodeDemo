@@ -115,13 +115,13 @@ namespace RFASKFreqCurrentForm
         /// <param name="isEmable"></param>
         public virtual void FormInit(bool isEmable)
         {
-            /*
-            this.deviceTypeControl_deviceType.Enabled = isEmable;
-            this.clockRateControl_clockRate.Enabled = isEmable;
-            this.preFreqControl_preFreq.Enabled = isEmable;
-            this.freqCurrentControl_freqCurrentPointOne.Enabled = isEmable;
-            this.freqCurrentControl_freqCurrentPointTwo.Enabled = isEmable;
-            */
+            
+            this.deviceTypeControl_deviceType.m_Enabled = isEmable;
+            this.clockRateControl_clockRate.m_Enabled = isEmable;
+            this.preFreqControl_preFreq.m_Enabled = isEmable;
+            this.freqCurrentControl_freqCurrentPointOne.m_Enabled = isEmable;
+            this.freqCurrentControl_freqCurrentPointTwo.m_Enabled = isEmable;
+        
             if (isEmable==false)
             {
                 this.clockRateControl_clockRate.ClearChannelChecked(false);

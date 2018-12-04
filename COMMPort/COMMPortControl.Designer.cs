@@ -28,12 +28,14 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+            this.components = new System.ComponentModel.Container();
             this.panel_PortName = new System.Windows.Forms.Panel();
             this.pictureBox_portState = new System.Windows.Forms.PictureBox();
             this.button_initDevice = new System.Windows.Forms.Button();
             this.label_portName = new System.Windows.Forms.Label();
             this.comboBox_portName = new System.Windows.Forms.ComboBox();
             this.groupBox_portName = new System.Windows.Forms.GroupBox();
+            this.toolTip_msg = new System.Windows.Forms.ToolTip(this.components);
             this.panel_PortName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_portState)).BeginInit();
             this.groupBox_portName.SuspendLayout();
@@ -128,5 +130,6 @@
 		private System.Windows.Forms.Button button_initDevice;
 		private System.Windows.Forms.Label label_portName;
 		private System.Windows.Forms.ComboBox comboBox_portName;
-	}
+        private System.Windows.Forms.ToolTip toolTip_msg;
+    }
 }

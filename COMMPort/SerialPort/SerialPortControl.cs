@@ -163,7 +163,10 @@ namespace COMMPortLib
 
 			//---点击图片控件
 			this.pictureBox_portState.Click += new System.EventHandler(this.pictureBox_Click);
-		}
+
+            //---注册鼠标进入事件
+            this.pictureBox_portState.MouseEnter += new System.EventHandler(this.pictureBox_MouseEnter);
+        }
 
 		/// <summary>
 		/// 
@@ -284,12 +287,26 @@ namespace COMMPortLib
 			}
 		}
 
-		/// <summary>
-		/// 数据接收事件的处理
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		public virtual void DataReceivedEventHandler(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public virtual void pictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            if ((this.button_initDevice.Text == "打开端口"))
+            {
+                this.toolTip_msg.SetToolTip(this.pictureBox_portState, "点击刷新设备");
+            }
+        }
+
+
+        /// <summary>
+        /// 数据接收事件的处理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public virtual void DataReceivedEventHandler(object sender, EventArgs e)
 		{
 			if (e.ToString() == "SerialDataReceivedEventArgs")
 			{
