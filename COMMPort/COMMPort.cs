@@ -31,7 +31,7 @@ namespace COMMPortLib
 	/// <summary>
 	///
 	/// </summary>
-	public class COMMPortInfo 
+	public class COMMPortInfo
 	{
 		#region 变量定义
 
@@ -40,15 +40,15 @@ namespace COMMPortLib
 		/// </summary>
 		public List<string> deviceNames = null;
 
-        /// <summary>
+		/// <summary>
 		/// 设备序号集合
 		/// </summary>
 		public List<int> deviceIndexs = null;
 
-        /// <summary>
-        /// 当前使用设备的名称
-        /// </summary>
-        public string deviceUsedName = null;
+		/// <summary>
+		/// 当前使用设备的名称
+		/// </summary>
+		public string deviceUsedName = null;
 
 		/// <summary>
 		/// 当前使用设备的序号
@@ -72,32 +72,32 @@ namespace COMMPortLib
 			this.Init();
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public COMMPortInfo(COMMPortInfo useCOMMDevice)
-        {
-            if ((useCOMMDevice.deviceIndexs==null)||(useCOMMDevice.deviceIndexs.Count==0)||(useCOMMDevice.deviceNames==null)||(useCOMMDevice.deviceNames.Count==0))
-            {
-                return;
-            }
-            this.Init(useCOMMDevice.deviceNames.ToArray(), useCOMMDevice.deviceUsedName);
-        }
-
-        #endregion 构造函数
-
-        #region 函数定义
-
-        /// <summary>
-        ///
-        /// </summary>
-        public void Init()
+		/// <summary>
+		///
+		/// </summary>
+		public COMMPortInfo(COMMPortInfo useCOMMDevice)
 		{
-			this.deviceNames = null;
-            this.deviceIndexs = null;
-			this.deviceUsedName = null;
-			this.deviceUsedIndex = -1;
-			this.deviceIsOpen = false;
+			if ((useCOMMDevice.deviceIndexs==null)||(useCOMMDevice.deviceIndexs.Count==0)||(useCOMMDevice.deviceNames==null)||(useCOMMDevice.deviceNames.Count==0))
+			{
+				return;
+			}
+			this.Init(useCOMMDevice.deviceNames.ToArray(), useCOMMDevice.deviceUsedName);
+		}
+
+		#endregion 构造函数
+
+		#region 函数定义
+
+		/// <summary>
+		///
+		/// </summary>
+		public void Init()
+		{
+			this.deviceNames=null;
+			this.deviceIndexs=null;
+			this.deviceUsedName=null;
+			this.deviceUsedIndex=-1;
+			this.deviceIsOpen=false;
 		}
 
 		/// <summary>
@@ -109,67 +109,77 @@ namespace COMMPortLib
 		public int Init(string[] names, string name = null)
 		{
 			//---判断当前设备是否存在通信设备
-			if ((names == null) || (names.Length == 0))
+			if ((names==null)||(names.Length==0))
 			{
 				this.Init();
 				return 1;
 			}
+
 			//---获取端口的序号
 			int[] namesIndex = new int[names.Length];
 			int index = 0;
 			int errDeviceNameCount = 0;
 			string str = "";
+
 			//---遍历端口信息
-			for (index = 0; index < names.Length; index++)
+			for (index=0 ; index<names.Length ; index++)
 			{
 				//---判断端口名称是否合法
-				if (names[index].StartsWith("COM") || names[index].StartsWith("com"))
+				if (names[index].StartsWith("COM")||names[index].StartsWith("com"))
 				{
 					//---去除字符串中非数字字符
-					str = Regex.Replace(names[index], @"[^\d]*", "");
+					str=Regex.Replace(names[index], @"[^\d]*", "");
+
 					//---将字符串转换成数字
-					namesIndex[index - errDeviceNameCount] = (int.Parse(str));
+					namesIndex[index-errDeviceNameCount]=(int.Parse(str));
 				}
 				else
 				{
 					errDeviceNameCount++;
 				}
 			}
+
 			//---重置缓存区的大小
-			Array.Resize<int>(ref namesIndex, (index - errDeviceNameCount));
+			Array.Resize<int>(ref namesIndex, (index-errDeviceNameCount));
+
 			//---数组从小到大排序
 			int[] temp = namesIndex.OrderBy(x => x).ToArray();
+
 			//---数据合法
-			if ((temp == null) || (temp.Length == 0))
+			if ((temp==null)||(temp.Length==0))
 			{
 				return 2;
 			}
-            //---存储端口名称信息
-            this.deviceNames = new List<string>();
-            //---存储端口序号信息
-            this.deviceIndexs = new List<int>();
+
+			//---存储端口名称信息
+			this.deviceNames=new List<string>();
+
+			//---存储端口序号信息
+			this.deviceIndexs=new List<int>();
+
 			//---默认指向第一个端口
-			this.deviceUsedIndex = 0;
+			this.deviceUsedIndex=0;
+
 			//---更新端口信息
-			for (index = 0; index < temp.Length; index++)
+			for (index=0 ; index<temp.Length ; index++)
 			{
-				str = "COM" + Convert.ToString(temp[index]);
-				if ((name != null) && (name != string.Empty) && (name != ""))
+				str="COM"+Convert.ToString(temp[index]);
+				if ((name!=null)&&(name!=string.Empty)&&(name!=""))
 				{
-					if (name == str)
+					if (name==str)
 					{
-						this.deviceUsedName = name;
-						this.deviceUsedIndex = index;
+						this.deviceUsedName=name;
+						this.deviceUsedIndex=index;
 					}
 				}
 				this.deviceNames.Add(str);
-                this.deviceIndexs.Add(temp[index]);
+				this.deviceIndexs.Add(temp[index]);
 			}
 			return 0;
 		}
 
-        #endregion 函数定义
-    }
+		#endregion 函数定义
+	}
 
 	/// <summary>
 	/// 使用的数据
@@ -194,16 +204,16 @@ namespace COMMPortLib
 		#region 初始化
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public COMMData()
 		{
-			if (this.usedByte == null)
+			if (this.usedByte==null)
 			{
-				this.usedByte = new List<byte>();
+				this.usedByte=new List<byte>();
 			}
-			this.usedCRC = (byte)USE_CRC.CRC_NONE;
-			this.usedCRCVal = 0;
+			this.usedCRC=(byte)USE_CRC.CRC_NONE;
+			this.usedCRCVal=0;
 		}
 
 		#endregion 初始化
@@ -295,7 +305,7 @@ namespace COMMPortLib
 		/// 是否使能多设备通信，一个串口带多个设备，使能---true，不使能---false
 		/// </summary>
 		private bool isEnableMultiDevice = false;
-		
+
 		#endregion 变量定义
 
 		#region 委托事件
@@ -305,12 +315,12 @@ namespace COMMPortLib
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		public  delegate void DataReceivedDelegate();
+		public delegate void DataReceivedDelegate();
 
 		/// <summary>
 		/// 声明委托事件
 		/// </summary>
-		private event DataReceivedDelegate DataReadEvent=null;
+		private event DataReceivedDelegate DataReadEvent = null;
 
 		/// <summary>
 		/// 属性读写
@@ -321,13 +331,14 @@ namespace COMMPortLib
 			{
 				return this.DataReadEvent;
 			}
+
 			set
 			{
-				this.DataReadEvent += new DataReceivedDelegate(value);
+				this.DataReadEvent+=new DataReceivedDelegate(value);
 			}
 		}
 
-		#endregion
+		#endregion 委托事件
 
 		#region 属性定义
 
@@ -340,9 +351,10 @@ namespace COMMPortLib
 			{
 				return this.commPortName;
 			}
+
 			set
 			{
-				this.commPortName = value;
+				this.commPortName=value;
 			}
 		}
 
@@ -355,9 +367,10 @@ namespace COMMPortLib
 			{
 				return this.commPortIndex;
 			}
+
 			set
 			{
-				this.commPortIndex = value;
+				this.commPortIndex=value;
 			}
 		}
 
@@ -370,10 +383,11 @@ namespace COMMPortLib
 			{
 				return this.commPortInfo;
 			}
-            set
-            {
-                this.commPortInfo = value;
-            }
+
+			set
+			{
+				this.commPortInfo=value;
+			}
 		}
 
 		/// <summary>
@@ -385,9 +399,10 @@ namespace COMMPortLib
 			{
 				return this.commPortSTATE;
 			}
+
 			set
 			{
-				this.commPortSTATE = value;
+				this.commPortSTATE=value;
 			}
 		}
 
@@ -400,9 +415,10 @@ namespace COMMPortLib
 			{
 				return this.commPortWriteBufferSize;
 			}
+
 			set
 			{
-				this.commPortWriteBufferSize = value;
+				this.commPortWriteBufferSize=value;
 			}
 		}
 
@@ -415,14 +431,15 @@ namespace COMMPortLib
 			{
 				return this.commPortWriteCRC;
 			}
+
 			set
 			{
-				this.commPortWriteCRC = value;
+				this.commPortWriteCRC=value;
 			}
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public virtual COMMData m_COMMPortWriteData
 		{
@@ -430,9 +447,10 @@ namespace COMMPortLib
 			{
 				return this.commPortWriteData;
 			}
+
 			set
 			{
-				this.commPortWriteData = value;
+				this.commPortWriteData=value;
 			}
 		}
 
@@ -445,9 +463,10 @@ namespace COMMPortLib
 			{
 				return this.commPortReadBufferSize;
 			}
+
 			set
 			{
-				this.commPortReadBufferSize = value;
+				this.commPortReadBufferSize=value;
 			}
 		}
 
@@ -460,14 +479,15 @@ namespace COMMPortLib
 			{
 				return this.commPortReadCRC;
 			}
+
 			set
 			{
-				this.commPortReadCRC = value;
+				this.commPortReadCRC=value;
 			}
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		public virtual COMMData m_COMMPortReadData
 		{
@@ -475,12 +495,12 @@ namespace COMMPortLib
 			{
 				return this.commPortReadData;
 			}
+
 			set
 			{
-				this.commPortReadData = value;
+				this.commPortReadData=value;
 			}
 		}
-
 
 		/// <summary>
 		/// 耗时时间
@@ -491,9 +511,10 @@ namespace COMMPortLib
 			{
 				return this.usedTime;
 			}
+
 			set
 			{
-				this.usedTime = value;
+				this.usedTime=value;
 			}
 		}
 
@@ -506,9 +527,10 @@ namespace COMMPortLib
 			{
 				return this.commPortErrMsg;
 			}
+
 			set
 			{
-				this.commPortErrMsg = value;
+				this.commPortErrMsg=value;
 			}
 		}
 
@@ -521,9 +543,10 @@ namespace COMMPortLib
 			{
 				return this.usedForm;
 			}
+
 			set
 			{
-				this.usedForm = value;
+				this.usedForm=value;
 			}
 		}
 
@@ -536,9 +559,10 @@ namespace COMMPortLib
 			{
 				return this.commPortReadID;
 			}
+
 			set
 			{
-				this.commPortReadID = value;
+				this.commPortReadID=value;
 			}
 		}
 
@@ -551,9 +575,10 @@ namespace COMMPortLib
 			{
 				return this.commPortWriteID;
 			}
+
 			set
 			{
-				this.commPortWriteID = value;
+				this.commPortWriteID=value;
 			}
 		}
 
@@ -566,9 +591,10 @@ namespace COMMPortLib
 			{
 				return this.isEnableMultiDevice;
 			}
+
 			set
 			{
-				this.isEnableMultiDevice = value;
+				this.isEnableMultiDevice=value;
 			}
 		}
 
@@ -580,51 +606,51 @@ namespace COMMPortLib
 			get
 			{
 				int _return = 0;
-				if (this.isEnableMultiDevice == true)
+				if (this.isEnableMultiDevice==true)
 				{
-					if (this.commPortReadBufferSize > 0xFF)
+					if (this.commPortReadBufferSize>0xFF)
 					{
-						_return = 4;
+						_return=4;
 					}
 					else
 					{
-						_return = 3;
+						_return=3;
 					}
 				}
 				else
 				{
-					if (this.commPortReadBufferSize > 0xFF)
+					if (this.commPortReadBufferSize>0xFF)
 					{
-						_return = 3;
+						_return=3;
 					}
 					else
 					{
-						_return = 2;
+						_return=2;
 					}
 				}
 				return _return;
 			}
 		}
-		
-        /// <summary>
-        /// 数据格式合法
-        /// </summary>
-        public virtual bool m_COMMBytesPassed
-        {
-            get
-            {
-                return true;
-            }
-        }
 
-        #endregion 属性定义
+		/// <summary>
+		/// 数据格式合法
+		/// </summary>
+		public virtual bool m_COMMBytesPassed
+		{
+			get
+			{
+				return true;
+			}
+		}
 
-        #region 构造函数
+		#endregion 属性定义
 
-        /// <summary>
-        ///
-        /// </summary>
-        public COMMPort()
+		#region 构造函数
+
+		/// <summary>
+		///
+		/// </summary>
+		public COMMPort()
 		{
 		}
 
@@ -762,27 +788,27 @@ namespace COMMPortLib
 		{
 		}
 
+		#endregion 构造函数
 
+		#region 析构函数
 
-        #endregion 构造函数
+		/// <summary>
+		/// 析构函数
+		/// </summary>
+		~COMMPort()
+		{
+			GC.SuppressFinalize(this);
+		}
 
-        #region 析构函数
-        /// <summary>
-        /// 析构函数
-        /// </summary>
-        ~COMMPort()
-        {
-            GC.SuppressFinalize(this);
-        }
-        #endregion
+		#endregion 析构函数
 
-        #region 函数定义
+		#region 函数定义
 
-        /// <summary>
-        /// 初始化
-        /// </summary>
-        /// <returns></returns>
-        public virtual int Init()
+		/// <summary>
+		/// 初始化
+		/// </summary>
+		/// <returns></returns>
+		public virtual int Init()
 		{
 			return 1;
 		}
@@ -858,60 +884,56 @@ namespace COMMPortLib
 			return 1;
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public virtual int RefreshDevice()
-        {
-            return 1;
-        }
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="cbb"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public virtual int RefreshDevice(ComboBox cbb, RichTextBox msg = null)
+		/// <summary>
+		///
+		/// </summary>
+		/// <returns></returns>
+		public virtual int RefreshDevice()
 		{
 			return 1;
 		}
 
-        /// <summary>
-        /// Writes the size of the buffer.
-        /// </summary>
-        /// <param name="bSize">Size of the b.</param>
-        public virtual void WriteBufferSize( int  bSize )
-        {
-            
-        }
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cbb"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int RefreshDevice(ComboBox cbb, RichTextBox msg = null)
+		{
+			return 1;
+		}
 
+		/// <summary>
+		/// Writes the size of the buffer.
+		/// </summary>
+		/// <param name="bSize">Size of the b.</param>
+		public virtual void WriteBufferSize(int bSize)
+		{
+		}
 
-        /// <summary>
-        /// Reads the size of the buffer.
-        /// </summary>
-        /// <param name="bSize">Size of the b.</param>
-        public virtual void ReadBufferSize(int bSize)
-        {
-           
-        }
+		/// <summary>
+		/// Reads the size of the buffer.
+		/// </summary>
+		/// <param name="bSize">Size of the b.</param>
+		public virtual void ReadBufferSize(int bSize)
+		{
+		}
 
-        /// <summary>
-        /// Reads the size of an write buffer.
-        /// </summary>
-        /// <param name="bRSize">Size of the b r.</param>
-        /// <param name="bWSize">Size of the b w.</param>
-        public virtual void ReadAnWriteBufferSize(int bRSize,int bWSize)
-        {
+		/// <summary>
+		/// Reads the size of an write buffer.
+		/// </summary>
+		/// <param name="bRSize">Size of the b r.</param>
+		/// <param name="bWSize">Size of the b w.</param>
+		public virtual void ReadAnWriteBufferSize(int bRSize, int bWSize)
+		{
+		}
 
-        }
-
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        public virtual int WriteToDevice(byte cmd, RichTextBox msg = null)
+		/// <summary>
+		///
+		/// </summary>
+		/// <returns></returns>
+		public virtual int WriteToDevice(byte cmd, RichTextBox msg = null)
 		{
 			return 1;
 		}
@@ -941,7 +963,7 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="cmd"></param>
 		/// <param name="msg"></param>
@@ -952,7 +974,7 @@ namespace COMMPortLib
 			return 1;
 		}
 
-        /// <summary>
+		/// <summary>
 		///
 		/// </summary>
 		/// <param name="cmd"></param>
@@ -960,38 +982,39 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		/// <returns></returns>
 		public virtual int WriteToDevice(ref byte[] cmd, RichTextBox msg = null)
-        {
-            return 1;
-        }
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <returns></returns>
-        public virtual int WriteToDevice(byte[] cmd, int deviceID , RichTextBox msg = null)
 		{
 			return 1;
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name="deviceID"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public virtual int WriteToDevice(ref byte[] cmd, int deviceID, RichTextBox msg = null)
-        {
-            return 1;
-        }
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <returns></returns>
+		public virtual int WriteToDevice(byte[] cmd, int deviceID, RichTextBox msg = null)
+		{
+			return 1;
+		}
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public virtual int WriteToDevice(int portIndex, byte[] cmd, RichTextBox msg = null)
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="deviceID"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int WriteToDevice(ref byte[] cmd, int deviceID, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int WriteToDevice(int portIndex, byte[] cmd, RichTextBox msg = null)
 		{
 			return 1;
 		}
@@ -1007,8 +1030,6 @@ namespace COMMPortLib
 		{
 			return 1;
 		}
-
-		
 
 		/// <summary>
 		///
@@ -1073,64 +1094,64 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="cmd"></param>
 		/// <param name="res"></param>
 		/// <param name="timeout"></param>
 		/// <param name="msg"></param>
 		/// <returns></returns>
-		public virtual int SendCmdAndReadResponse(byte[] cmd,ref byte[] res, int timeout = 200, RichTextBox msg = null)
+		public virtual int SendCmdAndReadResponse(byte[] cmd, ref byte[] res, int timeout = 200, RichTextBox msg = null)
 		{
 			return 1;
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name="res"></param>
-        /// <param name="timeout"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public virtual int SendCmdAndReadResponse(ref byte[] cmd, ref byte[] res, int timeout = 200, RichTextBox msg = null)
-        {
-            return 1;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name="res"></param>
-        /// <param name="deviceID"></param>
-        /// <param name="timeout"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public virtual int SendCmdAndReadResponse(byte[] cmd, ref byte[] res,int deviceID, int timeout , RichTextBox msg = null)
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="res"></param>
+		/// <param name="timeout"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int SendCmdAndReadResponse(ref byte[] cmd, ref byte[] res, int timeout = 200, RichTextBox msg = null)
 		{
 			return 1;
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name="res"></param>
-        /// <param name="deviceID"></param>
-        /// <param name="timeout"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public virtual int SendCmdAndReadResponse(ref byte[] cmd, ref byte[] res, int deviceID, int timeout, RichTextBox msg = null)
-        {
-            return 1;
-        }
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="res"></param>
+		/// <param name="deviceID"></param>
+		/// <param name="timeout"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int SendCmdAndReadResponse(byte[] cmd, ref byte[] res, int deviceID, int timeout, RichTextBox msg = null)
+		{
+			return 1;
+		}
 
-        /// <summary>
-        /// 打开设备
-        /// </summary>
-        /// <returns></returns>
-        public virtual int OpenDevice()
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="res"></param>
+		/// <param name="deviceID"></param>
+		/// <param name="timeout"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int SendCmdAndReadResponse(ref byte[] cmd, ref byte[] res, int deviceID, int timeout, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		/// 打开设备
+		/// </summary>
+		/// <returns></returns>
+		public virtual int OpenDevice()
 		{
 			return 1;
 		}
@@ -1157,22 +1178,22 @@ namespace COMMPortLib
 			return 1;
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="portName"></param>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public virtual int OpenDevice(string portName,string baudRate,string dataBits,string stopBits,string parityBits, RichTextBox msg = null)
-        {
-            return 1;
-        }
-        
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        public virtual int CloseDevice()
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="portName"></param>
+		/// <param name="msg"></param>
+		/// <returns></returns>
+		public virtual int OpenDevice(string portName, string baudRate, string dataBits, string stopBits, string parityBits, RichTextBox msg = null)
+		{
+			return 1;
+		}
+
+		/// <summary>
+		///
+		/// </summary>
+		/// <returns></returns>
+		public virtual int CloseDevice()
 		{
 			return 1;
 		}

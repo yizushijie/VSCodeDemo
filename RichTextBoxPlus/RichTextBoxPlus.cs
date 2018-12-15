@@ -9,7 +9,6 @@ namespace RichTextBoxPlusLib
 	/// </summary>
 	public static class RichTextBoxPlus
 	{
-
 		/// <summary>
 		/// 不同颜色显示数据
 		/// </summary>
@@ -19,36 +18,36 @@ namespace RichTextBoxPlusLib
 		/// <param name="addNewLine ">是否换行</param>
 		public static void AppendTextColorFull(RichTextBox rtb, string text, Color textColor, bool addNewLine = true)
 		{
-
 			if (addNewLine)
 			{
-				text += Environment.NewLine;
+				text+=Environment.NewLine;
 			}
+
 			//---异步调用
 			if (rtb.InvokeRequired)
 			{
 				rtb.Invoke((EventHandler)
 						 (delegate
 						 {
-							 rtb.SelectionStart = rtb.TextLength;
-							 rtb.SelectionLength = 0;
-							 rtb.SelectionColor = textColor;
+							 rtb.SelectionStart=rtb.TextLength;
+							 rtb.SelectionLength=0;
+							 rtb.SelectionColor=textColor;
+
 							 //在当前窗体中追加文本
 							 rtb.AppendText(text);
-							 rtb.SelectionColor = rtb.ForeColor;
+							 rtb.SelectionColor=rtb.ForeColor;
 						 }));
-
 			}
 			else
 			{
-				rtb.SelectionStart = rtb.TextLength;
-				rtb.SelectionLength = 0;
-				rtb.SelectionColor = textColor;
+				rtb.SelectionStart=rtb.TextLength;
+				rtb.SelectionLength=0;
+				rtb.SelectionColor=textColor;
+
 				//在当前窗体中追加文本
 				rtb.AppendText(text);
-				rtb.SelectionColor = rtb.ForeColor;
+				rtb.SelectionColor=rtb.ForeColor;
 			}
-			
 		}
 
 		/// <summary>
@@ -58,44 +57,44 @@ namespace RichTextBoxPlusLib
 		/// <param name="text"></param>
 		/// <param name="textColor"></param>
 		/// <param name="addNewLine"></param>
-		public static void AppendTextInfo( RichTextBox rtBox, string text, Color textColor, bool addNewLine = true)
+		public static void AppendTextInfo(RichTextBox rtBox, string text, Color textColor, bool addNewLine = true)
 		{
 			if (addNewLine)
 			{
-				text += Environment.NewLine;
+				text+=Environment.NewLine;
 			}
 			if (rtBox.InvokeRequired)
 			{
 				rtBox.Invoke((EventHandler)
 						 (delegate
 						 {
-							 rtBox.SelectionStart = rtBox.TextLength;
-							 rtBox.SelectionLength = 0;
-							 rtBox.SelectionColor = textColor;
+							 rtBox.SelectionStart=rtBox.TextLength;
+							 rtBox.SelectionLength=0;
+							 rtBox.SelectionColor=textColor;
+
 							 //在当前窗体中追加文本
 							 rtBox.AppendText(text);
-							 rtBox.SelectionColor = rtBox.ForeColor;
+							 rtBox.SelectionColor=rtBox.ForeColor;
 
-							 rtBox.SelectionStart = rtBox.Text.Length;
+							 rtBox.SelectionStart=rtBox.Text.Length;
 							 rtBox.ScrollToCaret();
 							 rtBox.Focus();
 						 }));
 			}
 			else
 			{
+				rtBox.SelectionStart=rtBox.TextLength;
+				rtBox.SelectionLength=0;
+				rtBox.SelectionColor=textColor;
 
-				rtBox.SelectionStart = rtBox.TextLength;
-				rtBox.SelectionLength = 0;
-				rtBox.SelectionColor = textColor;
 				//在当前窗体中追加文本
 				rtBox.AppendText(text);
-				rtBox.SelectionColor = rtBox.ForeColor;
+				rtBox.SelectionColor=rtBox.ForeColor;
 
-				rtBox.SelectionStart = rtBox.Text.Length;
+				rtBox.SelectionStart=rtBox.Text.Length;
 				rtBox.ScrollToCaret();
 				rtBox.Focus();
 			}
-			
 		}
 
 		/// <summary>
@@ -105,54 +104,57 @@ namespace RichTextBoxPlusLib
 		/// <param name="text"></param>
 		/// <param name="textColor"></param>
 		/// <param name="addNewLine"></param>
-		public static void AppendTextInfoTop( RichTextBox rtBox, string text, Color textColor, bool addNewLine = true)
+		public static void AppendTextInfoTop(RichTextBox rtBox, string text, Color textColor, bool addNewLine = true)
 		{
 			string temp = string.Empty;
 			if (addNewLine)
 			{
-				text += Environment.NewLine;
+				text+=Environment.NewLine;
 			}
 			if (rtBox.InvokeRequired)
 			{
 				rtBox.Invoke((EventHandler)
-						 (delegate 
+						 (delegate
 						 {
-							 temp = rtBox.Text;
+							 temp=rtBox.Text;
 							 rtBox.Clear();
 
-							 rtBox.SelectionStart = rtBox.TextLength;
-							 rtBox.SelectionLength = 0;
-							 rtBox.SelectionColor = textColor;
+							 rtBox.SelectionStart=rtBox.TextLength;
+							 rtBox.SelectionLength=0;
+							 rtBox.SelectionColor=textColor;
+
 							 //在当前窗体中追加文本
 							 rtBox.AppendText(text);
-							 rtBox.SelectionColor = rtBox.ForeColor;
+							 rtBox.SelectionColor=rtBox.ForeColor;
 
 							 rtBox.AppendText(temp);
+
 							 //指向顶部
-							 rtBox.SelectionStart = 0;
+							 rtBox.SelectionStart=0;
 							 rtBox.ScrollToCaret();
 							 rtBox.Focus();
 						 }));
 			}
 			else
 			{
-				temp = rtBox.Text;
+				temp=rtBox.Text;
 				rtBox.Clear();
 
-				rtBox.SelectionStart = rtBox.TextLength;
-				rtBox.SelectionLength = 0;
-				rtBox.SelectionColor = textColor;
+				rtBox.SelectionStart=rtBox.TextLength;
+				rtBox.SelectionLength=0;
+				rtBox.SelectionColor=textColor;
+
 				//在当前窗体中追加文本
 				rtBox.AppendText(text);
-				rtBox.SelectionColor = rtBox.ForeColor;
+				rtBox.SelectionColor=rtBox.ForeColor;
 
 				rtBox.AppendText(temp);
+
 				//指向顶部
-				rtBox.SelectionStart = 0;
+				rtBox.SelectionStart=0;
 				rtBox.ScrollToCaret();
 				rtBox.Focus();
 			}
-			
 		}
 
 		/// <summary>
@@ -162,46 +164,47 @@ namespace RichTextBoxPlusLib
 		/// <param name="text"></param>
 		/// <param name="textColor"></param>
 		/// <param name="addNewLine"></param>
-		public static void AppendTextInfoWithDateTime( RichTextBox rtBox, string text, Color textColor, bool addNewLine = true)
+		public static void AppendTextInfoWithDateTime(RichTextBox rtBox, string text, Color textColor, bool addNewLine = true)
 		{
 			string str = string.Format("{0} {1} {2}", System.DateTime.Now.ToString(), "：", text);
 			if (addNewLine)
 			{
-				str += Environment.NewLine;
+				str+=Environment.NewLine;
 			}
 			if (rtBox.InvokeRequired)
 			{
 				rtBox.Invoke((EventHandler)
 						 (delegate
 						 {
-							 rtBox.SelectionStart = rtBox.TextLength;
-							 rtBox.SelectionLength = 0;
-							 rtBox.SelectionColor = textColor;
+							 rtBox.SelectionStart=rtBox.TextLength;
+							 rtBox.SelectionLength=0;
+							 rtBox.SelectionColor=textColor;
+
 							 //在当前窗体中追加文本
 							 rtBox.AppendText(str);
-							 rtBox.SelectionColor = rtBox.ForeColor;
+							 rtBox.SelectionColor=rtBox.ForeColor;
 
 							 //直线底部
-							 rtBox.SelectionStart = rtBox.Text.Length;
+							 rtBox.SelectionStart=rtBox.Text.Length;
 							 rtBox.ScrollToCaret();
 							 rtBox.Focus();
 						 }));
 			}
 			else
 			{
-				rtBox.SelectionStart = rtBox.TextLength;
-				rtBox.SelectionLength = 0;
-				rtBox.SelectionColor = textColor;
+				rtBox.SelectionStart=rtBox.TextLength;
+				rtBox.SelectionLength=0;
+				rtBox.SelectionColor=textColor;
+
 				//在当前窗体中追加文本
 				rtBox.AppendText(str);
-				rtBox.SelectionColor = rtBox.ForeColor;
+				rtBox.SelectionColor=rtBox.ForeColor;
 
 				//直线底部
-				rtBox.SelectionStart = rtBox.Text.Length;
+				rtBox.SelectionStart=rtBox.Text.Length;
 				rtBox.ScrollToCaret();
 				rtBox.Focus();
 			}
-			
 		}
 
 		/// <summary>
@@ -211,41 +214,43 @@ namespace RichTextBoxPlusLib
 		/// <param name="text"></param>
 		/// <param name="textColor"></param>
 		/// <param name="addNewLine"></param>
-		public static void AppendTextInfoWithoutDateTime( RichTextBox rtBox, string text, Color textColor, bool addNewLine = true)
+		public static void AppendTextInfoWithoutDateTime(RichTextBox rtBox, string text, Color textColor, bool addNewLine = true)
 		{
 			if (addNewLine)
 			{
-				text += Environment.NewLine;
+				text+=Environment.NewLine;
 			}
 			if (rtBox.InvokeRequired)
 			{
 				rtBox.Invoke((EventHandler)
 						 (delegate
 						 {
-							 rtBox.SelectionStart = rtBox.TextLength;
-							 rtBox.SelectionLength = 0;
-							 rtBox.SelectionColor = textColor;
+							 rtBox.SelectionStart=rtBox.TextLength;
+							 rtBox.SelectionLength=0;
+							 rtBox.SelectionColor=textColor;
+
 							 //在当前窗体中追加文本
 							 rtBox.AppendText(text);
-							 rtBox.SelectionColor = rtBox.ForeColor;
+							 rtBox.SelectionColor=rtBox.ForeColor;
 
 							 //直线底部
-							 rtBox.SelectionStart = rtBox.Text.Length;
+							 rtBox.SelectionStart=rtBox.Text.Length;
 							 rtBox.ScrollToCaret();
 							 rtBox.Focus();
 						 }));
 			}
 			else
 			{
-				rtBox.SelectionStart = rtBox.TextLength;
-				rtBox.SelectionLength = 0;
-				rtBox.SelectionColor = textColor;
+				rtBox.SelectionStart=rtBox.TextLength;
+				rtBox.SelectionLength=0;
+				rtBox.SelectionColor=textColor;
+
 				//在当前窗体中追加文本
 				rtBox.AppendText(text);
-				rtBox.SelectionColor = rtBox.ForeColor;
+				rtBox.SelectionColor=rtBox.ForeColor;
 
 				//直线底部
-				rtBox.SelectionStart = rtBox.Text.Length;
+				rtBox.SelectionStart=rtBox.Text.Length;
 				rtBox.ScrollToCaret();
 				rtBox.Focus();
 			}
@@ -267,31 +272,31 @@ namespace RichTextBoxPlusLib
 				rtBox.Invoke((EventHandler)
 						 (delegate
 						 {
-							 temp = rtBox.Text;
+							 temp=rtBox.Text;
 							 rtBox.Clear();
-							 str = string.Format("{0} {1} {2}", System.DateTime.Now.ToString(), "：", text);
+							 str=string.Format("{0} {1} {2}", System.DateTime.Now.ToString(), "：", text);
 							 AppendTextColorFull(rtBox, str, textColor, addNewLine);
 							 rtBox.AppendText(temp);
+
 							 //指向顶部
-							 rtBox.SelectionStart = 0;
+							 rtBox.SelectionStart=0;
 							 rtBox.ScrollToCaret();
 							 rtBox.Focus();
 						 }));
-
 			}
 			else
 			{
-				temp = rtBox.Text;
+				temp=rtBox.Text;
 				rtBox.Clear();
-				str = string.Format("{0} {1} {2}", System.DateTime.Now.ToString(), "：", text);
+				str=string.Format("{0} {1} {2}", System.DateTime.Now.ToString(), "：", text);
 				AppendTextColorFull(rtBox, str, textColor, addNewLine);
 				rtBox.AppendText(temp);
+
 				//指向顶部
-				rtBox.SelectionStart = 0;
+				rtBox.SelectionStart=0;
 				rtBox.ScrollToCaret();
 				rtBox.Focus();
 			}
-			
 		}
 
 		/// <summary>
@@ -304,35 +309,36 @@ namespace RichTextBoxPlusLib
 		public static void AppendTextInfoTopWithoutDateTime(RichTextBox rtBox, string text, Color textColor, bool addNewLine = true)
 		{
 			string temp = string.Empty;
+
 			//---异步调用
 			if (rtBox.InvokeRequired)
 			{
 				rtBox.Invoke((EventHandler)
 						 (delegate
 						 {
-							 temp = rtBox.Text;
+							 temp=rtBox.Text;
 							 rtBox.Clear();
 							 AppendTextColorFull(rtBox, text, textColor, addNewLine);
 							 rtBox.AppendText(temp);
+
 							 //指向顶部
-							 rtBox.SelectionStart = 0;
+							 rtBox.SelectionStart=0;
 							 rtBox.ScrollToCaret();
 							 rtBox.Focus();
 						 }));
-
 			}
 			else
 			{
-				temp = rtBox.Text;
+				temp=rtBox.Text;
 				rtBox.Clear();
 				AppendTextColorFull(rtBox, text, textColor, addNewLine);
 				rtBox.AppendText(temp);
+
 				//指向顶部
-				rtBox.SelectionStart = 0;
+				rtBox.SelectionStart=0;
 				rtBox.ScrollToCaret();
 				rtBox.Focus();
 			}
-			
 		}
 	}
 }

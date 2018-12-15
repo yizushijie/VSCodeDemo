@@ -42,43 +42,43 @@ namespace HexFileLib
 				switch (base[0].m_HexType)
 				{
 					case HexType.DATA_RECORD:               //---文件信息首先填充0xFF，开始地址是0x00
-						_return = base[0].m_Addr;
-						if (_return != 0)
+						_return=base[0].m_Addr;
+						if (_return!=0)
 						{
-							_return = 0;
+							_return=0;
 						}
 						break;
 
 					case HexType.END_OF_FILE_RECORD:
-						this._hexAvailable = false;
+						this._hexAvailable=false;
 						break;
 
 					case HexType.EXTEND_SEGMENT_ADDRESS_RECORD:
-						buffer = new byte[2] { base[0].m_HexByte[1], base[0].m_HexByte[0] };
-						_return = BitConverter.ToUInt16(buffer, 0);
-						_return <<= 4;
+						buffer=new byte[2] { base[0].m_HexByte[1], base[0].m_HexByte[0] };
+						_return=BitConverter.ToUInt16(buffer, 0);
+						_return<<=4;
 						break;
 
 					case HexType.START_SEGMENT_ADDRESS_RECORD:
-						buffer = new byte[4] { base[0].m_HexByte[3], base[0].m_HexByte[2], base[0].m_HexByte[1], base[0].m_HexByte[0] };
-						_return = BitConverter.ToUInt32(buffer, 0);
-						this._hexAvailable = false;
+						buffer=new byte[4] { base[0].m_HexByte[3], base[0].m_HexByte[2], base[0].m_HexByte[1], base[0].m_HexByte[0] };
+						_return=BitConverter.ToUInt32(buffer, 0);
+						this._hexAvailable=false;
 						break;
 
 					case HexType.EXTEND_LINEAR_ADDRESS_RECORD:
-						buffer = new byte[2] { base[0].m_HexByte[1], base[0].m_HexByte[0] };
-						_return = BitConverter.ToUInt16(buffer, 0);
-						_return <<= 16;
+						buffer=new byte[2] { base[0].m_HexByte[1], base[0].m_HexByte[0] };
+						_return=BitConverter.ToUInt16(buffer, 0);
+						_return<<=16;
 						break;
 
 					case HexType.START_LINEAR_ADDRESS_RECORD:
-						buffer = new byte[4] { base[0].m_HexByte[3], base[0].m_HexByte[2], base[0].m_HexByte[1], base[0].m_HexByte[0] };
-						_return = BitConverter.ToUInt32(buffer, 0);
-						this._hexAvailable = false;
+						buffer=new byte[4] { base[0].m_HexByte[3], base[0].m_HexByte[2], base[0].m_HexByte[1], base[0].m_HexByte[0] };
+						_return=BitConverter.ToUInt32(buffer, 0);
+						this._hexAvailable=false;
 						break;
 
 					default:
-						this._hexAvailable = false;
+						this._hexAvailable=false;
 						break;
 				}
 
@@ -95,36 +95,38 @@ namespace HexFileLib
 			{
 				long _return = 0;
 				byte[] buffer = null;
-				for (int i = 0; i < base.Count; i++)
+				for (int i = 0 ; i<base.Count ; i++)
 				{
 					switch (base[i].m_HexType)
 					{
 						case HexType.DATA_RECORD:                            //0
-							_return = (_return & 0xFFFF0000) + (long)(base[i].m_Addr + base[i].m_Length);
+							_return=(_return&0xFFFF0000)+(long)(base[i].m_Addr+base[i].m_Length);
 							break;
 
 						case HexType.END_OF_FILE_RECORD:                     //1
 							break;
 
 						case HexType.EXTEND_SEGMENT_ADDRESS_RECORD:          //2
-							buffer = new byte[2] { base[i].m_HexByte[1], base[i].m_HexByte[0] };
-							_return = BitConverter.ToUInt16(buffer, 0);
-							_return <<= 4;
+							buffer=new byte[2] { base[i].m_HexByte[1], base[i].m_HexByte[0] };
+							_return=BitConverter.ToUInt16(buffer, 0);
+							_return<<=4;
 							break;
 
 						case HexType.START_SEGMENT_ADDRESS_RECORD:           //3
-							buffer = new byte[4] { base[i].m_HexByte[3], base[i].m_HexByte[2], base[i].m_HexByte[1], base[i].m_HexByte[0] };
+							buffer=new byte[4] { base[i].m_HexByte[3], base[i].m_HexByte[2], base[i].m_HexByte[1], base[i].m_HexByte[0] };
+
 							//_return = BitConverter.ToUInt32(buffer, 0);
 							break;
 
 						case HexType.EXTEND_LINEAR_ADDRESS_RECORD:           //4
-							buffer = new byte[2] { base[i].m_HexByte[1], base[i].m_HexByte[0] };
-							_return = BitConverter.ToUInt16(buffer, 0);
-							_return <<= 16;
+							buffer=new byte[2] { base[i].m_HexByte[1], base[i].m_HexByte[0] };
+							_return=BitConverter.ToUInt16(buffer, 0);
+							_return<<=16;
 							break;
 
 						case HexType.START_LINEAR_ADDRESS_RECORD:            //5
-							buffer = new byte[4] { base[i].m_HexByte[3], base[i].m_HexByte[2], base[i].m_HexByte[1], base[i].m_HexByte[0] };
+							buffer=new byte[4] { base[i].m_HexByte[3], base[i].m_HexByte[2], base[i].m_HexByte[1], base[i].m_HexByte[0] };
+
 							//_return = BitConverter.ToUInt32(buffer, 0);
 							break;
 
@@ -145,7 +147,7 @@ namespace HexFileLib
 			{
 				if (this._hexAvailable)
 				{
-					return (this.m_EndAddr - this.m_BeginAddr);
+					return (this.m_EndAddr-this.m_BeginAddr);
 				}
 				else
 				{
@@ -204,13 +206,13 @@ namespace HexFileLib
 		/// <param name="fileName"></param>
 		public HexFile(string fileName) : base()
 		{
-			if ((fileName != null) && (fileName != string.Empty))
+			if ((fileName!=null)&&(fileName!=string.Empty))
 			{
-				this._hexAvailable = this.GetHexFile(fileName);
+				this._hexAvailable=this.GetHexFile(fileName);
 			}
 			else
 			{
-				this._hexAvailable = false;
+				this._hexAvailable=false;
 			}
 		}
 
@@ -221,43 +223,43 @@ namespace HexFileLib
 		/// <param name="length"></param>
 		public HexFile(string fileName, long length) : base()
 		{
-			if ((fileName != null) && (fileName != string.Empty))
+			if ((fileName!=null)&&(fileName!=string.Empty))
 			{
-				this._hexAvailable = GetHexFile(fileName, length);
+				this._hexAvailable=GetHexFile(fileName, length);
 			}
 			else
 			{
-				this._hexAvailable = false;
+				this._hexAvailable=false;
 			}
 		}
 
+		#endregion 构造函数
 
-        #endregion 构造函数
+		#region 析构函数
 
-        #region 析构函数
+		/// <summary>
+		///
+		/// </summary>
+		~HexFile()
+		{
+			GC.SuppressFinalize(this);
+		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        ~HexFile()
-        {
-            GC.SuppressFinalize(this);
-        }
-        #endregion
+		#endregion 析构函数
 
-        #region 函数定义
+		#region 函数定义
 
-        /// <summary>
-        /// 获取HEX文件的信息
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <returns></returns>
-        public bool GetHexFile(string filePath)
+		/// <summary>
+		/// 获取HEX文件的信息
+		/// </summary>
+		/// <param name="filePath"></param>
+		/// <returns></returns>
+		public bool GetHexFile(string filePath)
 		{
 			//---检查文件是否存在
 			if (!File.Exists(filePath))
 			{
-				this._errMsg = "给定的Hex文件不存在!\r\n";
+				this._errMsg="给定的Hex文件不存在!\r\n";
 				return false;
 			}
 
@@ -266,13 +268,16 @@ namespace HexFileLib
 				using (StreamReader std = new StreamReader(filePath))
 				{
 					long i = 0;
-					while (std.Peek() >= 0)
+					while (std.Peek()>=0)
 					{
 						i++;
+
 						//---读取的数据
 						string readline = std.ReadLine();
+
 						//---每行数据创建一个对象
 						HexLine readHexLine = new HexLine(readline);
+
 						//---判断数据的读取是否有效
 						if (readHexLine.m_Available)
 						{
@@ -280,7 +285,7 @@ namespace HexFileLib
 						}
 						else
 						{
-							this._errMsg = "第" + i.ToString() + "行" + "数据解析错误!" + readHexLine.m_ErrMsg + "\r\n";
+							this._errMsg="第"+i.ToString()+"行"+"数据解析错误!"+readHexLine.m_ErrMsg+"\r\n";
 							return false;
 						}
 					}
@@ -288,7 +293,7 @@ namespace HexFileLib
 			}
 			catch (Exception)
 			{
-				this._errMsg = "读取数据发生错误!\r\n";
+				this._errMsg="读取数据发生错误!\r\n";
 				return false; ;
 			}
 			return true;
@@ -303,61 +308,71 @@ namespace HexFileLib
 		{
 			//---确保最高是偶数
 			long length = this.m_HexLength;
-			if ((length & 0x01) != 0)
+			if ((length&0x01)!=0)
 			{
-				length += 1;
+				length+=1;
 			}
+
 			//---创建缓存区
 			byte[] _return = new byte[length];
-			if (_return == null)
+			if (_return==null)
 			{
 				return null;
 			}
+
 			//---用指定的数据填充缓存区
 			HexFile.memset(ref _return, length, val);
+
 			//---初始化数据的地址
 			long baseAddr = this.m_BeginAddr;
+
 			//---将解析后的数据填充到数据缓存区
 			int i = 0;
-			for (i = 0; i < base.Count; i++)
+			for (i=0 ; i<base.Count ; i++)
 			{
 				byte[] buffer = null;
+
 				//---数据的解析
 				switch (base[i].m_HexType)
 				{
 					case HexType.DATA_RECORD:
+
 						//---拷贝数据
-						Array.Copy(base[i].m_HexByte, 0, _return, (baseAddr + base[i].m_Addr), base[i].m_Length);
+						Array.Copy(base[i].m_HexByte, 0, _return, (baseAddr+base[i].m_Addr), base[i].m_Length);
 						break;
 
 					case HexType.END_OF_FILE_RECORD:
 						break;
 
 					case HexType.EXTEND_SEGMENT_ADDRESS_RECORD:
+
 						//---获取数据的地址
-						buffer = new byte[2] { base[i].m_HexByte[1], base[i].m_HexByte[0] };
-						baseAddr = BitConverter.ToUInt16(buffer, 0);
-						baseAddr <<= 4;
+						buffer=new byte[2] { base[i].m_HexByte[1], base[i].m_HexByte[0] };
+						baseAddr=BitConverter.ToUInt16(buffer, 0);
+						baseAddr<<=4;
 						break;
 
 					case HexType.START_SEGMENT_ADDRESS_RECORD:
+
 						//---获取数据的地址
-						buffer = new byte[4] { base[i].m_HexByte[3], base[i].m_HexByte[2], base[i].m_HexByte[1], base[i].m_HexByte[0] };
-						baseAddr = BitConverter.ToUInt32(buffer, 0);
-						baseAddr <<= 4;
+						buffer=new byte[4] { base[i].m_HexByte[3], base[i].m_HexByte[2], base[i].m_HexByte[1], base[i].m_HexByte[0] };
+						baseAddr=BitConverter.ToUInt32(buffer, 0);
+						baseAddr<<=4;
 						break;
 
 					case HexType.EXTEND_LINEAR_ADDRESS_RECORD:
+
 						//---获取数据的地址
-						buffer = new byte[2] { base[i].m_HexByte[1], base[i].m_HexByte[0] };
-						baseAddr = BitConverter.ToUInt16(buffer, 0);
-						baseAddr <<= 16;
+						buffer=new byte[2] { base[i].m_HexByte[1], base[i].m_HexByte[0] };
+						baseAddr=BitConverter.ToUInt16(buffer, 0);
+						baseAddr<<=16;
 						break;
 
 					case HexType.START_LINEAR_ADDRESS_RECORD:
+
 						//---获取数据的地址
-						buffer = new byte[4] { base[i].m_HexByte[3], base[i].m_HexByte[2], base[i].m_HexByte[1], base[i].m_HexByte[0] };
-						baseAddr = BitConverter.ToUInt32(buffer, 0);
+						buffer=new byte[4] { base[i].m_HexByte[3], base[i].m_HexByte[2], base[i].m_HexByte[1], base[i].m_HexByte[0] };
+						baseAddr=BitConverter.ToUInt32(buffer, 0);
 						break;
 
 					default:
@@ -376,55 +391,64 @@ namespace HexFileLib
 		{
 			//---创建缓存区
 			byte[] _return = new byte[length];
-			if (_return == null)
+			if (_return==null)
 			{
 				return null;
 			}
+
 			//---用指定的数据填充缓存区
 			HexFile.memset(ref _return, length, 0xFF);
+
 			//---初始化数据的地址
 			long baseAddr = this.m_BeginAddr;
+
 			//---将解析后的数据填充到数据缓存区
 			int i = 0;
-			for (i = 0; i < base.Count; i++)
+			for (i=0 ; i<base.Count ; i++)
 			{
 				byte[] buffer = null;
+
 				//---数据类型的解析
 				switch (base[i].m_HexType)
 				{
 					case HexType.DATA_RECORD:
+
 						//---拷贝数据
-						Array.Copy(base[i].m_HexByte, 0, _return, (baseAddr + base[i].m_Addr), base[i].m_Length);
+						Array.Copy(base[i].m_HexByte, 0, _return, (baseAddr+base[i].m_Addr), base[i].m_Length);
 						break;
 
 					case HexType.END_OF_FILE_RECORD:
 						break;
 
 					case HexType.EXTEND_SEGMENT_ADDRESS_RECORD:
+
 						//---获取数据的地址
-						buffer = new byte[2] { base[i].m_HexByte[1], base[i].m_HexByte[0] };
-						baseAddr = BitConverter.ToUInt16(buffer, 0);
-						baseAddr <<= 4;
+						buffer=new byte[2] { base[i].m_HexByte[1], base[i].m_HexByte[0] };
+						baseAddr=BitConverter.ToUInt16(buffer, 0);
+						baseAddr<<=4;
 						break;
 
 					case HexType.START_SEGMENT_ADDRESS_RECORD:
+
 						//---获取数据的地址
-						buffer = new byte[4] { base[i].m_HexByte[3], base[i].m_HexByte[2], base[i].m_HexByte[1], base[i].m_HexByte[0] };
-						baseAddr = BitConverter.ToUInt32(buffer, 0);
-						baseAddr <<= 4;
+						buffer=new byte[4] { base[i].m_HexByte[3], base[i].m_HexByte[2], base[i].m_HexByte[1], base[i].m_HexByte[0] };
+						baseAddr=BitConverter.ToUInt32(buffer, 0);
+						baseAddr<<=4;
 						break;
 
 					case HexType.EXTEND_LINEAR_ADDRESS_RECORD:
+
 						//---获取数据的地址
-						buffer = new byte[2] { base[i].m_HexByte[1], base[i].m_HexByte[0] };
-						baseAddr = BitConverter.ToUInt16(buffer, 0);
-						baseAddr <<= 16;
+						buffer=new byte[2] { base[i].m_HexByte[1], base[i].m_HexByte[0] };
+						baseAddr=BitConverter.ToUInt16(buffer, 0);
+						baseAddr<<=16;
 						break;
 
 					case HexType.START_LINEAR_ADDRESS_RECORD:
+
 						//---获取数据的地址
-						buffer = new byte[4] { base[i].m_HexByte[3], base[i].m_HexByte[2], base[i].m_HexByte[1], base[i].m_HexByte[0] };
-						baseAddr = BitConverter.ToUInt32(buffer, 0);
+						buffer=new byte[4] { base[i].m_HexByte[3], base[i].m_HexByte[2], base[i].m_HexByte[1], base[i].m_HexByte[0] };
+						baseAddr=BitConverter.ToUInt32(buffer, 0);
 						break;
 
 					default:
@@ -445,13 +469,14 @@ namespace HexFileLib
 			//---依据文件路径获取Hex数据
 			if (this.GetHexFile(filePath))
 			{
-				if (this._hexMap == null)
+				if (this._hexMap==null)
 				{
-					this._hexMap = new byte[] { };
+					this._hexMap=new byte[] { };
 				}
+
 				//---获取Hex解析之后的数据
-				this._hexMap = this.GetHexFile(length);
-				if ((this._hexMap != null) && (this._hexMap.Length != 0))
+				this._hexMap=this.GetHexFile(length);
+				if ((this._hexMap!=null)&&(this._hexMap.Length!=0))
 				{
 					return true;
 				}
@@ -469,25 +494,28 @@ namespace HexFileLib
 		{
 			//---获取当前数据
 			byte[] bufferMap = GetHexFile(0xFF);
+
 			//---创建缓存区
-			int[] _return = new int[bufferMap.Length / 2];
+			int[] _return = new int[bufferMap.Length/2];
+
 			//---填充数组为指定的数据
 			HexFile.memset(ref _return, _return.Length, 0xFFFF);
+
 			//---将数据转换成Int数组
 			int i = 0;
-			for (i = 0; i < _return.Length; i++)
+			for (i=0 ; i<_return.Length ; i++)
 			{
 				if (isHighFirst)
 				{
 					//---高字节在前
-					_return[i] = bufferMap[2 * i + 1];
-					_return[i] = (_return[i] << 8) + bufferMap[2 * i];
+					_return[i]=bufferMap[2*i+1];
+					_return[i]=(_return[i]<<8)+bufferMap[2*i];
 				}
 				else
 				{
 					//---低字节在前
-					_return[i] = bufferMap[2 * i];
-					_return[i] = (_return[i] << 8) + bufferMap[2 * i + 1];
+					_return[i]=bufferMap[2*i];
+					_return[i]=(_return[i]<<8)+bufferMap[2*i+1];
 				}
 			}
 
@@ -504,39 +532,49 @@ namespace HexFileLib
 		public static string[] ToHexFileLine(long addr, byte[] val, int num)
 		{
 			List<string> _return = new List<string>();
+
 			//判断每行的数据是否过大或者不能被16整除
-			if ((num > 0xFF) || ((num % 16) != 0))
+			if ((num>0xFF)||((num%16)!=0))
 			{
-				num = 16;
+				num=16;
 			}
+
 			//---进行分行处理
-			long lineCount = (val.Length / num);
+			long lineCount = (val.Length/num);
+
 			//---求整数处理
-			if ((val.Length % num) != 0)
+			if ((val.Length%num)!=0)
 			{
-				lineCount += 1;
+				lineCount+=1;
 			}
+
 			//---数据保存处理
-			for (long i = 0; i < lineCount; i++)
+			for (long i = 0 ; i<lineCount ; i++)
 			{
 				string temp = "";
+
 				//---计算当前数据行的数据
-				int byteCount = (int)(((val.Length - i * num) > num) ? num : (val.Length - i * num));
+				int byteCount = (int)(((val.Length-i*num)>num) ? num : (val.Length-i*num));
+
 				//---当前行数据
 				byte[] lineVal = new byte[byteCount];
+
 				//---拷贝数据
-				Array.Copy(val, i * num, lineVal, 0, lineVal.Length);
+				Array.Copy(val, i*num, lineVal, 0, lineVal.Length);
+
 				//---计算地址
-				long baseAddr = addr + i * num;
+				long baseAddr = addr+i*num;
+
 				//---数据空间64K检查
-				if (((baseAddr % 65536) == 0) && (baseAddr != 0))
+				if (((baseAddr%65536)==0)&&(baseAddr!=0))
 				{
 					//---对65536求整处理
-					long externLineAddr = (baseAddr / 65536);
-					temp = HexLine.ToHexLineExternLineAddrRecord(externLineAddr);
+					long externLineAddr = (baseAddr/65536);
+					temp=HexLine.ToHexLineExternLineAddrRecord(externLineAddr);
 					_return.Add(temp);
-					temp = string.Empty;
+					temp=string.Empty;
 				}
+
 				//---本次数组的内容为0xFF，则跳过
 				if (HexFile.equal(lineVal))
 				{
@@ -545,7 +583,7 @@ namespace HexFileLib
 				else
 				{
 					//---保存数据记录文件
-					temp = HexLine.ToHexLineDataRecord((baseAddr & 0xFFFF), lineVal);
+					temp=HexLine.ToHexLineDataRecord((baseAddr&0xFFFF), lineVal);
 					_return.Add(temp);
 				}
 			}
@@ -562,20 +600,23 @@ namespace HexFileLib
 		public static string ToSaveHexFile(long addr, byte[] val, int num)
 		{
 			string _return = "";
+
 			//---获取数据行
 			string[] temp = HexFile.ToHexFileLine(addr, val, num);
-			if (temp == null)
+			if (temp==null)
 			{
 				return null;
 			}
+
 			//---填充数据行
 			int i = 0;
-			for (i = 0; i < temp.Length; i++)
+			for (i=0 ; i<temp.Length ; i++)
 			{
-				_return += temp[i];
+				_return+=temp[i];
 			}
+
 			//---保存为数据行
-			_return += HexLine.ToHexLineEndOfFileRecord();
+			_return+=HexLine.ToHexLineEndOfFileRecord();
 			return _return;
 		}
 
@@ -608,26 +649,29 @@ namespace HexFileLib
 		public string HexFileToHexByteArray(string filePath)
 		{
 			string _return = "";
+
 			//---获取当前文件数据
-			this._hexAvailable = this.GetHexFile(filePath);
-			if (this._hexAvailable != true)
+			this._hexAvailable=this.GetHexFile(filePath);
+			if (this._hexAvailable!=true)
 			{
 				return null;
 			}
+
 			//---获取当前的数组
 			byte[] tempBuffer = this.GetHexFile(0xFF);
-			if (tempBuffer == null)
+			if (tempBuffer==null)
 			{
 				return null;
 			}
 			long i = 0;
-			for (i = 0; i < tempBuffer.Length; i++)
+			for (i=0 ; i<tempBuffer.Length ; i++)
 			{
-				_return += "0x" + tempBuffer[i].ToString("X2") + ", ";
+				_return+="0x"+tempBuffer[i].ToString("X2")+", ";
+
 				//---每行16个数据,加入换行符
-				if ((i % 16) == 0)
+				if ((i%16)==0)
 				{
-					_return += "\r\n";
+					_return+="\r\n";
 				}
 			}
 			return _return;
@@ -641,26 +685,29 @@ namespace HexFileLib
 		public string HexFileToHexWordArray(string filePath)
 		{
 			string _return = "";
+
 			//---获取当前文件数据
-			this._hexAvailable = this.GetHexFile(filePath);
-			if (this._hexAvailable != true)
+			this._hexAvailable=this.GetHexFile(filePath);
+			if (this._hexAvailable!=true)
 			{
 				return null;
 			}
+
 			//---获取当前的数组
 			int[] tempBuffer = this.GetHexFile(false);
-			if (tempBuffer == null)
+			if (tempBuffer==null)
 			{
 				return null;
 			}
 			long i = 0;
-			for (i = 0; i < tempBuffer.Length; i++)
+			for (i=0 ; i<tempBuffer.Length ; i++)
 			{
-				_return += "0x" + tempBuffer[i].ToString("X4") + ", ";
+				_return+="0x"+tempBuffer[i].ToString("X4")+", ";
+
 				//---每行16个数据,加入换行符
-				if ((i % 16) == 0)
+				if ((i%16)==0)
 				{
-					_return += "\r\n";
+					_return+="\r\n";
 				}
 			}
 			return _return;
@@ -674,13 +721,13 @@ namespace HexFileLib
 		/// <param name="val"></param>
 		public static void memset(ref byte[] buffer, long length, byte val = 0xFF)
 		{
-			if ((buffer == null) || (buffer.Length != length))
+			if ((buffer==null)||(buffer.Length!=length))
 			{
-				buffer = new byte[length];
+				buffer=new byte[length];
 			}
-			for (int i = 0; i < length; i++)
+			for (int i = 0 ; i<length ; i++)
 			{
-				buffer[i] = val;
+				buffer[i]=val;
 			}
 		}
 
@@ -692,13 +739,13 @@ namespace HexFileLib
 		/// <param name="val"></param>
 		public static void memset(ref int[] buffer, long length, int val = 0xFFFF)
 		{
-			if ((buffer == null) || (buffer.Length != length))
+			if ((buffer==null)||(buffer.Length!=length))
 			{
-				buffer = new int[length];
+				buffer=new int[length];
 			}
-			for (int i = 0; i < length; i++)
+			for (int i = 0 ; i<length ; i++)
 			{
-				buffer[i] = val;
+				buffer[i]=val;
 			}
 		}
 
@@ -710,13 +757,13 @@ namespace HexFileLib
 		/// <returns></returns>
 		public static bool equal(byte[] buffer, byte val = 0xFF)
 		{
-			if ((buffer == null))
+			if ((buffer==null))
 			{
 				return false;
 			}
-			for (int i = 0; i < buffer.Length; i++)
+			for (int i = 0 ; i<buffer.Length ; i++)
 			{
-				if (buffer[i] == val)
+				if (buffer[i]==val)
 				{
 					continue;
 				}

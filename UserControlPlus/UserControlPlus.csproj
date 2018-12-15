@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UserControlPlusLib</RootNamespace>
     <AssemblyName>UserControlPlus</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -38,10 +38,16 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MindFusion.Charting, Version=4.0.1.23439, Culture=neutral, PublicKeyToken=f88a26c1ab36a28b" />
+    <Reference Include="MindFusion.Charting.WinForms, Version=4.0.1.23439, Culture=neutral, PublicKeyToken=f88a26c1ab36a28b, processorArchitecture=MSIL" />
+    <Reference Include="MindFusion.Common, Version=1.3.1.18503, Culture=neutral, PublicKeyToken=7fed53ada5b92263" />
+    <Reference Include="MindFusion.Licensing, Version=1.0.1.24632, Culture=neutral, PublicKeyToken=9d02e21d957ddaef" />
+    <Reference Include="MindFusion.Pdf, Version=1.3.0.13478, Culture=neutral, PublicKeyToken=0b3a610038a66854" />
+    <Reference Include="MindFusion.Svg, Version=1.2.1.25998, Culture=neutral, PublicKeyToken=33101cdb8744b4d7" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -91,6 +97,12 @@
     <Compile Include="LED\LedControl.Designer.cs">
       <DependentUpon>LedControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyChart\MyChartLine.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyChart\MyChartLine.Designer.cs">
+      <DependentUpon>MyChartLine.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ButtonCheck\ButtonCheckControl.resx">
       <DependentUpon>ButtonCheckControl.cs</DependentUpon>
@@ -112,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LED\LedControl.resx">
       <DependentUpon>LedControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyChart\MyChartLine.resx">
+      <DependentUpon>MyChartLine.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -168,6 +183,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ButtonCheck\btncheckoff6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZedGraph\ZedGraph.csproj">
+      <Project>{B99650EE-AF46-47B4-A4A9-212ADE7809B7}</Project>
+      <Name>ZedGraph</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

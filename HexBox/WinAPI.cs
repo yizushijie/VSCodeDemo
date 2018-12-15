@@ -17,8 +17,8 @@ namespace HexBoxLib
 
 			public CaretPoint(int x, int y)
 			{
-				this.X = x;
-				this.Y = y;
+				this.X=x;
+				this.Y=y;
 			}
 		}
 

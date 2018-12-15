@@ -72,7 +72,7 @@ namespace MessageBoxPlusLib
 			/// </summary>
 			public MessageBoxCenterHelp(Form ownerForm)
 			{
-				if (ownerForm != null)
+				if (ownerForm!=null)
 				{
 					this.PrepRun(ownerForm);
 				}
@@ -92,16 +92,16 @@ namespace MessageBoxPlusLib
 				NativeMethods.MessageBoxCenterProcDelegate _delegateMessageBoxCenter = new NativeMethods.MessageBoxCenterProcDelegate(MessageBoxCenterCallBack);
 
 				// 分配新的GCHandle，保护对象不被垃圾回收
-				_gch = GCHandle.Alloc(_delegateMessageBoxCenter);
+				_gch=GCHandle.Alloc(_delegateMessageBoxCenter);
 
 				//父窗体句柄
-				_parent = ownerForm.Handle;
+				_parent=ownerForm.Handle;
 
 				// 注意：dwThreadId为System.Threading.Thread.CurrentThread.ManagedThreadId不起作用
 
 				/// new IntPtr(NativeMethods.GetWindowLong(parentFormHandle, -6)), NativeMethods.GetCurrentThreadId()
 				//_hhk = NativeMethods.SetWindowsHookEx(WH_CBT, _delegateMessageBoxCenter, IntPtr.Zero, NativeMethods.GetCurrentThreadId());
-				_hhk = NativeMethods.SetWindowsHookEx(WH_CBT, _delegateMessageBoxCenter, new IntPtr(NativeMethods.GetWindowLong(_parent, GWL_HINSTANCE)), NativeMethods.GetCurrentThreadId());
+				_hhk=NativeMethods.SetWindowsHookEx(WH_CBT, _delegateMessageBoxCenter, new IntPtr(NativeMethods.GetWindowLong(_parent, GWL_HINSTANCE)), NativeMethods.GetCurrentThreadId());
 			}
 
 			/// <summary>
@@ -113,7 +113,7 @@ namespace MessageBoxPlusLib
 			/// <returns>0 执行,1 阻止</returns>
 			private IntPtr MessageBoxCenterCallBack(Int32 nCode, IntPtr wParam, IntPtr lParam)
 			{
-				if (nCode == HCBT_ACTIVATE)
+				if (nCode==HCBT_ACTIVATE)
 				{
 					//父窗体的位置信息
 					NativeMethods.RECT _formRect;
@@ -124,10 +124,10 @@ namespace MessageBoxPlusLib
 					NativeMethods.GetWindowRect(wParam, out _messageBoxRect);
 
 					//计算窗体位置
-					Int32 _width = _messageBoxRect.right - _messageBoxRect.left;            //消息窗体的宽度
-					Int32 _height = _messageBoxRect.bottom - _messageBoxRect.top;           //消息窗体的高度
-					Int32 _xPos = (_formRect.left + _formRect.right - _width) >> 1;         //X轴的位置
-					Int32 _yPos = (_formRect.top + _formRect.bottom - _height) >> 1;        //Y轴的位置
+					Int32 _width = _messageBoxRect.right-_messageBoxRect.left;            //消息窗体的宽度
+					Int32 _height = _messageBoxRect.bottom-_messageBoxRect.top;           //消息窗体的高度
+					Int32 _xPos = (_formRect.left+_formRect.right-_width)>>1;         //X轴的位置
+					Int32 _yPos = (_formRect.top+_formRect.bottom-_height)>>1;        //Y轴的位置
 
 					//将消息窗体移动到父窗体的中心位置
 					NativeMethods.MoveWindow(wParam, _xPos, _yPos, _width, _height, false);
@@ -138,6 +138,7 @@ namespace MessageBoxPlusLib
 					//释放分配的GCHandle
 					_gch.Free();
 				}
+
 				//允许操作
 				return IntPtr.Zero;
 			}

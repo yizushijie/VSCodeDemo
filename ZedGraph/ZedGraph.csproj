@@ -21,7 +21,7 @@
     <StartupObject />
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>0.0</OldToolsVersion>
@@ -40,6 +40,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -121,73 +122,80 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArrowObj.cs" />
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Axis.cs" />
-    <Compile Include="AxisLabel.cs" />
-    <Compile Include="AxisList.cs" />
-    <Compile Include="Bar.cs" />
-    <Compile Include="BarItem.cs" />
-    <Compile Include="BarSettings.cs" />
-    <Compile Include="BasicArrayPointList.cs" />
-    <Compile Include="Border.cs" />
-    <Compile Include="BoxObj.cs" />
-    <Compile Include="CandleStick.cs" />
-    <Compile Include="CandleStickItem.cs" />
-    <Compile Include="Chart.cs" />
-    <Compile Include="CollectionPlus.cs" />
-    <Compile Include="ColorSymbolRotator.cs" />
-    <Compile Include="CurveItem.cs" />
-    <Compile Include="CurveList.cs" />
-    <Compile Include="DataSourcePointList.cs" />
-    <Compile Include="DateAsOrdinalScale.cs" />
-    <Compile Include="DateScale.cs" />
-    <Compile Include="EllipseObj.cs" />
-    <Compile Include="ErrorBar.cs" />
-    <Compile Include="ErrorBarItem.cs" />
-    <Compile Include="ExponentScale.cs" />
-    <Compile Include="Fill.cs" />
-    <Compile Include="FilteredPointList.cs" />
-    <Compile Include="FontSpec.cs" />
-    <Compile Include="GapLabel.cs" />
-    <Compile Include="GraphObj.cs" />
-    <Compile Include="GraphObjList.cs" />
-    <Compile Include="GraphPane.cs" />
-    <Compile Include="HiLowBar.cs" />
-    <Compile Include="HiLowBarItem.cs" />
-    <Compile Include="HSBColor.cs" />
-    <Compile Include="ImageObj.cs" />
-    <Compile Include="IPointList.cs" />
-    <Compile Include="IPointListEdit.cs" />
-    <Compile Include="JapaneseCandleStick.cs" />
-    <Compile Include="JapaneseCandleStickItem.cs" />
-    <Compile Include="Label.cs" />
-    <Compile Include="Legend.cs" />
-    <Compile Include="Line.cs" />
-    <Compile Include="LinearAsOrdinalScale.cs" />
-    <Compile Include="LinearScale.cs" />
-    <Compile Include="LineItem.cs" />
-    <Compile Include="LineObj.cs" />
-    <Compile Include="Link.cs" />
-    <Compile Include="Location.cs" />
-    <Compile Include="LogScale.cs" />
-    <Compile Include="MajorGrid.cs" />
-    <Compile Include="MajorTic.cs" />
-    <Compile Include="Margin.cs" />
-    <Compile Include="MasterPane.cs" />
-    <Compile Include="MinorGrid.cs" />
-    <Compile Include="MinorTic.cs" />
-    <Compile Include="NoDupePointList.cs" />
-    <Compile Include="OrdinalScale.cs" />
-    <Compile Include="PaneBase.cs" />
-    <Compile Include="PaneLayoutMgr.cs" />
-    <Compile Include="PaneList.cs" />
-    <Compile Include="PieItem.cs" />
-    <Compile Include="PointD.cs" />
-    <Compile Include="PointPair.cs" />
-    <Compile Include="PointPair4.cs" />
-    <Compile Include="PointPairList.cs" />
-    <Compile Include="PolyObj.cs" />
+    <Compile Include="ZedGraph\ArrowObj.cs" />
+    <Compile Include="ZedGraph\AssemblyInfo.cs" />
+    <Compile Include="ZedGraph\Axis.cs" />
+    <Compile Include="ZedGraph\AxisLabel.cs" />
+    <Compile Include="ZedGraph\AxisList.cs" />
+    <Compile Include="ZedGraph\Bar.cs" />
+    <Compile Include="ZedGraph\BarItem.cs" />
+    <Compile Include="ZedGraph\BarSettings.cs" />
+    <Compile Include="ZedGraph\BasicArrayPointList.cs" />
+    <Compile Include="ZedGraph\Border.cs" />
+    <Compile Include="ZedGraph\BoxObj.cs" />
+    <Compile Include="ZedGraph\CandleStick.cs" />
+    <Compile Include="ZedGraph\CandleStickItem.cs" />
+    <Compile Include="ZedGraph\Chart.cs" />
+    <Compile Include="ZedGraph\CollectionPlus.cs" />
+    <Compile Include="ZedGraph\ColorSymbolRotator.cs" />
+    <Compile Include="ZedGraph\CurveItem.cs" />
+    <Compile Include="ZedGraph\CurveList.cs" />
+    <Compile Include="ZedGraph\DataSourcePointList.cs" />
+    <Compile Include="ZedGraph\DateAsOrdinalScale.cs" />
+    <Compile Include="ZedGraph\DateScale.cs" />
+    <Compile Include="ZedGraph\EllipseObj.cs" />
+    <Compile Include="ZedGraph\ErrorBar.cs" />
+    <Compile Include="ZedGraph\ErrorBarItem.cs" />
+    <Compile Include="ZedGraph\ExponentScale.cs" />
+    <Compile Include="ZedGraph\Fill.cs" />
+    <Compile Include="ZedGraph\FilteredPointList.cs" />
+    <Compile Include="ZedGraph\FontSpec.cs" />
+    <Compile Include="ZedGraph\GapLabel.cs" />
+    <Compile Include="ZedGraph\GasGaugeNeedle.cs" />
+    <Compile Include="ZedGraph\GasGaugeRegion.cs" />
+    <Compile Include="ZedGraph\GraphObj.cs" />
+    <Compile Include="ZedGraph\GraphObjList.cs" />
+    <Compile Include="ZedGraph\GraphPane.cs" />
+    <Compile Include="ZedGraph\HiLowBar.cs" />
+    <Compile Include="ZedGraph\HiLowBarItem.cs" />
+    <Compile Include="ZedGraph\HSBColor.cs" />
+    <Compile Include="ZedGraph\ImageObj.cs" />
+    <Compile Include="ZedGraph\IPointList.cs" />
+    <Compile Include="ZedGraph\IPointListEdit.cs" />
+    <Compile Include="ZedGraph\JapaneseCandleStick.cs" />
+    <Compile Include="ZedGraph\JapaneseCandleStickItem.cs" />
+    <Compile Include="ZedGraph\Label.cs" />
+    <Compile Include="ZedGraph\Legend.cs" />
+    <Compile Include="ZedGraph\Line.cs" />
+    <Compile Include="ZedGraph\LinearAsOrdinalScale.cs" />
+    <Compile Include="ZedGraph\LinearScale.cs" />
+    <Compile Include="ZedGraph\LineBase.cs" />
+    <Compile Include="ZedGraph\LineItem.cs" />
+    <Compile Include="ZedGraph\LineObj.cs" />
+    <Compile Include="ZedGraph\Link.cs" />
+    <Compile Include="ZedGraph\Location.cs" />
+    <Compile Include="ZedGraph\LogScale.cs" />
+    <Compile Include="ZedGraph\MajorGrid.cs" />
+    <Compile Include="ZedGraph\MajorTic.cs" />
+    <Compile Include="ZedGraph\Margin.cs" />
+    <Compile Include="ZedGraph\MasterPane.cs" />
+    <Compile Include="ZedGraph\MinorGrid.cs" />
+    <Compile Include="ZedGraph\MinorTic.cs" />
+    <Compile Include="ZedGraph\NoDupePointList.cs" />
+    <Compile Include="ZedGraph\OHLCBar.cs" />
+    <Compile Include="ZedGraph\OHLCBarItem.cs" />
+    <Compile Include="ZedGraph\OrdinalScale.cs" />
+    <Compile Include="ZedGraph\PaneBase.cs" />
+    <Compile Include="ZedGraph\PaneLayoutMgr.cs" />
+    <Compile Include="ZedGraph\PaneList.cs" />
+    <Compile Include="ZedGraph\PieItem.cs" />
+    <Compile Include="ZedGraph\PointD.cs" />
+    <Compile Include="ZedGraph\PointPair.cs" />
+    <Compile Include="ZedGraph\PointPair4.cs" />
+    <Compile Include="ZedGraph\PointPairBase.cs" />
+    <Compile Include="ZedGraph\PointPairCV.cs" />
+    <Compile Include="ZedGraph\PointPairList.cs" />
+    <Compile Include="ZedGraph\PolyObj.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -198,55 +206,78 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="RadarPointList.cs" />
-    <Compile Include="RollingPointPairList.cs" />
-    <Compile Include="SampleMultiPointList.cs" />
-    <Compile Include="SamplePointList.cs" />
-    <Compile Include="Scale.cs" />
-    <Compile Include="ScaleState.cs" />
-    <Compile Include="ScaleStateList.cs" />
-    <Compile Include="ScrollRange.cs" />
-    <Compile Include="ScrollRangeList.cs" />
-    <Compile Include="StickItem.cs" />
-    <Compile Include="StockPointList.cs" />
-    <Compile Include="StockPt.cs" />
-    <Compile Include="Symbol.cs" />
-    <Compile Include="TextObj.cs" />
-    <Compile Include="TextScale.cs" />
-    <Compile Include="Types.cs" />
-    <Compile Include="ValueHandler.cs" />
-    <Compile Include="XAxis.cs" />
-    <Compile Include="XDate.cs" />
-    <Compile Include="Y2Axis.cs" />
-    <Compile Include="Y2AxisList.cs" />
-    <Compile Include="YAxis.cs" />
-    <Compile Include="YAxisList.cs" />
-    <Compile Include="ZedGraphControl.cs">
+    <Compile Include="ZedGraph\RadarPointList.cs" />
+    <Compile Include="ZedGraph\RollingPointPairList.cs" />
+    <Compile Include="ZedGraph\SampleMultiPointList.cs" />
+    <Compile Include="ZedGraph\SamplePointList.cs" />
+    <Compile Include="ZedGraph\Scale.cs" />
+    <Compile Include="ZedGraph\ScaleState.cs" />
+    <Compile Include="ZedGraph\ScaleStateList.cs" />
+    <Compile Include="ZedGraph\ScrollRange.cs" />
+    <Compile Include="ZedGraph\ScrollRangeList.cs" />
+    <Compile Include="ZedGraph\Selection.cs" />
+    <Compile Include="ZedGraph\StickItem.cs" />
+    <Compile Include="ZedGraph\StockPointList.cs" />
+    <Compile Include="ZedGraph\StockPt.cs" />
+    <Compile Include="ZedGraph\Symbol.cs" />
+    <Compile Include="ZedGraph\TextObj.cs" />
+    <Compile Include="ZedGraph\TextScale.cs" />
+    <Compile Include="ZedGraph\Types.cs" />
+    <Compile Include="ZedGraph\ValueHandler.cs" />
+    <Compile Include="ZedGraph\X2Axis.cs" />
+    <Compile Include="ZedGraph\XAxis.cs" />
+    <Compile Include="ZedGraph\XDate.cs" />
+    <Compile Include="ZedGraph\Y2Axis.cs" />
+    <Compile Include="ZedGraph\Y2AxisList.cs" />
+    <Compile Include="ZedGraph\YAxis.cs" />
+    <Compile Include="ZedGraph\YAxisList.cs" />
+    <Compile Include="ZedGraph\ZedGraphControl.ContextMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ZedGraphException.cs" />
-    <Compile Include="ZoomState.cs" />
-    <Compile Include="ZoomStateGroup.cs" />
-    <Compile Include="ZoomStateStack.cs" />
+    <Compile Include="ZedGraph\ZedGraphControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ZedGraph\ZedGraphControl.Designer.cs" />
+    <Compile Include="ZedGraph\ZedGraphControl.Events.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ZedGraph\ZedGraphControl.Printing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ZedGraph\ZedGraphControl.Properties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ZedGraph\ZedGraphControl.ScrollBars.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ZedGraph\ZedGraphException.cs" />
+    <Compile Include="ZedGraph\ZoomState.cs" />
+    <Compile Include="ZedGraph\ZoomStateGroup.cs" />
+    <Compile Include="ZedGraph\ZoomStateStack.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ZedGraphControl.resx">
+    <EmbeddedResource Include="ZedGraph\ZedGraphControl.resx">
       <DependentUpon>ZedGraphControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ZedGraphLocale.de.resx" />
-    <EmbeddedResource Include="ZedGraphLocale.es.resx" />
-    <EmbeddedResource Include="ZedGraphLocale.fr.resx" />
-    <EmbeddedResource Include="ZedGraphLocale.hu.resx" />
-    <EmbeddedResource Include="ZedGraphLocale.it.resx" />
-    <EmbeddedResource Include="ZedGraphLocale.ja.resx" />
-    <EmbeddedResource Include="ZedGraphLocale.pt.resx" />
-    <EmbeddedResource Include="ZedGraphLocale.resx" />
-    <EmbeddedResource Include="ZedGraphLocale.sv.resx" />
-    <EmbeddedResource Include="ZedGraphLocale.tw.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.de.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.es.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.fr.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.hu.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.it.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.ja.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.pt.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.ru.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.sk.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.sv.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.tr.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.tw.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.zh-cn.resx" />
+    <EmbeddedResource Include="ZedGraph\ZedGraphLocale.zh-tw.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

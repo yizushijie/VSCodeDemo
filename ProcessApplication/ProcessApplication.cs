@@ -15,16 +15,18 @@ namespace ProcessApplicationLib
 		{
 			//---获取当前的进程
 			Process current = Process.GetCurrentProcess();
+
 			//---赛选当前进程的名称
 			Process[] processes = Process.GetProcessesByName(current.ProcessName);
+
 			//---遍历与当前进程名称相同的进程列表
 			foreach (Process process in processes)
 			{
 				//---如果实例已经存在则忽略当前进程
-				if (process.Id != current.Id)
+				if (process.Id!=current.Id)
 				{
 					//---保证要打开的进程同已经存在的进程来自同一文件路径
-					if (Assembly.GetExecutingAssembly().Location.Replace("/", "\\") == current.MainModule.FileName)
+					if (Assembly.GetExecutingAssembly().Location.Replace("/", "\\")==current.MainModule.FileName)
 					{
 						//---返回已经存在的进程
 						return process;
@@ -43,10 +45,11 @@ namespace ProcessApplicationLib
 		{
 			//---获取当前指定名称的京城
 			Process[] processes = Process.GetProcessesByName(processFileName);
+
 			//---判断当前进程是否存在
-			if (processes.Length > 0)
+			if (processes.Length>0)
 			{
-				if (processFileName == "Calculator")
+				if (processFileName=="Calculator")
 				{
 					processes[0].Kill();
 					return null;
@@ -67,6 +70,7 @@ namespace ProcessApplicationLib
 		{
 			//---调用api函数，正常显示窗口
 			ShowWindowAsync(instance.MainWindowHandle, 1);
+
 			//---将窗口放置最前端
 			SetForegroundWindow(instance.MainWindowHandle);
 			return true;
@@ -80,10 +84,11 @@ namespace ProcessApplicationLib
 		public static bool ActivateRunApplication(string exe, string exeName)
 		{
 			ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo();
-			info.FileName = exe;//"calc.exe"为计算器，"notepad.exe"为记事本
-								//---启动进程
+			info.FileName=exe;//"calc.exe"为计算器，"notepad.exe"为记事本
+
+							  //---启动进程
 			Process proc = RunApplication(exeName);
-			if (proc != null)
+			if (proc!=null)
 			{
 				//---激活应用
 				ActivateRunApplication(proc);
@@ -91,11 +96,11 @@ namespace ProcessApplicationLib
 			else
 			{
 				//---启动应用
-				proc = Process.Start(info);
+				proc=Process.Start(info);
 			}
 
 			//---判断是否有进程启动
-			if (proc == null)
+			if (proc==null)
 			{
 				return false;
 			}

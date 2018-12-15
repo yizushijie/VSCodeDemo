@@ -259,9 +259,10 @@ namespace HexBoxLib
 			{
 				return this._isShowDifference;
 			}
+
 			set
 			{
-				this._isShowDifference = value;
+				this._isShowDifference=value;
 			}
 		}
 
@@ -275,9 +276,10 @@ namespace HexBoxLib
 			{
 				return this._showXAddr;
 			}
+
 			set
 			{
-				this._showXAddr = value;
+				this._showXAddr=value;
 			}
 		}
 
@@ -287,9 +289,10 @@ namespace HexBoxLib
 			{
 				return this._xAddrHeight;
 			}
+
 			set
 			{
-				this._xAddrHeight = value;
+				this._xAddrHeight=value;
 			}
 		}
 
@@ -299,9 +302,10 @@ namespace HexBoxLib
 			{
 				return this._xAddrBackGroundColor;
 			}
+
 			set
 			{
-				this._xAddrBackGroundColor = value;
+				this._xAddrBackGroundColor=value;
 			}
 		}
 
@@ -311,9 +315,10 @@ namespace HexBoxLib
 			{
 				return this._xAddrFontColor;
 			}
+
 			set
 			{
-				this._xAddrFontColor = value;
+				this._xAddrFontColor=value;
 			}
 		}
 
@@ -323,9 +328,10 @@ namespace HexBoxLib
 			{
 				return this._xAddrShowBits;
 			}
+
 			set
 			{
-				this._xAddrShowBits = value;
+				this._xAddrShowBits=value;
 			}
 		}
 
@@ -339,9 +345,10 @@ namespace HexBoxLib
 			{
 				return this._showYAddr;
 			}
+
 			set
 			{
-				this._showYAddr = value;
+				this._showYAddr=value;
 			}
 		}
 
@@ -351,9 +358,10 @@ namespace HexBoxLib
 			{
 				return this._yAddrBeginWidth;
 			}
+
 			set
 			{
-				this._yAddrBeginWidth = value;
+				this._yAddrBeginWidth=value;
 			}
 		}
 
@@ -363,9 +371,10 @@ namespace HexBoxLib
 			{
 				return (this._yAddrWidth);
 			}
+
 			set
 			{
-				this._yAddrWidth = (value);
+				this._yAddrWidth=(value);
 			}
 		}
 
@@ -375,9 +384,10 @@ namespace HexBoxLib
 			{
 				return this._yAddrBackGroundColor;
 			}
+
 			set
 			{
-				this._yAddrBackGroundColor = value;
+				this._yAddrBackGroundColor=value;
 			}
 		}
 
@@ -387,9 +397,10 @@ namespace HexBoxLib
 			{
 				return this._yAddrFontColor;
 			}
+
 			set
 			{
-				this._yAddrFontColor = value;
+				this._yAddrFontColor=value;
 			}
 		}
 
@@ -399,9 +410,10 @@ namespace HexBoxLib
 			{
 				return this._yAddrShowBits;
 			}
+
 			set
 			{
-				this._yAddrShowBits = value;
+				this._yAddrShowBits=value;
 			}
 		}
 
@@ -415,9 +427,10 @@ namespace HexBoxLib
 			{
 				return this._dataAddrType;
 			}
+
 			set
 			{
-				this._dataAddrType = value;
+				this._dataAddrType=value;
 			}
 		}
 
@@ -427,9 +440,10 @@ namespace HexBoxLib
 			{
 				return this._dataAddrFontColor;
 			}
+
 			set
 			{
-				this._dataAddrFontColor = value;
+				this._dataAddrFontColor=value;
 			}
 		}
 
@@ -443,9 +457,10 @@ namespace HexBoxLib
 			{
 				return this._font;
 			}
+
 			set
 			{
-				this._font = value;
+				this._font=value;
 			}
 		}
 
@@ -455,9 +470,10 @@ namespace HexBoxLib
 			{
 				return this._backGroundColor;
 			}
+
 			set
 			{
-				this._backGroundColor = value;
+				this._backGroundColor=value;
 			}
 		}
 
@@ -471,9 +487,10 @@ namespace HexBoxLib
 			{
 				return this._outLineColor;
 			}
+
 			set
 			{
-				this._outLineColor = value;
+				this._outLineColor=value;
 			}
 		}
 
@@ -483,9 +500,10 @@ namespace HexBoxLib
 			{
 				return this._outLineWidth;
 			}
+
 			set
 			{
-				this._outLineWidth = value;
+				this._outLineWidth=value;
 			}
 		}
 
@@ -502,6 +520,7 @@ namespace HexBoxLib
 			{
 				return this._nowByte;
 			}
+
 			//set
 			//{
 			//    this._bufferNow = value;
@@ -517,6 +536,7 @@ namespace HexBoxLib
 			{
 				return this._lastByte;
 			}
+
 			//set
 			//{
 			//    this._bufferLast = value;
@@ -532,9 +552,10 @@ namespace HexBoxLib
 			{
 				return this._isNewByte;
 			}
+
 			set
 			{
-				this._isNewByte = value;
+				this._isNewByte=value;
 			}
 		}
 

@@ -36,11 +36,11 @@ namespace PreMakeToVSProject
 
 		public ProjectCfg()
 		{
-			this._name = string.Empty;
-			this._define = new List<string>();
-			this._includePath = new List<string>();
-			this._preInclude = new List<string>();
-			this._cmsis = false;
+			this._name=string.Empty;
+			this._define=new List<string>();
+			this._includePath=new List<string>();
+			this._preInclude=new List<string>();
+			this._cmsis=false;
 		}
 
 		#endregion 构造函数

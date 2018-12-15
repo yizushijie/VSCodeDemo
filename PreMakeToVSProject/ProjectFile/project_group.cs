@@ -43,13 +43,13 @@ namespace PreMakeToVSProject
 		{
 			get
 			{
-				if (this._masterGroup == null)
+				if (this._masterGroup==null)
 				{
 					return this._name;
 				}
 				else
 				{
-					return this._masterGroup.m_FullName + "/" + this._name;
+					return this._masterGroup.m_FullName+"/"+this._name;
 				}
 			}
 		}
@@ -64,10 +64,10 @@ namespace PreMakeToVSProject
 		/// <param name="masterGroup"></param>
 		public ProjectGroup(ProjectGroup masterGroup = null)
 		{
-			this._masterGroup = masterGroup;
-			this._exclude = new List<string>();
-			this._file = new List<ProjectFile>();
-			this._subGroup = new List<ProjectGroup>();
+			this._masterGroup=masterGroup;
+			this._exclude=new List<string>();
+			this._file=new List<ProjectFile>();
+			this._subGroup=new List<ProjectGroup>();
 		}
 
 		#endregion 构造函数
@@ -83,9 +83,9 @@ namespace PreMakeToVSProject
 		/// <returns></returns>
 		public List<string> GetPath(List<ProjectGroup> prjGroup, string exclude, List<string> _return = null)
 		{
-			if (_return == null)
+			if (_return==null)
 			{
-				_return = new List<string>();
+				_return=new List<string>();
 			}
 			foreach (ProjectGroup temp in prjGroup)
 			{
@@ -93,7 +93,7 @@ namespace PreMakeToVSProject
 				{
 					continue;
 				}
-				_return.Add("[\"" + temp.m_FullName + "\"] = { \"" + string.Join("\" , \"", from file in temp._file where (!file._exclude.Contains(exclude)) select file._name) + "\" }");
+				_return.Add("[\""+temp.m_FullName+"\"] = { \""+string.Join("\" , \"", from file in temp._file where (!file._exclude.Contains(exclude)) select file._name)+"\" }");
 				this.GetPath(temp._subGroup, exclude, _return);
 			}
 			return _return;

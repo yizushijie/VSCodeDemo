@@ -56,20 +56,24 @@ namespace GenFuncLib
 			UInt32 nReg = 0xFFFFFFFF;//CRC寄存器
 			UInt32 nTemp = 0;
 			UInt32 byteIndex = 0, uIndex = 0;
+
 			//---开始计算CRC32的值
-			for (uIndex = 0; uIndex < length; uIndex++)
+			for (uIndex=0 ; uIndex<length ; uIndex++)
 			{
 				//---强制转换为4字节数据
-				nReg ^= (UInt32)cmd[uIndex];
+				nReg^=(UInt32)cmd[uIndex];
+
 				//---4字节数据计算
-				for (byteIndex = 0; byteIndex < 4; byteIndex++)
+				for (byteIndex=0 ; byteIndex<4 ; byteIndex++)
 				{
 					//---取一个字节，查表
-					nTemp = GenFunc.crc32Tab[((nReg >> 24) & 0xFF)];
+					nTemp=GenFunc.crc32Tab[((nReg>>24)&0xFF)];
+
 					//---丢掉计算过的头一个BYTE
-					nReg <<= 8;
+					nReg<<=8;
+
 					//---与前一个BYTE的计算结果异或
-					nReg ^= nTemp;
+					nReg^=nTemp;
 				}
 			}
 			return nReg;
@@ -86,20 +90,24 @@ namespace GenFuncLib
 			UInt32 nReg = 0xFFFFFFFF;//CRC寄存器
 			UInt32 nTemp = 0;
 			UInt32 byteIndex = 0, uIndex = 0;
+
 			//---开始计算CRC32的值
-			for (uIndex = 0; uIndex < length; uIndex++)
+			for (uIndex=0 ; uIndex<length ; uIndex++)
 			{
 				//---强制转换为4字节数据
-				nReg ^= cmd[uIndex];
+				nReg^=cmd[uIndex];
+
 				//---4字节数据计算
-				for (byteIndex = 0; byteIndex < 4; byteIndex++)
+				for (byteIndex=0 ; byteIndex<4 ; byteIndex++)
 				{
 					//---取一个字节，查表
-					nTemp = GenFunc.crc32Tab[((nReg >> 24) & 0xFF)];
+					nTemp=GenFunc.crc32Tab[((nReg>>24)&0xFF)];
+
 					//---丢掉计算过的头一个BYTE
-					nReg <<= 8;
+					nReg<<=8;
+
 					//---与前一个BYTE的计算结果异或
-					nReg ^= nTemp;
+					nReg^=nTemp;
 				}
 			}
 			return nReg;
@@ -159,10 +167,10 @@ namespace GenFuncLib
 			byte nTemp;
 			UInt32 nReg = 0;
 			UInt32 index = 0;
-			for (index = 0; index < length; index++)
+			for (index=0 ; index<length ; index++)
 			{
-				nTemp = (byte)((nReg >> 8) ^ cmd[index]);
-				nReg = (nReg << 8) ^ GenFunc.crc16Table[nTemp];
+				nTemp=(byte)((nReg>>8)^cmd[index]);
+				nReg=(nReg<<8)^GenFunc.crc16Table[nTemp];
 			}
 			return (UInt16)nReg;
 		}
@@ -178,10 +186,10 @@ namespace GenFuncLib
 			byte nTemp;
 			UInt32 nReg = 0;
 			UInt32 index = 0;
-			for (index = 0; index < length; index++)
+			for (index=0 ; index<length ; index++)
 			{
-				nTemp = (byte)((nReg >> 8) ^ cmd[index]);
-				nReg = (nReg << 8) ^ GenFunc.crc16Table[nTemp];
+				nTemp=(byte)((nReg>>8)^cmd[index]);
+				nReg=(nReg<<8)^GenFunc.crc16Table[nTemp];
 			}
 			return (UInt16)nReg;
 		}
@@ -224,10 +232,10 @@ namespace GenFuncLib
 			byte nTemp;
 			byte nReg = 0;
 			UInt32 index = 0;
-			for (index = 0; index < length; index++)
+			for (index=0 ; index<length ; index++)
 			{
-				nTemp = (byte)(nReg ^ cmd[index]);
-				nReg = GenFunc.crc8Table[nTemp];
+				nTemp=(byte)(nReg^cmd[index]);
+				nReg=GenFunc.crc8Table[nTemp];
 			}
 			return (byte)nReg;
 		}
@@ -246,12 +254,13 @@ namespace GenFuncLib
 		{
 			UInt32 i = 0;
 			byte _return = 0;
-			for (i = 0; i < length; i++)
+			for (i=0 ; i<length ; i++)
 			{
-				_return += cmd[i];
+				_return+=cmd[i];
 			}
+
 			//---计算的校验和
-			_return = (byte)(0x100 - _return);
+			_return=(byte)(0x100-_return);
 			return _return;
 		}
 

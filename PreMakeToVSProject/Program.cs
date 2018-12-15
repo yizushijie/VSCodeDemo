@@ -14,7 +14,7 @@ namespace PreMakeToVSProject
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			if (arg.Count() == 1)
+			if (arg.Count()==1)
 			{
 				Application.Run(new PreMakeToVSProject(arg[0]));
 			}

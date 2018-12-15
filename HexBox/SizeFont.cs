@@ -54,7 +54,7 @@ namespace HexBoxLib
 		private int CalcSizeFontWidth()
 		{
 			SizeF size = CalcSizeFont("00", this.m_Font);
-			return (int)(size.Width - 1.5);
+			return (int)(size.Width-1.5);
 		}
 
 		/// <summary>
@@ -65,7 +65,7 @@ namespace HexBoxLib
 		private int CalcSizeFontWidth(string strText)
 		{
 			SizeF size = CalcSizeFont(strText, this.m_Font);
-			return (int)(size.Width - 1.5);
+			return (int)(size.Width-1.5);
 		}
 
 		/// <summary>

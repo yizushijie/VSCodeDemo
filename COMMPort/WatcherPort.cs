@@ -6,56 +6,54 @@ namespace COMMPortLib
 {
 	public partial class COMMPort
 	{
-        #region 变量定义
-        /// <summary>
-        /// USB插入事件监视
-        /// </summary>
-        private ManagementEventWatcher insertWatcher = null;
+		#region 变量定义
 
-        /// <summary>
-        /// USB拔出事件监视
-        /// </summary>
-        private ManagementEventWatcher removeWatcher = null;
-        
-        #endregion
+		/// <summary>
+		/// USB插入事件监视
+		/// </summary>
+		private ManagementEventWatcher insertWatcher = null;
 
-        #region 属性定义
+		/// <summary>
+		/// USB拔出事件监视
+		/// </summary>
+		private ManagementEventWatcher removeWatcher = null;
+
+		#endregion 变量定义
 
 
-        #endregion
 
-        #region 函数定义
+		#region 函数定义
 
-        /// <summary>
-        /// 添加USB事件监视器
-        /// </summary>
-        /// <param name="usbInsertHandler">USB插入事件处理器</param>
-        /// <param name="usbRemoveHandler">USB拔出事件处理器</param>
-        /// <param name="withinInterval">发送通知允许的滞后时间</param>
-        public virtual Boolean AddWatcherPortEvent(EventArrivedEventHandler usbInsertHandler, EventArrivedEventHandler usbRemoveHandler, TimeSpan withinInterval)
+		/// <summary>
+		/// 添加USB事件监视器
+		/// </summary>
+		/// <param name="usbInsertHandler">USB插入事件处理器</param>
+		/// <param name="usbRemoveHandler">USB拔出事件处理器</param>
+		/// <param name="withinInterval">发送通知允许的滞后时间</param>
+		public virtual Boolean AddWatcherPortEvent(EventArrivedEventHandler usbInsertHandler, EventArrivedEventHandler usbRemoveHandler, TimeSpan withinInterval)
 		{
 			try
 			{
 				ManagementScope Scope = new ManagementScope("root\\CIMV2");
-				Scope.Options.EnablePrivileges = true;
+				Scope.Options.EnablePrivileges=true;
 
 				//---USB插入监视
-				if (usbInsertHandler != null)
+				if (usbInsertHandler!=null)
 				{
 					WqlEventQuery InsertQuery = new WqlEventQuery("__InstanceCreationEvent", withinInterval, "TargetInstance isa 'Win32_USBControllerDevice'");
 
-					insertWatcher = new ManagementEventWatcher(Scope, InsertQuery);
-					insertWatcher.EventArrived += usbInsertHandler;
+					insertWatcher=new ManagementEventWatcher(Scope, InsertQuery);
+					insertWatcher.EventArrived+=usbInsertHandler;
 					insertWatcher.Start();
 				}
 
 				//---USB拔出监视
-				if (usbRemoveHandler != null)
+				if (usbRemoveHandler!=null)
 				{
 					WqlEventQuery RemoveQuery = new WqlEventQuery("__InstanceDeletionEvent", withinInterval, "TargetInstance isa 'Win32_USBControllerDevice'");
 
-					removeWatcher = new ManagementEventWatcher(Scope, RemoveQuery);
-					removeWatcher.EventArrived += usbRemoveHandler;
+					removeWatcher=new ManagementEventWatcher(Scope, RemoveQuery);
+					removeWatcher.EventArrived+=usbRemoveHandler;
 					removeWatcher.Start();
 				}
 				return true;
@@ -72,16 +70,16 @@ namespace COMMPortLib
 		/// </summary>
 		public virtual void RemoveWatcherPortEvent()
 		{
-			if (insertWatcher != null)
+			if (insertWatcher!=null)
 			{
 				insertWatcher.Stop();
-				insertWatcher = null;
+				insertWatcher=null;
 			}
 
-			if (removeWatcher != null)
+			if (removeWatcher!=null)
 			{
 				removeWatcher.Stop();
-				removeWatcher = null;
+				removeWatcher=null;
 			}
 		}
 

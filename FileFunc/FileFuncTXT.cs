@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 
 namespace FileFuncLib
 {
@@ -10,7 +6,7 @@ namespace FileFuncLib
 	/// TXT文件操作
 	/// </summary>
 	public class FileFuncTXT
-    {
+	{
 		#region 构造函数
 
 		/// <summary>
@@ -18,35 +14,35 @@ namespace FileFuncLib
 		/// </summary>
 		public FileFuncTXT()
 		{
-
 		}
 
-		#endregion
+		#endregion 构造函数
 
 		#region 函数定义
-
 
 		/// <summary>
 		/// Writes to text file.
 		/// </summary>
 		/// <param name="fileName">The path.</param>
 		/// <param name="text">The text.</param>
-		public void WriteToTxtFile(string fileName,string text,bool isNewLine=false)
+		public void WriteToTxtFile(string fileName, string text, bool isNewLine = false)
 		{
-			string filePath = System.IO.Directory.GetCurrentDirectory() + fileName;
+			string filePath = System.IO.Directory.GetCurrentDirectory()+fileName;
 			FileStream fs = null;
+
 			// 判断文件是否存在，不存在则创建
 			if (!File.Exists(filePath))
 			{
 				///---创建文件
-				fs = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+				fs=new FileStream(filePath, FileMode.Create, FileAccess.Write);
 			}
 			else
 			{
 				//---打开文件
-				fs = new FileStream(filePath, FileMode.Open, FileAccess.Write);
+				fs=new FileStream(filePath, FileMode.Open, FileAccess.Write);
 			}
 			StreamWriter sr = new StreamWriter(fs);
+
 			//---写入数据
 			if (isNewLine)
 			{
@@ -56,8 +52,10 @@ namespace FileFuncLib
 			{
 				sr.Write(text);
 			}
+
 			//---关闭文本
 			sr.Close();
+
 			//---关闭文件流
 			fs.Close();
 		}
@@ -67,19 +65,22 @@ namespace FileFuncLib
 		/// </summary>
 		/// <param name="fileName">The path.</param>
 		/// <param name="text">The text.</param>
-		public void WriteToTxtFileEnd(string fileName, string text,bool isNewLine=false)
+		public void WriteToTxtFileEnd(string fileName, string text, bool isNewLine = false)
 		{
-			string filePath = System.IO.Directory.GetCurrentDirectory() + fileName;
+			string filePath = System.IO.Directory.GetCurrentDirectory()+fileName;
 			FileStream fs = null;
+
 			// 判断文件是否存在，不存在则创建
 			if (!File.Exists(filePath))
 			{
 				///---创建文件
-				fs = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+				fs=new FileStream(filePath, FileMode.Create, FileAccess.Write);
+
 				//---关闭文件流
 				fs.Close();
 			}
 			StreamWriter sw = new StreamWriter(filePath, true, System.Text.Encoding.Default);
+
 			//---写入数据
 			if (isNewLine)
 			{
@@ -89,13 +90,14 @@ namespace FileFuncLib
 			{
 				sw.Write(text);
 			}
+
 			//---清空缓存区
 			sw.Flush();
+
 			//---关闭文本
 			sw.Close();
-			
 		}
 
-		#endregion
+		#endregion 函数定义
 	}
 }

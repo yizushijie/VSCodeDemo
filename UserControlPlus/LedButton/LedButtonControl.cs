@@ -1,55 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace UserControlPlusLib
 {
-
 	/// <summary>
 	/// LED指示灯
 	/// </summary>
 	public partial class LedButtonControl : UserControl
 	{
-
 		#region 变量定义
 
 		private Color usedColor = Color.Red;
 
-        #endregion
+		#endregion 变量定义
 
-        #region 属性定义
+		#region 属性定义
 
-        /// <summary>
-        /// 设置LED的颜色
-        /// </summary>
-        [Description("修改此值，可修改LED的颜色"), Category("自定义属性")]
-        public virtual Color LedColor
+		/// <summary>
+		/// 设置LED的颜色
+		/// </summary>
+		[Description("修改此值，可修改LED的颜色"), Category("自定义属性")]
+		public virtual Color LedColor
 		{
 			get
 			{
 				return this.usedColor;
 			}
+
 			set
 			{
-				this.usedColor = value;
+				this.usedColor=value;
 				this.Invalidate();
 			}
 		}
 
-        #endregion
+		#endregion 属性定义
 
-        #region 构造函数
+		#region 构造函数
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public LedButtonControl()
+		/// <summary>
+		///
+		/// </summary>
+		public LedButtonControl()
 		{
 			InitializeComponent();
 
@@ -60,34 +54,37 @@ namespace UserControlPlusLib
 			this.SetStyle(ControlStyles.Selectable, true);
 			this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
 			this.SetStyle(ControlStyles.UserPaint, true);
-			this.BackColor = Color.Transparent;
+			this.BackColor=Color.Transparent;
 
-			this.Cursor = Cursors.Hand;
-			this.Size = new System.Drawing.Size(27, 27);
+			this.Cursor=Cursors.Hand;
+			this.Size=new System.Drawing.Size(27, 27);
 		}
 
-		#endregion
+		#endregion 构造函数
 
 		#region 绘制函数
+
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="e"></param>
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			int ledSize;
+
 			// 获取LED的大小,为正圆
-			if (this.Width > this.Height)
+			if (this.Width>this.Height)
 			{
-				ledSize = this.Height - 4;
+				ledSize=this.Height-4;
 			}
 			else
 			{
-				ledSize = this.Width - 4;
+				ledSize=this.Width-4;
 			}
 
 			// 设置GDI+模式为精细模式
-			e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+			e.Graphics.SmoothingMode=SmoothingMode.HighQuality;
+
 			// 创建一个变色圆形的区域
 			GraphicsPath path = new GraphicsPath();
 			path.AddEllipse(2, 2, ledSize, ledSize);
@@ -95,11 +92,11 @@ namespace UserControlPlusLib
 			PathGradientBrush pthGrBrush = new PathGradientBrush(path);
 
 			// 设置中间颜色
-			pthGrBrush.CenterColor = this.usedColor;
+			pthGrBrush.CenterColor=this.usedColor;
 
 			// 设置边缘颜色
 			Color[] colors = { this.usedColor };
-			pthGrBrush.SurroundColors = colors;
+			pthGrBrush.SurroundColors=colors;
 
 			// 绘制变色圆形
 			e.Graphics.FillEllipse(pthGrBrush, 2, 2, ledSize, ledSize);
@@ -110,18 +107,10 @@ namespace UserControlPlusLib
 
 			// 控件区域为圆形
 			GraphicsPath gp = new GraphicsPath();
-			gp.AddEllipse(0, 0, (ledSize + 4), (ledSize + 4));
-			this.Region = new Region(gp);//这句就是设置圆形的规格区域的 
+			gp.AddEllipse(0, 0, (ledSize+4), (ledSize+4));
+			this.Region=new Region(gp);//这句就是设置圆形的规格区域的
 		}
-		#endregion
 
-		#region 事件定义
-		
-		#endregion
-
-		#region 函数定义
-
-		#endregion
-
+		#endregion 绘制函数
 	}
 }

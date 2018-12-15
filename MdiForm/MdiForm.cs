@@ -27,21 +27,23 @@ namespace MdiForm
 		private void MdiForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			//---判断是Mdi窗体
-			if (e.CloseReason == CloseReason.MdiFormClosing)
+			if (e.CloseReason==CloseReason.MdiFormClosing)
 			{
-				if (DialogResult.OK == MessageBoxPlus.Show(this, "你确定要关闭应用程序吗？", "关闭提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
+				if (DialogResult.OK==MessageBoxPlus.Show(this, "你确定要关闭应用程序吗？", "关闭提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question))
 				{
 					//----为保证Application.Exit();时不再弹出提示，所以将FormClosing事件取消
-					this.FormClosing -= new System.Windows.Forms.FormClosingEventHandler(this.MdiForm_FormClosing);
+					this.FormClosing-=new System.Windows.Forms.FormClosingEventHandler(this.MdiForm_FormClosing);
+
 					//---确认关闭事件
-					e.Cancel = false;
+					e.Cancel=false;
+
 					//---退出当前窗体
 					this.Dispose();
 				}
 				else
 				{
 					//---取消关闭事件
-					e.Cancel = true;
+					e.Cancel=true;
 				}
 			}
 		}

@@ -22,8 +22,8 @@ namespace PreMakeToVSProject
 
 		public ProjectFile()
 		{
-			this._name = string.Empty;
-			this._exclude = new List<string>();
+			this._name=string.Empty;
+			this._exclude=new List<string>();
 		}
 
 		#endregion 构造函数

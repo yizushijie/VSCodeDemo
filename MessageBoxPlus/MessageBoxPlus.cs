@@ -14,10 +14,10 @@ namespace MessageBoxPlusLib
 
 		public static DialogResult Show(Form owner, String msg)
 		{
-            if (owner!=null)
-            {
-                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-            }
+			if (owner!=null)
+			{
+				MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+			}
 			return MessageBox.Show(msg);
 		}
 
@@ -30,11 +30,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption)
 		{
-            if (owner != null)
-            {
-                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-            }
-            return MessageBox.Show(text, caption);
+			if (owner!=null)
+			{
+				MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+			}
+			return MessageBox.Show(text, caption);
 		}
 
 		/// <summary>
@@ -47,11 +47,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption, MessageBoxButtons buttons)
 		{
-            if (owner != null)
-            {
-                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-            }
-            return MessageBox.Show(text, caption, buttons);
+			if (owner!=null)
+			{
+				MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+			}
+			return MessageBox.Show(text, caption, buttons);
 		}
 
 		/// <summary>
@@ -65,11 +65,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption, MessageBoxButtons buttons, MessageBoxIcon icon)
 		{
-            if (owner != null)
-            {
-                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-            }
-            return MessageBox.Show(text, caption, buttons, icon);
+			if (owner!=null)
+			{
+				MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+			}
+			return MessageBox.Show(text, caption, buttons, icon);
 		}
 
 		/// <summary>
@@ -84,11 +84,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defButton)
 		{
-            if (owner != null)
-            {
-                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-            }
-            return MessageBox.Show(text, caption, buttons, icon, defButton);
+			if (owner!=null)
+			{
+				MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+			}
+			return MessageBox.Show(text, caption, buttons, icon, defButton);
 		}
 
 		/// <summary>
@@ -104,11 +104,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defButton, MessageBoxOptions options)
 		{
-            if (owner != null)
-            {
-                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-            }
-            return MessageBox.Show(text, caption, buttons, icon, defButton, options);
+			if (owner!=null)
+			{
+				MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+			}
+			return MessageBox.Show(text, caption, buttons, icon, defButton, options);
 		}
 
 		/// <summary>
@@ -125,11 +125,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options, String helpFilePath)
 		{
-            if (owner != null)
-            {
-                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-            }
-            return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath);
+			if (owner!=null)
+			{
+				MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+			}
+			return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath);
 		}
 
 		/// <summary>
@@ -147,11 +147,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, String text, String caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options, String helpFilePath, String keyword)
 		{
-            if (owner != null)
-            {
-                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-            }
-            return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath, keyword);
+			if (owner!=null)
+			{
+				MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+			}
+			return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath, keyword);
 		}
 
 		/// <summary>
@@ -169,11 +169,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options, string helpFilePath, HelpNavigator navigator)
 		{
-            if (owner != null)
-            {
-                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-            }
-            return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath, navigator);
+			if (owner!=null)
+			{
+				MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+			}
+			return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath, navigator);
 		}
 
 		/// <summary>
@@ -192,11 +192,11 @@ namespace MessageBoxPlusLib
 		/// <returns></returns>
 		public static DialogResult Show(Form owner, string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton, MessageBoxOptions options, string helpFilePath, HelpNavigator navigator, Object param)
 		{
-            if (owner != null)
-            {
-                MessageBoxPlusHelp.MessageBoxCenterTask(owner);
-            }
-            return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath, navigator, param);
+			if (owner!=null)
+			{
+				MessageBoxPlusHelp.MessageBoxCenterTask(owner);
+			}
+			return MessageBox.Show(text, caption, buttons, icon, defaultButton, options, helpFilePath, navigator, param);
 		}
 	}
 }
