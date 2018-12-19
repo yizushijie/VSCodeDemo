@@ -62,6 +62,25 @@ namespace COMMPortLib
 			}
 		}
 
+		/// <summary>
+		/// 重命名控件
+		/// </summary>
+		[Description("端口是否可用"), Category("自定义属性")]
+		public virtual bool  m_COMMMPortIsOpen
+		{
+			get
+			{
+				if (this.usedPort!=null)
+				{
+					return this.usedPort.m_COMMPortIsOpen;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+
 		#endregion 属性定义
 
 		#region 构造函数

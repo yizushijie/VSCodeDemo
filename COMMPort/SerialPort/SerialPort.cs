@@ -317,6 +317,21 @@ namespace COMMPortLib
 		}
 
 		/// <summary>
+		/// 端口是否可用
+		/// </summary>
+		public override bool m_COMMPortIsOpen
+		{
+			get
+			{
+				return base.m_COMMPortIsOpen;
+			}
+			set
+			{
+				base.m_COMMPortIsOpen=value;
+			}
+		}
+
+		/// <summary>
 		/// 获取多设备在通信时，读取数据的起始位置
 		/// </summary>
 		public override int m_COMMPortDataReadIndex
@@ -2387,6 +2402,8 @@ namespace COMMPortLib
 					{
 						//---关闭端口
 						this.usedSerialPort.Close();
+						//---设置端口不可用
+						this.m_COMMPortIsOpen=false;
 					}
 					catch
 					{
@@ -2448,6 +2465,9 @@ namespace COMMPortLib
 						//---清空发送缓存区
 						this.usedSerialPort.DiscardOutBuffer();
 						_return=0;
+
+						//---置位端口可用
+						this.m_COMMPortIsOpen=true;
 					}
 					else
 					{
@@ -2545,6 +2565,8 @@ namespace COMMPortLib
 					//---响应窗体事件
 					Application.DoEvents();
 					this.usedSerialPort.Close();
+					//---设置端口不可用
+					this.m_COMMPortIsOpen=false;
 				}
 				catch
 				{

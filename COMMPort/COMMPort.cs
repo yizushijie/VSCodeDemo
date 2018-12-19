@@ -306,6 +306,11 @@ namespace COMMPortLib
 		/// </summary>
 		private bool isEnableMultiDevice = false;
 
+		/// <summary>
+		/// 当前端口是否可用，true---可用，false---不可用
+		/// </summary>
+		private bool commmPortIsOpen = false;
+
 		#endregion 变量定义
 
 		#region 委托事件
@@ -595,6 +600,21 @@ namespace COMMPortLib
 			set
 			{
 				this.isEnableMultiDevice=value;
+			}
+		}
+
+		/// <summary>
+		/// 端口是否可用
+		/// </summary>
+		public virtual bool m_COMMPortIsOpen
+		{
+			get
+			{
+				return this.commmPortIsOpen;
+			}
+			set
+			{
+				this.commmPortIsOpen=value;
 			}
 		}
 

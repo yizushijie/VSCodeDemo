@@ -109,11 +109,11 @@ namespace RFASKFreqCurrentForm
 		/// <param name="isEmable"></param>
 		public virtual void FormInit(bool isEmable)
 		{
-			this.deviceTypeControl_deviceType.m_Enabled=isEmable;
-			this.clockRateControl_clockRate.m_Enabled=isEmable;
-			this.preFreqControl_preFreq.m_Enabled=isEmable;
-			this.freqCurrentControl_freqCurrentPointOne.m_Enabled=isEmable;
-			this.freqCurrentControl_freqCurrentPointTwo.m_Enabled=isEmable;
+			//this.deviceTypeControl_deviceType.m_Enabled=isEmable;
+			//this.clockRateControl_clockRate.m_Enabled=isEmable;
+			//this.preFreqControl_preFreq.m_Enabled=isEmable;
+			//this.freqCurrentControl_freqCurrentPointOne.m_Enabled=isEmable;
+			//this.freqCurrentControl_freqCurrentPointTwo.m_Enabled=isEmable;
 
 			if (isEmable==false)
 			{
@@ -291,6 +291,10 @@ namespace RFASKFreqCurrentForm
 		/// <param name="index"></param>
 		public virtual void FreqCurrentControl_ButtonClick(object sender, EventArgs e, int index)
 		{
+			if ((this.usedFreqCurrent==null)||(this.usedFreqCurrent.m_UsedPort==null))
+			{
+				return;
+			}
 			FreqCurrentControl fcc = (FreqCurrentControl)sender;
 			int _return = 0;
 			switch (fcc.Name)
