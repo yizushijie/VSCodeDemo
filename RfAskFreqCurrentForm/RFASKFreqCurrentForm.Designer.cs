@@ -45,9 +45,11 @@
 			this.clockRateControl_clockRate = new UserControlPlusLib.ClockRateControl();
 			this.commPortControl_commPort = new COMMPortLib.COMMPortControl();
 			this.tabPage_Chart = new System.Windows.Forms.TabPage();
+			this.myChart_freqCurrent = new UserControlPlusLib.MyChart.MyChart();
 			this.toolStrip_BottomMenu.SuspendLayout();
 			this.tabControl_FuncMenu.SuspendLayout();
 			this.tabPage_Func.SuspendLayout();
+			this.tabPage_Chart.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// toolStrip_BottomMenu
@@ -135,6 +137,7 @@
 			// preFreqControl_preFreq
 			// 
 			this.preFreqControl_preFreq.Location = new System.Drawing.Point(4, 276);
+			this.preFreqControl_preFreq.m_Enabled = true;
 			this.preFreqControl_preFreq.m_FuncName = "预设频率";
 			this.preFreqControl_preFreq.m_PreFreqFour = 205F;
 			this.preFreqControl_preFreq.m_PreFreqIndex = 5;
@@ -153,6 +156,7 @@
 			this.deviceTypeControl_deviceType.Location = new System.Drawing.Point(3, 167);
 			this.deviceTypeControl_deviceType.m_AmpTimes = 100F;
 			this.deviceTypeControl_deviceType.m_DeviceType = "SYN4XXR";
+			this.deviceTypeControl_deviceType.m_Enabled = true;
 			this.deviceTypeControl_deviceType.m_FuncName = "器件参数";
 			this.deviceTypeControl_deviceType.m_SampleRes = 0F;
 			this.deviceTypeControl_deviceType.MaximumSize = new System.Drawing.Size(258, 103);
@@ -165,6 +169,7 @@
 			// freqCurrentControl_freqCurrentPointTwo
 			// 
 			this.freqCurrentControl_freqCurrentPointTwo.Location = new System.Drawing.Point(538, 3);
+			this.freqCurrentControl_freqCurrentPointTwo.m_Enabled = true;
 			this.freqCurrentControl_freqCurrentPointTwo.m_FreqCurrentPointMaxNum = 200;
 			this.freqCurrentControl_freqCurrentPointTwo.m_FuncName = "高压低频参数配置";
 			this.freqCurrentControl_freqCurrentPointTwo.m_PassSpacePointMax = 1;
@@ -188,6 +193,7 @@
 			// freqCurrentControl_freqCurrentPointOne
 			// 
 			this.freqCurrentControl_freqCurrentPointOne.Location = new System.Drawing.Point(268, 3);
+			this.freqCurrentControl_freqCurrentPointOne.m_Enabled = true;
 			this.freqCurrentControl_freqCurrentPointOne.m_FreqCurrentPointMaxNum = 200;
 			this.freqCurrentControl_freqCurrentPointOne.m_FuncName = "低压高频参数配置";
 			this.freqCurrentControl_freqCurrentPointOne.m_PassSpacePointMax = 1;
@@ -213,6 +219,7 @@
 			this.clockRateControl_clockRate.Location = new System.Drawing.Point(4, 61);
 			this.clockRateControl_clockRate.m_ClockRate = 20000;
 			this.clockRateControl_clockRate.m_ClockRateMin = 20000;
+			this.clockRateControl_clockRate.m_Enabled = true;
 			this.clockRateControl_clockRate.m_FuncName = "时钟WM8510";
 			this.clockRateControl_clockRate.Name = "clockRateControl_clockRate";
 			this.clockRateControl_clockRate.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
@@ -231,6 +238,7 @@
 			// tabPage_Chart
 			// 
 			this.tabPage_Chart.BackColor = System.Drawing.Color.Transparent;
+			this.tabPage_Chart.Controls.Add(this.myChart_freqCurrent);
 			this.tabPage_Chart.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.tabPage_Chart.ForeColor = System.Drawing.Color.LightGray;
 			this.tabPage_Chart.Location = new System.Drawing.Point(4, 24);
@@ -238,6 +246,16 @@
 			this.tabPage_Chart.Size = new System.Drawing.Size(805, 607);
 			this.tabPage_Chart.TabIndex = 1;
 			this.tabPage_Chart.Text = "波形曲线";
+			// 
+			// myChart_freqCurrent
+			// 
+			this.myChart_freqCurrent.Location = new System.Drawing.Point(3, 3);
+			this.myChart_freqCurrent.m_Title = "测试数据";
+			this.myChart_freqCurrent.m_XAxisTitle = "电流uA";
+			this.myChart_freqCurrent.m_YAxisTitle = "频率MHz";
+			this.myChart_freqCurrent.Name = "myChart_freqCurrent";
+			this.myChart_freqCurrent.Size = new System.Drawing.Size(677, 601);
+			this.myChart_freqCurrent.TabIndex = 0;
 			// 
 			// RFASKFreqCurrentForm
 			// 
@@ -256,6 +274,7 @@
 			this.toolStrip_BottomMenu.PerformLayout();
 			this.tabControl_FuncMenu.ResumeLayout(false);
 			this.tabPage_Func.ResumeLayout(false);
+			this.tabPage_Chart.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -279,6 +298,7 @@
         private UserControlPlusLib.DeviceTypeControl deviceTypeControl_deviceType;
         private UserControlPlusLib.PreFreqControl preFreqControl_preFreq;
         private RichTextBoxPlusLib.RichTextBoxEx richTextBoxEx_msg;
-    }
+		private UserControlPlusLib.MyChart.MyChart myChart_freqCurrent;
+	}
 }
 

@@ -8,6 +8,9 @@ namespace UserControlPlusLib
 	{
 		#region 属性定义
 
+
+		private int clockRateMin = 20000;
+
 		/// <summary>
 		/// 控件是够启用
 		/// </summary>
@@ -67,12 +70,12 @@ namespace UserControlPlusLib
 		{
 			get
 			{
-				return (int)this.numericUpDown_clockRate.Minimum;
+				return this.clockRateMin;
 			}
 
 			set
 			{
-				this.numericUpDown_clockRate.Minimum=(decimal)value;
+				this.clockRateMin=value;
 			}
 		}
 
@@ -268,6 +271,22 @@ namespace UserControlPlusLib
 			Button btn = (Button)sender;
 			btn.Enabled=false;
 			int index = 0;
+			//---解析数值
+			int tempFreq = 0;
+			if ((float)(this.numericUpDown_clockRate.Value)<(float)(this.numericUpDown_clockRate.Maximum/1000000))
+			{
+				tempFreq=(int)(this.numericUpDown_clockRate.Value*1000000);
+			}
+			else if ((float)(this.numericUpDown_clockRate.Value)<this.clockRateMin)
+			{
+				tempFreq=(int)(this.numericUpDown_clockRate.Value*1000);
+			}
+			else
+			{
+				tempFreq=(int)(this.numericUpDown_clockRate.Value);
+			}
+			//---更新数字
+			this.numericUpDown_clockRate.Value=(decimal)tempFreq;
 			switch (btn.Name)
 			{
 				case "button_writeClockRate":
@@ -290,7 +309,7 @@ namespace UserControlPlusLib
 			//---执行委托函数
 			if ((this.UserButtonClick!=null)&&(index!=0))
 			{
-				this.UserButtonClick(sender, e, (int)this.numericUpDown_clockRate.Value, index);
+				this.UserButtonClick(sender, e, tempFreq, index);
 			}
 			btn.Enabled=true;
 		}

@@ -709,6 +709,9 @@ namespace ZedGraph
 			}
 		}
 
+
+		//---节点显示悬停提示和悬停提示闪烁问题
+		private object lastObj;
 		private Point HandlePointValues(Point mousePt)
 		{
 			int iPt;
@@ -720,7 +723,7 @@ namespace ZedGraph
 				if (_masterPane.FindNearestPaneObject(mousePt,
 					g, out pane, out nearestObj, out iPt))
 				{
-					if (nearestObj is CurveItem&&iPt>=0)
+					if ((nearestObj is CurveItem)&&(iPt>=0)&&(object.Equals(nearestObj,lastObj)))
 					{
 						CurveItem curve = (CurveItem)nearestObj;
 
@@ -794,6 +797,7 @@ namespace ZedGraph
 
 				//g.Dispose();
 			}
+			lastObj=nearestObj;
 			return mousePt;
 		}
 

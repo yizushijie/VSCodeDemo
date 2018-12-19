@@ -97,11 +97,11 @@
     <Compile Include="LED\LedControl.Designer.cs">
       <DependentUpon>LedControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyChart\MyChartLine.cs">
+    <Compile Include="MyChart\MyChart.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MyChart\MyChartLine.Designer.cs">
-      <DependentUpon>MyChartLine.cs</DependentUpon>
+    <Compile Include="MyChart\MyChart.Designer.cs">
+      <DependentUpon>MyChart.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ButtonCheck\ButtonCheckControl.resx">
@@ -125,8 +125,8 @@
     <EmbeddedResource Include="LED\LedControl.resx">
       <DependentUpon>LedControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MyChart\MyChartLine.resx">
-      <DependentUpon>MyChartLine.cs</DependentUpon>
+    <EmbeddedResource Include="MyChart\MyChart.resx">
+      <DependentUpon>MyChart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -19,6 +19,28 @@ namespace TestForm
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
+
+			this.myChart1.SetTitle("数据测试");
+			PointPairList list = new PointPairList();
+			for (int i = 0; i < 25; i++)
+			{
+				double x = (double)i * 0.4;
+				list.Add(x, x);
+			}
+			this.myChart1.AddShowCurve("折线图", list, Color.Red,SymbolType.Circle);
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			Color temp = this.myChart1.GetCurveColor("折线图");
+			if (temp==Color.Red)
+			{
+				this.myChart1.SetCurveColor("折线图",Color.Blue);
+			}
+			else
+			{
+				this.myChart1.SetCurveColor("折线图", Color.Red);
+			}
 		}
 	}
 }

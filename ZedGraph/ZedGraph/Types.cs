@@ -77,7 +77,10 @@ namespace ZedGraph
 		LinearAsOrdinal,
 
 		/// <summary> An exponential axis </summary>
-		Exponent
+		Exponent,
+
+		//---增加周显示
+		Weekly
 	}
 
 	/// <summary>

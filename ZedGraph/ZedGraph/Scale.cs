@@ -864,7 +864,8 @@ namespace ZedGraph
 
 				case AxisType.LinearAsOrdinal:
 					return new LinearAsOrdinalScale(oldScale, _ownerAxis);
-
+				case AxisType.Weekly:
+					return new WeeklyScale(oldScale, _ownerAxis);
 				default:
 					throw new Exception("Implementation Error: Invalid AxisType");
 			}

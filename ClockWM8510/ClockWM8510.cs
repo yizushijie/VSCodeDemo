@@ -215,7 +215,7 @@ namespace ClockWM8510Lib
 		/// <param name="usedPort"></param>
 		/// <param name="msg"></param>
 		/// <returns></returns>
-		protected virtual int ClockWM8510GetFreq(int freq, COMMPort usedPort, RichTextBox msg = null)
+		protected virtual int ClockWM8510GetFreq(float freq, COMMPort usedPort, RichTextBox msg = null)
 		{
 			if (usedPort==null)
 			{
