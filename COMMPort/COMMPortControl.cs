@@ -31,21 +31,6 @@ namespace COMMPortLib
 		/// </summary>
 		private Form usedForm = null;
 
-		#region 委托定义
-
-		/// <summary>
-		/// 自定义事件的参数类型
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		/// <param name="orther"></param>
-		public delegate void UserDataReceivedHandle(int index = 0);
-
-		[Description("当点击控件时发生，调用数据接收处理逻辑"), Category("自定义事件")]
-		public event UserDataReceivedHandle UserDataReceivedEvent;
-
-		#endregion 委托定义
-
 		#endregion 变量定义
 
 		#region 属性定义
@@ -72,7 +57,7 @@ namespace COMMPortLib
 			{
 				if (this.usedPort!=null)
 				{
-					return this.usedPort.m_COMMPortIsOpen;
+					return this.usedPort.m_COMMPortOpen;
 				}
 				else
 				{
@@ -337,19 +322,7 @@ namespace COMMPortLib
 			}
 		}
 
-		/// <summary>
-		/// 数据接收事件的处理
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		public virtual void DataReceivedEventHandler(object sender, EventArgs e)
-		{
-			if (this.UserDataReceivedEvent!=null)
-			{
-				this.UserDataReceivedEvent();
-			}
-		}
-
+		
 		#endregion 事件定义
 
 		#region 函数定义

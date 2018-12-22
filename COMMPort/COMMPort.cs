@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -279,7 +280,7 @@ namespace COMMPortLib
 		/// <summary>
 		/// 耗时时间
 		/// </summary>
-		private TimeSpan usedTime = TimeSpan.MinValue;
+		private TimeSpan commPortUsedTime = TimeSpan.MinValue;
 
 		/// <summary>
 		/// 错误信息
@@ -289,7 +290,7 @@ namespace COMMPortLib
 		/// <summary>
 		/// 使用的窗体
 		/// </summary>
-		private Form usedForm = null;
+		private Form commPortusedForm = null;
 
 		/// <summary>
 		/// 接收报头
@@ -304,42 +305,62 @@ namespace COMMPortLib
 		/// <summary>
 		/// 是否使能多设备通信，一个串口带多个设备，使能---true，不使能---false
 		/// </summary>
-		private bool isEnableMultiDevice = false;
+		private bool commPortEnableMultiDevice = false;
 
 		/// <summary>
 		/// 当前端口是否可用，true---可用，false---不可用
 		/// </summary>
-		private bool commmPortIsOpen = false;
+		private bool commmPortOpen = false;
 
 		#endregion 变量定义
 
 		#region 委托事件
 
 		/// <summary>
-		/// 委托事件
+		/// 接收事件使能
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		public delegate void DataReceivedDelegate();
-
-		/// <summary>
-		/// 声明委托事件
-		/// </summary>
-		private event DataReceivedDelegate DataReadEvent = null;
+		private bool commPortEnableReceivedEvent = false;
 
 		/// <summary>
 		/// 属性读写
 		/// </summary>
-		public virtual DataReceivedDelegate m_DataReadEvent
+		public virtual bool m_COMMPortEnableReceivedEvent
 		{
 			get
 			{
-				return this.DataReadEvent;
+				return this.commPortEnableReceivedEvent;
 			}
-
 			set
 			{
-				this.DataReadEvent+=new DataReceivedDelegate(value);
+				this.commPortEnableReceivedEvent=value;
+			}
+		}
+
+		/// <summary>
+		/// 事件函数
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		[Description("事件处理函数"), Category("自定义事件")]
+		public  delegate void ReceivedEventHandler(object sender, EventArgs e);
+
+		/// <summary>
+		/// 数据接收事件
+		/// </summary>
+		private  event ReceivedEventHandler DataReceivedEvent=null;
+
+		/// <summary>
+		/// 事件的属性为读写
+		/// </summary>
+		public virtual ReceivedEventHandler m_DataReceivedEvent
+		{
+			get
+			{
+				return this.DataReceivedEvent;
+			}
+			set
+			{
+				this.DataReceivedEvent=value;
 			}
 		}
 
@@ -510,16 +531,16 @@ namespace COMMPortLib
 		/// <summary>
 		/// 耗时时间
 		/// </summary>
-		public virtual TimeSpan m_UsedTime
+		public virtual TimeSpan m_COMMPortUsedTime
 		{
 			get
 			{
-				return this.usedTime;
+				return this.commPortUsedTime;
 			}
 
 			set
 			{
-				this.usedTime=value;
+				this.commPortUsedTime=value;
 			}
 		}
 
@@ -542,16 +563,16 @@ namespace COMMPortLib
 		/// <summary>
 		/// 使用的窗体
 		/// </summary>
-		public virtual Form m_UsedForm
+		public virtual Form m_COMMPortUsedForm
 		{
 			get
 			{
-				return this.usedForm;
+				return this.commPortusedForm;
 			}
 
 			set
 			{
-				this.usedForm=value;
+				this.commPortusedForm=value;
 			}
 		}
 
@@ -590,31 +611,31 @@ namespace COMMPortLib
 		/// <summary>
 		/// 多设备通信过程中设备的ID信息
 		/// </summary>
-		public virtual bool m_IsEnableMultiDevice
+		public virtual bool m_COMMPortEnableMultiDevice
 		{
 			get
 			{
-				return this.isEnableMultiDevice;
+				return this.commPortEnableMultiDevice;
 			}
 
 			set
 			{
-				this.isEnableMultiDevice=value;
+				this.commPortEnableMultiDevice=value;
 			}
 		}
 
 		/// <summary>
 		/// 端口是否可用
 		/// </summary>
-		public virtual bool m_COMMPortIsOpen
+		public virtual bool m_COMMPortOpen
 		{
 			get
 			{
-				return this.commmPortIsOpen;
+				return this.commmPortOpen;
 			}
 			set
 			{
-				this.commmPortIsOpen=value;
+				this.commmPortOpen=value;
 			}
 		}
 
@@ -626,7 +647,7 @@ namespace COMMPortLib
 			get
 			{
 				int _return = 0;
-				if (this.isEnableMultiDevice==true)
+				if (this.commPortEnableMultiDevice==true)
 				{
 					if (this.commPortReadBufferSize>0xFF)
 					{
@@ -655,7 +676,18 @@ namespace COMMPortLib
 		/// <summary>
 		/// 数据格式合法
 		/// </summary>
-		public virtual bool m_COMMBytesPassed
+		public virtual bool m_COMMPortDataFormatPassed
+		{
+			get
+			{
+				return true;
+			}
+		}
+
+		/// <summary>
+		/// 数据读取合法
+		/// </summary>
+		public virtual bool m_COMMPortReadDataFormatPassed
 		{
 			get
 			{
@@ -829,6 +861,16 @@ namespace COMMPortLib
 		/// </summary>
 		/// <returns></returns>
 		public virtual int Init()
+		{
+			return 1;
+		}
+
+		/// <summary>
+		/// 初始化接收事件
+		/// </summary>
+		/// <param name="isEnableReceivedEvent"></param>
+		/// <returns></returns>
+		public virtual int Init(bool isEnableReceivedEvent)
 		{
 			return 1;
 		}

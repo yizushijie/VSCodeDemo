@@ -167,7 +167,7 @@ namespace ClockWM8510Lib
 			_return=usedPort.SendCmdAndReadResponse(cmd, ref res, 200);
 
 			//---通信验证
-			if ((_return==0)&&(usedPort.m_COMMBytesPassed==true)&&(res[usedPort.m_COMMPortDataReadIndex+1]==0)&&(res[usedPort.m_COMMPortDataReadIndex+2]==cmd[1]))
+			if ((_return==0)&&(usedPort.m_COMMPortDataFormatPassed==true)&&(res[usedPort.m_COMMPortDataReadIndex+1]==0)&&(res[usedPort.m_COMMPortDataReadIndex+2]==cmd[1]))
 			{
 				if (msg!=null)
 				{
@@ -183,7 +183,7 @@ namespace ClockWM8510Lib
 						RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信发生错误!\r\n", Color.Red, false);
 					}
 				}
-				else if (usedPort.m_COMMBytesPassed==false)
+				else if (usedPort.m_COMMPortDataFormatPassed==false)
 				{
 					if (msg!=null)
 					{
@@ -234,7 +234,7 @@ namespace ClockWM8510Lib
 			_return=usedPort.SendCmdAndReadResponse(cmd, ref res, 200);
 
 			//---通信验证
-			if ((_return==0)&&(usedPort.m_COMMBytesPassed==true)&&(res[usedPort.m_COMMPortDataReadIndex+1]==0)&&(res[usedPort.m_COMMPortDataReadIndex+2]==cmd[1]))
+			if ((_return==0)&&(usedPort.m_COMMPortDataFormatPassed==true)&&(res[usedPort.m_COMMPortDataReadIndex+1]==0)&&(res[usedPort.m_COMMPortDataReadIndex+2]==cmd[1]))
 			{
 				if (msg!=null)
 				{
@@ -290,7 +290,7 @@ namespace ClockWM8510Lib
 						RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信发生错误!\r\n", Color.Red, false);
 					}
 				}
-				else if (usedPort.m_COMMBytesPassed==false)
+				else if (usedPort.m_COMMPortDataFormatPassed==false)
 				{
 					if (msg!=null)
 					{
@@ -339,7 +339,7 @@ namespace ClockWM8510Lib
 			_return=usedPort.SendCmdAndReadResponse(cmd, ref res, 200);
 
 			//---通信验证
-			if ((_return==0)&&(usedPort.m_COMMBytesPassed==true)&&(res[usedPort.m_COMMPortDataReadIndex+1]==0)&&(res[usedPort.m_COMMPortDataReadIndex+2]==cmd[1]))
+			if ((_return==0)&&(usedPort.m_COMMPortDataFormatPassed==true)&&(res[usedPort.m_COMMPortDataReadIndex+1]==0)&&(res[usedPort.m_COMMPortDataReadIndex+2]==cmd[1]))
 			{
 				if (msg!=null)
 				{
@@ -355,7 +355,7 @@ namespace ClockWM8510Lib
 						RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信发生错误!\r\n", Color.Red, false);
 					}
 				}
-				else if (usedPort.m_COMMBytesPassed==false)
+				else if (usedPort.m_COMMPortDataFormatPassed==false)
 				{
 					if (msg!=null)
 					{
@@ -441,7 +441,7 @@ namespace ClockWM8510Lib
 			_return=usedPort.SendCmdAndReadResponse(cmd, ref res, 200);
 
 			//---通信验证
-			if ((_return==0)&&(usedPort.m_COMMBytesPassed==true)&&(res[usedPort.m_COMMPortDataReadIndex+1]==0)&&(res[usedPort.m_COMMPortDataReadIndex+2]==cmd[1]))
+			if ((_return==0)&&(usedPort.m_COMMPortDataFormatPassed==true)&&(res[usedPort.m_COMMPortDataReadIndex+1]==0)&&(res[usedPort.m_COMMPortDataReadIndex+2]==cmd[1]))
 			{
 				if (isOpen==true)
 				{
@@ -465,7 +465,7 @@ namespace ClockWM8510Lib
 						RichTextBoxPlus.AppendTextInfoTopWithDataTime(msg, "通信发生错误!\r\n", Color.Red, false);
 					}
 				}
-				else if (usedPort.m_COMMBytesPassed==false)
+				else if (usedPort.m_COMMPortDataFormatPassed==false)
 				{
 					if (msg!=null)
 					{

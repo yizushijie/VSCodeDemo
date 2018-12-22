@@ -12,11 +12,11 @@ namespace RichTextBoxPlusLib
 		/// <summary>
 		/// 不同颜色显示数据
 		/// </summary>
-		/// <param name="rtb">控件</param>
+		/// <param name="rtBox">控件</param>
 		/// <param name="text">显示信息</param>
 		/// <param name="texColor">颜色</param>
 		/// <param name="addNewLine ">是否换行</param>
-		public static void AppendTextColorFull(RichTextBox rtb, string text, Color textColor, bool addNewLine = true)
+		public static void AppendTextColorFull(RichTextBox rtBox, string text, Color textColor, bool addNewLine = true)
 		{
 			if (addNewLine)
 			{
@@ -24,29 +24,29 @@ namespace RichTextBoxPlusLib
 			}
 
 			//---异步调用
-			if (rtb.InvokeRequired)
+			if (rtBox.InvokeRequired)
 			{
-				rtb.Invoke((EventHandler)
+				rtBox.Invoke((EventHandler)
 						 (delegate
 						 {
-							 rtb.SelectionStart=rtb.TextLength;
-							 rtb.SelectionLength=0;
-							 rtb.SelectionColor=textColor;
+							 rtBox.SelectionStart=rtBox.TextLength;
+							 rtBox.SelectionLength=0;
+							 rtBox.SelectionColor=textColor;
 
 							 //在当前窗体中追加文本
-							 rtb.AppendText(text);
-							 rtb.SelectionColor=rtb.ForeColor;
+							 rtBox.AppendText(text);
+							 rtBox.SelectionColor=rtBox.ForeColor;
 						 }));
 			}
 			else
 			{
-				rtb.SelectionStart=rtb.TextLength;
-				rtb.SelectionLength=0;
-				rtb.SelectionColor=textColor;
+				rtBox.SelectionStart=rtBox.TextLength;
+				rtBox.SelectionLength=0;
+				rtBox.SelectionColor=textColor;
 
 				//在当前窗体中追加文本
-				rtb.AppendText(text);
-				rtb.SelectionColor=rtb.ForeColor;
+				rtBox.AppendText(text);
+				rtBox.SelectionColor=rtBox.ForeColor;
 			}
 		}
 
@@ -340,5 +340,27 @@ namespace RichTextBoxPlusLib
 				rtBox.Focus();
 			}
 		}
+
+		/// <summary>
+		/// 清除文本
+		/// </summary>
+		/// <param name="rtb"></param>
+		public static void Clear(RichTextBox rtBox)
+		{
+			//---异步调用
+			if (rtBox.InvokeRequired)
+			{
+				rtBox.Invoke((EventHandler)
+						 (delegate
+						 {
+							 rtBox.Clear();
+						 }));
+			}
+			else
+			{
+				rtBox.Clear();
+			}
+		}
+
 	}
 }

@@ -3,6 +3,8 @@ using RichTextBoxPlusLib;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using UserControlPlusLib.MyChart;
+using ZedGraph;
 
 namespace RFASKFreqCurrentLib
 {
@@ -100,6 +102,69 @@ namespace RFASKFreqCurrentLib
 		{
 			this.GetStartFreqAndSiteNum(fs);
 			this.GetSiteCurrent(cmd);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="fs"></param>
+		/// <param name="cmd"></param>
+		public void Init(byte fs,int freqSpan, MyChart usedChart)
+		{
+			int i = 0;
+			int freqMHz = this.startFreqMHz;
+			int _return = 0;
+			usedChart.ClearChart();
+			if (this.siteACurrentX100mA[0]>100)
+			{
+				usedChart.AddShowCurve("SITEA", Color.Blue);
+				_return |= 0x01;
+			}
+			if (this.siteBCurrentX100mA[0] > 100)
+			{
+				usedChart.AddShowCurve("SITEB", Color.Yellow);
+				_return |= 0x02;
+			}
+			if (this.siteCCurrentX100mA[0] > 100)
+			{
+				usedChart.AddShowCurve("SITEC", Color.Green);
+				_return |= 0x04;
+			}
+			if (this.siteDCurrentX100mA[0] > 100)
+			{
+				usedChart.AddShowCurve("SITED", Color.GreenYellow);
+				_return |= 0x08;
+			}
+			usedChart.SetXAxisScaleMin(freqMHz-freqSpan*10);
+			usedChart.SetXAxisScaleMajorStep(freqSpan*5);
+			//usedChart.SetYAxisScaleMajorStep(freqSpan);
+			for (i = 0; i < this.siteACurrentX100mA.Count; i++)
+			{
+				if (i!=0)
+				{
+					freqMHz += freqSpan;
+				}
+				if ((_return&0x01)!=0)
+				{
+					usedChart.AddXYPoint("SITEA", freqMHz, this.siteACurrentX100mA[i]);
+				}
+				if ((_return & 0x02) != 0)
+				{
+					usedChart.AddXYPoint("SITEB", freqMHz, this.siteBCurrentX100mA[i]);
+				}
+				if ((_return & 0x04) != 0)
+				{
+					usedChart.AddXYPoint("SITEC", freqMHz, this.siteCCurrentX100mA[i]);
+				}
+				if ((_return & 0x08) != 0)
+				{
+					usedChart.AddXYPoint("SITED", freqMHz, this.siteDCurrentX100mA[i]);
+				}								
+			}
+			//usedChart.AddShowCurve("SITEA", listA, Color.Blue);
+			//usedChart.AddShowCurve("SITEB", listB, Color.Yellow);
+			//usedChart.AddShowCurve("SITEC", listC, Color.Green);
+			//usedChart.AddShowCurve("SITED", listD, Color.GreenYellow);
 		}
 
 		/// <summary>

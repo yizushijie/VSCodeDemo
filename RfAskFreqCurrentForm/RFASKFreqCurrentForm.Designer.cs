@@ -46,6 +46,8 @@
 			this.commPortControl_commPort = new COMMPortLib.COMMPortControl();
 			this.tabPage_Chart = new System.Windows.Forms.TabPage();
 			this.myChart_freqCurrent = new UserControlPlusLib.MyChart.MyChart();
+			this.button_startMonitorData = new System.Windows.Forms.Button();
+			this.button_stopMonitorData = new System.Windows.Forms.Button();
 			this.toolStrip_BottomMenu.SuspendLayout();
 			this.tabControl_FuncMenu.SuspendLayout();
 			this.tabPage_Func.SuspendLayout();
@@ -178,8 +180,8 @@
 			this.freqCurrentControl_freqCurrentPointTwo.m_StartFreq = 400F;
 			this.freqCurrentControl_freqCurrentPointTwo.m_StartPassMax = 1F;
 			this.freqCurrentControl_freqCurrentPointTwo.m_StartPassMin = 1F;
-			this.freqCurrentControl_freqCurrentPointTwo.m_StepFreq = 1F;
-			this.freqCurrentControl_freqCurrentPointTwo.m_StepPointNum = 200;
+			this.freqCurrentControl_freqCurrentPointTwo.m_StepFreq = 2F;
+			this.freqCurrentControl_freqCurrentPointTwo.m_StepPointNum = 100;
 			this.freqCurrentControl_freqCurrentPointTwo.m_StopPassMax = 1F;
 			this.freqCurrentControl_freqCurrentPointTwo.m_StopPassMin = 1F;
 			this.freqCurrentControl_freqCurrentPointTwo.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -202,8 +204,8 @@
 			this.freqCurrentControl_freqCurrentPointOne.m_StartFreq = 200F;
 			this.freqCurrentControl_freqCurrentPointOne.m_StartPassMax = 1F;
 			this.freqCurrentControl_freqCurrentPointOne.m_StartPassMin = 1F;
-			this.freqCurrentControl_freqCurrentPointOne.m_StepFreq = 1F;
-			this.freqCurrentControl_freqCurrentPointOne.m_StepPointNum = 200;
+			this.freqCurrentControl_freqCurrentPointOne.m_StepFreq = 2F;
+			this.freqCurrentControl_freqCurrentPointOne.m_StepPointNum = 100;
 			this.freqCurrentControl_freqCurrentPointOne.m_StopPassMax = 1F;
 			this.freqCurrentControl_freqCurrentPointOne.m_StopPassMin = 1F;
 			this.freqCurrentControl_freqCurrentPointOne.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -238,6 +240,8 @@
 			// tabPage_Chart
 			// 
 			this.tabPage_Chart.BackColor = System.Drawing.Color.Transparent;
+			this.tabPage_Chart.Controls.Add(this.button_stopMonitorData);
+			this.tabPage_Chart.Controls.Add(this.button_startMonitorData);
 			this.tabPage_Chart.Controls.Add(this.myChart_freqCurrent);
 			this.tabPage_Chart.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.tabPage_Chart.ForeColor = System.Drawing.Color.LightGray;
@@ -249,13 +253,34 @@
 			// 
 			// myChart_freqCurrent
 			// 
-			this.myChart_freqCurrent.Location = new System.Drawing.Point(3, 3);
+			this.myChart_freqCurrent.Dock = System.Windows.Forms.DockStyle.Left;
+			this.myChart_freqCurrent.Location = new System.Drawing.Point(0, 0);
 			this.myChart_freqCurrent.m_Title = "测试数据";
-			this.myChart_freqCurrent.m_XAxisTitle = "电流uA";
-			this.myChart_freqCurrent.m_YAxisTitle = "频率MHz";
+			this.myChart_freqCurrent.m_XAxisTitle = "频率MHz";
+			this.myChart_freqCurrent.m_YAxisTitle = "电流uA";
 			this.myChart_freqCurrent.Name = "myChart_freqCurrent";
-			this.myChart_freqCurrent.Size = new System.Drawing.Size(677, 601);
+			this.myChart_freqCurrent.Size = new System.Drawing.Size(721, 607);
 			this.myChart_freqCurrent.TabIndex = 0;
+			// 
+			// button_startMonitorData
+			// 
+			this.button_startMonitorData.ForeColor = System.Drawing.Color.Black;
+			this.button_startMonitorData.Location = new System.Drawing.Point(727, 16);
+			this.button_startMonitorData.Name = "button_startMonitorData";
+			this.button_startMonitorData.Size = new System.Drawing.Size(75, 26);
+			this.button_startMonitorData.TabIndex = 1;
+			this.button_startMonitorData.Text = "开始监控";
+			this.button_startMonitorData.UseVisualStyleBackColor = true;
+			// 
+			// button_stopMonitorData
+			// 
+			this.button_stopMonitorData.ForeColor = System.Drawing.Color.Black;
+			this.button_stopMonitorData.Location = new System.Drawing.Point(727, 48);
+			this.button_stopMonitorData.Name = "button_stopMonitorData";
+			this.button_stopMonitorData.Size = new System.Drawing.Size(75, 26);
+			this.button_stopMonitorData.TabIndex = 2;
+			this.button_stopMonitorData.Text = "停止监控";
+			this.button_stopMonitorData.UseVisualStyleBackColor = true;
 			// 
 			// RFASKFreqCurrentForm
 			// 
@@ -299,6 +324,8 @@
         private UserControlPlusLib.PreFreqControl preFreqControl_preFreq;
         private RichTextBoxPlusLib.RichTextBoxEx richTextBoxEx_msg;
 		private UserControlPlusLib.MyChart.MyChart myChart_freqCurrent;
+		private System.Windows.Forms.Button button_stopMonitorData;
+		private System.Windows.Forms.Button button_startMonitorData;
 	}
 }
 

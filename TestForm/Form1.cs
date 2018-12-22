@@ -17,6 +17,7 @@ namespace TestForm
 			InitializeComponent();
 		}
 
+		int sitaA = 1;
 		private void Form1_Load(object sender, EventArgs e)
 		{
 
@@ -40,6 +41,18 @@ namespace TestForm
 			else
 			{
 				this.myChart1.SetCurveColor("折线图", Color.Red);
+			}
+			PointPairList list = new PointPairList();
+			for (int i = 0; i < 125; i++)
+			{
+				double x = (double)i * 1;
+				list.Add(x, x);
+			}
+			this.myChart1.AddShowCurve(sitaA.ToString(), list, Color.Red, SymbolType.Circle);
+			sitaA++;
+			if (sitaA>4)
+			{
+				sitaA = 1;
 			}
 		}
 	}

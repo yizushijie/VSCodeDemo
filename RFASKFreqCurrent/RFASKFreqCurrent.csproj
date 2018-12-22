@@ -64,6 +64,10 @@
       <Project>{81C0BEB1-85E3-4C71-A1D4-B0A40B225F0E}</Project>
       <Name>UserControlPlus</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ZedGraph\ZedGraph.csproj">
+      <Project>{B99650EE-AF46-47B4-A4A9-212ADE7809B7}</Project>
+      <Name>ZedGraph</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

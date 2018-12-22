@@ -20,8 +20,6 @@ namespace COMMPortLib
 
 		#endregion 变量定义
 
-
-
 		#region 函数定义
 
 		/// <summary>

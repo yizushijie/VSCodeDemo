@@ -15,9 +15,7 @@ namespace RFASKFreqCurrentForm
 		private RFASKFreqCurrent usedFreqCurrent = null;
 
 		#endregion 变量定义
-
-
-
+		
 		#region 构造函数
 
 		/// <summary>
@@ -56,10 +54,8 @@ namespace RFASKFreqCurrentForm
 
 			//---定义端口使用的缓存区
 			this.usedFreqCurrent.m_UsedPort.ReadAnWriteBufferSize(1800, 1800);
-
 			//---通信端口初始化
 			this.commPortControl_commPort.Init(this, this.usedFreqCurrent.m_UsedPort, this.richTextBoxEx_msg);
-
 			//---函数注册
 			this.RegisterEventHandle();
 
@@ -67,8 +63,8 @@ namespace RFASKFreqCurrentForm
 			this.FormInit(false);
 
 			//---计算频率电流扫描的点数的个数
-			this.freqCurrentControl_freqCurrentPointOne.m_StepPointNum=(int)((this.freqCurrentControl_freqCurrentPointOne.m_StartFreq*100)/(this.freqCurrentControl_freqCurrentPointOne.m_StepFreq*100));
-			this.freqCurrentControl_freqCurrentPointTwo.m_StepPointNum=(int)((this.freqCurrentControl_freqCurrentPointTwo.m_StartFreq*100)/(this.freqCurrentControl_freqCurrentPointTwo.m_StepFreq*100));
+			//this.freqCurrentControl_freqCurrentPointOne.m_StepPointNum=(int)((this.freqCurrentControl_freqCurrentPointOne.m_StartFreq*100)/(this.freqCurrentControl_freqCurrentPointOne.m_StepFreq*100));
+			//this.freqCurrentControl_freqCurrentPointTwo.m_StepPointNum=(int)((this.freqCurrentControl_freqCurrentPointTwo.m_StartFreq*100)/(this.freqCurrentControl_freqCurrentPointTwo.m_StepFreq*100));
 		}
 
 		/// <summary>
@@ -94,6 +90,11 @@ namespace RFASKFreqCurrentForm
 
 			//---频率电流扫描的参数
 			this.freqCurrentControl_freqCurrentPointTwo.UserButtonClick+=new FreqCurrentControl.UserButtonClickHandle(this.FreqCurrentControl_ButtonClick);
+
+			//---监听数据
+			this.button_startMonitorData.Click += new EventHandler(this.button_Click);
+			//---停止监听
+			this.button_stopMonitorData.Click += new EventHandler(this.button_Click);
 		}
 
 		/// <summary>
@@ -212,9 +213,51 @@ namespace RFASKFreqCurrentForm
 			}
 		}
 
+		/// <summary>
+		/// 按键点击事件
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		public virtual void button_Click(object sender, EventArgs e)
+		{
+			if ((this.usedFreqCurrent == null) || (this.usedFreqCurrent.m_UsedPort == null))
+			{
+				return;
+			}
+			Button button = (Button)sender;
+			switch (button.Name)
+			{
+				case "button_startMonitorData":
+					this.usedFreqCurrent.m_UsedPort.m_DataReceivedEvent += new COMMPort.ReceivedEventHandler(this.DataReceivedHandler);
+					break;
+				case "button_stopMonitorData":
+					if (this.usedFreqCurrent.m_UsedPort.m_DataReceivedEvent!=null)
+					{
+						this.usedFreqCurrent.m_UsedPort.m_DataReceivedEvent -= new COMMPort.ReceivedEventHandler(this.DataReceivedHandler);
+					}
+					break;
+				default:
+					break;
+			}
+		}
+
 		#endregion 事件定义
 
 		#region 函数定义
+
+		/// <summary>
+		/// 数据接收事件
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		public virtual void DataReceivedHandler(object sender, EventArgs e)
+		{
+			if ((this.usedFreqCurrent == null) || (this.usedFreqCurrent.m_UsedPort == null))
+			{
+				return;
+			}
+			this.usedFreqCurrent.FreqCurrentDo(this.usedFreqCurrent.m_UsedPort, this.myChart_freqCurrent, this.richTextBoxEx_msg);
+		}
 
 		/// <summary>
 		/// 时钟设置通道选取
@@ -301,12 +344,12 @@ namespace RFASKFreqCurrentForm
 			{
 				//---第一个电压点的频率电流扫描
 				case "freqCurrentControl_freqCurrentPointOne":
-					_return=this.usedFreqCurrent.FreqCurrentSet(index, 1, this.freqCurrentControl_freqCurrentPointOne, this.usedFreqCurrent.m_UsedPort, this.richTextBoxEx_msg);
+					_return=this.usedFreqCurrent.FreqCurrentSet(index, 1, this.freqCurrentControl_freqCurrentPointOne, this.usedFreqCurrent.m_UsedPort,this.myChart_freqCurrent, this.richTextBoxEx_msg);
 					break;
 
 				//---第二个电压点的频率电流扫描
 				case "freqCurrentControl_freqCurrentPointTwo":
-					_return=this.usedFreqCurrent.FreqCurrentSet(index, 2, this.freqCurrentControl_freqCurrentPointTwo, this.usedFreqCurrent.m_UsedPort, this.richTextBoxEx_msg);
+					_return=this.usedFreqCurrent.FreqCurrentSet(index, 2, this.freqCurrentControl_freqCurrentPointTwo, this.usedFreqCurrent.m_UsedPort, this.myChart_freqCurrent, this.richTextBoxEx_msg);
 					break;
 
 				default:

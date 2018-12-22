@@ -53,7 +53,7 @@ namespace COMMPortLib
 			{
 				if (this.usedPort!=null)
 				{
-					return this.usedPort.m_COMMPortIsOpen;
+					return this.usedPort.m_COMMPortOpen;
 				}
 				else
 				{

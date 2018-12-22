@@ -44,20 +44,35 @@ namespace COMMPortLib
 		#endregion 变量定义
 
 		#region 委托事件
-
+		
 		/// <summary>
-		///
+		/// 是否使能接收事件
 		/// </summary>
-		public override DataReceivedDelegate m_DataReadEvent
+
+		public override bool m_COMMPortEnableReceivedEvent
 		{
 			get
 			{
-				return base.m_DataReadEvent;
+				return base.m_COMMPortEnableReceivedEvent;
 			}
-
 			set
 			{
-				base.m_DataReadEvent=value;
+				base.m_COMMPortEnableReceivedEvent=value;
+			}
+		}
+
+		/// <summary>
+		/// 事件定义
+		/// </summary>
+		public override ReceivedEventHandler m_DataReceivedEvent
+		{
+			get
+			{
+				return base.m_DataReceivedEvent;
+			}
+			set
+			{
+				base.m_DataReceivedEvent=value;
 			}
 		}
 
@@ -228,16 +243,16 @@ namespace COMMPortLib
 		/// <summary>
 		/// 耗时时间
 		/// </summary>
-		public override TimeSpan m_UsedTime
+		public override TimeSpan m_COMMPortUsedTime
 		{
 			get
 			{
-				return base.m_UsedTime;
+				return base.m_COMMPortUsedTime;
 			}
 
 			set
 			{
-				base.m_UsedTime=value;
+				base.m_COMMPortUsedTime=value;
 			}
 		}
 
@@ -255,16 +270,16 @@ namespace COMMPortLib
 		/// <summary>
 		/// 使用的窗体
 		/// </summary>
-		public override Form m_UsedForm
+		public override Form m_COMMPortUsedForm
 		{
 			get
 			{
-				return base.m_UsedForm;
+				return base.m_COMMPortUsedForm;
 			}
 
 			set
 			{
-				base.m_UsedForm=value;
+				base.m_COMMPortUsedForm=value;
 			}
 		}
 
@@ -303,31 +318,31 @@ namespace COMMPortLib
 		/// <summary>
 		/// 多设备通信过程中设备的ID信息
 		/// </summary>
-		public override bool m_IsEnableMultiDevice
+		public override bool m_COMMPortEnableMultiDevice
 		{
 			get
 			{
-				return base.m_IsEnableMultiDevice;
+				return base.m_COMMPortEnableMultiDevice;
 			}
 
 			set
 			{
-				base.m_IsEnableMultiDevice=value;
+				base.m_COMMPortEnableMultiDevice=value;
 			}
 		}
 
 		/// <summary>
 		/// 端口是否可用
 		/// </summary>
-		public override bool m_COMMPortIsOpen
+		public override bool m_COMMPortOpen
 		{
 			get
 			{
-				return base.m_COMMPortIsOpen;
+				return base.m_COMMPortOpen;
 			}
 			set
 			{
-				base.m_COMMPortIsOpen=value;
+				base.m_COMMPortOpen=value;
 			}
 		}
 
@@ -345,7 +360,7 @@ namespace COMMPortLib
 		/// <summary>
 		/// 数据格式合法
 		/// </summary>
-		public override bool m_COMMBytesPassed
+		public override bool m_COMMPortDataFormatPassed
 		{
 			get
 			{
@@ -391,7 +406,46 @@ namespace COMMPortLib
 				}
 
 				//---判断数据是否合法
-				if ((wCMD==rCMD)&&(length==this.m_COMMPortReadData.usedByte.Count))
+				if ((wCMD==rCMD)&&(length==this.m_COMMPortReadData.usedByte.Count)&&(this.m_COMMPortReadData.usedByte[0]==this.m_COMMPortReadID))
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+
+		/// <summary>
+		/// 读取数据是否合法
+		/// </summary>
+		public override bool m_COMMPortReadDataFormatPassed
+		{
+			get
+			{
+				int length = 0;
+				//---读取的数据
+				if ((this.m_COMMPortReadData==null)||(this.m_COMMPortReadData.usedByte==null)||(this.m_COMMPortReadData.usedByte.Count==0))
+				{
+					return false;
+				}
+				if (this.m_COMMPortReadBufferSize>250)
+				{
+					//---数据的有效长度
+					length=this.m_COMMPortReadData.usedByte[1];
+					length=(length<<8)+this.m_COMMPortReadData.usedByte[2];
+					length+=3;
+				}
+				else
+				{
+					//---数据的有效长度
+					length=this.m_COMMPortReadData.usedByte[1];
+					length+=2;
+				}
+
+				//---判断数据是否合法
+				if ((length==this.m_COMMPortReadData.usedByte.Count)&&(this.m_COMMPortReadData.usedByte[0]==this.m_COMMPortReadID))
 				{
 					return true;
 				}
@@ -420,12 +474,12 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		public SerialCOMMPort(Form useForm = null, bool isEnMultiDevice = false, RichTextBox msg = null)
 		{
-			if (this.m_UsedForm==null)
+			if (this.m_COMMPortUsedForm==null)
 			{
-				this.m_UsedForm=new Form();
+				this.m_COMMPortUsedForm=new Form();
 			}
-			this.m_UsedForm=useForm;
-			this.m_IsEnableMultiDevice=isEnMultiDevice;
+			this.m_COMMPortUsedForm=useForm;
+			this.m_COMMPortEnableMultiDevice=isEnMultiDevice;
 		}
 
 		/// <summary>
@@ -436,11 +490,11 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		public SerialCOMMPort(Form useForm, int useBaudRate, RichTextBox msg = null)
 		{
-			if (this.m_UsedForm==null)
+			if (this.m_COMMPortUsedForm==null)
 			{
-				this.m_UsedForm=new Form();
+				this.m_COMMPortUsedForm=new Form();
 			}
-			this.m_UsedForm=useForm;
+			this.m_COMMPortUsedForm=useForm;
 
 			if (this.baudRate!=useBaudRate)
 			{
@@ -457,17 +511,17 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		public SerialCOMMPort(Form useForm, int useBaudRate, bool isEnMultiDevice, RichTextBox msg = null)
 		{
-			if (this.m_UsedForm==null)
+			if (this.m_COMMPortUsedForm==null)
 			{
-				this.m_UsedForm=new Form();
+				this.m_COMMPortUsedForm=new Form();
 			}
-			this.m_UsedForm=useForm;
+			this.m_COMMPortUsedForm=useForm;
 
 			if (this.baudRate!=useBaudRate)
 			{
 				this.baudRate=useBaudRate;
 			}
-			this.m_IsEnableMultiDevice=isEnMultiDevice;
+			this.m_COMMPortEnableMultiDevice=isEnMultiDevice;
 		}
 
 		/// <summary>
@@ -479,11 +533,11 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		public SerialCOMMPort(Form useForm, int portIndex, int useBaudRate, RichTextBox msg = null)
 		{
-			if (this.m_UsedForm==null)
+			if (this.m_COMMPortUsedForm==null)
 			{
-				this.m_UsedForm=new Form();
+				this.m_COMMPortUsedForm=new Form();
 			}
-			this.m_UsedForm=useForm;
+			this.m_COMMPortUsedForm=useForm;
 
 			this.m_COMMPortIndex=portIndex;
 
@@ -503,18 +557,18 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		public SerialCOMMPort(Form useForm, int portIndex, int useBaudRate, bool isEnMultiDevice = false, RichTextBox msg = null)
 		{
-			if (this.m_UsedForm==null)
+			if (this.m_COMMPortUsedForm==null)
 			{
-				this.m_UsedForm=new Form();
+				this.m_COMMPortUsedForm=new Form();
 			}
-			this.m_UsedForm=useForm;
+			this.m_COMMPortUsedForm=useForm;
 
 			if (this.baudRate!=useBaudRate)
 			{
 				this.baudRate=useBaudRate;
 			}
 
-			this.m_IsEnableMultiDevice=isEnMultiDevice;
+			this.m_COMMPortEnableMultiDevice=isEnMultiDevice;
 		}
 
 		/// <summary>
@@ -526,11 +580,11 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		public SerialCOMMPort(Form useForm, string portName, int useBaudRate, RichTextBox msg = null)
 		{
-			if (this.m_UsedForm==null)
+			if (this.m_COMMPortUsedForm==null)
 			{
-				this.m_UsedForm=new Form();
+				this.m_COMMPortUsedForm=new Form();
 			}
-			this.m_UsedForm=useForm;
+			this.m_COMMPortUsedForm=useForm;
 
 			this.m_COMMPortName=portName;
 
@@ -550,11 +604,11 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		public SerialCOMMPort(Form useForm, string portName, int useBaudRate, bool isEnMultiDevice = false, RichTextBox msg = null)
 		{
-			if (this.m_UsedForm==null)
+			if (this.m_COMMPortUsedForm==null)
 			{
-				this.m_UsedForm=new Form();
+				this.m_COMMPortUsedForm=new Form();
 			}
-			this.m_UsedForm=useForm;
+			this.m_COMMPortUsedForm=useForm;
 
 			this.m_COMMPortName=portName;
 
@@ -563,7 +617,7 @@ namespace COMMPortLib
 				this.baudRate=useBaudRate;
 			}
 
-			this.m_IsEnableMultiDevice=isEnMultiDevice;
+			this.m_COMMPortEnableMultiDevice=isEnMultiDevice;
 		}
 
 		/// <summary>
@@ -576,11 +630,11 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		public SerialCOMMPort(Form useForm, int writeSize, byte writeCRC, byte writeID, RichTextBox msg = null)
 		{
-			if (this.m_UsedForm==null)
+			if (this.m_COMMPortUsedForm==null)
 			{
-				this.m_UsedForm=new Form();
+				this.m_COMMPortUsedForm=new Form();
 			}
-			this.m_UsedForm=useForm;
+			this.m_COMMPortUsedForm=useForm;
 
 			this.m_COMMPortWriteBufferSize=writeSize;
 			this.m_COMMPortWriteCRC=writeCRC;
@@ -598,17 +652,17 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		public SerialCOMMPort(Form useForm, int writeSize, byte writeCRC, byte writeID, bool isEnMultiDevice = false, RichTextBox msg = null)
 		{
-			if (this.m_UsedForm==null)
+			if (this.m_COMMPortUsedForm==null)
 			{
-				this.m_UsedForm=new Form();
+				this.m_COMMPortUsedForm=new Form();
 			}
-			this.m_UsedForm=useForm;
+			this.m_COMMPortUsedForm=useForm;
 
 			this.m_COMMPortWriteBufferSize=writeSize;
 			this.m_COMMPortWriteCRC=writeCRC;
 			this.m_COMMPortWriteID=writeID;
 
-			this.m_IsEnableMultiDevice=isEnMultiDevice;
+			this.m_COMMPortEnableMultiDevice=isEnMultiDevice;
 		}
 
 		/// <summary>
@@ -625,11 +679,11 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		public SerialCOMMPort(Form useForm, int writeSize, byte writeCRC, byte writeID, int readSize, byte readCRC, byte readID, int useBaudRate, RichTextBox msg = null)
 		{
-			if (this.m_UsedForm==null)
+			if (this.m_COMMPortUsedForm==null)
 			{
-				this.m_UsedForm=new Form();
+				this.m_COMMPortUsedForm=new Form();
 			}
-			this.m_UsedForm=useForm;
+			this.m_COMMPortUsedForm=useForm;
 
 			this.m_COMMPortWriteBufferSize=writeSize;
 			this.m_COMMPortWriteCRC=writeCRC;
@@ -660,11 +714,11 @@ namespace COMMPortLib
 		/// <param name="msg"></param>
 		public SerialCOMMPort(Form useForm, int writeSize, byte writeCRC, byte writeID, int readSize, byte readCRC, byte readID, int useBaudRate, bool isEnMultiDevice = false, RichTextBox msg = null)
 		{
-			if (this.m_UsedForm==null)
+			if (this.m_COMMPortUsedForm==null)
 			{
-				this.m_UsedForm=new Form();
+				this.m_COMMPortUsedForm=new Form();
 			}
-			this.m_UsedForm=useForm;
+			this.m_COMMPortUsedForm=useForm;
 
 			this.m_COMMPortWriteBufferSize=writeSize;
 			this.m_COMMPortWriteCRC=writeCRC;
@@ -678,7 +732,7 @@ namespace COMMPortLib
 			{
 				this.baudRate=useBaudRate;
 			}
-			this.m_IsEnableMultiDevice=isEnMultiDevice;
+			this.m_COMMPortEnableMultiDevice=isEnMultiDevice;
 		}
 
 		#endregion 构造函数
@@ -811,7 +865,7 @@ namespace COMMPortLib
 			if ((cmd[0]!=this.m_COMMPortWriteID)&&(length!=(cmd.Length-2)))
 			{
 				length=cmd.Length;
-				if ((this.m_IsEnableMultiDevice)&&(deviceID!=0))
+				if ((this.m_COMMPortEnableMultiDevice)&&(deviceID!=0))
 				{
 					length+=1;
 					tempCmd=new byte[length];
@@ -857,7 +911,7 @@ namespace COMMPortLib
 				}
 
 				//---判断是否需要多设备通信
-				if ((this.m_IsEnableMultiDevice)&&(deviceID!=0))
+				if ((this.m_COMMPortEnableMultiDevice)&&(deviceID!=0))
 				{
 					tempCmd=new byte[cmd.Length-length+1];
 
@@ -1221,7 +1275,7 @@ namespace COMMPortLib
 			this.usedSerialPort.DiscardOutBuffer();
 
 			//---计算本次读取的耗时时间
-			this.m_UsedTime=DateTime.Now-nowTime;
+			this.m_COMMPortUsedTime=DateTime.Now-nowTime;
 			return _return;
 		}
 
@@ -1512,7 +1566,7 @@ namespace COMMPortLib
 			this.usedSerialPort.DiscardOutBuffer();
 
 			//---计算本次读取的耗时时间
-			this.m_UsedTime=DateTime.Now-nowTime;
+			this.m_COMMPortUsedTime=DateTime.Now-nowTime;
 			return _return;
 		}
 
@@ -1559,6 +1613,36 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int Init()
 		{
+			return 1;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="isEnableReceivedEvent"></param>
+		/// <returns></returns>
+		public override int Init(bool isEnableReceivedEvent)
+		{
+			if (isEnableReceivedEvent==true)
+			{
+				if (this.usedSerialPort!=null)
+				{
+					//---注册事件
+					this.usedSerialPort.DataReceived+= new SerialDataReceivedEventHandler(DataReceivedHandler);
+					//---使能接收事件
+					this.m_COMMPortEnableReceivedEvent=true;
+				}
+			}
+			else
+			{
+				if (this.usedSerialPort!=null)
+				{
+					//---卸载事件
+					this.usedSerialPort.DataReceived-=new SerialDataReceivedEventHandler(DataReceivedHandler);
+					//---不使能接收事件
+					this.m_COMMPortEnableReceivedEvent=true;
+				}
+			}
 			return 1;
 		}
 
@@ -1922,9 +2006,9 @@ namespace COMMPortLib
 					cbb.Text=string.Empty;
 					cbb.SelectedIndex=-1;
 				}
-				if (this.m_UsedForm!=null)
+				if (this.m_COMMPortUsedForm!=null)
 				{
-					MessageBoxPlus.Show(this.m_UsedForm, "请插入设备!\r\n", "错误提示");
+					MessageBoxPlus.Show(this.m_COMMPortUsedForm, "请插入设备!\r\n", "错误提示");
 				}
 				else
 				{
@@ -1997,9 +2081,9 @@ namespace COMMPortLib
 				}
 				else
 				{
-					if (this.m_UsedForm!=null)
+					if (this.m_COMMPortUsedForm!=null)
 					{
-						MessageBoxPlus.Show(this.m_UsedForm, "端口初始化失败!!!", "错误提示");
+						MessageBoxPlus.Show(this.m_COMMPortUsedForm, "端口初始化失败!!!", "错误提示");
 					}
 					else
 					{
@@ -2100,9 +2184,9 @@ namespace COMMPortLib
 					_return=this.ProcessDataToDevice(ref cmd, deviceID);
 					if (_return!=0)
 					{
-						if (this.m_UsedForm!=null)
+						if (this.m_COMMPortUsedForm!=null)
 						{
-							MessageBoxPlus.Show(this.m_UsedForm, "数据解析错误，请检查数据格式!!!", "错误提示");
+							MessageBoxPlus.Show(this.m_COMMPortUsedForm, "数据解析错误，请检查数据格式!!!", "错误提示");
 						}
 						else
 						{
@@ -2124,9 +2208,9 @@ namespace COMMPortLib
 				}
 				else
 				{
-					if (this.m_UsedForm!=null)
+					if (this.m_COMMPortUsedForm!=null)
 					{
-						MessageBoxPlus.Show(this.m_UsedForm, "端口初始化失败!!!", "错误提示");
+						MessageBoxPlus.Show(this.m_COMMPortUsedForm, "端口初始化失败!!!", "错误提示");
 					}
 					else
 					{
@@ -2341,10 +2425,22 @@ namespace COMMPortLib
 		/// <returns></returns>
 		public override int SendCmdAndReadResponse(ref byte[] cmd, ref byte[] res, int deviceID, int timeout, RichTextBox msg = null)
 		{
+			bool eventEnable = false;
+			if (this.m_COMMPortEnableReceivedEvent==true)
+			{
+				eventEnable=true;
+				//---卸载接收事件
+				this.Init(false);
+			}
 			int _return = this.WriteToDevice(ref cmd, deviceID, msg);
 			if (_return==0)
 			{
 				_return=this.ReadFromDevice(ref res, timeout, msg);
+			}
+			if (eventEnable==true)
+			{
+				//---注册接收事件
+				this.Init(true);
 			}
 			return _return;
 		}
@@ -2403,7 +2499,7 @@ namespace COMMPortLib
 						//---关闭端口
 						this.usedSerialPort.Close();
 						//---设置端口不可用
-						this.m_COMMPortIsOpen=false;
+						this.m_COMMPortOpen=false;
 					}
 					catch
 					{
@@ -2451,12 +2547,19 @@ namespace COMMPortLib
 				//---打开端口
 				try
 				{
+
 					//---打开端口
 					this.usedSerialPort.Open();
 
 					//---判断端口打开是否成功
 					if (this.usedSerialPort.IsOpen)
 					{
+						if (this.m_COMMPortEnableReceivedEvent==true)
+						{
+							//---卸载接收事件
+							this.Init(false);
+						}
+						
 						this.m_COMMPortErrMsg+="端口："+this.usedSerialPort.PortName+"打开成功!\r\n";
 
 						//---清空接收缓存区
@@ -2467,7 +2570,9 @@ namespace COMMPortLib
 						_return=0;
 
 						//---置位端口可用
-						this.m_COMMPortIsOpen=true;
+						this.m_COMMPortOpen=true;
+						//---注册接收事件
+						this.Init(true);
 					}
 					else
 					{
@@ -2494,9 +2599,9 @@ namespace COMMPortLib
 				//---消息插件弹出
 				if (_return!=0)
 				{
-					if (this.m_UsedForm!=null)
+					if (this.m_COMMPortUsedForm!=null)
 					{
-						MessageBoxPlus.Show(this.m_UsedForm, this.m_COMMPortErrMsg, "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						MessageBoxPlus.Show(this.m_COMMPortUsedForm, this.m_COMMPortErrMsg, "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
 					else
 					{
@@ -2506,9 +2611,9 @@ namespace COMMPortLib
 			}
 			else
 			{
-				if (this.m_UsedForm!=null)
+				if (this.m_COMMPortUsedForm!=null)
 				{
-					MessageBoxPlus.Show(this.m_UsedForm, "端口名称不合法!\r\n", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBoxPlus.Show(this.m_COMMPortUsedForm, "端口名称不合法!\r\n", "错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 				else
 				{
@@ -2562,11 +2667,16 @@ namespace COMMPortLib
 			{
 				try
 				{
+					if (this.m_COMMPortEnableReceivedEvent==true)
+					{
+						//---卸载接收事件
+						this.Init(false);
+					}
 					//---响应窗体事件
 					Application.DoEvents();
 					this.usedSerialPort.Close();
 					//---设置端口不可用
-					this.m_COMMPortIsOpen=false;
+					this.m_COMMPortOpen=false;
 				}
 				catch
 				{
@@ -2668,12 +2778,13 @@ namespace COMMPortLib
 		/// <param name="e"></param>
 		public override void DataReceivedHandler(object sender, EventArgs e)
 		{
-			if (e.ToString()=="SerialDataReceivedEventArgs")
+			string str = e.ToString();
+			if ((str=="SerialDataReceivedEventArgs")||(str=="System.IO.Ports.SerialDataReceivedEventArgs"))
 			{
-				if (this.m_DataReadEvent!=null)
+				if (this.m_DataReceivedEvent!=null)
 				{
 					//---执行定义的函数
-					this.m_DataReadEvent();
+					this.m_DataReceivedEvent(sender,e);
 				}
 			}
 		}

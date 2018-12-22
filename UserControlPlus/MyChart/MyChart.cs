@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using ZedGraph;
@@ -99,12 +100,12 @@ namespace UserControlPlusLib.MyChart
 			this.zedGraphControl_myChart.GraphPane.YAxis.MinorGrid.DashOff = 1;
 
 			//---网格点的步进刻度
-			this.zedGraphControl_myChart.GraphPane.YAxis.Scale.MajorStep = 2;
-			this.zedGraphControl_myChart.GraphPane.YAxis.Scale.MinorStep = this.zedGraphControl_myChart.GraphPane.YAxis.Scale.MajorStep / 5.0;
+			//this.zedGraphControl_myChart.GraphPane.YAxis.Scale.MajorStep = 2;
+			//this.zedGraphControl_myChart.GraphPane.YAxis.Scale.MinorStep = this.zedGraphControl_myChart.GraphPane.YAxis.Scale.MajorStep / 5.0;
 
 			//---Y轴扫描的最大值和最小值
-			this.zedGraphControl_myChart.GraphPane.YAxis.Scale.Min = (this.zedGraphControl_myChart.GraphPane.YAxis.Scale.MinorStep*(-1.00));
-			this.zedGraphControl_myChart.GraphPane.YAxis.Scale.Max = 10;
+			//this.zedGraphControl_myChart.GraphPane.YAxis.Scale.Min = (this.zedGraphControl_myChart.GraphPane.YAxis.Scale.MinorStep*(-1.00));
+			//this.zedGraphControl_myChart.GraphPane.YAxis.Scale.Max = 10;
 
 			//---水平参考线
 			//---显示大网格
@@ -120,12 +121,12 @@ namespace UserControlPlusLib.MyChart
 			this.zedGraphControl_myChart.GraphPane.XAxis.MinorGrid.DashOff = 1;
 
 			//---网格点的步进刻度
-			this.zedGraphControl_myChart.GraphPane.XAxis.Scale.MajorStep = 2;
-			this.zedGraphControl_myChart.GraphPane.XAxis.Scale.MinorStep = this.zedGraphControl_myChart.GraphPane.XAxis.Scale.MajorStep / 5.0;
+			//this.zedGraphControl_myChart.GraphPane.XAxis.Scale.MajorStep = 2;
+		    //this.zedGraphControl_myChart.GraphPane.XAxis.Scale.MinorStep = this.zedGraphControl_myChart.GraphPane.XAxis.Scale.MajorStep / 5.0;
 
 			//---X轴扫描的最大值和最小值
-			this.zedGraphControl_myChart.GraphPane.XAxis.Scale.Min = (this.zedGraphControl_myChart.GraphPane.XAxis.Scale.MinorStep * (-1.00));
-			this.zedGraphControl_myChart.GraphPane.XAxis.Scale.Max = 10;
+			//this.zedGraphControl_myChart.GraphPane.XAxis.Scale.Min = (this.zedGraphControl_myChart.GraphPane.XAxis.Scale.MinorStep * (-1.00));
+			//this.zedGraphControl_myChart.GraphPane.XAxis.Scale.Max = 10;
 			//---滚动条自动滚动到最右边
 			//this.zedGraphControl_myChart.ScrollMaxX = this.zedGraphControl_myChart.GraphPane.XAxis.Scale.Max;
 
@@ -352,12 +353,12 @@ namespace UserControlPlusLib.MyChart
 			zedGraph.GraphPane.YAxis.MinorGrid.DashOff = 1;
 
 			//---Y轴扫描的最大值和最小值
-			zedGraph.GraphPane.YAxis.Scale.Min = 0;
-			zedGraph.GraphPane.YAxis.Scale.Max = 10;
+			//zedGraph.GraphPane.YAxis.Scale.Min = 0;
+			//zedGraph.GraphPane.YAxis.Scale.Max = 10;
 
 			//---步长
-			zedGraph.GraphPane.YAxis.Scale.MajorStep = 2;
-			zedGraph.GraphPane.YAxis.Scale.MinorStep = zedGraph.GraphPane.YAxis.Scale.MajorStep / 5.0;
+			//zedGraph.GraphPane.YAxis.Scale.MajorStep = 2;
+			//zedGraph.GraphPane.YAxis.Scale.MinorStep = zedGraph.GraphPane.YAxis.Scale.MajorStep / 5.0;
 
 			//---水平参考线
 			//---显示大网格
@@ -373,12 +374,12 @@ namespace UserControlPlusLib.MyChart
 			zedGraph.GraphPane.XAxis.MinorGrid.DashOff = 1;
 
 			//---X轴扫描的最大值和最小值
-			zedGraph.GraphPane.XAxis.Scale.Min = 0;
-			zedGraph.GraphPane.XAxis.Scale.Max = 10;
+			//zedGraph.GraphPane.XAxis.Scale.Min = 0;
+			//zedGraph.GraphPane.XAxis.Scale.Max = 10;
 
 			//---步长
-			zedGraph.GraphPane.XAxis.Scale.MajorStep = 2;
-			zedGraph.GraphPane.XAxis.Scale.MinorStep = zedGraph.GraphPane.XAxis.Scale.MajorStep / 5.0;
+			//zedGraph.GraphPane.XAxis.Scale.MajorStep = 2;
+			//zedGraph.GraphPane.XAxis.Scale.MinorStep = zedGraph.GraphPane.XAxis.Scale.MajorStep / 5.0;
 
 			//---是否显示横向滚动条
 			zedGraph.IsShowHScrollBar = true;
@@ -425,7 +426,36 @@ namespace UserControlPlusLib.MyChart
 		public virtual void RefreshZedGraph()
 		{
 			this.zedGraphControl_myChart.AxisChange();
-			this.zedGraphControl_myChart.Refresh();
+			//---异步调用
+			if (this.zedGraphControl_myChart.InvokeRequired)
+			{
+				this.zedGraphControl_myChart.Invoke((EventHandler)
+								 (delegate
+								 {
+									 this.zedGraphControl_myChart.Refresh();
+								 }));
+			}
+			else
+			{
+				this.zedGraphControl_myChart.Refresh();
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public virtual  ZedGraphControl GetZedGraphControl()
+		{
+			return this.zedGraphControl_myChart;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public virtual void ClearChart()
+		{
+			this.zedGraphControl_myChart.GraphPane.CurveList.Clear();
 		}
 
 		/// <summary>
@@ -436,15 +466,36 @@ namespace UserControlPlusLib.MyChart
 		/// <param name="y"></param>
 		public virtual void AddXYPoint(string curveName, double x, double y)
 		{
-			//---增加坐标XY轴的点
-			IPointListEdit ip = this.zedGraphControl_myChart.GraphPane.CurveList[curveName].Points as IPointListEdit;
-			if (ip!=null)
+			//---异步调用
+			if (this.zedGraphControl_myChart.InvokeRequired)
 			{
-				ip.Add(x, y);
+				this.zedGraphControl_myChart.Invoke((EventHandler)
+								 (delegate
+								 {
+									 //---增加坐标XY轴的点
+									 IPointListEdit ip = this.zedGraphControl_myChart.GraphPane.CurveList[curveName].Points as IPointListEdit;
+									 if (ip != null)
+									 {
+										 ip.Add(x, y);
 
-				//---刷新显示
-				this.RefreshZedGraph();
+										 //---刷新显示
+										 this.RefreshZedGraph();
+									 }
+								 }));
 			}
+			else
+			{
+				//---增加坐标XY轴的点
+				IPointListEdit ip = this.zedGraphControl_myChart.GraphPane.CurveList[curveName].Points as IPointListEdit;
+				if (ip != null)
+				{
+					ip.Add(x, y);
+
+					//---刷新显示
+					this.RefreshZedGraph();
+				}
+			}
+			
 		}
 		/// <summary>
 		/// 添加数据点
@@ -454,14 +505,34 @@ namespace UserControlPlusLib.MyChart
 		/// <param name="y"></param>
 		public virtual void AddXYPoint(string curveName, PointPair xypoint)
 		{
-			//---增加坐标XY轴的点
-			IPointListEdit ip = this.zedGraphControl_myChart.GraphPane.CurveList[curveName].Points as IPointListEdit;
-			if (ip!=null)
+			//---异步调用
+			if (this.zedGraphControl_myChart.InvokeRequired)
 			{
-				ip.Add(xypoint);
+				this.zedGraphControl_myChart.Invoke((EventHandler)
+								 (delegate
+								 {
+									 //---增加坐标XY轴的点
+									 IPointListEdit ip = this.zedGraphControl_myChart.GraphPane.CurveList[curveName].Points as IPointListEdit;
+									 if (ip != null)
+									 {
+										 ip.Add(xypoint);
 
-				//---刷新显示
-				this.RefreshZedGraph();
+										 //---刷新显示
+										 this.RefreshZedGraph();
+									 }
+								 }));
+			}
+			else
+			{
+				//---增加坐标XY轴的点
+				IPointListEdit ip = this.zedGraphControl_myChart.GraphPane.CurveList[curveName].Points as IPointListEdit;
+				if (ip != null)
+				{
+					ip.Add(xypoint);
+
+					//---刷新显示
+					this.RefreshZedGraph();
+				}
 			}
 		}
 		/// <summary>
@@ -472,18 +543,42 @@ namespace UserControlPlusLib.MyChart
 		/// <param name="y"></param>
 		public virtual void AddXYPoint(string curveName, double[] x, double[] y)
 		{
-			//---增加坐标XY轴的点
-			IPointListEdit ip = this.zedGraphControl_myChart.GraphPane.CurveList[curveName].Points as IPointListEdit;
-			if ((ip!=null)&&(x.Length==y.Length))
+			//---异步调用
+			if (this.zedGraphControl_myChart.InvokeRequired)
 			{
-				for (int i = 0 ; i<x.Length ; i++)
-				{
-					ip.Add(x[i], y[i]);
-				}
+				this.zedGraphControl_myChart.Invoke((EventHandler)
+								 (delegate
+								 {
+									 //---增加坐标XY轴的点
+									 IPointListEdit ip = this.zedGraphControl_myChart.GraphPane.CurveList[curveName].Points as IPointListEdit;
+									 if ((ip != null) && (x.Length == y.Length))
+									 {
+										 for (int i = 0; i < x.Length; i++)
+										 {
+											 ip.Add(x[i], y[i]);
+										 }
 
-				//---刷新显示
-				this.RefreshZedGraph();
+										 //---刷新显示
+										 this.RefreshZedGraph();
+									 }
+								 }));
 			}
+			else
+			{
+				//---增加坐标XY轴的点
+				IPointListEdit ip = this.zedGraphControl_myChart.GraphPane.CurveList[curveName].Points as IPointListEdit;
+				if ((ip != null) && (x.Length == y.Length))
+				{
+					for (int i = 0; i < x.Length; i++)
+					{
+						ip.Add(x[i], y[i]);
+					}
+
+					//---刷新显示
+					this.RefreshZedGraph();
+				}
+			}
+			
 		}
 
 		
